@@ -1,4 +1,3 @@
-
 <jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page"
 	xmlns:spring="http://www.springframework.org/tags"
 	xmlns="http://www.w3.org/1999/xhtml">
