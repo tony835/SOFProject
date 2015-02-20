@@ -1,0 +1,37 @@
+
+.error {
+	color: red;
+	font-weight: bolder;
+}
+
+.message {
+	color: red;
+	font-weight: bolder;
+}
+
+.baseBody{
+	margin-left: 7%;
+	margin-right: 7%;
+}
+
+.baseMenu{
+	padding-left: 0px;
+	margin-left: 7%;
+	margin-right: 7%;
+}
+
+.logo{
+	text-align: center;
+	display:inline;
+	padding-left: 21%;
+}
+
+.internationalisation{
+	float:right;
+	padding-right:14%;
+	padding-top: 10px;
+}
+
+.footerC{
+	 text-align: center;
+}
