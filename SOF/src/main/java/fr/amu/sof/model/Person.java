@@ -32,6 +32,9 @@ public class Person {
 	
 	@Column(name="Mail")
 	private String mail ;
+	
+	@ManyToMany(mappedBy="contributeurs")
+	private Collection<Formation> formations;
 		
 	
 	public Person() {

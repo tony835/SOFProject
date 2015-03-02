@@ -20,6 +20,12 @@ public class Formation extends fr.amu.sof.model.Object{
 	
 	@Column(name="Visible")
 	boolean visible;
+	
+	
+	@ManyToMany
+	@JoinTable(name="Contributeur", joinColumns=
+	 @JoinColumn(name="Login"), inverseJoinColumns= @JoinColumn(name="Formation"))
+	private Collection<Person> contributeurs;
 
 	public int getNumError() {
 		return numError;
@@ -36,5 +42,7 @@ public class Formation extends fr.amu.sof.model.Object{
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
+	
+	
 
 }
