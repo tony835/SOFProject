@@ -37,6 +37,26 @@ public class Object {
 	@Column(name="FMutualisable")
 	private boolean mutualisable;
 	
+	@OneToMany(mappedBy = "pk.pere")
+private Set<PereFils> pereFils = new HashSet<PereFils>();
+
+public Set<PereFils> getPereFils() {
+        return this.pereFils;
+}
+public void setPereFils(Set<PereFils> pereFils) {
+        this.pereFils = pereFils;
+}
+
+	@OneToMany(mappedBy = "pk.fils")
+private Set<PereFils> pereFils = new HashSet<PereFils>();
+
+public Set<PereFils> getPereFils() {
+        return this.pereFils;
+}
+public void setPereFils(Set<PereFils> pereFils) {
+        this.pereFils = pereFils;
+}
+	
 	
 	public String getCode() {
 		return code;
