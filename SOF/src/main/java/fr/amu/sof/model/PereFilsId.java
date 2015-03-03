@@ -1,10 +1,15 @@
 package fr.amu.sof.model;
 
+import java.io.Serializable;
+
+import javax.persistence.*;
+
 
 @Embeddable
 public class PereFilsId implements Serializable{
 	
-     @ManyToOne
+    
+	@ManyToOne
      @JoinColumn(name = "id_pere")
      private Object pere;
      public Object getObjectPere() {

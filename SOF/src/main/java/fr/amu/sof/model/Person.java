@@ -1,10 +1,15 @@
 package fr.amu.sof.model;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -32,6 +37,10 @@ public class Person {
 	
 	@Column(name="Mail")
 	private String mail ;
+	
+	@OneToMany(mappedBy="person")
+	@JoinColumn(name="LOGIN")
+	private Collection<Formation> Formations;
 	
 	@ManyToMany(mappedBy="contributeurs")
 	private Collection<Formation> formations;
@@ -79,6 +88,15 @@ public class Person {
 	}
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+
+
+	public Collection<Formation> getFormations() {
+		return formations;
+	}
+
+	public void setFormations(Collection<Formation> formations) {
+		this.formations = formations;
 	}
 
 }
