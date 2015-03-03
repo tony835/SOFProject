@@ -1,4 +1,4 @@
-package fr.amu.sof.model;
+package domain;
 
 import java.util.Map;
 
@@ -7,11 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -35,9 +34,6 @@ public class Field {
 	@Column(name="Type_contenu")
 	@Enumerated(EnumType.STRING)
 	TypeContenu typeContenu;
-	
-	@ManyToOne
-	private TypeObject typeObject;
 		
 	@Transient
 	boolean required ;
@@ -83,12 +79,7 @@ public class Field {
 	public void setLstValue(Map<String, String> lstValue) {
 		this.lstValue = lstValue;
 	}
-	public TypeObject getTypeObject() {
-		return typeObject;
-	}
-	public void setTypeObject(TypeObject typeObject) {
-		this.typeObject = typeObject;
-	}
 	
+
 	
 }

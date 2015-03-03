@@ -1,17 +1,24 @@
-package fr.amu.sof.model;
-
-import java.util.Collection;
+package domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
+/**
+ * CREATE TABLE IF NOT EXISTS TypesObjets (
+	Code_type varchar(255) not null,
+	Nom_typeObjet varchar(255) not null,
+	ContentModel varchar(255) not null,
+	Erreur_descritpion varchar(255) not null,
+	primary key (Code_type)
+	
+	Code_Regex
+);
+ *
+ */
 @Entity
 @Table(name="TypesObjets")
 @NamedQueries({
@@ -35,16 +42,6 @@ public class TypeObject {
 	@Column(name="Erreur_descritpion")
 	String descError;
 	
-	@OneToMany(mappedBy="typeObject")
-	@JoinColumn(name="CODE_OBJECT")
-	private Collection<Object> objects;
-	
-	@OneToMany(mappedBy="typeObject")
-	@JoinColumn(name="ID_FIELD")
-	private Collection<Field> fields;
-	
-	@Column(name="Code_Regex")
-	String codeRegex ;
 	
 	
 	public String getCode() {
@@ -88,22 +85,7 @@ public class TypeObject {
 		this.codeRegex = codeRegex;
 	}
 
-	public Collection<Object> getObjects() {
-		return objects;
-	}
-
-	public void setObjects(Collection<Object> objects) {
-		this.objects = objects;
-	}
-
-	public Collection<Field> getFields() {
-		return fields;
-	}
-
-	public void setFields(Collection<Field> fields) {
-		this.fields = fields;
-	}
-
-	
+	@Column(name="Code_Regex")
+	String codeRegex ;
 
 }
