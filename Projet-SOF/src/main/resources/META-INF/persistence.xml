@@ -13,7 +13,9 @@
 			<property name="javax.persistence.jdbc.user" value="l1001540" />
 			<property name="javax.persistence.jdbc.password" value="ZEX9ia" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="none" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.format_sql" value="true" />
+			
 		</properties>
 
 	</persistence-unit>

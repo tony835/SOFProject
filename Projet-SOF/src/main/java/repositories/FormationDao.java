@@ -12,7 +12,7 @@ import domain.Formation;
 @Repository
 public interface FormationDao extends JpaRepository<Formation, String> {
 
-	@Query("select c from FieldObject o where o.fo.field.name = ?1")
-	Collection<Formation> findByUserAccountId(String id, String typeFormat);
+//	@Query("select c from FieldObject o where o.fo.field.name = ?1")
+//	Collection<Formation> findByUserAccountId(String id, String typeFormat);
 	
 }

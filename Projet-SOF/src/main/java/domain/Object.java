@@ -12,6 +12,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -45,7 +46,8 @@ public class Object {
 	@JoinColumn(name="Code_type",referencedColumnName="Code_type")
 	private TypeObject typeObject;
 	
-	@OneToMany(mappedBy="object")
+	//@OneToMany(mappedBy="object")
+	@Transient
 	private Collection<FieldObject> fieldObjects ;
 
 	

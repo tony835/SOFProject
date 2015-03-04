@@ -2,7 +2,7 @@ package domain;
 
 import javax.persistence.*;
 
-@Entity
+//@Entity
 @Table(name="A_pour_champs")
 public class FieldObject {
 
@@ -15,7 +15,7 @@ public class FieldObject {
 	private Object object ;
 	
 	@MapsId(value="field")
-	
+	@ManyToOne
 	@JoinColumn(name="Id_champ",referencedColumnName="Id")
 	private Field field ;
 

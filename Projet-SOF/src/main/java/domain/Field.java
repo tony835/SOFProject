@@ -43,7 +43,8 @@ public class Field {
 	@JoinColumn(name="Code_type")
 	private TypeObject typeObject;
 	
-	@OneToMany
+	//@OneToMany
+	@Transient
 	private Collection<FieldObject> fieldObjects ;
 	
 	@Transient
