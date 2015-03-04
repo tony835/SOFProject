@@ -18,26 +18,13 @@
 
 	<tiles:insertDefinition name="master.page">
 		<tiles:putAttribute name="title">
-			<spring:message code="title.groupe.list" />
+			<spring:message code="title.formation.list" />
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
-			<display:table name="groupes" pagesize="20" class="displaytag"
-				id="row" requestURI="groupe/list.htm">
-				<tag:column code="groupe.nom" property="nom" sortable="true" />
-
-				<security:authorize access="hasRole('ADMIN')">
-					<spring:message code="action.message" var="var" />
-					<display:column title="${var}">
-						<a href="groupe/edit.htm?groupeId=${row.id}"><spring:message
-								code="action.groupe.edit" /></a> - 
-						<a href="groupe/remove.htm?groupeId=${row.id}"><spring:message
-								code="action.groupe.remove" /></a>
-					</display:column>
-				</security:authorize>
+			<display:table name="formations" pagesize="20" class="displaytag" id="row" requestURI="formation/list.htm">
+				<tag:column code="formation.code" property="code" sortable="true" />
 			</display:table>
 
-			<a href="groupe/edit.htm"><spring:message
-					code="action.groupe.add" /></a>
 		</tiles:putAttribute>
 	</tiles:insertDefinition>
 
