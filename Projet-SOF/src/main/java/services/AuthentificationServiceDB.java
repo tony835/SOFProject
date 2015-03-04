@@ -19,13 +19,13 @@ public class AuthentificationServiceDB {
 	@Autowired()
 	User user;
 	
-	@Autowired()
-	PersonService pService;
+	@Autowired
+	private PersonDao personneRepository;
 
 	public boolean login(User u) {
 		String login = u.getLogin();
 		String password = u.getPassword();
-		Person p = pService.findOne(login);
+		Person p = personneRepository.findOne(login);
 
 		if (p == null || !p.getPassword().equals(password)) {
 			u.setPassword("");
