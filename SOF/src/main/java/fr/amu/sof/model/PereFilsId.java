@@ -4,31 +4,28 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-
 @Embeddable
-public class PereFilsId implements Serializable{
+public class PereFilsId implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	
-    
-	@ManyToOne
-     @JoinColumn(name = "id_pere")
-     private Object pere;
-     public Object getObjectPere() {
-             return pere;
-     }
+	private String pere;
+	private String fils;
 
-     public void setObjectPere(Object pere) {
-             this.pere = pere;
-     }
+	public String getPere() {
+		return pere;
+	}
 
-     @ManyToOne
-     @JoinColumn(name = "id_fils")
-     private Object fils;
-     public Object getObjectFils() {
-             return fils;
-     }
+	public void setPere(String pere) {
+		this.pere = pere;
+	}
 
-     public void setObjectFils(Object fils) {
-             this.fils = fils;
-     }
+	public String getFils() {
+		return fils;
+	}
+
+	public void setFils(String fils) {
+		this.fils = fils;
+	}
 
 }

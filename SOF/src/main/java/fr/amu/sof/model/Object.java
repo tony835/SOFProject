@@ -38,12 +38,17 @@ public class Object {
 	@Column(name="FMutualisable")
 	private boolean mutualisable;
 	
-	@OneToMany(mappedBy="object")
-	@JoinColumn(name="CODE_FORMATION")
-	private Collection<Formation> formations;
+	@ManyToOne
+	@JoinColumn(name="contexte", referencedColumnName="Code_objet")
+	private Formation contexte;
 	
 	@ManyToOne
+	@JoinColumn(name="Code_type",referencedColumnName="Code_type")
 	private TypeObject typeObject;
+	
+	@OneToMany(mappedBy="object")
+	private Collection<FieldObject> fieldObjects ;
+
 	
 	
 	public String getCode() {
@@ -70,11 +75,11 @@ public class Object {
 	public void setMutualisable(boolean mutualisable) {
 		this.mutualisable = mutualisable;
 	}
-	public Collection<Formation> getFormations() {
-		return formations;
+	public Formation getContexte() {
+		return contexte;
 	}
-	public void setFormations(Collection<Formation> formations) {
-		this.formations = formations;
+	public void setContexte(Formation contexte) {
+		this.contexte = contexte;
 	}
 	public TypeObject getTypeObject() {
 		return typeObject;
@@ -82,5 +87,4 @@ public class Object {
 	public void setTypeObject(TypeObject typeObject) {
 		this.typeObject = typeObject;
 	}
-
 }

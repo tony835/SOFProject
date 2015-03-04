@@ -35,17 +35,15 @@ public class TypeObject {
 	@Column(name="Erreur_descritpion")
 	String descError;
 	
-	@OneToMany(mappedBy="typeObject")
-	@JoinColumn(name="CODE_OBJECT")
-	private Collection<Object> objects;
-	
-	@OneToMany(mappedBy="typeObject")
-	@JoinColumn(name="ID_FIELD")
-	private Collection<Field> fields;
-	
 	@Column(name="Code_Regex")
 	String codeRegex ;
 	
+	@OneToMany(mappedBy="typeObject")
+	private Collection<Object> objects;
+	
+	@OneToMany(mappedBy="typeObject")
+	private Collection<Field> fields;
+
 	
 	public String getCode() {
 		return code;

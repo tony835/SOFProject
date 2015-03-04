@@ -1,6 +1,5 @@
 package fr.amu.sof.model;
 
-
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -11,36 +10,38 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="Formation")
-@NamedQueries({
-    @NamedQuery(name = Formation.FIND_ALL, query = "SELECT p FROM Formation p"),
-})
-public class Formation extends Object{
-	
+@Table(name = "Formation")
+@NamedQueries({ @NamedQuery(name = Formation.FIND_ALL, query = "SELECT p FROM Formation p"), })
+public class Formation extends Object {
+
 	public static final String FIND_ALL = "FIND_ALL_Formation";
-	
-	@Column(name="Error_number")
+
+	@Column(name = "Error_number")
 	int numError;
-	
-	@Column(name="Visible")
+
+	@Column(name = "Visible")
 	boolean visible;
-	
+
+	@OneToMany(mappedBy="contexte")
+	private Collection<Object> objectsContexte;
+
 	@ManyToOne
-	private Object object;
-	
-	@ManyToOne
-	private Person person;
-	
+	@JoinColumn(name="Responsable")
+	private Person responsable;
+    
 	@ManyToMany
-	@JoinTable(name="Contribution", joinColumns=
-	@JoinColumn(name="CODE_FORMATION"), inverseJoinColumns= @JoinColumn(name="LOGIN"))
+    @JoinTable(name="A_pour_contributeur",
+        joinColumns=
+            @JoinColumn(name="Code_objet", referencedColumnName="Code_objet"),
+        inverseJoinColumns=
+            @JoinColumn(name="Id_personne", referencedColumnName="Login")
+        )
 	private Collection<Person> contributeurs;
-	
-	
+
 	public int getNumError() {
 		return numError;
 	}
@@ -57,20 +58,21 @@ public class Formation extends Object{
 		this.visible = visible;
 	}
 
-	public Object getObject() {
-		return object;
+
+	public Collection<Object> getObjectsContexte() {
+		return objectsContexte;
 	}
 
-	public void setObject(Object object) {
-		this.object = object;
+	public void setObjectsContexte(Collection<Object> objectContexte) {
+		this.objectsContexte = objectContexte;
 	}
 
-	public Person getPerson() {
-		return person;
+	public Person getResponsable() {
+		return responsable;
 	}
 
-	public void setPerson(Person person) {
-		this.person = person;
+	public void setResponsable(Person person) {
+		this.responsable = person;
 	}
 
 	public Collection<Person> getContributeurs() {
@@ -81,14 +83,5 @@ public class Formation extends Object{
 		this.contributeurs = contributeurs;
 	}
 
-	public Formation(int numError, boolean visible, Object object,
-			Person person, Collection<Person> contributeurs) {
-		super();
-		this.numError = numError;
-		this.visible = visible;
-		this.object = object;
-		this.person = person;
-		this.contributeurs = contributeurs;
-	}
-	
+
 }

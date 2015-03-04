@@ -2,43 +2,40 @@ package fr.amu.sof.model;
 
 import javax.persistence.*;
 
-
 @Entity
+@Table(name="Pere_fils")
 public class PereFils {
-	
 
-	 @Id
-     PereFilsId pk;
-     
-     @Column(name="Rang")
-     private String Rang;
-     
-     public PereFilsId getPk() {
-             return pk;
-     }
+	@EmbeddedId
+	PereFilsId pk;
 
-     public void setPk(PereFilsId pk) {
-             this.pk = pk;
-     }
-     
-     public void setRang(String Rang) {this.Rang= Rang;}
-     
-     public String getRang() {return Rang;}
-     
-     public Object getObjectPere() {
-        return getPk().getObjectPere();
-}
+	@MapsId(value = "pere")
+	@ManyToOne
+	@JoinColumn(name = "Code_pere")
+	private Object pere;
 
-public void setObjectPere(Object objectPere) {
-        getPk().setObjectPere(objectPere);
-}
+	@MapsId(value = "fils")
+	@ManyToOne
+	@JoinColumn(name = "Code_fils")
+	private Object fils;
 
-public Object getObjectFils() {
-        return getPk().getObjectFils();
-}
+	@Column(name = "Rang")
+	private String Rang;
 
-public void setObjectFils(Object objectFils) {
-        getPk().setObjectFils(objectFils);
-}
-	
+	public PereFilsId getPk() {
+		return pk;
+	}
+
+	public void setPk(PereFilsId pk) {
+		this.pk = pk;
+	}
+
+	public void setRang(String Rang) {
+		this.Rang = Rang;
+	}
+
+	public String getRang() {
+		return Rang;
+	}
+
 }

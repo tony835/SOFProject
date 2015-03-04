@@ -5,7 +5,6 @@ import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -38,12 +37,11 @@ public class Person {
 	@Column(name="Mail")
 	private String mail ;
 	
-	@OneToMany(mappedBy="person")
-	@JoinColumn(name="LOGIN")
-	private Collection<Formation> Formations;
+	@OneToMany(mappedBy="responsable")
+	private Collection<Formation> responsableDesFormations;
 	
 	@ManyToMany(mappedBy="contributeurs")
-	private Collection<Formation> formations;
+	private Collection<Formation> contributeurDesFormations;
 		
 	
 	public Person() {
@@ -90,13 +88,23 @@ public class Person {
 		this.mail = mail;
 	}
 
-
-	public Collection<Formation> getFormations() {
-		return formations;
+	public Collection<Formation> getResponsableDesFormations() {
+		return responsableDesFormations;
 	}
 
-	public void setFormations(Collection<Formation> formations) {
-		this.formations = formations;
+	public void setResponsableDesFormations(
+			Collection<Formation> responsableDesFormations) {
+		this.responsableDesFormations = responsableDesFormations;
 	}
+
+	public Collection<Formation> getContributeurDesFormations() {
+		return contributeurDesFormations;
+	}
+
+	public void setContributeurDesFormations(
+			Collection<Formation> contributeurDesFormations) {
+		this.contributeurDesFormations = contributeurDesFormations;
+	}
+
 
 }
