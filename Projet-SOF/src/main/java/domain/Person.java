@@ -1,10 +1,13 @@
 package domain;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -32,6 +35,12 @@ public class Person {
 	
 	@Column(name="Mail")
 	private String mail ;
+	
+	@OneToMany(mappedBy="responsable")
+	private Collection<Formation> responsableDesFormations;
+	
+	@ManyToMany(mappedBy="contributeurs")
+	private Collection<Formation> contributeurDesFormations;
 		
 	
 	public Person() {
@@ -77,5 +86,24 @@ public class Person {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
+
+	public Collection<Formation> getResponsableDesFormations() {
+		return responsableDesFormations;
+	}
+
+	public void setResponsableDesFormations(
+			Collection<Formation> responsableDesFormations) {
+		this.responsableDesFormations = responsableDesFormations;
+	}
+
+	public Collection<Formation> getContributeurDesFormations() {
+		return contributeurDesFormations;
+	}
+
+	public void setContributeurDesFormations(
+			Collection<Formation> contributeurDesFormations) {
+		this.contributeurDesFormations = contributeurDesFormations;
+	}
+
 
 }

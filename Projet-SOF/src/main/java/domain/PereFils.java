@@ -1,55 +1,40 @@
 package domain;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-
+import javax.persistence.*;
 
 @Entity
-@IdClass(PereFilsId.class)
+@Table(name="Pere_fils")
 public class PereFils {
 
-    @ManyToOne
-    @JoinColumn(name = "id_pere")
-    @Id
-    private Object pere;
-    public Object getObjectPere() {
-            return pere;
-    }
+	@EmbeddedId
+	PereFilsId pk;
 
-    public void setObjectPere(Object pere) {
-            this.pere = pere;
-    }
+	@MapsId(value = "pere")
+	@ManyToOne
+	@JoinColumn(name = "Code_pere")
+	private Object pere;
 
-    @ManyToOne
-    @JoinColumn(name = "id_fils")
-    @Id
-    private Object fils;
-    public Object getObjectFils() {
-            return fils;
-    }
-
-    public void setObjectFils(Object fils) {
-            this.fils = fils;
-    }
-
+	@MapsId(value = "fils")
+	@ManyToOne
+	@JoinColumn(name = "Code_fils")
+	private Object fils;
 
 	@Column(name = "Rang")
-	private String rang;
+	private String Rang;
+
+	public PereFilsId getPk() {
+		return pk;
+	}
+
+	public void setPk(PereFilsId pk) {
+		this.pk = pk;
+	}
 
 	public void setRang(String Rang) {
-		this.rang = Rang;
+		this.Rang = Rang;
 	}
 
 	public String getRang() {
-		return rang;
+		return Rang;
 	}
-
-
-
 
 }

@@ -1,3 +1,4 @@
+
 package services;
 
 import java.io.File;
@@ -65,6 +66,23 @@ public class PersonService {
 	}
 
 	/**
+	 * Récupération de toutes les personnes présentes dans la base de données.
+	 * @return la liste des personne présente dans la base des données.
+	 */
+	public List<Person> findAll(){
+		return personneRepository.findAll();
+	}
+	
+	/**
+	 * Récupération d'une personne présente dans la base de données sélectionné par son id.
+	 * @param id - l'id de la personne à sélectionner.
+	 * @return la liste des personne présente dans la base des données.
+	 */
+	public Person findOne(int id){
+		return personneRepository.findOne(id);
+	}
+	
+	/**
 	 * Récupération de la personne en cour dans la session.
 	 * 
 	 * @return la personne dans la session.
@@ -76,5 +94,4 @@ public class PersonService {
 		p.setLogin("l1000000");
 		return p;
 	}
-
 }

@@ -1,24 +1,16 @@
 package domain;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-/**
- * CREATE TABLE IF NOT EXISTS TypesObjets (
-	Code_type varchar(255) not null,
-	Nom_typeObjet varchar(255) not null,
-	ContentModel varchar(255) not null,
-	Erreur_descritpion varchar(255) not null,
-	primary key (Code_type)
-	
-	Code_Regex
-);
- *
- */
+
 @Entity
 @Table(name="TypesObjets")
 @NamedQueries({
@@ -42,7 +34,15 @@ public class TypeObject {
 	@Column(name="Erreur_descritpion")
 	String descError;
 	
+	@Column(name="Code_Regex")
+	String codeRegex ;
 	
+	@OneToMany(mappedBy="typeObject")
+	private Collection<Object> objects;
+	
+	@OneToMany(mappedBy="typeObject")
+	private Collection<Field> fields;
+
 	
 	public String getCode() {
 		return code;
@@ -85,7 +85,22 @@ public class TypeObject {
 		this.codeRegex = codeRegex;
 	}
 
-	@Column(name="Code_Regex")
-	String codeRegex ;
+	public Collection<Object> getObjects() {
+		return objects;
+	}
+
+	public void setObjects(Collection<Object> objects) {
+		this.objects = objects;
+	}
+
+	public Collection<Field> getFields() {
+		return fields;
+	}
+
+	public void setFields(Collection<Field> fields) {
+		this.fields = fields;
+	}
+
+	
 
 }
