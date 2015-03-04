@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import domain.Person;
 
 @Repository
-public interface PersonDao extends JpaRepository<Person, Integer> {
+public interface PersonDao extends JpaRepository<Person, String> {
 
 	
 }

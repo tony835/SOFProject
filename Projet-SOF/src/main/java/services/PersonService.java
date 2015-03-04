@@ -78,8 +78,8 @@ public class PersonService {
 	 * @param id - l'id de la personne à sélectionner.
 	 * @return la liste des personne présente dans la base des données.
 	 */
-	public Person findOne(int id){
-		return personneRepository.findOne(id);
+	public Person findOne(String login){
+		return personneRepository.findOne(login);
 	}
 	
 	/**
