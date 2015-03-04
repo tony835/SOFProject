@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="Person")
+@Table(name="Personne")
 @NamedQueries({
     @NamedQuery(name = Person.FIND_ALL, query = "SELECT p FROM Person p"),
 })

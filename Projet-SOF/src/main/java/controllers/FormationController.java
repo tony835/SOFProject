@@ -56,7 +56,7 @@ public class FormationController extends AbstractController {
 	public ModelAndView edit() {
 		ModelAndView result;
 		Formation formation = formationService.create();
-		result = new ModelAndView("groupe/edit");
+		result = new ModelAndView("formation/edit");
 		result.addObject("formation", formation);
 
 		return result;
@@ -72,7 +72,7 @@ public class FormationController extends AbstractController {
 
 		ModelAndView result;
 		if (bindingResult.hasErrors()) {
-			result = new ModelAndView("groupe/edit");
+			result = new ModelAndView("formation/edit");
 			result.addObject("formation", formation);
 		} else {
 			try{
@@ -83,7 +83,7 @@ public class FormationController extends AbstractController {
 			
 			} catch (Throwable oops) {
 				oops.printStackTrace();
-				result = new ModelAndView("groupe/formation");
+				result = new ModelAndView("formation/formation");
 				result.addObject("message", "commit.formation.error");
 				
 			}
