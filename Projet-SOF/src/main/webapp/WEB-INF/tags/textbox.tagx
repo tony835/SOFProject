@@ -25,10 +25,8 @@
 	<form:label path="${path}" class="col-sm-2 control-label">
 		<spring:message code="${code}" />
 	</form:label>
-	<div class="col-sm-7">
 		<form:input class="form-control" type="${type}" path="${path}"
 			readonly="${readonly}" ></form:input>
-	</div>
 	<form:errors name="${name}" path="${path}" cssClass="error" />
 </div>
 

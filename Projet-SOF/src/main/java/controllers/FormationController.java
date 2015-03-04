@@ -76,14 +76,21 @@ public class FormationController extends AbstractController {
 			result.addObject("formation", formation);
 		} else {
 			try{
-
+				System.out.println(formation.getCode()+" "+formation.getName());
+				if(formation.getCode().length() == 0) { // error
+					result = new ModelAndView("formation/edit");
+					result.addObject("formation", formation);
+				}
+				System.out.println(formation.getResponsable().getName());
+				formation.setResponsable(null);
+				
 				formationService.save(formation);
 				result = new ModelAndView("redirect:list.htm");
 			
 			
 			} catch (Throwable oops) {
 				oops.printStackTrace();
-				result = new ModelAndView("formation/formation");
+				result = new ModelAndView("formation/list");
 				result.addObject("message", "commit.formation.error");
 				
 			}

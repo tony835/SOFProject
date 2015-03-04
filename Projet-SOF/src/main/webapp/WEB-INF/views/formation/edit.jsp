@@ -25,7 +25,7 @@
 				<tag:textbox name="name" code="formation.name" path="name" />
 				<tag:textbox name="responsable" code="responsable.name" path="responsable.name" />
 				<form:checkbox path="visible" value="visible"/>Visible
-				
+				<br>
 
 				<tag:submit name="save" code="save" />
 				<tag:cancel url="" code="cancel" />

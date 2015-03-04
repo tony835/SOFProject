@@ -23,6 +23,9 @@
 		<tiles:putAttribute name="body">
 			<display:table name="formations" pagesize="20" class="displaytag" id="row" requestURI="formation/list.htm">
 				<tag:column code="formation.code" property="code" sortable="true" />
+				<tag:column code="formation.visible" property="visible" sortable="true" />
+				<tag:column code="formation.name" property="responsable.name" sortable="true" />
+				<tag:column code="formation.numError" property="numError" sortable="true" />
 			</display:table>
 
 		</tiles:putAttribute>
