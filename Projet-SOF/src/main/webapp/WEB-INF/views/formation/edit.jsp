@@ -22,7 +22,7 @@
 		
 			<form:form action="formation/edit.htm"  modelAttribute="formation">
 				<tag:textbox name="code" code="formation.code" path="code" />
-				<tag:textbox name="name" code="formation.name" path="name" />
+				<tag:textbox name="name" code="formation.nom" path="name" />
 				<tag:textbox name="responsable" code="responsable.login" path="responsable.login" />
 				<form:checkbox path="visible" value="visible"/>Visible
 				<br>
