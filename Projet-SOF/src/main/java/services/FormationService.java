@@ -3,11 +3,14 @@ package services;
 
 
 import java.util.Collection;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import domain.Formation;
+
 import repositories.FormationDao;
+import domain.Formation;
 
 
 
@@ -60,5 +63,9 @@ public class FormationService {
 		return formationDao.findOne(code);
 	}
 	
+	public Collection<domain.Object> getListFormationIndente(String code){
+		System.out.println(formationDao.findOne(code).getObjectsContexte().size());
+		return formationDao.findOne(code).getObjectsContexte();
+	}
 	
 }
