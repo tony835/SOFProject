@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,6 +46,12 @@ public class Object {
 
 	@OneToMany(mappedBy = "object")
 	private Collection<FieldObject> fieldObjects;
+	
+	@OneToMany(mappedBy = "fils")
+	private List<PereFils> allFils;
+
+	@OneToMany(mappedBy = "pere")
+	private List<PereFils> allPeres;
 
 	public String getCode() {
 		return code;
