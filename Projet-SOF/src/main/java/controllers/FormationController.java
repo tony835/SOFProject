@@ -18,7 +18,7 @@ import domain.Formation;
 import domain.Person;
 
 @Controller
-@RequestMapping("/formation")
+@RequestMapping("/ArbreFormation")
 public class FormationController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
