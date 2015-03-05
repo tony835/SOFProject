@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.FormationService;
+import services.ObjectService;
 import services.PersonService;
 import domain.Formation;
+import domain.Object;
 import domain.Person;
  
 @Controller
@@ -31,6 +33,8 @@ public class FormationController extends AbstractController {
 	FormationService formationService;
 
 	@Autowired
+	ObjectService objectService;
+	@Autowired
 	PersonService personService;
 
 	/**
@@ -42,8 +46,12 @@ public class FormationController extends AbstractController {
 	public ModelAndView allFormation() {
 		ModelAndView result;
 		Collection<Formation> formations = formationService.findAll();
+		Collection<Object> ObjetNonLie = objectService.objectsNonLiee("ccooddee");
+
 		result = new ModelAndView("formation/list");
 		result.addObject("formations", formations);
+		result.addObject("ObjetNonLie", ObjetNonLie);
+
 		return result;
 	}
 

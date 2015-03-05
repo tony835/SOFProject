@@ -2,6 +2,8 @@ package services;
 
 
 
+import java.util.Collection;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import org.springframework.util.Assert;
 import repositories.FilsDao;
 import repositories.ObjectDao;
 import domain.Fils;
+import domain.Object;
 
 
 @Service
@@ -56,5 +59,9 @@ public class ObjectService {
 			pere.getAllFils().remove(tmp);
 			objectDao.save(pere);
 		}
+	}
+	
+	public Collection<Object> objectsNonLiee(String code){
+		return objectDao.findObjectnNonLiée(code);
 	}
 }

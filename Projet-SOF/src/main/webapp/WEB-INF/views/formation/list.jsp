@@ -27,6 +27,11 @@
 				<tag:column code="responsable.login" property="responsable.login" sortable="true" />
 				<tag:column code="formation.numError" property="numError" sortable="true" />
 			</display:table>
+			
+			
+			<display:table name="ObjetNonLie" pagesize="20" class="displaytag" id="row" requestURI="formation/list.htm">
+				<tag:column code="formation.code" property="code" sortable="true" />
+			</display:table>
 
 		</tiles:putAttribute>
 	</tiles:insertDefinition>
