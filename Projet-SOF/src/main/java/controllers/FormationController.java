@@ -138,6 +138,7 @@ public class FormationController extends AbstractController {
 		objectService.addLinkFils(objectService.findOne("Rendu_Proche"), o, 0);
 		*/
 		formationService.getListFormationIndente("FORM1");
+		
 		result = new ModelAndView("formation/list");
 		result.addObject("formations", formations);
 
