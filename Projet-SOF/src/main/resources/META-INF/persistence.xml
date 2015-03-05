@@ -9,7 +9,7 @@
 		<!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
 
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/l1001540" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://dbs-perso.luminy.univmed.fr/l1001540" />
 			<property name="javax.persistence.jdbc.user" value="l1001540" />
 			<property name="javax.persistence.jdbc.password" value="ZEX9ia" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
