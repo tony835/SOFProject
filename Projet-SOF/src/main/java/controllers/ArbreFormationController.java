@@ -69,7 +69,7 @@ public class ArbreFormationController extends AbstractController {
 		System.out.println("passe iciiiiii");
 		objectService.addLinkFils(o, a, 1);
 		
-		o = objectService.findOne("ccooddee");
+		o = objectService.findOne("ccooddee1");
 		System.out.println(o.getAllFils().size());
 		
 		
