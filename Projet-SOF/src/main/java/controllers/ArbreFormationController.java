@@ -13,17 +13,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.FormationService;
+import services.ObjectService;
 import services.PersonService;
 import domain.Formation;
+import domain.Object;
 import domain.Person;
 
 @Controller
-@RequestMapping("/formation")
-public class FormationController extends AbstractController {
+@RequestMapping("/arbreFormation")
+public class ArbreFormationController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
 
-	public FormationController() {
+	public ArbreFormationController() {
 		super();
 	}
 
@@ -33,6 +35,8 @@ public class FormationController extends AbstractController {
 	@Autowired
 	PersonService personService;
 
+	@Autowired
+	ObjectService objectService;
 	/**
 	 * Liste touts les formations.
 	 * 
@@ -42,8 +46,20 @@ public class FormationController extends AbstractController {
 	public ModelAndView allFormation() {
 		ModelAndView result;
 		Collection<Formation> formations = formationService.findAll();
-		result = new ModelAndView("formation/list");
+		result = new ModelAndView("arbreFormation/list");
 		result.addObject("formations", formations);
+		
+		domain.Object o = new domain.Object();
+		o.setCode("llll");
+		o.setName("aaaa");
+		objectService.save(o);
+		Formation fff = formationService.findOne("FORM1");
+		fff.getObjectsContexte().add(o);
+		formationService.save(fff);
+		Collection<domain.Object> ff = formationService.getListFormationIndente("FORM1");
+		for (domain.Object f : ff){
+			System.out.println("====>"+f.getName());
+		}
 		return result;
 	}
 
@@ -58,7 +74,7 @@ public class FormationController extends AbstractController {
 	public ModelAndView edit() {
 		ModelAndView result;
 		Formation formation = formationService.create();
-		result = new ModelAndView("formation/edit");
+		result = new ModelAndView("arbreFormation/edit");
 		result.addObject("formation", formation);
 
 		return result;
@@ -74,7 +90,7 @@ public class FormationController extends AbstractController {
 
 		ModelAndView result;
 		if (bindingResult.hasErrors()) {
-			result = new ModelAndView("formation/edit");
+			result = new ModelAndView("arbreFormation/edit");
 			result.addObject("formation", formation);
 		} else {
 			try {
@@ -82,7 +98,7 @@ public class FormationController extends AbstractController {
 
 				// Erreur : la clé ne peut être vide
 				if (formation.getCode().length() == 0) { // error
-					result = new ModelAndView("formation/edit");
+					result = new ModelAndView("arbreFormation/edit");
 					result.addObject("formation", formation);
 				}
 
@@ -103,7 +119,7 @@ public class FormationController extends AbstractController {
 
 			} catch (Throwable oops) {
 				oops.printStackTrace();
-				result = new ModelAndView("formation/list");
+				result = new ModelAndView("arbreFormation/list");
 				result.addObject("message", "commit.formation.error");
 			}
 		}
