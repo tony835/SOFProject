@@ -16,7 +16,7 @@ import services.FormationService;
 import services.PersonService;
 import domain.Formation;
 import domain.Person;
-
+ 
 @Controller
 @RequestMapping("/ArbreFormation")
 public class FormationController extends AbstractController {
