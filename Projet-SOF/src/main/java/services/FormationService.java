@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 
 import repositories.FormationDao;
 import domain.Formation;
+import domain.Object;
 
 
 
@@ -42,12 +43,9 @@ public class FormationService {
 	 *            les informations de la formation à sauvegarder
 	 */
 	public void save(Formation formation) {
-
 		Assert.notNull(formation);
-
 		formationDao.save(formation);
 	}
-
 	
 	/**
 	 * Toutes les formations
@@ -63,9 +61,8 @@ public class FormationService {
 		return formationDao.findOne(code);
 	}
 	
-	public Collection<domain.Object> getListFormationIndente(String code){
-		System.out.println(formationDao.findOne(code).getObjectsContexte().size());
-		return formationDao.findOne(code).getObjectsContexte();
+	public List<Object> getListFormationIndente(String code){
+		return null;
 	}
 	
 }

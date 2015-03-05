@@ -87,12 +87,21 @@ public class FormationController extends AbstractController {
 				}
 
 				// On regarde si un responsable est rempli et aussi s'il existe pour pouvoir être associé.
-				if (formation.getResponsable() != null && formation.getResponsable().getLogin() != null) {
-					Person p = personService.findOne(formation.getResponsable().getLogin());
-					if (p != null) {
-						responsableSave = true;
-						formation.setResponsable(p);
-					}
+				if (formation.getResponsable() == null || formation.getResponsable().getLogin() == null) {
+					System.out.println("erreur");
+					result = new ModelAndView("formation/edit");
+					result.addObject("formation", formation);
+					return result;
+				}
+				
+				Person p = personService.findOne(formation.getResponsable().getLogin());
+				if (p != null) {
+					responsableSave = true;
+					formation.setResponsable(p);
+				}else{
+					result = new ModelAndView("formation/edit");
+					result.addObject("formation", formation);
+					return result;
 				}
 				// Si un responsable n'est pas associé on défait le responsable créé par jsp.
 				if (!responsableSave)

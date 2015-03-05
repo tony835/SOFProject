@@ -30,7 +30,7 @@ public class Formation extends Object {
 	private Collection<Object> objectsContexte;
 
 	@ManyToOne
-	@JoinColumn(name="Responsable",nullable=true)//Toutes formation a un responsable ->nullable=false
+	@JoinColumn(name="Responsable",nullable=false)//Toutes formation a un responsable ->nullable=false
 	private Person responsable;
     
 	@ManyToMany

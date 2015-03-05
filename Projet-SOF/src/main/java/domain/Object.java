@@ -1,10 +1,10 @@
 package domain;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -47,11 +47,9 @@ public class Object {
 	@OneToMany(mappedBy = "object")
 	private Collection<FieldObject> fieldObjects;
 	
-	@OneToMany(mappedBy = "fils")
-	private List<PereFils> allFils;
+	@OneToMany(fetch = FetchType.EAGER)
+	private Collection<Fils> allFils;
 
-	@OneToMany(mappedBy = "pere")
-	private List<PereFils> allPeres;
 
 	public String getCode() {
 		return code;
@@ -101,11 +99,11 @@ public class Object {
 		this.typeObject = typeObject;
 	}
 
-	public List<PereFils> getAllFils() {
+	public Collection<Fils> getAllFils() {
 		return allFils;
 	}
 
-	public void setAllFils(List<PereFils> allFils) {
+	public void setAllFils(Collection<Fils> allFils) {
 		this.allFils = allFils;
 	}
 
@@ -116,6 +114,4 @@ public class Object {
 	public void setFieldObjects(Collection<FieldObject> fieldObjects) {
 		this.fieldObjects = fieldObjects;
 	}
-	
-	
 }

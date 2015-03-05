@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import repositories.PereFilsDao;
 import services.FormationService;
 import services.ObjectService;
+import services.PereFilsService;
 import services.PersonService;
 import domain.Formation;
-import domain.Object;
+import domain.Fils;
+import domain.PereFilsId;
 import domain.Person;
 
 @Controller
@@ -37,6 +40,9 @@ public class ArbreFormationController extends AbstractController {
 
 	@Autowired
 	ObjectService objectService;
+	
+	@Autowired
+	PereFilsService pereFilsService;
 	/**
 	 * Liste touts les formations.
 	 * 
@@ -50,16 +56,26 @@ public class ArbreFormationController extends AbstractController {
 		result.addObject("formations", formations);
 		
 		domain.Object o = new domain.Object();
-		o.setCode("llll");
-		o.setName("aaaa");
+		o.setCode("COODE1");
+		o.setName("Nom1");
 		objectService.save(o);
+		
+		
+		Fils p = new Fils();
+		p.setFils(o);
+		p.setRang(1);
+		pereFilsService.save(p);
+		
 		Formation fff = formationService.findOne("FORM1");
-		fff.getObjectsContexte().add(o);
+		fff.getAllFils().add(p);
 		formationService.save(fff);
-		Collection<domain.Object> ff = formationService.getListFormationIndente("FORM1");
-		for (domain.Object f : ff){
-			System.out.println("====>"+f.getName());
+		domain.Object oooo = objectService.findOne("FORM1");
+		System.out.println(oooo.getAllFils().size());
+		
+		for (Fils pf : oooo.getAllFils()){
+			System.out.println(pf.getFils().getCode());
 		}
+		
 		return result;
 	}
 
