@@ -2,15 +2,14 @@ package services;
 
 
 
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import domain.Formation;
-import domain.Fils;
 import repositories.ObjectDao;
-import repositories.PersonDao;
+import domain.Fils;
 
 
 @Service
@@ -29,12 +28,12 @@ public class ObjectService {
 		Assert.notNull(obj);
 		objectDao.save(obj);
 	}
-	
+
 	public domain.Object findOne(String code){
 		return objectDao.findOne(code);
 	}
-	
-	public void addFils(domain.Object pere, domain.Object fils, Integer rang){
+
+	public void addLinkFils(domain.Object pere, domain.Object fils, Integer rang){
 		Fils p = new Fils();
 		p.setFils(fils);
 		p.setRang(rang);
@@ -42,6 +41,16 @@ public class ObjectService {
 		objectDao.save(pere);
 	}
 	
+	public void addFils(domain.Object pere, domain.Object fils, Integer rang){
+		Fils p = new Fils();
+		p.setFils(fils);
+		p.setRang(rang);
+		objectDao.save(fils);
+		pere.getAllFils().add(p);
+		objectDao.save(pere);
+		System.out.println("sort bien d'ici2");
+	}
+
 	public void delLienFils(domain.Object pere, domain.Object fils){
 		Fils tmp = null;
 		for (Fils p : pere.getAllFils()){
@@ -53,5 +62,4 @@ public class ObjectService {
 			objectDao.save(pere);
 		}
 	}
-	
 }
