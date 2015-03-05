@@ -3,6 +3,7 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -25,11 +26,11 @@ public class Formation extends Object {
 	@Column(name = "Visible")
 	boolean visible;
 
-	@OneToMany(mappedBy="contexte")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="contexte")
 	private Collection<Object> objectsContexte;
 
 	@ManyToOne
-	@JoinColumn(name="Responsable",nullable=false)//Toutes formation a un responsable ->nullable=false
+	@JoinColumn(name="Responsable",nullable=true)//Toutes formation a un responsable ->nullable=false
 	private Person responsable;
     
 	@ManyToMany
