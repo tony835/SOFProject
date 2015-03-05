@@ -29,7 +29,8 @@ public class LoginControlerSingleton {
 	*/
 	@RequestMapping(value = "/login.htm", method = RequestMethod.GET)
 	public String login () {
-	return "login";
+	System.out.println("debug");
+	return "authentification/login";
 	}
 	/**
 	* Méthode appelée lors de la validation du formulaire d'authentification.
@@ -44,14 +45,15 @@ public class LoginControlerSingleton {
 	*/
 	@RequestMapping(value = "/login.htm", method = RequestMethod.POST)
 	public ModelAndView login (@ModelAttribute User u, BindingResult result) {
-	if(result.hasErrors()) {
-	return new ModelAndView("login", "error", "");
+		System.out.println("passe ici");
+		if(result.hasErrors()) {
+	return new ModelAndView("authentification/login", "error", "");
 	}
 	if(!authService.login(u)){
-		return new ModelAndView("login", "error", "Login ou mot de passe invalide");
+		return new ModelAndView("authentification/login", "error", "Login ou mot de passe invalide");
 	}
 
-	return new ModelAndView("login", "error", "Ca a réussi!");
+	return new ModelAndView("authentification/login", "error", "Ca a réussi!");
 	}
 	/**
 	* Vide la session utilisateur puis retourne la vue du formulaire
