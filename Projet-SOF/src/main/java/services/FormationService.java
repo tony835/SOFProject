@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.FormationDao;
+import domain.Fils;
 import domain.Formation;
 import domain.Object;
 
@@ -65,7 +66,26 @@ public class FormationService {
 	}
 	
 	public List<Object> getListFormationIndente(String code){
+		
+		
+		Formation f = findOne(code);
+		System.out.println(f.getAllFils().size());
+		formationIndentShild(f.getAllFils(),0);
 		return null;
 	}
 	
+	// Normalement cloner la class pere_fils, la metter dans la liste avec les attributs supplémentaires.
+	private void formationIndentShild(Collection<Fils> l, int padding){
+		
+		String p = "";
+		for (Fils f : l){
+			// Traitement
+			p = "";
+			for (int i = 0; i < padding; ++i)
+				p+= " ";
+			//f.getFils().setCode(p+f.getFils().getCode());
+			System.out.println(p+f.getFils().getCode());
+			formationIndentShild(f.getFils().getAllFils(),padding+1);
+		}
+	}
 }
