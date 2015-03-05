@@ -56,6 +56,7 @@ public class LoginControlerSingleton {
 	return new ModelAndView("authentification/login", "error", "Ca a réussi!");
 	}
 	/**
+	 * 
 	* Vide la session utilisateur puis retourne la vue du formulaire
 	* d'authentification.
 	*

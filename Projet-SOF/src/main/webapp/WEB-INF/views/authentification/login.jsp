@@ -18,7 +18,7 @@ pageEncoding="UTF-8"%>
 <td><form:input path="login" /></td>
 </tr>
 <tr>
-<td>Mot de passe :</td>
+<td>Mot de passe  :</td>
 <td><form:input path="password" /></td>
 </tr>
 <tr>
