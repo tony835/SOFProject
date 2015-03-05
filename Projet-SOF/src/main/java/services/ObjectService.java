@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.FilsDao;
 import repositories.ObjectDao;
 import domain.Fils;
 
@@ -20,6 +21,9 @@ public class ObjectService {
 	@Autowired
 	private ObjectDao objectDao;
 
+	@Autowired
+	private FilsDao filsDao;
+	
 	public domain.Object create() {
 		return new domain.Object();
 	}
@@ -37,18 +41,9 @@ public class ObjectService {
 		Fils p = new Fils();
 		p.setFils(fils);
 		p.setRang(rang);
+		filsDao.save(p);
 		pere.getAllFils().add(p);
 		objectDao.save(pere);
-	}
-	
-	public void addFils(domain.Object pere, domain.Object fils, Integer rang){
-		Fils p = new Fils();
-		p.setFils(fils);
-		p.setRang(rang);
-		objectDao.save(fils);
-		pere.getAllFils().add(p);
-		objectDao.save(pere);
-		System.out.println("sort bien d'ici2");
 	}
 
 	public void delLienFils(domain.Object pere, domain.Object fils){

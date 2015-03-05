@@ -7,6 +7,6 @@ import domain.Fils;
 
 
 @Repository
-public interface PereFilsDao extends JpaRepository<Fils, Integer> {
+public interface FilsDao extends JpaRepository<Fils, Integer> {
 	
 }

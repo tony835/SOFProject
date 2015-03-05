@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import repositories.PereFilsDao;
+import repositories.FilsDao;
 import services.FormationService;
 import services.ObjectService;
-import services.PereFilsService;
+import services.FilsService;
 import services.PersonService;
 import domain.Formation;
 import domain.Fils;
@@ -42,7 +42,7 @@ public class ArbreFormationController extends AbstractController {
 	ObjectService objectService;
 	
 	@Autowired
-	PereFilsService pereFilsService;
+	FilsService pereFilsService;
 	/**
 	 * Liste touts les formations.
 	 * 
@@ -56,16 +56,19 @@ public class ArbreFormationController extends AbstractController {
 		result.addObject("formations", formations);
 		
 		domain.Object o = objectService.create(),a;
-		o.setCode("ccooddee");
+		o.setCode("ccooddee1");
 		objectService.save(o);
-		o = objectService.findOne("ccooddee");
+		
+		o = objectService.findOne("ccooddee1");
 		System.out.println(o.getCode());
 		a = objectService.create();
-		a.setCode("lllllll");
+		a.setCode("lpppppp");
 		System.out.println(a.getCode());
-		System.out.println("1llmmmmm");
-		objectService.addFils(o, a, 1);
-		System.out.println("llmmmmm3");
+		objectService.save(a);
+		a = objectService.findOne("lpppppp");
+		System.out.println("passe iciiiiii");
+		objectService.addLinkFils(o, a, 1);
+		
 		o = objectService.findOne("ccooddee");
 		System.out.println(o.getAllFils().size());
 		

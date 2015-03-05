@@ -8,23 +8,23 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.ObjectDao;
-import repositories.PereFilsDao;
+import repositories.FilsDao;
 import domain.Fils;
 
 
 @Service
 @Transactional
-public class PereFilsService {
+public class FilsService {
 
 
 	@Autowired
-	private PereFilsDao pereFilsDao;
+	private FilsDao FilsDao;
 
-	public void save(Fils pereFile) {
+	public void save(Fils fils) {
 
-		Assert.notNull(pereFile);
+		Assert.notNull(fils);
 
-		pereFilsDao.save(pereFile);
+		FilsDao.save(fils);
 	}
 
 	
