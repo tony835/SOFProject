@@ -22,7 +22,7 @@ public class TypeObject {
 	public static final String FIND_ALL = "FIND_ALL_TypeObject";
 
 	@Id
-	@Column(name="Code_type")
+	@Column(name="Code_type",nullable=false)
 	String code ;
 	
 	@Column(name="Nom_typeObjet")

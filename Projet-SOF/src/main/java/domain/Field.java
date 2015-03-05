@@ -26,7 +26,7 @@ public class Field {
 
 	public static final  String FIND_ALL = "FIND_ALL_Field";
 	@Id
-	@Column(name="Id")
+	@Column(name="Id",nullable=false)
 	String id;
 	
 	@Column(name="Nom_champ")
@@ -39,16 +39,16 @@ public class Field {
 	@Enumerated(EnumType.STRING)
 	TypeContenu typeContenu;
 	
+	@Column(name="Required")
+	boolean required ;
+
 	@ManyToOne
 	@JoinColumn(name="Code_type")
 	private TypeObject typeObject;
 	
-	//@OneToMany
-	@Transient
+	@OneToMany(mappedBy="field")
 	private Collection<FieldObject> fieldObjects ;
 	
-	@Transient
-	boolean required ;
 	
 	@Transient
 	Map<String, String> lstValue;

@@ -7,17 +7,18 @@ import javax.persistence.*;
 public class FieldObjectId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	private int field;
+	
+	private String field;
 
 	private String object;
 
 	
-	public int getField() {
+
+	public String getField() {
 		return field;
 	}
 
-	public void setField(int field) {
+	public void setField(String field) {
 		this.field = field;
 	}
 
@@ -33,7 +34,7 @@ public class FieldObjectId implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + field;
+		result = prime * result + ((field == null) ? 0 : field.hashCode());
 		result = prime * result + ((object == null) ? 0 : object.hashCode());
 		return result;
 	}
@@ -47,7 +48,10 @@ public class FieldObjectId implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		FieldObjectId other = (FieldObjectId) obj;
-		if (field != other.field)
+		if (field == null) {
+			if (other.field != null)
+				return false;
+		} else if (!field.equals(other.field))
 			return false;
 		if (object == null) {
 			if (other.object != null)
@@ -56,6 +60,7 @@ public class FieldObjectId implements Serializable {
 			return false;
 		return true;
 	}
+
 
 
 

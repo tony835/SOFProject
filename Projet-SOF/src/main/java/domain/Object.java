@@ -1,4 +1,5 @@
 package domain;
+
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -12,79 +13,83 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
 
 @Entity
-@Table(name="Objet")
-@Inheritance(strategy=InheritanceType.JOINED)
-@NamedQueries({
-    @NamedQuery(name = Object.FIND_ALL, query = "SELECT p FROM Object p"),
-})
+@Table(name = "Objet")
+@Inheritance(strategy = InheritanceType.JOINED)
+@NamedQueries({ @NamedQuery(name = Object.FIND_ALL, query = "SELECT p FROM Object p"), })
 public class Object {
-	
+
 	public static final String FIND_ALL = "FIND_ALL_Object";
 
 	@Id
-	@Column(name="Code_objet")
+	@Column(name = "Code_objet",nullable=false)
 	private String code;
-	
-	@Column(name="Nom_objet")
-	private String name;
-	
-	@Column(name="Version")
-	private String version;
-	
-	@Column(name="FMutualisable")
-	private boolean mutualisable;
-	
-	@ManyToOne
-	@JoinColumn(name="contexte", referencedColumnName="Code_objet")
-	private Formation contexte;
-	
-	@ManyToOne
-	@JoinColumn(name="Code_type",referencedColumnName="Code_type")
-	private TypeObject typeObject;
-	
-	//@OneToMany(mappedBy="object")
-	@Transient
-	private Collection<FieldObject> fieldObjects ;
 
-	
-	
+	@Column(name = "Nom_objet")
+	private String name;
+
+	@Column(name = "Version")
+	private String version;
+
+	@Column(name = "FMutualisable")
+	private boolean mutualisable;
+
+	@ManyToOne
+	@JoinColumn(name = "contexte", referencedColumnName = "Code_objet")
+	private Formation contexte;
+
+	@ManyToOne
+	@JoinColumn(name = "Code_type", referencedColumnName = "Code_type")
+	private TypeObject typeObject;
+
+	@OneToMany(mappedBy = "object")
+	private Collection<FieldObject> fieldObjects;
+
 	public String getCode() {
 		return code;
 	}
+
 	public void setCode(String code) {
 		this.code = code;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getVersion() {
 		return version;
 	}
+
 	public void setVersion(String version) {
 		this.version = version;
 	}
+
 	public boolean isMutualisable() {
 		return mutualisable;
 	}
+
 	public void setMutualisable(boolean mutualisable) {
 		this.mutualisable = mutualisable;
 	}
+
 	public Formation getContexte() {
 		return contexte;
 	}
+
 	public void setContexte(Formation contexte) {
 		this.contexte = contexte;
 	}
+
 	public TypeObject getTypeObject() {
 		return typeObject;
 	}
+
 	public void setTypeObject(TypeObject typeObject) {
 		this.typeObject = typeObject;
 	}

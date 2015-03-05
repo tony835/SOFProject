@@ -29,15 +29,15 @@ public class Formation extends Object {
 	private Collection<Object> objectsContexte;
 
 	@ManyToOne
-	@JoinColumn(name="Responsable")
+	@JoinColumn(name="Responsable",nullable=false)//Toutes formation a un responsable ->nullable=false
 	private Person responsable;
     
 	@ManyToMany
     @JoinTable(name="A_pour_contributeur",
         joinColumns=
-            @JoinColumn(name="Code_objet", referencedColumnName="Code_objet"),
+            @JoinColumn(name="Code_objet", referencedColumnName="Code_objet",nullable=false),
         inverseJoinColumns=
-            @JoinColumn(name="Id_personne", referencedColumnName="Login")
+            @JoinColumn(name="Id_personne", referencedColumnName="Login",nullable=false)
         )
 	private Collection<Person> contributeurs;
 

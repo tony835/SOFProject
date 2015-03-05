@@ -21,7 +21,7 @@ public class Person {
 	public static final String FIND_ALL = "FIND_ALL_Person";
 
 	@Id
-	@Column(name="Login")
+	@Column(name="Login",nullable=false)
 	private String login ;
 	
 	@Column(name="Password")
