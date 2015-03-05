@@ -6,28 +6,33 @@
 	xmlns="http://www.w3.org/1999/xhtml">
 
 
-<jsp:output omit-xml-declaration="yes"/>
+	<jsp:output omit-xml-declaration="yes" />
 
-	<jsp:directive.attribute name="path" type="java.lang.String" required="true" rtexprvalue="true" />
-	<jsp:directive.attribute name="code" type="java.lang.String" required="true" rtexprvalue="true" />
-	<jsp:directive.attribute name="readonly" required="false" rtexprvalue="true" />
-	<jsp:directive.attribute name="name" type="java.lang.String" required="false"  />
-	<jsp:directive.attribute name="type" type="java.lang.String" required="false" />
-	
+	<jsp:directive.attribute name="path" type="java.lang.String"
+		required="true" rtexprvalue="true" />
+	<jsp:directive.attribute name="code" type="java.lang.String"
+		required="true" rtexprvalue="true" />
+	<jsp:directive.attribute name="readonly" required="false"
+		rtexprvalue="true" />
+	<jsp:directive.attribute name="name" type="java.lang.String"
+		required="false" />
+	<jsp:directive.attribute name="type" type="java.lang.String"
+		required="false" />
 
 
-<jstl:if test="${readonly == null}">
-	<jstl:set var="readonly" value="false" />
-</jstl:if>
+
+	<jstl:if test="${readonly == null}">
+		<jstl:set var="readonly" value="false" />
+	</jstl:if>
 
 
-<div class="form-group">
-	<form:label path="${path}" class="col-sm-2 control-label">
-		<spring:message code="${code}" />
-	</form:label>
+	<div class="form-group">
+		<form:label path="${path}">
+			<spring:message code="${code}" />
+		</form:label>
 		<form:input class="form-control" type="${type}" path="${path}"
-			readonly="${readonly}" ></form:input>
-	<form:errors name="${name}" path="${path}" cssClass="error" />
-</div>
+			readonly="${readonly}"></form:input>
+		<form:errors name="${name}" path="${path}" cssClass="error" />
+	</div>
 
 </jsp:root>

@@ -14,6 +14,7 @@ import repositories.FilsDao;
 import repositories.ObjectDao;
 import domain.Fils;
 import domain.Object;
+import domain.User;
 
 
 @Service
@@ -31,9 +32,12 @@ public class ObjectService {
 		return new domain.Object();
 	}
 
-	public void save(domain.Object obj) {
+	public boolean save(domain.Object obj, User user) {
+		if(!user.getLogin().equals(obj.getContexte().getResponsable()))
+			return false;
 		Assert.notNull(obj);
 		objectDao.save(obj);
+		return true;
 	}
 
 	public domain.Object findOne(String code){
