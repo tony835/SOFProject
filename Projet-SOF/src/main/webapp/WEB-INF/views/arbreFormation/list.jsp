@@ -18,14 +18,12 @@
 
 	<tiles:insertDefinition name="master.page">
 		<tiles:putAttribute name="title">
-			<spring:message code="title.formation.list" />
+			<spring:message code="title.arbre.list" />
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
-			<display:table name="formations" pagesize="20" class="displaytag" id="row" requestURI="formation/list.htm">
+		Objet non lies
+			<display:table name="ObjetNonLie" pagesize="20" class="displaytag" id="row" requestURI="arbreFormation/list.htm">
 				<tag:column code="formation.code" property="code" sortable="true" />
-				<tag:column code="formation.visible" property="visible" sortable="true" />
-				<tag:column code="responsable.login" property="responsable.login" sortable="true" />
-				<tag:column code="formation.numError" property="numError" sortable="true" />
 			</display:table>
 
 		</tiles:putAttribute>

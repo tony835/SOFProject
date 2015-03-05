@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import repositories.FilsDao;
@@ -19,6 +20,7 @@ import services.FilsService;
 import services.PersonService;
 import domain.Formation;
 import domain.Fils;
+import domain.Object;
 import domain.PereFilsId;
 import domain.Person;
 
@@ -49,30 +51,11 @@ public class ArbreFormationController extends AbstractController {
 	 * @return La vue qui mène au jsp traitant cet action
 	 */
 	@RequestMapping("/list")
-	public ModelAndView allFormation() {
+	public ModelAndView allFormation(@RequestParam String code) {
 		ModelAndView result;
-		Collection<Formation> formations = formationService.findAll();
+		Collection<Object> objects = objectService.objectsNonLiee(code);
 		result = new ModelAndView("arbreFormation/list");
-		result.addObject("formations", formations);
-		
-		domain.Object o = objectService.create(),a;
-		o.setCode("ccooddee1");
-		objectService.save(o);
-		
-		o = objectService.findOne("ccooddee1");
-		System.out.println(o.getCode());
-		a = objectService.create();
-		a.setCode("lpppppp");
-		System.out.println(a.getCode());
-		objectService.save(a);
-		a = objectService.findOne("lpppppp");
-		System.out.println("passe iciiiiii");
-		objectService.addLinkFils(o, a, 1);
-		
-		o = objectService.findOne("ccooddee1");
-		System.out.println(o.getAllFils().size());
-		
-		
+		result.addObject("ObjetNonLie", objects);
 		return result;
 	}
 

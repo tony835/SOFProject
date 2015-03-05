@@ -46,11 +46,9 @@ public class FormationController extends AbstractController {
 	public ModelAndView allFormation() {
 		ModelAndView result;
 		Collection<Formation> formations = formationService.findAll();
-		Collection<Object> ObjetNonLie = objectService.objectsNonLiee("ccooddee");
 
 		result = new ModelAndView("formation/list");
 		result.addObject("formations", formations);
-		result.addObject("ObjetNonLie", ObjetNonLie);
 
 		return result;
 	}
