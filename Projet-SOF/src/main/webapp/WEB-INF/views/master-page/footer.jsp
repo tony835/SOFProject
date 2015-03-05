@@ -8,7 +8,7 @@
 <hr />
 <div class="footerC">
 	<b>Copyright  <fmt:formatDate value="${date}" pattern="yyyy" />
-		Projet SOF : Maria - Quentin - Antony - Seddik - Salahedine - Alexandre
+		Projet SOF : Maria - Quentin - Anthony - Seddik - Salahedine - Alexandre
 	</b>
 </div>
 <script type="text/javascript" src="scripts/commun.js">h</script>
