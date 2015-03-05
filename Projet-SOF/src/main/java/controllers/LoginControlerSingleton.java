@@ -27,7 +27,7 @@ public class LoginControlerSingleton {
 	*
 	* @return La vue du formulaire d'authentification.
 	*/
-	@RequestMapping(value = "/login.htm", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login () {
 	System.out.println("debug");
 	return "authentification/login";
@@ -43,7 +43,7 @@ public class LoginControlerSingleton {
 	* @return La vue du formulaire d'authentification avec un message en cas d'erreur(s),
 	* la vue correspondant à la liste des personnes de l'annuaire sinon.
 	*/
-	@RequestMapping(value = "/login.htm", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView login (@ModelAttribute User u, BindingResult result) {
 		System.out.println("passe ici");
 		if(result.hasErrors()) {
@@ -61,10 +61,10 @@ public class LoginControlerSingleton {
 	*
 	* @return Redirige vers la page d'authentification.
 	*/
-	@RequestMapping(value = "/logout.htm")
+	@RequestMapping(value = "/logout")
 	public String logout () {
 		authService.flush();
-	return "redirect:login.htm";
+	return "redirect:login";
 	}	
 	
 	@ModelAttribute("user")

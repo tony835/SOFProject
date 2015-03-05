@@ -1,35 +1,37 @@
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page session="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form:form method="POST" commandName="user">
+<table>
+<tr>
+<td>Login :</td>
+<td><form:input path="login" /></td>
+</tr>
+<tr>
+<td>Mot de passe :</td>
+<td><form:input path="password" /></td>
+</tr>
+<tr>
+<td colspan="3"><input type="submit" /></td>
+</tr>
+</table>
+</form:form>
 
-<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@taglib prefix="tag" tagdir="/WEB-INF/tags"%>
+	<div class="center">
+<c:if test="${!empty error}">
+<p><c:out value="${error}"/></p>
+</c:if>
+</div>
 
-	<tiles:insertDefinition name="master.page">
-		<tiles:putAttribute name="title">
-		
-			<spring:message code="title.authentification.login" />
-			
-			
-		</tiles:putAttribute>
-		<tiles:putAttribute name="body">
-		
-			<form:form action="login.htm"  modelAttribute="authentification">
-				<tag:textbox name="login" code="authentification.login" path="login" />
-				<tag:textbox name="password" code="authentification.password" path="password" />
-				<tag:submit name="valider" code="valid" />
-				
-			</form:form>
-			<div class="center">
-				<c:if test="${!empty error}">
-					<p>
-						<c:out value="${error}"/>
-					</p>
-				</c:if>
-			</div>
-		</tiles:putAttribute>
-	</tiles:insertDefinition>
+</body>
+</html>
