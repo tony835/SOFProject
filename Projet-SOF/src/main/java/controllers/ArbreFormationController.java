@@ -55,26 +55,20 @@ public class ArbreFormationController extends AbstractController {
 		result = new ModelAndView("arbreFormation/list");
 		result.addObject("formations", formations);
 		
-		domain.Object o = new domain.Object();
-		o.setCode("COODE1");
-		o.setName("Nom1");
+		domain.Object o = objectService.create(),a;
+		o.setCode("ccooddee");
 		objectService.save(o);
+		o = objectService.findOne("ccooddee");
+		System.out.println(o.getCode());
+		a = objectService.create();
+		a.setCode("lllllll");
+		System.out.println(a.getCode());
+		System.out.println("1llmmmmm");
+		objectService.addFils(o, a, 1);
+		System.out.println("llmmmmm3");
+		o = objectService.findOne("ccooddee");
+		System.out.println(o.getAllFils().size());
 		
-		
-		Fils p = new Fils();
-		p.setFils(o);
-		p.setRang(1);
-		pereFilsService.save(p);
-		
-		Formation fff = formationService.findOne("FORM1");
-		fff.getAllFils().add(p);
-		formationService.save(fff);
-		domain.Object oooo = objectService.findOne("FORM1");
-		System.out.println(oooo.getAllFils().size());
-		
-		for (Fils pf : oooo.getAllFils()){
-			System.out.println(pf.getFils().getCode());
-		}
 		
 		return result;
 	}
