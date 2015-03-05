@@ -100,4 +100,22 @@ public class Object {
 	public void setTypeObject(TypeObject typeObject) {
 		this.typeObject = typeObject;
 	}
+
+	public List<PereFils> getAllFils() {
+		return allFils;
+	}
+
+	public void setAllFils(List<PereFils> allFils) {
+		this.allFils = allFils;
+	}
+
+	public Collection<FieldObject> getFieldObjects() {
+		return fieldObjects;
+	}
+
+	public void setFieldObjects(Collection<FieldObject> fieldObjects) {
+		this.fieldObjects = fieldObjects;
+	}
+	
+	
 }
