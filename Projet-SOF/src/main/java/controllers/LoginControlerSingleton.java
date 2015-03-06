@@ -29,7 +29,6 @@ public class LoginControlerSingleton {
 	*/
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login () {
-	System.out.println("debug");
 	return "authentification/login";
 	}
 	/**
@@ -45,7 +44,6 @@ public class LoginControlerSingleton {
 	*/
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView login (@ModelAttribute User u, BindingResult result) {
-		System.out.println("passe ici");
 		if(result.hasErrors()) {
 	return new ModelAndView("authentification/login", "error", "");
 	}
