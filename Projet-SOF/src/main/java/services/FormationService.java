@@ -63,9 +63,26 @@ public class FormationService {
 
 	public List<Pair<domain.Object, Integer>> getListFormationIndente(String code) {
 		Formation f = findOne(code);
-		System.out.println(f.getAllFils().size());
+		if(f == null) return null;
 		List<Pair<domain.Object, Integer>> list = new ArrayList<Pair<domain.Object, Integer>>();
 		formationIndentShild(list, f.getAllFils(), 0);
+		return list;
+	}
+	
+	public List<Fils> getShild(String code) {
+		Formation formation = findOne(code);
+		List<Fils> list = new ArrayList<Fils>();
+		for (Fils fils : formation.getAllFils()){
+			if(list.size() == 0){
+				list.add(fils);
+				continue;
+			}
+			for (int i = 0; i >= list.size(); i++){
+				if(fils.getRang() > list.get(i).getRang()){
+					list.add(i, fils);
+				}
+			}
+		}
 		return list;
 	}
 

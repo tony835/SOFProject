@@ -1,6 +1,6 @@
 <jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page"
 	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-	xmlns:jstl="http://java.sun.com/jsp/jstl/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:spring="http://www.springframework.org/tags"
 	xmlns:form="http://www.springframework.org/tags/form"
 	xmlns:security="http://www.springframework.org/security/tags"
@@ -18,29 +18,31 @@
 
 	<tiles:insertDefinition name="master.page">
 		<tiles:putAttribute name="title">
-			<spring:message code="title.arbre.list" />
+			<spring:message code="title.offer.list" /> 
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
 
-			<display:table name="formations" pagesize="20" class="displaytag"
-				id="row" requestURI="arbreFormation/list.htm">
-				<jstl:set value="${row.getValue1()}" var="val"></jstl:set>
-				
-		
-				<display:column title="Login"><jstl:forEach begin="0" end="${row.getValue1()}" step="1">....</jstl:forEach>${row.getValue0().getCode()}</display:column>
-				<display:column title="Name">${row.getValue0().getName()}</display:column>
-				<display:column title="Actions">
-				<a href="arbreFormation/gestionFils.htm?code=${row.getValue0().getCode()}"><spring:message
-					code="objet.modifier" /></a>
-					Supprimer</display:column>
-
-			</display:table>
+<!-- Page pour afficher les formations en version visiteur, uniquement les formations considérées comme visibles -->
 			
-		Objet non lies
-			<display:table name="ObjetNonLie" pagesize="20" class="displaytag"
-				id="row" requestURI="arbreFormation/list.htm">
+			<c:if test="${user.isConnected()}>
+			<a href="Formation/audit.htm"><spring:message
+					code="formation.audit" /> n'existe pas encore</a>
+			</c:if>
+								
+										
+								
+			<display:table name="formations" pagesize="20" class="displaytag"
+				id="row" requestURI="formation/list.htm">
 				<tag:column code="formation.code" property="code" sortable="true" />
+				<tag:column code="formation.visible" property="visible"
+					sortable="true" />
+				<tag:column code="responsable.login" property="responsable.login"
+					sortable="true" />
+				<tag:column code="formation.numError" property="numError"
+					sortable="true" />
 			</display:table>
+
+
 
 		</tiles:putAttribute>
 	</tiles:insertDefinition>

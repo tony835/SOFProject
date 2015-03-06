@@ -12,19 +12,31 @@
 <tiles:insertDefinition name="master.page">
 	<tiles:putAttribute name="title">
 
-		<spring:message code="title.object.create" />
+		<jstl:choose>
+			<jstl:when test="${empty (param.code)}">
+				<spring:message code="title.object.create" />
+			</jstl:when>
+			<jstl:when test="${not empty (param.code)}">
+				<spring:message code="title.object.edit" /> ${param.code}
+			</jstl:when>
+
+		</jstl:choose>
 
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
 
 		<form:form method="post" commandName="myobject">
 			<tag:textbox name="name" code="object.name" path="name" />
-			<tag:textbox name="code" code="object.code" path="code" />
 
-			<form:select path="typeObject.code" multiple="false">
-				<form:option value="" label="Séléctionner un type" />
-				<form:options items="${typesList}" itemLabel="name" itemValue="code" />
-			</form:select>
+			<jstl:if test="${empty (param.code)}">
+				<tag:textbox name="code" code="object.code" path="code" />
+
+				<form:select path="typeObject.code" multiple="false">
+					<form:option value="" label="Séléctionner un type" />
+					<form:options items="${typesList}" itemLabel="name"
+						itemValue="code" />
+				</form:select>
+			</jstl:if>
 
 			<form:checkbox path="mutualisable" value="mutualisable" />Mutualisable
 			<tag:submit name="save" code="save" />

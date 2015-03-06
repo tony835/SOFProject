@@ -33,7 +33,7 @@ public class Formation extends Object {
 	@JoinColumn(name="Responsable",nullable=false)//Toutes formation a un responsable ->nullable=false
 	private Person responsable;
     
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="A_pour_contributeur",
         joinColumns=
             @JoinColumn(name="Code_objet", referencedColumnName="Code_objet",nullable=false),
