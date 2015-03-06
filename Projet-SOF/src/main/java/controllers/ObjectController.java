@@ -68,6 +68,20 @@ public class ObjectController {
 		objectService.save(o, user);
 		return "formation/list";
 	}
+	
+	@RequestMapping(value = "/editsons.htm", method = RequestMethod.GET)
+	public String manageSons() {
+		return "tmpObjectCreation/editSons";
+	}
+
+	@RequestMapping(value = "/editsons.htm", method = RequestMethod.POST)
+	public String saveObjectSons(@ModelAttribute @Valid domain.Object o, BindingResult result) {
+		if(result.hasErrors()) {
+			return "formation/list.htm";
+		}
+		//objectService.save(o, user);
+		return "formation/list";
+	}
 
 	@ModelAttribute("myobject")
 	public domain.Object newObject(
@@ -92,6 +106,16 @@ public class ObjectController {
 	@ModelAttribute("typesList")
 	public List<TypeObject> productTypes() {
 		return (List<TypeObject>) typeService.findAll();
+	}
+	
+	@ModelAttribute("NonLinkedObjectList")
+	public List<domain.Object> nlObjectList() {
+		return (List<domain.Object>) objectService.objectsNonLiee(null);
+	}
+	
+	@ModelAttribute("mutualisableObjectList")
+	public List<domain.Object> mObjectList() {
+		return (List<domain.Object>) objectService.findMutualisableObjects(null);
 	}
 
 	@ModelAttribute("user")

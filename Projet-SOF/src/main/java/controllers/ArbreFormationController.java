@@ -68,7 +68,7 @@ public class ArbreFormationController extends AbstractController {
 	public ModelAndView gestionFils(@RequestParam String code) {
 		ModelAndView result;
 		result = new ModelAndView("arbreFormation/gestionFils");
-		List<Fils> list = objectService.getShild(code);
+		List<Fils> list = objectService.getChild(code);
 		domain.Object o = objectService.findOne("code");
 		result.addObject("objEnCours", o);
 		result.addObject("listFils", list);

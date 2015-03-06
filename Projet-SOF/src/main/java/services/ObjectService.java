@@ -76,7 +76,11 @@ public class ObjectService {
 		return objectDao.findNonLinkedObject(code);
 	}
 	
-	public List<Fils> getShild(String code) {
+	public Collection<Object> findMutualisableObjects(String code){
+		return objectDao.findOtherMutualisableObject(code);
+	}
+	
+	public List<Fils> getChild(String code) {
 		domain.Object obj = findOne(code);
 		List<Fils> list = new ArrayList<Fils>();
 		System.out.println(obj.getAllFils());
