@@ -21,8 +21,21 @@
 			<spring:message code="title.arbre.list" />
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
+
+			<display:table name="formations" pagesize="20" class="displaytag"
+				id="row" requestURI="arbreFormation/list.htm">
+				<jstl:set value="${row.getValue1()}" var="val"></jstl:set>
+				
+		
+				<display:column title="Login"><jstl:forEach begin="0" end="${row.getValue1()}" step="1">....</jstl:forEach>${row.getValue0().getCode()}</display:column>
+				<display:column title="Name">${row.getValue0().getName()}</display:column>
+				<display:column title="Actions">Editer - Supprimer</display:column>
+
+			</display:table>
+			
 		Objet non lies
-			<display:table name="ObjetNonLie" pagesize="20" class="displaytag" id="row" requestURI="arbreFormation/list.htm">
+			<display:table name="ObjetNonLie" pagesize="20" class="displaytag"
+				id="row" requestURI="arbreFormation/list.htm">
 				<tag:column code="formation.code" property="code" sortable="true" />
 			</display:table>
 

@@ -1,9 +1,11 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.validation.Valid;
 
+import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -119,6 +121,16 @@ public class ArbreFormationController extends AbstractController {
 				result.addObject("message", "commit.formation.error");
 			}
 		}
+		return result;
+	}
+	
+	@RequestMapping("/test")
+	public ModelAndView test() {
+		ModelAndView result;
+		List<Pair<domain.Object, Integer>> arbreFormations = formationService.getListFormationIndente("FORM1");
+		
+		result = new ModelAndView("arbreFormation/list");
+		result.addObject("formations", arbreFormations);
 		return result;
 	}
 
