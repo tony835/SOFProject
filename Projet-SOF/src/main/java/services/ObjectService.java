@@ -73,4 +73,8 @@ public class ObjectService {
 	public Collection<Object> objectsNonLiee(String code){
 		return objectDao.findNonLinkedObject(code);
 	}
+	
+	public Collection<Object> findMutualisableObjects(String code){
+		return objectDao.findOtherMutualisableObject(code);
+	}
 }
