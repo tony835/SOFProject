@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import domain.TypeObject;
 
 @Repository
-public interface TypeObjectDao extends JpaRepository<TypeObject, Integer> {
+public interface TypeObjectDao extends JpaRepository<TypeObject, String> {
 	
 }

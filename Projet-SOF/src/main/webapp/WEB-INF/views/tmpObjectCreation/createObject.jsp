@@ -9,27 +9,26 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags"%>
 
-	<tiles:insertDefinition name="master.page">
-		<tiles:putAttribute name="title">
-		
-			<spring:message code="title.object.create" />
-			
-		</tiles:putAttribute>
-		<tiles:putAttribute name="body">
-		
-			<form:form action="object/create.htm" modelAttribute="object">
+<tiles:insertDefinition name="master.page">
+	<tiles:putAttribute name="title">
+
+		<spring:message code="title.object.create" />
+
+	</tiles:putAttribute>
+	<tiles:putAttribute name="body">
+
+		<form:form method="post" commandName="myobject">
 			<tag:textbox name="name" code="object.name" path="name" />
 			<tag:textbox name="code" code="object.code" path="code" />
-			
-			<form:select path="typeObject" multiple="false">
-			<form:option value="" label="Séléctionner un type" />
-			<form:options items="${typeList}" itemLabel="name"
-			itemValue="name" />
+
+			<form:select path="typeObject.code" multiple="false">
+				<form:option value="" label="Séléctionner un type" />
+				<form:options items="${typesList}" itemLabel="name" itemValue="code" />
 			</form:select>
 
 			<form:checkbox path="mutualisable" value="mutualisable" />Mutualisable
 			<tag:submit name="save" code="save" />
 			<tag:cancel url="" code="cancel" />
 		</form:form>
-		</tiles:putAttribute>
-	</tiles:insertDefinition>
+	</tiles:putAttribute>
+</tiles:insertDefinition>

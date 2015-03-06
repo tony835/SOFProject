@@ -33,8 +33,8 @@ public class ObjectService {
 	}
 
 	public boolean save(domain.Object obj, User user) {
-		if(!user.getLogin().equals(obj.getContexte().getResponsable()))
-			return false;
+//		if(!user.getLogin().equals(obj.getContexte().getResponsable()))
+//			return false;
 		Assert.notNull(obj);
 		objectDao.save(obj);
 		return true;

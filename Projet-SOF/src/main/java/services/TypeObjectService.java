@@ -23,5 +23,9 @@ public class TypeObjectService {
 	public List<TypeObject> findAll(){
 		return typeObjectDao.findAll();
 	}
+	
+	public TypeObject findOne(String code){
+		return typeObjectDao.findOne(code);
+	}
 
 }
