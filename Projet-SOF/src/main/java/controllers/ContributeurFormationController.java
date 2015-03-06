@@ -43,6 +43,11 @@ public class ContributeurFormationController extends AbstractController {
 		Collection<Person> contibuteurs= formationService.findOne(code).getContributeurs();
 		result = new ModelAndView("arbreFormation/contributeur");
 		result.addObject("contibuteurs", contibuteurs);
+		Collection<Person> persons =personService.findAll();
+		result.addObject("allcontributeurs", persons);
+
+		result.addObject("code", code);
+
 		return result;
 	}
 
@@ -50,46 +55,23 @@ public class ContributeurFormationController extends AbstractController {
 	 * Sauvegarde d'une formation
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView save(@Valid @ModelAttribute Formation formation, BindingResult bindingResult) {
-		System.out.println("passe");
-		System.out.println("-----------");
+	public ModelAndView save( @RequestParam String contrib,@RequestParam String code) {
+
 
 		ModelAndView result;
-		if (bindingResult.hasErrors()) {
-			result = new ModelAndView("arbreFormation/edit");
-			result.addObject("formation", formation);
-		} else {
-			try {
-				boolean responsableSave = false;
-
-				// Erreur : la clé ne peut être vide
-				if (formation.getCode().length() == 0) { // error
-					result = new ModelAndView("arbreFormation/edit");
-					result.addObject("formation", formation);
-				}
-
-				// On regarde si un responsable est rempli et aussi s'il existe pour pouvoir être associé.
-				if (formation.getResponsable() != null && formation.getResponsable().getLogin() != null) {
-					Person p = personService.findOne(formation.getResponsable().getLogin());
-					if (p != null) {
-						responsableSave = true;
-						formation.setResponsable(p);
-					}
-				}
-				// Si un responsable n'est pas associé on défait le responsable créé par jsp.
-				if (!responsableSave)
-					formation.setResponsable(null);
-
-				formationService.save(formation);
-				result = new ModelAndView("redirect:list.htm");
-
-			} catch (Throwable oops) {
-				oops.printStackTrace();
-				result = new ModelAndView("arbreFormation/list");
-				result.addObject("message", "commit.formation.error");
-			}
+		try{
+			Formation formation= formationService.findOne(code);
+			Person contributeur= personService.findOne(contrib);
+			formation.getContributeurs().add(contributeur);
+			formationService.save(formation);
+		} catch (Throwable oops) {
+			oops.printStackTrace();
+			result = edit(code);
+			result.addObject("message", "commit.formation.contributeur");
+			return result;
 		}
-		return result;
+
+		return edit(code);
 	}
 	
 

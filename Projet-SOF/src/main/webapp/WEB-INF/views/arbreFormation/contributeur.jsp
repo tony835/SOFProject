@@ -19,6 +19,7 @@
 
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
+	<jstl:set var="formation" value="${code}"></jstl:set>
 
 	<display:table name="contibuteurs" class="displaytag" id="row">
 			    <tag:column code="contributeur.code" property="login" sortable="true" />
@@ -40,8 +41,8 @@
 <script>
          $(function() {
             var availableTutorials = [
-<jstl:forEach var="element" items= "${contibuteurs}">
-"${element.name}", 
+<jstl:forEach var="element" items= "${allcontributeurs}">
+{ label: "${element.name} ${element.firstName}", value: "${element.login}" },
 </jstl:forEach>  
             ];
             $( "#automplete-1" ).autocomplete({
@@ -50,7 +51,7 @@
          });
       </script>
 </head>
-		<form id="signupForm" action="arbreFormation/contributeur/edit.htm"
+		<form id="signupForm" action="formation/contributeur/edit.htm"
 			class="form-horizontal" method="post">
 			<div class="form-group">
 
@@ -58,6 +59,7 @@
 					<label for="automplete-1">Responsable: </label> 
 					<input name="contrib" id="automplete-1">
 				</div>
+					<input hidden="hidden" name="code" value="${formation}">
 				<spring:message code="save" var="var" />
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">

@@ -12,6 +12,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "Formation")
@@ -38,7 +39,10 @@ public class Formation extends Object {
         joinColumns=
             @JoinColumn(name="Code_objet", referencedColumnName="Code_objet",nullable=false),
         inverseJoinColumns=
-            @JoinColumn(name="Id_personne", referencedColumnName="Login",nullable=false)
+            @JoinColumn(name="Id_personne", referencedColumnName="Login",nullable=false),
+        uniqueConstraints = 
+        		@UniqueConstraint(
+                    columnNames = {"Code_objet", "Id_personne"})
         )
 	private Collection<Person> contributeurs;
 
