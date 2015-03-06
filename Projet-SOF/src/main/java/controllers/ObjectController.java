@@ -49,13 +49,24 @@ public class ObjectController {
 			return "formation/list.htm";
 		}
 
-		if(o == null)
-		System.out.println("---------" );
-
 		objectService.save(o, user);
 
 		return "formation/list";
 
+	}
+	
+	@RequestMapping(value = "/edit.htm", method = RequestMethod.GET)
+	public String edit() {
+		return "tmpObjectCreation/editObject";
+	}
+
+	@RequestMapping(value = "/edit.htm", method = RequestMethod.POST)
+	public String saveObject(@ModelAttribute @Valid domain.Object o, BindingResult result) {
+		if(result.hasErrors()) {
+			return "formation/list.htm";
+		}
+		objectService.save(o, user);
+		return "formation/list";
 	}
 
 	@ModelAttribute("myobject")
