@@ -15,15 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import repositories.FilsDao;
+import services.FilsService;
 import services.FormationService;
 import services.ObjectService;
-import services.FilsService;
 import services.PersonService;
 import domain.Formation;
-import domain.Fils;
 import domain.Object;
-import domain.PereFilsId;
 import domain.Person;
 
 @Controller
@@ -44,9 +41,10 @@ public class ArbreFormationController extends AbstractController {
 
 	@Autowired
 	ObjectService objectService;
-	
+
 	@Autowired
 	FilsService pereFilsService;
+
 	/**
 	 * Liste touts les formations.
 	 * 
@@ -55,9 +53,13 @@ public class ArbreFormationController extends AbstractController {
 	@RequestMapping("/list")
 	public ModelAndView allFormation(@RequestParam String code) {
 		ModelAndView result;
+		
 		Collection<Object> objects = objectService.objectsNonLiee(code);
 		result = new ModelAndView("arbreFormation/list");
 		result.addObject("ObjetNonLie", objects);
+		List<Pair<domain.Object, Integer>> arbreFormations = formationService.getListFormationIndente("FORM1");
+
+		result.addObject("formations", arbreFormations);
 		return result;
 	}
 
@@ -123,15 +125,4 @@ public class ArbreFormationController extends AbstractController {
 		}
 		return result;
 	}
-	
-	@RequestMapping("/test")
-	public ModelAndView test() {
-		ModelAndView result;
-		List<Pair<domain.Object, Integer>> arbreFormations = formationService.getListFormationIndente("FORM1");
-		
-		result = new ModelAndView("arbreFormation/list");
-		result.addObject("formations", arbreFormations);
-		return result;
-	}
-
 }

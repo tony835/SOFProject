@@ -39,6 +39,11 @@ public class ObjectService {
 		objectDao.save(obj);
 		return true;
 	}
+	
+	public void save(domain.Object obj) {
+		Assert.notNull(obj);
+		objectDao.save(obj);
+	}
 
 	public domain.Object findOne(String code){
 		return objectDao.findOne(code);
