@@ -1,4 +1,5 @@
 package domain;
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -16,7 +17,12 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = Person.FIND_ALL, query = "SELECT p FROM Person p"),
 })
-public class Person {
+public class Person implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7675620088939780254L;
 
 	public static final String FIND_ALL = "FIND_ALL_Person";
 

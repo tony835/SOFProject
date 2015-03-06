@@ -19,6 +19,7 @@ import services.PersonService;
 import domain.Formation;
 import domain.Object;
 import domain.Person;
+import domain.User;
  
 @Controller
 @RequestMapping("/formation")
@@ -29,6 +30,8 @@ public class FormationController extends AbstractController {
 	public FormationController() {
 		super();
 	}
+	@Autowired()
+	User user;
 
 	@Autowired
 	FormationService formationService;
@@ -148,5 +151,12 @@ public class FormationController extends AbstractController {
 
 		
 		return result;
+	}
+	
+	
+	
+	@ModelAttribute("user")
+	public User newUser() {
+		return user;
 	}
 }

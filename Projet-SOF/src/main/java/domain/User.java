@@ -1,7 +1,19 @@
 package domain;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
 
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -98,5 +110,26 @@ public class User implements Serializable {
 		connected = false;
 		login = "";
 		password = "";
+	}
+	
+	public boolean isConceptor() throws JDOMException, IOException {
+		SAXBuilder sxb = new SAXBuilder();
+		
+		
+    		Document document = sxb.build(new File("Donnees.xml"));
+
+ 
+
+		// On initialise un nouvel élément racine avec l'élément racine du document.
+		Element racine = document.getRootElement();
+		List<Element> listEtudiants = racine.getChildren("Concepteur");
+		Iterator<Element> i = listEtudiants.iterator();
+
+		while (i.hasNext()) {
+			Element courant = (Element) i.next();
+			if (courant.getChild("login").getText().equals(login))
+				return true;
+		}
+		return false;
 	}
 }
