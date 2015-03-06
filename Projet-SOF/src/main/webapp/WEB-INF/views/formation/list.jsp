@@ -21,11 +21,24 @@
 			<spring:message code="title.formation.list" />
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
+		
+			<a href="arbreFormation/edit.htm?code=${row.code}"><spring:message
+								code="formation.create" /></a>
+								
 			<display:table name="formations" pagesize="20" class="displaytag" id="row" requestURI="formation/list.htm">
 				<tag:column code="formation.code" property="code" sortable="true" />
 				<tag:column code="formation.visible" property="visible" sortable="true" />
 				<tag:column code="responsable.login" property="responsable.login" sortable="true" />
 				<tag:column code="formation.numError" property="numError" sortable="true" />
+				<display:column>
+						<a href="formation/edit.htm?code=${row.code}"><spring:message
+								code="formation.edit" /></a>
+				</display:column>
+				
+				<display:column>
+						<a href="arbreFormation/edit.htm?code=${row.code}"><spring:message
+								code="formation.editStructure" /></a>
+				</display:column>
 			</display:table>
 			
 	
