@@ -29,7 +29,10 @@
 		
 				<display:column title="Login"><jstl:forEach begin="0" end="${row.getValue1()}" step="1">....</jstl:forEach>${row.getValue0().getCode()}</display:column>
 				<display:column title="Name">${row.getValue0().getName()}</display:column>
-				<display:column title="Actions">Editer - Supprimer</display:column>
+				<display:column title="Actions">
+				<a href="arbreFormation/gestionFils.htm?code=${row.getValue0().getCode()}"><spring:message
+					code="objet.modifier" /></a>
+					Supprimer</display:column>
 
 			</display:table>
 			

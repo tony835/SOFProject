@@ -19,6 +19,7 @@ import services.FilsService;
 import services.FormationService;
 import services.ObjectService;
 import services.PersonService;
+import domain.Fils;
 import domain.Formation;
 import domain.Object;
 import domain.Person;
@@ -53,13 +54,24 @@ public class ArbreFormationController extends AbstractController {
 	@RequestMapping("/list")
 	public ModelAndView allFormation(@RequestParam String code) {
 		ModelAndView result;
-		
+
 		Collection<Object> objects = objectService.objectsNonLiee(code);
 		result = new ModelAndView("arbreFormation/list");
 		result.addObject("ObjetNonLie", objects);
-		List<Pair<domain.Object, Integer>> arbreFormations = formationService.getListFormationIndente("FORM1");
+		List<Pair<domain.Object, Integer>> arbreFormations = formationService.getListFormationIndente(code);
 
 		result.addObject("formations", arbreFormations);
+		return result;
+	}
+
+	@RequestMapping("/gestionFils")
+	public ModelAndView gestionFils(@RequestParam String code) {
+		ModelAndView result;
+		result = new ModelAndView("arbreFormation/gestionFils");
+		List<Fils> list = objectService.getChild(code);
+		domain.Object o = objectService.findOne("code");
+		result.addObject("objEnCours", o);
+		result.addObject("listFils", list);
 		return result;
 	}
 
@@ -123,6 +135,30 @@ public class ArbreFormationController extends AbstractController {
 				result.addObject("message", "commit.formation.error");
 			}
 		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/gestionFilsEditRang", method = RequestMethod.POST)
+	public ModelAndView gestionFilsEditRang(@RequestParam(value="codeEnCours",required=true) String codeEnCours, @RequestParam(value="rang",required=true) String rang, @RequestParam(value="code",required=true) String code) {
+		domain.Object obj = objectService.findOne(codeEnCours);
+		Fils tmp = null;
+		if(obj != null){
+			for (Fils f : obj.getAllFils()){
+				if(f.getFils().getCode().equals(code)){
+					tmp = f;
+					break;
+				}
+			}
+
+			if(tmp != null){
+				Integer rangInt = new Integer(rang);
+				if(rangInt != null){
+					tmp.setRang(rangInt);
+					pereFilsService.save(tmp);
+				}
+			}
+		}
+		ModelAndView result = new ModelAndView("redirect:gestionFils.htm?code="+codeEnCours);
 		return result;
 	}
 }
