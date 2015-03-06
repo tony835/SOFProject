@@ -63,7 +63,7 @@ public class LoginControlerSingleton {
 	@RequestMapping(value = "/logout")
 	public String logout () {
 		authService.flush();
-	return "redirect:login";
+	return "redirect:login.htm";
 	}	
 	
 	@ModelAttribute("user")
