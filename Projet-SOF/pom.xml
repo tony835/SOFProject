@@ -195,6 +195,14 @@
 			<artifactId>jdom2</artifactId>
 			<version>2.0.5</version>
 		</dependency>
+
+		<!-- Pair -->
+		<dependency>
+			<groupId>org.javatuples</groupId>
+			<artifactId>javatuples</artifactId>
+			<version>1.2</version>
+			        <scope>compile</scope>
+			        		</dependency>
 	</dependencies>
 
 	<build>

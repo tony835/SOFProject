@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.FormationService;
@@ -18,6 +19,7 @@ import services.PersonService;
 import domain.Formation;
 import domain.Object;
 import domain.Person;
+import domain.User;
  
 @Controller
 @RequestMapping("/formation")
@@ -28,6 +30,8 @@ public class FormationController extends AbstractController {
 	public FormationController() {
 		super();
 	}
+	@Autowired()
+	User user;
 
 	@Autowired
 	FormationService formationService;
@@ -61,9 +65,12 @@ public class FormationController extends AbstractController {
 	 * @return La vue qui mène au jsp traitant cet action
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit() {
+	public ModelAndView create(@RequestParam(required=false) String code) {
 		ModelAndView result;
 		Formation formation = formationService.create();
+		if(code!=null){
+			 formation = formationService.findOne(code);
+		}
 		result = new ModelAndView("formation/edit");
 		result.addObject("formation", formation);
 
@@ -144,5 +151,12 @@ public class FormationController extends AbstractController {
 
 		
 		return result;
+	}
+	
+	
+	
+	@ModelAttribute("user")
+	public User newUser() {
+		return user;
 	}
 }
