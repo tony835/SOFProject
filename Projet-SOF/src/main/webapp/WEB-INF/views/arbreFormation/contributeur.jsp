@@ -20,15 +20,16 @@
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
 	<jstl:set var="formation" value="${code}"></jstl:set>
-
+<div id="scroll" class="scroll">
 	<display:table name="contibuteurs" class="displaytag" id="row">
 			    <tag:column code="contributeur.code" property="login" sortable="true" />
 				<tag:column code="contributeur.name" property="name" sortable="true" />
 				<display:column>
-						<a href="formation/contributeur/delete.htm?login=${row.login}"> x </a>
+						<a href="formation/contributeur/delete.htm?contrib=${row.login}&code=${formation}"> x </a>
 				</display:column>
 				
 	</display:table>
+	</div>
 			
 <head>
 <meta charset="utf-8">

@@ -2,21 +2,18 @@ package controllers;
 
 import java.util.Collection;
 
-import javax.validation.Valid;
+import javax.swing.text.StyledEditorKit.BoldAction;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import services.FormationService;
 
+import services.FormationService;
 import services.PersonService;
 import domain.Formation;
-
 import domain.Person;
 
 @Controller
@@ -35,15 +32,14 @@ public class ContributeurFormationController extends AbstractController {
 	@Autowired
 	PersonService personService;
 
-
-
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam String code) {
 		ModelAndView result;
-		Collection<Person> contibuteurs= formationService.findOne(code).getContributeurs();
+		Collection<Person> contibuteurs = formationService.findOne(code)
+				.getContributeurs();
 		result = new ModelAndView("arbreFormation/contributeur");
 		result.addObject("contibuteurs", contibuteurs);
-		Collection<Person> persons =personService.findAll();
+		Collection<Person> persons = personService.findAll();
 		result.addObject("allcontributeurs", persons);
 
 		result.addObject("code", code);
@@ -55,13 +51,13 @@ public class ContributeurFormationController extends AbstractController {
 	 * Sauvegarde d'une formation
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView save( @RequestParam String contrib,@RequestParam String code) {
-
+	public ModelAndView save(@RequestParam String contrib,
+			@RequestParam String code) {
 
 		ModelAndView result;
-		try{
-			Formation formation= formationService.findOne(code);
-			Person contributeur= personService.findOne(contrib);
+		try {
+			Formation formation = formationService.findOne(code);
+			Person contributeur = personService.findOne(contrib);
 			formation.getContributeurs().add(contributeur);
 			formationService.save(formation);
 		} catch (Throwable oops) {
@@ -73,7 +69,30 @@ public class ContributeurFormationController extends AbstractController {
 
 		return edit(code);
 	}
-	
 
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam String contrib,
+			@RequestParam String code) {
+
+		ModelAndView result;
+		try {
+			Formation formation = formationService.findOne(code);
+			Person contributeur = personService.findOne(contrib);
+			Collection<Person> persons = formation.getContributeurs();
+			for (Person per : persons) {
+				if (per.getLogin().equals(contributeur.getLogin()))
+					persons.remove(per);
+			}
+			formation.setContributeurs(persons);
+			formationService.save(formation);
+		} catch (Throwable oops) {
+			oops.printStackTrace();
+			result = edit(code);
+			result.addObject("message", "commit.contributeur.delete");
+			return result;
+		}
+
+		return edit(code);
+	}
 
 }
