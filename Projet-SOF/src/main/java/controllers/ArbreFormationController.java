@@ -66,6 +66,7 @@ public class ArbreFormationController extends AbstractController {
 	 */
 	@RequestMapping("/list")
 	public ModelAndView allFormation(@RequestParam String code) {
+			
 		ModelAndView result;
 
 		Collection<domain.Object> objects = objectService.objectsNonLiee(code);
@@ -175,20 +176,21 @@ public class ArbreFormationController extends AbstractController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/create.htm", method = RequestMethod.GET)
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String create() {
 		return "tmpObjectCreation/createObject";
 	}
 
-	@RequestMapping(value = "/create.htm", method = RequestMethod.POST)
-	public String saveNewObject(@ModelAttribute @Valid domain.Object o, BindingResult result) {
-		if(result.hasErrors()) {
-			return "formation/list.htm";
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public String saveNewObject(@ModelAttribute @Valid domain.Object o, BindingResult result, @RequestParam(required=false) String context, @RequestParam(required=false) String code) {
+		if(result.hasErrors()) {// TODO
+			return "redirect:create";
 		}
+		if(o.getAllFils() == null) System.out.println("Alexandre a raison");
+		o.setContexte(formationService.findOne(context));
+		objectService.save(o, user); // Tester les droits
 
-		objectService.save(o, user);
-
-		return "formation/list";
+		return "redirect:list.htm?code="+o.getContexte().getCode();
 
 	}
 	
