@@ -48,7 +48,7 @@
 
 				<jstl:if test="${row.responsable.login==user.login}">
 					<display:column>
-						<a href="arbreFormation/edit.htm?code=${row.code}"><spring:message
+						<a href="arbreFormation/list.htm?code=${row.code}"><spring:message
 								code="formation.editStructure" /></a>
 					</display:column>
 				</jstl:if>
