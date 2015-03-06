@@ -32,7 +32,7 @@
 	</div>
 			
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8"> 
 <link
 	href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
 	rel="stylesheet">
