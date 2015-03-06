@@ -66,6 +66,6 @@ public class ObjectService {
 	}
 	
 	public Collection<Object> objectsNonLiee(String code){
-		return objectDao.findObjectnNonLiée(code);
+		return objectDao.findNonLinkedObject(code);
 	}
 }
