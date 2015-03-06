@@ -41,7 +41,7 @@ public class ContributeurFormationController extends AbstractController {
 	public ModelAndView edit(@RequestParam String code) {
 		ModelAndView result;
 		Collection<Person> contibuteurs= formationService.findOne(code).getContributeurs();
-		result = new ModelAndView("formation/editContributeur");
+		result = new ModelAndView("arbreFormation/contributeur");
 		result.addObject("contibuteurs", contibuteurs);
 		return result;
 	}
