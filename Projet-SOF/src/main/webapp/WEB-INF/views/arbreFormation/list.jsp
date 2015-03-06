@@ -21,18 +21,25 @@
 			<spring:message code="title.arbre.list" />
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
-
+			<a href="arbreFormation/create.htm?context=${param.code}"><spring:message
+					code="arbreFormation.creerObj" /></a>
+					
 			<display:table name="formations" pagesize="20" class="displaytag"
 				id="row" requestURI="arbreFormation/list.htm">
 				<jstl:set value="${row.getValue1()}" var="val"></jstl:set>
-				
-		
-				<display:column title="Login"><jstl:forEach begin="0" end="${row.getValue1()}" step="1">....</jstl:forEach>${row.getValue0().getCode()}</display:column>
+
+
+				<display:column title="Login">
+					<jstl:forEach begin="0" end="${row.getValue1()}" step="1">....</jstl:forEach>${row.getValue0().getCode()}</display:column>
 				<display:column title="Name">${row.getValue0().getName()}</display:column>
 				<display:column title="Actions">
-				<a href="arbreFormation/gestionFils.htm?code=${row.getValue0().getCode()}"><spring:message
-					code="objet.modifier" /></a>
-					Supprimer</display:column>
+					<a
+						href="arbreFormation/gestionFils.htm?code=${row.getValue0().getCode()} "><spring:message
+							code="objet.modifierFils" /></a> 
+							<a
+						href="arbreFormation/create.htm?context=${param.code}&amp;code=${row.getValue0().getCode()}"><spring:message
+							code="objet.modifier" /></a>
+					</display:column>
 
 			</display:table>
 			
