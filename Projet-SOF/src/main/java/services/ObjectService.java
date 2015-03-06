@@ -2,7 +2,9 @@ package services;
 
 
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,5 +74,34 @@ public class ObjectService {
 	
 	public Collection<Object> objectsNonLiee(String code){
 		return objectDao.findNonLinkedObject(code);
+	}
+	
+	public Collection<Object> findMutualisableObjects(String code){
+		return objectDao.findOtherMutualisableObject(code);
+	}
+	
+	public List<Fils> getChild(String code) {
+		domain.Object obj = findOne(code);
+		List<Fils> list = new ArrayList<Fils>();
+		System.out.println(obj.getAllFils());
+		for (Fils fils : obj.getAllFils()){
+			boolean passe = false;
+			if(list.size() == 0){
+				list.add(fils);
+				continue;
+			}
+			for (int i = 0; i < list.size(); i++){
+				System.out.println(fils.getRang() +"<=?"+list.get(i));
+				if(fils.getRang() <= list.get(i).getRang()){
+					list.add(i, fils);
+					passe = true;
+					break;
+				}
+			}
+			if(!passe){
+				list.add(list.size(), fils);
+			}
+		}
+		return list;
 	}
 }
