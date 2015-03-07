@@ -1,6 +1,6 @@
 <jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page"
 	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:jstl="http://java.sun.com/jsp/jstl/core"
 	xmlns:spring="http://www.springframework.org/tags"
 	xmlns:form="http://www.springframework.org/tags/form"
 	xmlns:security="http://www.springframework.org/security/tags"
@@ -18,31 +18,22 @@
 
 	<tiles:insertDefinition name="master.page">
 		<tiles:putAttribute name="title">
-			<spring:message code="title.offer.list" /> 
+			<spring:message code="offre.list" />
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
 
-<!-- Page pour afficher les formations en version visiteur, uniquement les formations considérées comme visibles -->
-			
-			<c:if test="${user.isConnected()}>
-			<a href="Formation/audit.htm"><spring:message
-					code="formation.audit" /> n'existe pas encore</a>
-			</c:if>
-								
-										
-								
-			<display:table name="formations" pagesize="20" class="displaytag"
-				id="row" requestURI="formation/list.htm">
-				<tag:column code="formation.code" property="code" sortable="true" />
-				<tag:column code="formation.visible" property="visible"
-					sortable="true" />
-				<tag:column code="responsable.login" property="responsable.login"
-					sortable="true" />
-				<tag:column code="formation.numError" property="numError"
-					sortable="true" />
+			<!-- afficher les formations en version visiteur -->
+
+			<jstl:if test="${user.isConnected()}">
+				<a href="Formation/audit.htm"><spring:message
+						code="formation.audit" /> n'existe pas encore</a>
+			</jstl:if>
+
+			<display:table name="FormationVisible" pagesize="20" class="displaytag"
+				id="row" requestURI="formation/offre.htm">
+				<tag:column code="formation.nom" property="name" sortable="true"> 
+				</tag:column>
 			</display:table>
-
-
 
 		</tiles:putAttribute>
 	</tiles:insertDefinition>

@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -44,7 +45,7 @@ public class FormationController extends AbstractController {
 	/**
 	 * Liste touts les formations.
 	 * 
-	 * @return La vue qui mène au jsp traitant cet action
+	 * @return La vue qui mene au jsp traitant cet action
 	 */
 	@RequestMapping("/list")
 	public ModelAndView allFormation() {
@@ -56,6 +57,33 @@ public class FormationController extends AbstractController {
 
 		return result;
 	}
+	
+	/**
+	 * Liste des formations en version visiteur
+	 * @return 
+	 */
+	@RequestMapping("/offre")
+	public ModelAndView allFormationVisitor() {
+		ModelAndView result;
+		Collection<Formation> formations = formationService.findAll();
+		Collection<Object> objetsVisible = new ArrayList<Object>();
+		
+		
+		for (Formation formation : formations) {
+			if(formation.isVisible()){
+				objetsVisible.add(objectService.findOne(formation.getCode()));
+			}
+		}
+		
+		formations.clear();
+		formations = null;
+
+		result = new ModelAndView("formation/offre");
+		result.addObject("FormationVisible", objetsVisible);
+
+		return result;
+	}
+	
 
 	/**
 	 * Edition d'une formation
