@@ -13,6 +13,7 @@
 		doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
 		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" />
 
+	
 
 	<jsp:directive.page contentType="text/html" />
 
@@ -30,9 +31,10 @@
 			</jstl:if>
 
 			<display:table name="FormationVisible" pagesize="20" class="displaytag"
-				id="row" requestURI="formation/offre.htm">
-				<tag:column code="formation.nom" property="name" sortable="true"> 
-				</tag:column>
+				id="row" requestURI="formation/offre.htm" >
+				<jstl:url var="details" value="/details.htm?code=${row.code}" />
+				<display:column title="Nom" property="name" sortable="true" href="${details}"> 
+				</display:column>
 			</display:table>
 
 		</tiles:putAttribute>
