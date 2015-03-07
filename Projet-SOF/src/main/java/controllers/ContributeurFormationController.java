@@ -79,10 +79,14 @@ public class ContributeurFormationController extends AbstractController {
 			Formation formation = formationService.findOne(code);
 			Person contributeur = personService.findOne(contrib);
 			Collection<Person> persons = formation.getContributeurs();
+			Person tmp = null;
 			for (Person per : persons) {
-				if (per.getLogin().equals(contributeur.getLogin()))
-					persons.remove(per);
+				if (per.getLogin().equals(contributeur.getLogin())){
+					tmp = per;
+				}
 			}
+			if(tmp != null)
+				persons.remove(tmp);
 			formation.setContributeurs(persons);
 			formationService.save(formation);
 		} catch (Throwable oops) {
