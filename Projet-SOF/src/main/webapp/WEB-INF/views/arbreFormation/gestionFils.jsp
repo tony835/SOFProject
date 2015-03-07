@@ -31,7 +31,7 @@
 				<display:column title="Rang">
 					<form action="arbreFormation/gestionFilsEditRang.htm" method="post">
 						 <input hidden="hidden" readonly="false"
-							name="codeEnCours" value="${codeEnCours}"></input>
+							name="codeEnCours" value="${objEnCours.getCode()}"></input>
 							<input
 							hidden="hidden" readonly="false" name="code"
 							value="${row.getFils().getCode()}">
@@ -42,10 +42,14 @@
 					</form>
 
 				</display:column>
-				<display:column title="Actions">Editer - Supprimer</display:column>
+				<display:column title="Action">
+				<a class="btn btn-default btn-xs" href="arbreFormation/supprimer.htm?pere=${objEnCours.getCode()}&amp;fils=${row.getFils().getCode()}"><spring:message
+					code="arbreFormation.supprimer" /></a>
+					</display:column>
 
 			</display:table>
-		<a href="arbreFormation/list.htm?code=${objEnCours.getContexte().getCode()}"><spring:message
+			
+		<a class="btn btn-default btn-sm" href="arbreFormation/list.htm?code=${objEnCours.getContexte().getCode()}"><spring:message
 					code="arbreFormation.lister" /></a>
 
 		</tiles:putAttribute>

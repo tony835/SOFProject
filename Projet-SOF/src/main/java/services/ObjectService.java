@@ -82,6 +82,7 @@ public class ObjectService {
 	
 	public List<Fils> getChild(String code) {
 		domain.Object obj = findOne(code);
+		System.out.println("code = "+code+" "+" nombre de fils : "+obj.getAllFils().size());
 		List<Fils> list = new ArrayList<Fils>();
 		System.out.println(obj.getAllFils());
 		for (Fils fils : obj.getAllFils()){

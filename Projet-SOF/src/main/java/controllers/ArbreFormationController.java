@@ -66,7 +66,31 @@ public class ArbreFormationController extends AbstractController {
 	 */
 	@RequestMapping("/list")
 	public ModelAndView allFormation(@RequestParam String code) {
-			
+		
+		
+		/*domain.Object objSem = objectService.findOne("SEM1");
+		domain.Object objIsl = objectService.findOne("ISL");
+		objectService.addLinkFils(objIsl, objSem, 0);*/
+		/*domain.Object obj1;
+		obj1 = objectService.findOne("aaaa");
+		if(obj1.getAllFils() == null) System.out.println("mince");
+		domain.Object obj2 = new domain.Object();
+		obj2.setCode("bbbbap");
+		objectService.save(obj2);
+		
+		objectService.addLinkFils(obj1, obj2, 0);
+		
+		obj1 = objectService.findOne("aaaa");
+		for (Fils f : obj1.getAllFils()){
+			System.out.println("=======>"+f.getFils().getCode());
+		}*/
+		/*domain.Object objIsl = objectService.findOne("ISL");
+		Formation form = formationService.findOne("FORM1");*/
+		/*objectService.addLinkFils(form, objIsl, 0);*/
+		/*System.out.println(objIsl.getCode()+"===>"+objIsl.getAllFils().size());
+		for(Fils f:form.getAllFils()){
+			System.out.println(f.getFils().getCode()+"===>"+f.getFils().getAllFils().size());
+		}*/
 		ModelAndView result;
 
 		Collection<domain.Object> objects = objectService.objectsNonLiee(code);
@@ -83,7 +107,8 @@ public class ArbreFormationController extends AbstractController {
 		ModelAndView result;
 		result = new ModelAndView("arbreFormation/gestionFils");
 		List<Fils> list = objectService.getChild(code);
-		domain.Object o = objectService.findOne("code");
+		domain.Object o = objectService.findOne(code);
+		System.out.println("----->"+o.getCode());
 		result.addObject("objEnCours", o);
 		result.addObject("listFils", list);
 		return result;
