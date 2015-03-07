@@ -67,8 +67,9 @@ public class ObjectService {
 				tmp = p;
 		}
 		if(tmp != null){
-			pere.getAllFils().remove(tmp);
+			pere.getAllFils().remove(tmp);			
 			objectDao.save(pere);
+			filsDao.delete(tmp);
 		}
 	}
 	

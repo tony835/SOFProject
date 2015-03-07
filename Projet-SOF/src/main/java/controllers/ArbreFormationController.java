@@ -52,7 +52,7 @@ public class ArbreFormationController extends AbstractController {
 
 	@Autowired
 	FilsService pereFilsService;
-	
+
 	@Autowired
 	TypeObjectService typeService;
 
@@ -66,8 +66,8 @@ public class ArbreFormationController extends AbstractController {
 	 */
 	@RequestMapping("/list")
 	public ModelAndView allFormation(@RequestParam String code) {
-		
-		
+
+
 		/*domain.Object objSem = objectService.findOne("SEM1");
 		domain.Object objIsl = objectService.findOne("ISL");
 		objectService.addLinkFils(objIsl, objSem, 0);*/
@@ -77,9 +77,9 @@ public class ArbreFormationController extends AbstractController {
 		domain.Object obj2 = new domain.Object();
 		obj2.setCode("bbbbap");
 		objectService.save(obj2);
-		
+
 		objectService.addLinkFils(obj1, obj2, 0);
-		
+
 		obj1 = objectService.findOne("aaaa");
 		for (Fils f : obj1.getAllFils()){
 			System.out.println("=======>"+f.getFils().getCode());
@@ -111,6 +111,13 @@ public class ArbreFormationController extends AbstractController {
 		System.out.println("----->"+o.getCode());
 		result.addObject("objEnCours", o);
 		result.addObject("listFils", list);
+		return result;
+	}
+
+	@RequestMapping("/supprimer")
+	public ModelAndView suppressionLiens(@RequestParam(value="pere",required=true) String pere, @RequestParam(value="fils",required=true) String fils) {
+		objectService.delLienFils(objectService.findOne(pere), objectService.findOne(fils));
+		ModelAndView result = new ModelAndView("redirect:gestionFils.htm?code="+pere);
 		return result;
 	}
 
@@ -176,7 +183,7 @@ public class ArbreFormationController extends AbstractController {
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/gestionFilsEditRang", method = RequestMethod.POST)
 	public ModelAndView gestionFilsEditRang(@RequestParam(value="codeEnCours",required=true) String codeEnCours, @RequestParam(value="rang",required=true) String rang, @RequestParam(value="code",required=true) String code) {
 		domain.Object obj = objectService.findOne(codeEnCours);
@@ -200,7 +207,7 @@ public class ArbreFormationController extends AbstractController {
 		ModelAndView result = new ModelAndView("redirect:gestionFils.htm?code="+codeEnCours);
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String create() {
 		return "tmpObjectCreation/createObject";
@@ -218,8 +225,8 @@ public class ArbreFormationController extends AbstractController {
 		return "redirect:list.htm?code="+o.getContexte().getCode();
 
 	}
-	
-	
+
+
 	@RequestMapping(value = "/editsons.htm", method = RequestMethod.GET)
 	public String manageSons() {
 		return "tmpObjectCreation/editSons";
@@ -237,7 +244,7 @@ public class ArbreFormationController extends AbstractController {
 	@ModelAttribute("myobject")
 	public domain.Object newObject(
 			@RequestParam(value = "code", required = false) String code) {
-				
+
 		if (code != null) {
 			return objectService.findOne(code);
 		}
@@ -258,12 +265,12 @@ public class ArbreFormationController extends AbstractController {
 	public List<TypeObject> productTypes() {
 		return (List<TypeObject>) typeService.findAll();
 	}
-	
+
 	@ModelAttribute("NonLinkedObjectList")
 	public List<domain.Object> nlObjectList() {
 		return (List<domain.Object>) objectService.objectsNonLiee(null);
 	}
-	
+
 	@ModelAttribute("mutualisableObjectList")
 	public List<domain.Object> mObjectList() {
 		return (List<domain.Object>) objectService.findMutualisableObjects(null);
