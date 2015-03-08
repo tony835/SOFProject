@@ -1,0 +1,19 @@
+
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:jstl="http://java.sun.com/jsp/jstl/core"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+
+<jsp:output omit-xml-declaration="yes"/>
+
+	<jsp:directive.attribute name="value" type="java.lang.String" required="true" rtexprvalue="true" />
+	<jsp:directive.attribute name="code" type="java.lang.String" required="true" rtexprvalue="true" />
+	
+
+<b><spring:message code="${code}" /></b> : 
+<jstl:out value="${value}" />
+<br />
+<br />
+</jsp:root>
+
