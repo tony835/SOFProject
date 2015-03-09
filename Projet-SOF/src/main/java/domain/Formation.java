@@ -45,6 +45,12 @@ public class Formation extends Object {
                     columnNames = {"Code_objet", "Id_personne"})
         )
 	private Collection<Person> contributeurs;
+	
+	@Column(name = "diplomeType")
+	private String diplomeType;
+	
+	@Column(name = "formationField")
+	private String formationField;
 
 	public int getNumError() {
 		return numError;
@@ -85,6 +91,22 @@ public class Formation extends Object {
 
 	public void setContributeurs(Collection<Person> contributeurs) {
 		this.contributeurs = contributeurs;
+	}
+
+	public String getDiplomeType() {
+		return diplomeType;
+	}
+
+	public void setDiplomeType(String diplomeType) {
+		this.diplomeType = diplomeType;
+	}
+
+	public String getFormationField() {
+		return formationField;
+	}
+
+	public void setFormationField(String formationField) {
+		this.formationField = formationField;
 	}
 
 

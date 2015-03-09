@@ -29,9 +29,10 @@ public class Object {
 
 	@Column(name = "Nom_objet")
 	private String name;
-
+	
 	@Column(name = "Version")
 	private String version;
+
 
 	@Column(name = "FMutualisable")
 	private boolean mutualisable;
@@ -65,14 +66,6 @@ public class Object {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getVersion() {
-		return version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
 	}
 
 	public boolean isMutualisable() {
@@ -114,4 +107,13 @@ public class Object {
 	public void setFieldObjects(Collection<FieldObject> fieldObjects) {
 		this.fieldObjects = fieldObjects;
 	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+	
 }
