@@ -219,7 +219,11 @@ public class ArbreFormationController extends AbstractController {
 			return "redirect:create";
 		}
 		if(o.getAllFils() == null) System.out.println("Alexandre a raison");
-		o.setContexte(formationService.findOne(context));
+		
+		domain.Object tmp = objectService.findOne(code);
+		o.setAllFils(tmp.getAllFils());
+		o.setContexte(tmp.getContexte());
+
 		objectService.save(o, user); // Tester les droits
 
 		return "redirect:list.htm?code="+o.getContexte().getCode();
