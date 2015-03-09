@@ -115,18 +115,18 @@ public class User implements Serializable {
 		password = "";
 		conceptor = false;
 	}
-	
+
 	public void setConceptor(boolean conceptor) {
 		this.conceptor = conceptor;
 	}
 
 	public boolean isConceptor() throws JDOMException, IOException {
 		/*SAXBuilder sxb = new SAXBuilder();
-		
-		
+
+
     		Document document = sxb.build(new File("Donnees.xml"));
 
- 
+
 
 		// On initialise un nouvel élément racine avec l'élément racine du document.
 		Element racine = document.getRootElement();
@@ -144,9 +144,10 @@ public class User implements Serializable {
 	}
 
 	public void verifyIfIsConceptor(ServletContext context) {
+		System.out.println("verifyyyy");
 		SAXBuilder sxb = new SAXBuilder();
-		
-		
+
+
 		Document document = null;
 		try {
 			document = sxb.build(new File(context.getRealPath("/xmlFiles/Donnees.xml")));
@@ -156,16 +157,17 @@ public class User implements Serializable {
 
 
 
-	// On initialise un nouvel élément racine avec l'élément racine du document.
-	Element racine = document.getRootElement();
-	List<Element> listEtudiants = racine.getChildren("Concepteur");
-	Iterator<Element> i = listEtudiants.iterator();
+		// On initialise un nouvel élément racine avec l'élément racine du document.
+		Element racine = document.getRootElement();
+		List<Element> listEtudiants = racine.getChildren("Concepteur");
+		Iterator<Element> i = listEtudiants.iterator();
 
-	while (i.hasNext()) {
-		Element courant = (Element) i.next();
-		if (courant.getChild("login").getText().equals(login))
-			setConceptor(true);
-	}
-	setConceptor(false);
+		while (i.hasNext()) {
+			System.out.println("ppppppppppp");
+			Element courant = (Element) i.next();
+			System.out.println(courant.getChild("login").getText());
+			if (courant.getChild("login").getText().equals(login))
+				conceptor = true;
+		}
 	}
 }
