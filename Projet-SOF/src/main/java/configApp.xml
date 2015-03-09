@@ -16,6 +16,26 @@
 			<tab_name></tab_name>
 		</field>
 		<field>
+			<Id>77</Id>
+			<name>12</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+		
+		<field>
+			<Id>1150</Id>
+			<name>12</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+		
+		<field>
 			<Id>1</Id>
 			<name>12</name>
 			<description></description>
@@ -168,7 +188,52 @@
 			<tab_name></tab_name>
 		</field>
 	</object_type>
+	<object_type>
+		<code>XXX</code>
+		<name>Spécialité</name>
+		<code_regex>test</code_regex>
+		<Erreur_descritpion></Erreur_descritpion>
+		<content_model></content_model>
+		<description>desc</description>
+		<field>
+			<Id>5</Id>
+			<name>12</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+		<field>
+			<Id>1150</Id>
+			<name>12</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+		
+		<field>
+			<Id>1</Id>
+			<name>12</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+		<field>
+			<Id>122</Id>
+			<name>43</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
 
+	</object_type>
 	<designer>
 		<login>A</login>
 		<login>B</login>

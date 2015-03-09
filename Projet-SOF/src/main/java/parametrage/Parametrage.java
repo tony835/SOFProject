@@ -135,7 +135,9 @@ public class Parametrage {
 			TypeObject obj2 = typeObjectService.findOne(l.get(i).getCode());
 			if (obj2 == null ){
 				System.out.println("le type d'objet : " + l.get(i) + " a ete mis à jour ->  insert");
+				System.out.println("avant");
 				typeObjectService.save(l.get(i)) ;
+				System.out.println("apres");
 			}
 			else if(!obj2.equals(l.get(i))){
 				System.out.println("le type d'objet : " + l.get(i) + " a ete mis à jour -> delete and insert");
