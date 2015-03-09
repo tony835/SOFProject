@@ -113,10 +113,10 @@ public class User implements Serializable {
 	}
 	
 	public boolean isConceptor() throws JDOMException, IOException {
-		/*SAXBuilder sxb = new SAXBuilder();
+		SAXBuilder sxb = new SAXBuilder();
 		
 		
-    		Document document = sxb.build(new File("Donnees.xml"));
+    		Document document = sxb.build(new File("/Users/maria/git/SOFProjectn/Projet-SOF/src/main/resources/Donnees.xml"));
 
  
 
@@ -130,7 +130,6 @@ public class User implements Serializable {
 			if (courant.getChild("login").getText().equals(login))
 				return true;
 		}
-		return false;*/
-		return true;
+		return false;
 	}
 }

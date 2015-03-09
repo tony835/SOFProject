@@ -92,4 +92,9 @@ public class FormationService {
 			formationIndentShild(list, f.getFils().getAllFils(), padding + 1);
 		}
 	}
+
+	public Collection<Formation> findByResponsable(String login) {
+		// TODO Auto-generated method stub
+		return formationDao.findbyResponsable(login);
+	}
 }

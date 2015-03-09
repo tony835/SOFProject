@@ -21,9 +21,12 @@
 			<spring:message code="title.formation.list" />
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
+			<jstl:if test="${user.isConceptor()}">
+				<a class="btn btn-default btn-sm"
+					href="formation/edit.htm?code=${row.code}"><spring:message
+						code="formation.create" /></a>
 
-			<a class="btn btn-default btn-sm" href="formation/edit.htm?code=${row.code}"><spring:message
-					code="formation.create" /></a>
+			</jstl:if>
 								
 										${user.login}
 								
@@ -41,14 +44,16 @@
 
 				<jstl:if test="${user.isConceptor()}">
 					<display:column>
-						<a class="btn btn-default btn-xs" href="formation/edit.htm?code=${row.code}"><spring:message
+						<a class="btn btn-default btn-xs"
+							href="formation/edit.htm?code=${row.code}"><spring:message
 								code="formation.edit" /></a>
 					</display:column>
 				</jstl:if>
 
 				<jstl:if test="${row.responsable.login==user.login}">
 					<display:column>
-						<a class="btn btn-default btn-xs" href="arbreFormation/list.htm?code=${row.code}"><spring:message
+						<a class="btn btn-default btn-xs"
+							href="arbreFormation/list.htm?code=${row.code}"><spring:message
 								code="formation.editStructure" /></a>
 					</display:column>
 				</jstl:if>

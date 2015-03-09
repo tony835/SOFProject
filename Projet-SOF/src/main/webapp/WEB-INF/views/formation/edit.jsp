@@ -45,9 +45,6 @@
 		<form:form action="formation/edit.htm" modelAttribute="formation">
 			<tag:textbox name="code" code="formation.code" path="code" />
 			<tag:textbox name="name" code="formation.nom" path="name" />
-<%-- 			<tag:textbox name="responsable" code="responsable.login" --%>
-<%-- 				path="responsable.login" /> --%>
-				
 			<div class="ui-widget">
 				<form:label for="automplete-1" path="responsable.login">
 					<spring:message code="responsable.login" />
