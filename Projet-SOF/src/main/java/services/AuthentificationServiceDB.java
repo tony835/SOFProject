@@ -1,5 +1,7 @@
 package services;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +24,9 @@ public class AuthentificationServiceDB {
 	@Autowired
 	private PersonDao personneRepository;
 
+	@Autowired
+	ServletContext context;
+	
 	public boolean login(User u) {
 		String login = u.getLogin();
 		String password = u.getPassword();
@@ -33,6 +38,7 @@ public class AuthentificationServiceDB {
 		}
 		user.setConnected(true);
 		user.setLogin(login);
+		user.verifyIfIsConceptor(context);
 		return true;
 	}
 

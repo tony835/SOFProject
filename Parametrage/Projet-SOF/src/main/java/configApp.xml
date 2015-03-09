@@ -61,7 +61,7 @@
 			<tab_name></tab_name>
 		</field>
 	</object_type>
-	
+
 	<object_type>
 		<code>ENS</code>
 		<name>Enseignement</name>
@@ -88,7 +88,7 @@
 			<tab_name></tab_name>
 		</field>
 	</object_type>
-<object_type>
+	<object_type>
 		<code>OPT</code>
 		<name>Option</name>
 		<code_regex></code_regex>
@@ -114,7 +114,7 @@
 			<tab_name></tab_name>
 		</field>
 	</object_type>
-	
+
 	<object_type>
 		<code>PRO</code>
 		<name>Programme</name>
@@ -141,7 +141,7 @@
 			<tab_name></tab_name>
 		</field>
 	</object_type>
-	
+
 	<object_type>
 		<code>SEM</code>
 		<name>Semestre</name>
@@ -168,7 +168,7 @@
 			<tab_name></tab_name>
 		</field>
 	</object_type>
-	
+
 	<designer>
 		<login>A</login>
 		<login>B</login>

@@ -10,6 +10,8 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Component;
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private boolean conceptor;
 	/**
 	 * Statut de l'utilisateur en session.
 	 */
@@ -110,13 +113,18 @@ public class User implements Serializable {
 		connected = false;
 		login = "";
 		password = "";
+		conceptor = false;
 	}
 	
+	public void setConceptor(boolean conceptor) {
+		this.conceptor = conceptor;
+	}
+
 	public boolean isConceptor() throws JDOMException, IOException {
-		SAXBuilder sxb = new SAXBuilder();
+		/*SAXBuilder sxb = new SAXBuilder();
 		
 		
-    		Document document = sxb.build(new File("/Users/maria/git/SOFProjectn/Projet-SOF/src/main/resources/Donnees.xml"));
+    		Document document = sxb.build(new File("Donnees.xml"));
 
  
 
@@ -130,6 +138,34 @@ public class User implements Serializable {
 			if (courant.getChild("login").getText().equals(login))
 				return true;
 		}
-		return false;
+		return false;*/
+		System.out.println(conceptor);
+		return conceptor;
+	}
+
+	public void verifyIfIsConceptor(ServletContext context) {
+		SAXBuilder sxb = new SAXBuilder();
+		
+		
+		Document document = null;
+		try {
+			document = sxb.build(new File(context.getRealPath("/xmlFiles/Donnees.xml")));
+		} catch (JDOMException | IOException e) {
+			e.printStackTrace();
+		}
+
+
+
+	// On initialise un nouvel élément racine avec l'élément racine du document.
+	Element racine = document.getRootElement();
+	List<Element> listEtudiants = racine.getChildren("Concepteur");
+	Iterator<Element> i = listEtudiants.iterator();
+
+	while (i.hasNext()) {
+		Element courant = (Element) i.next();
+		if (courant.getChild("login").getText().equals(login))
+			setConceptor(true);
+	}
+	setConceptor(false);
 	}
 }
