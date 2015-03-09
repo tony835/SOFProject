@@ -7,15 +7,6 @@
 		<content_model></content_model>
 		<description>desc</description>
 		<field>
-			<Id>5</Id>
-			<name>12</name>
-			<description></description>
-			<content_type></content_type>
-			<required></required>
-			<length></length>
-			<tab_name></tab_name>
-		</field>
-		<field>
 			<Id>77</Id>
 			<name>12</name>
 			<description></description>

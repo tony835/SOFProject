@@ -20,7 +20,7 @@
 	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://dbs-perso.luminy.univmed.fr/l1001540" />
+		<property name="url" value="jdbc:mysql://localhost/l1001540" />
 		<property name="username" value="l1001540" />
 		<property name="password" value="ZEX9ia" />
 		<property name="validationQuery" value="SELECT 1" />
