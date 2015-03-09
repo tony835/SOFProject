@@ -15,7 +15,6 @@ public class FieldObject {
 	@JoinColumn(name="Code_objet",referencedColumnName="Code_objet")
 	private Object object ;
 	
-	@MapsId(value="field")
 	@ManyToOne
 	@JoinColumn(name="Id_champ",referencedColumnName="Id")
 	private Field field ;

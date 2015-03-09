@@ -94,4 +94,9 @@ public class PersonService {
 		p.setLogin("l1000000");
 		return p;
 	}
+
+	public void save(Person person) {
+		personneRepository.save(person);
+		
+	}
 }

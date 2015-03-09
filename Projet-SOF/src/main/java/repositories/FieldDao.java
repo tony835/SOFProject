@@ -10,7 +10,7 @@ import domain.Field;
 import domain.Person;
 
 @Repository
-public interface FieldDao extends JpaRepository<Field, Integer> {
+public interface FieldDao extends JpaRepository<Field, String> {
 
 	
 }
