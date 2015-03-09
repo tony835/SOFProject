@@ -96,11 +96,13 @@ public class FormationController extends AbstractController {
 	public ModelAndView create(@RequestParam(required=false) String code) {
 		ModelAndView result;
 		Formation formation = formationService.create();
-		if(code!=null){
+		Collection<Person> allPersons= personService.findAll();
+		if(code!=null && code !=""){
 			 formation = formationService.findOne(code);
 		}
 		result = new ModelAndView("formation/edit");
 		result.addObject("formation", formation);
+		result.addObject("allPersons", allPersons);
 
 		return result;
 	}

@@ -22,7 +22,7 @@
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
 
-			<a class="btn btn-default btn-sm" href="arbreFormation/edit.htm?code=${row.code}"><spring:message
+			<a class="btn btn-default btn-sm" href="formation/edit.htm?code=${row.code}"><spring:message
 					code="formation.create" /></a>
 								
 										${user.login}

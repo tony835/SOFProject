@@ -57,7 +57,7 @@
 			<div class="form-group">
 
 				<div class="ui-widget">
-					<label for="automplete-1">Responsable: </label> 
+					<label for="automplete-1">Contributeur: </label> 
 					<input name="contrib" id="automplete-1">
 				</div>
 					<input hidden="hidden" name="code" value="${formation}">
