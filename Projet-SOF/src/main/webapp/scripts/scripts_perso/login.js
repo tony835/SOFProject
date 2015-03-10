@@ -18,7 +18,7 @@ $().ready(function() {
 				},
 				password: {
 					required: "Please enter a password",
-					minlength: "Your username must consist of at least 1 characters"
+					minlength: "Your password must consist of at least 1 characters"
 				}
 			}
 		});
