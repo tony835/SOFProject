@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,7 +40,7 @@ public class App2FormationController {
 	 * Liste des formations en version visiteur
 	 * @return 
 	 */
-	@RequestMapping("/offre")
+	@RequestMapping("formation/offre")
 	public ModelAndView allFormationVisitor() {
 		ModelAndView result;
 		Collection<Formation> formations = formationService.findAll();
@@ -59,6 +60,11 @@ public class App2FormationController {
 		result.addObject("FormationVisible", objetsVisible);
 
 		return result;
+	}
+	
+	@ModelAttribute("user")
+	public User newUser() {
+		return user;
 	}
 	
 }
