@@ -2,27 +2,23 @@ $().ready(function() {
 		// validate signup form on keyup and submit
 		$("#signupForm").validate({
 			rules: {
-				username: {
+				login: {
 					required: true,
-					minlength: 5,
-					maxlength: 32
+					minlength: 1
 				},
 				password: {
 					required: true,
-					minlength: 5,
-					maxlength: 32
+					minlength: 1
 				}
 			},
 			messages: {
-				username: {
-					required: "Please enter a username",
-					minlength: "Your username must consist of at least 5 characters",
-					maxlength: "Your username must consist of at most 32 characters"
+				login: {
+					required: "Please enter a login",
+					minlength: "Your username must consist of at least 1 characters"
 				},
 				password: {
 					required: "Please enter a password",
-					minlength: "Your username must consist of at least 5 characters",
-					maxlength: "Your username must consist of at most 32 characters"
+					minlength: "Your username must consist of at least 1 characters"
 				}
 			}
 		});
