@@ -249,13 +249,5 @@
 		<name>Diplômes d'état en Pharmacie</name>
 		<name>Diplômes d'état en Odontologie</name>
 		<name>Magistères</name>
-<<<<<<< master
-<<<<<<< master
-=======
-		<name>Rechercher une formation</name>
->>>>>>> 69ae024 Ajout de données ConfigApp
-=======
-		<name>Rechercher une formation</name>
->>>>>>> 61d0f61 mise a jour App2
 	</diploma_type>
 </config>
