@@ -3,6 +3,7 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
@@ -37,7 +38,7 @@ public class TypeObject {
 	@OneToMany(mappedBy="typeObject")
 	private Collection<Object> objects;
 	
-	@OneToMany(mappedBy="typeObject")
+	@OneToMany(mappedBy="typeObject",fetch=FetchType.EAGER)
 	private Collection<Field> fields;
 
 	
