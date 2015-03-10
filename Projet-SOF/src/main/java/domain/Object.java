@@ -48,6 +48,7 @@ public class Object {
 	@OneToMany(mappedBy = "object")
 	private Collection<FieldObject> fieldObjects;
 	
+	//@OneToMany(fetch = FetchType.EAGER)
 	@OneToMany(fetch = FetchType.EAGER)
 	private Collection<Fils> allFils;
 

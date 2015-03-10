@@ -13,6 +13,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Formation")
@@ -21,15 +22,18 @@ public class Formation extends Object {
 
 	public static final String FIND_ALL = "FIND_ALL_Formation";
 
+	@NotNull
 	@Column(name = "Error_number")
 	int numError;
 
+	@NotNull
 	@Column(name = "Visible")
 	boolean visible;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="contexte")
 	private Collection<Object> objectsContexte;
 
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="Responsable",nullable=false)//Toutes formation a un responsable ->nullable=false
 	private Person responsable;

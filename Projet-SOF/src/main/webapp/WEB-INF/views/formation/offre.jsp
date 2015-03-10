@@ -24,7 +24,6 @@
 		<tiles:putAttribute name="body">
 
 			<!-- afficher les formations en version visiteur  -->
-
 			<jstl:if test="${user.isConnected()}">
 				<a href="formation/audit.htm"> 
 					<spring:message code="formation.audit" />
