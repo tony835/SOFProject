@@ -31,7 +31,7 @@ public class TypeObject {
 	@Column(name="ContentModel")
 	String modelContenu;
 	
-	@Column(name="Erreur_descritpion")
+	@Column(name="Erreur_description")
 	String descError;
 	
 	@OneToMany(mappedBy="typeObject")
