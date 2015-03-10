@@ -75,7 +75,7 @@ public class Field {
 	}
 	
 	@Column(name="length")
-	private int length;
+	private Integer length;
 	
 	@Column(name="tabName")
 	private String tabName;

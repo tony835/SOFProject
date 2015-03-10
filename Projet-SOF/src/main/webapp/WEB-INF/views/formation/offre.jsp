@@ -13,7 +13,7 @@
 		doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
 		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" />
 
-	
+
 
 	<jsp:directive.page contentType="text/html" />
 
@@ -23,17 +23,19 @@
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
 
-			<!-- afficher les formations en version visiteur -->
+			<!-- afficher les formations en version visiteur  -->
 
 			<jstl:if test="${user.isConnected()}">
-				<a href="Formation/audit.htm"><spring:message
-						code="formation.audit" /> n'existe pas encore</a>
+				<a href="formation/audit.htm"> 
+					<spring:message code="formation.audit" />
+				</a>
 			</jstl:if>
 
-			<display:table name="FormationVisible" pagesize="20" class="displaytag"
-				id="row" requestURI="formation/offre.htm" >
+			<display:table name="FormationVisible" pagesize="20"
+				class="displaytag" id="row" requestURI="visualisation/formation/offre.htm">
 				<jstl:url var="details" value="/details.htm?code=${row.code}" />
-				<display:column title="Nom" property="name" sortable="true" href="${details}"> 
+				<display:column title="Nom" property="name" sortable="true"
+					href="${details}">
 				</display:column>
 			</display:table>
 

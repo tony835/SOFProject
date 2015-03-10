@@ -21,6 +21,7 @@
 					alt="Francais" /> </a> |
 					<c:choose>
 				<c:when test="${user.isConnected()}">
+				   ${user.getLogin()} 
 					<a href="/Projet_SOF/auth/logout.htm"><spring:message code="logout" /></a></c:when>
 					<c:otherwise>
 						<a href="/Projet_SOF/auth/login.htm"><spring:message code="login" /></a>
