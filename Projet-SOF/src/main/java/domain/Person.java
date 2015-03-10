@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
@@ -42,10 +43,10 @@ public class Person implements Serializable{
 	@Column(name="Mail")
 	private String mail ;
 	
-	@OneToMany(mappedBy="responsable")
+	@OneToMany(mappedBy="responsable", fetch = FetchType.EAGER)
 	private Collection<Formation> responsableDesFormations;
 	
-	@ManyToMany(mappedBy="contributeurs")
+	@ManyToMany(mappedBy="contributeurs", fetch = FetchType.EAGER)
 	private Collection<Formation> contributeurDesFormations;
 		
 	
