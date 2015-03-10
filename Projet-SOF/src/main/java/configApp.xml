@@ -231,9 +231,24 @@
 		<login>C</login>
 	</designer>
 	<formation_field>
-		<name></name>
+		<name>Domaine Arts, Lettres, Langues</name>
+		<name>Domaine Droit, Économie et Gestion</name>
+		<name>Domaine Sciences de la santé </name>
+		<name>Domaine Sciences et Technologies </name>
+		<name>Domaine Sciences et Technologies / Sciences de la santé</name>
 	</formation_field>
 	<diploma_type>
-		<name></name>
+		<name>Diplômes universitaires de technologie</name>
+		<name>Licences générales</name>
+		<name>Licences professionnelles</name>
+		<name>Masters</name>
+		<name>Diplômes d'établissement de 1er cycle</name>
+		<name>Diplômes d'établissement de 2ème cycle</name>
+		<name>Diplômes d'ingénieur</name>
+		<name>Diplômes d'état en Médecine</name>
+		<name>Diplômes d'état en Pharmacie</name>
+		<name>Diplômes d'état en Odontologie</name>
+		<name>Magistères</name>
+		<name>Rechercher une formation</name>
 	</diploma_type>
 </config>
