@@ -49,7 +49,7 @@ public class Object {
 	private Collection<FieldObject> fieldObjects;
 	
 	//@OneToMany(fetch = FetchType.EAGER)
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	private Collection<Fils> allFils;
 
 

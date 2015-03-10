@@ -211,9 +211,12 @@ public class FormationController extends AbstractController {
 							result.addObject("error", "formation.edit.notExisting");
 							return result;
 						}
+						
 						f.setName(formation.getName());
-						f.setMutualisable(formation.isMutualisable());
+						f.setVisible(formation.isVisible());
+						f.setResponsable(formation.getResponsable());
 						formationService.save(f);
+						
 						result = new ModelAndView("redirect:list.htm");
 					} catch (Exception e) {
 						e.printStackTrace();
