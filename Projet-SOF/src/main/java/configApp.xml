@@ -249,5 +249,9 @@
 		<name>Diplômes d'état en Pharmacie</name>
 		<name>Diplômes d'état en Odontologie</name>
 		<name>Magistères</name>
+<<<<<<< master
+=======
+		<name>Rechercher une formation</name>
+>>>>>>> 69ae024 Ajout de données ConfigApp
 	</diploma_type>
 </config>
