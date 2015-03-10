@@ -7,7 +7,9 @@
 	xmlns:display="http://displaytag.sf.net"
 	xmlns:tiles="http://tiles.apache.org/tags-tiles"
 	xmlns:tag="urn:jsptagdir:/WEB-INF/tags"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns="http://www.w3.org/1999/xhtml">
+
 
 	<jsp:output omit-xml-declaration="false" doctype-root-element="html"
 		doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -23,28 +25,15 @@
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
 
-			<!-- afficher les formations en version visiteur  -->
-			<jstl:if test="${user.isConnected()}">
-				<a href="formation/audit.htm"> 
-					<spring:message code="formation.audit" />
-				</a>
-			</jstl:if>
 
-			<display:table name="FormationVisible" pagesize="20"
-				class="displaytag" id="row" requestURI="visualisation/formation/offre.htm">
-				<jstl:url var="details" value="/details.htm?code=${row.code}" />
-				<display:column title="Nom" property="name" sortable="true"
-					href="${details}">
-				</display:column>
-			</display:table>
 			
 			
 
-			<display:table name="DiplomaTypeExist" requestURI="visualisation/formation/offre.htm" id="field">
+			<display:table name="FormationFieldExist" requestURI="visualisation/formation/offreDomaine.htm" id="field">
 				<display:column title="Nom"  sortable="true">
 					<jstl:forEach items="${field}" var="s" varStatus="loop">
-						<jstl:url  var="fieldlink" value="visualisation/formation/field.htm?field=${s} "/>
-						<a href="${fieldlink}"> <jstl:out value="${s}"/> </a>
+						<jstl:url  var="fieldlink" value="/details.htm?field=${s} "/>
+						<a href="${fieldlink}"> <jstl:out value="${fn:replace(s,';',',')}" escapeXml="true"/> </a>
 					</jstl:forEach>
 				</display:column>
 				
