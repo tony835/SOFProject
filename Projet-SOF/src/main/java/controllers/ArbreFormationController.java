@@ -426,7 +426,7 @@ public class ArbreFormationController extends AbstractController {
 
 
 		if(result.hasErrors()) {
-			System.out.println(result.toString());
+			System.out.println(" --- " + result.toString());
 			return new ModelAndView("redirect:gestionFils.htm?cobject="+cobject);
 		}
 		domain.Object o = objectService.findOne(cobject);
@@ -438,7 +438,11 @@ public class ArbreFormationController extends AbstractController {
 		o.getAllFils().add(tmpF);
 		objectService.save(o, user);
 
-		return new ModelAndView("redirect:gestionFils.htm?cobject="+cobject + o.getTypeObject().getCode());
+		String type = "";
+		if(o.getTypeObject() != null && o.getTypeObject().getCode()!= null && o.getTypeObject().getCode().equals(""))
+			type = "";
+		return new ModelAndView("redirect:gestionFils.htm?cobject="+cobject + "&typeobject=" + type);
+		
 	}
 
 	@ModelAttribute("user")
