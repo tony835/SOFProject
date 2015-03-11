@@ -1,0 +1,48 @@
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:jstl="http://java.sun.com/jsp/jstl/core" xmlns:spring="http://www.springframework.org/tags"
+	xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:display="http://displaytag.sf.net" xmlns:tiles="http://tiles.apache.org/tags-tiles"
+	xmlns:tag="urn:jsptagdir:/WEB-INF/tags" xmlns="http://www.w3.org/1999/xhtml">
+	<jsp:output omit-xml-declaration="false" doctype-root-element="html" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" />
+	<jsp:directive.page contentType="text/html" />
+	
+	
+	<tiles:insertDefinition name="master.page">
+		<tiles:putAttribute name="title">
+			<spring:message code="title.formation.list" />
+		</tiles:putAttribute>
+		
+		<tiles:putAttribute name="body">
+		
+			<display:table name="fields" pagesize="20" class="displaytag" id="row" requestURI="formation/list.htm">
+				<display:column property="field.id" title="id champs" />
+    			<display:column property="field.name" title="nom champs" />
+    			 <display:column title="valeur" nulls="true">
+    			    <a href="#" class="btn btn-xs btn-success" data-toggle="modal" data-target="#champs${row.field.id}${row.object.code}">
+						<jstl:choose>
+    						<jstl:when test="${empty row.value}"> null</jstl:when>
+    						<jstl:otherwise>${row.value}</jstl:otherwise>
+						</jstl:choose>
+    			    </a>
+    				<div class="modal fade" id="champs${row.field.id}${row.object.code}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					      </div>
+					      <div class="modal-body">
+					        <input type="text" placeholder="Description" value="${row.value}"/>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					        <button type="button" class="btn btn-primary">Save changes</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+				</display:column>
+  			</display:table>
+		</tiles:putAttribute>
+	</tiles:insertDefinition>
+</jsp:root>
