@@ -12,6 +12,14 @@ public class FieldObjectId implements Serializable {
 
 	private String object;
 
+	public FieldObjectId(String field, String object) {
+		this.field = field;
+		this.object = object;
+	}
+	public FieldObjectId() {
+	}
+
+
 	
 
 	public String getField() {

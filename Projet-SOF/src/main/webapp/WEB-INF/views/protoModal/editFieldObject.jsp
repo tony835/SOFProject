@@ -14,27 +14,49 @@
 		</tiles:putAttribute>
 		
 		<tiles:putAttribute name="body">
-		
 			<display:table name="fields" pagesize="20" class="displaytag" id="row" requestURI="formation/list.htm">
-				<display:column property="field.id" title="id champs" />
-    			<display:column property="field.name" title="nom champs" />
-    			<display:column property="value" title="valeur" nulls="true"/>
+				<display:column property="field.id" title="ID champs" />
+    			<display:column property="field.name" title="Nom champs" />
+    			<display:column property="field.typeContenu" title="Type" nulls="true"/>
+    			<display:column title="Valeur" nulls="true"> 
+    				<span id="spanValue${row.field.id}${row.object.code}">
+    					${row.value}
+    				</span>
+    			</display:column>
     			<display:column title="edit" nulls="true">
-    			    <a href="#" class="btn btn-xs btn-success" data-toggle="modal" data-target="#champs${row.field.id}${row.object.code}">
+    			    <a href="#" class="btn btn-xs btn-success" data-toggle="modal" data-target="#modal${row.field.id}${row.object.code}">
     			    	edit
     			    </a>
-    				<div class="modal fade" id="champs${row.field.id}${row.object.code}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    			    <script>
+			    		$(document).ready(function() {
+			       	 		$("#saveButon${row.field.id}${row.object.code}").click(function() {
+			       	 			var value = document.getElementById("inputValue${row.field.id}${row.object.code}").value ;
+			        	        $.ajax({
+			        	            url : 'modal/ajax.htm',
+			        	            data: {'codeObjet':"${row.object.code}",'idField':"${row.field.id}",'value':value},
+			        	            success : function(data) {
+			        	            	document.getElementById("spanValue${row.field.id}${row.object.code}").innerHTML = data ;
+			        	            	$("#modal${row.field.id}${row.object.code}").modal("hide");
+			        	            },
+			        	            error: function(){
+			        	            	alert("error") ;
+			        	    		}
+			        	        });
+			        		});
+			    		});
+		    		</script>
+    				<div class="modal fade" id="modal${row.field.id}${row.object.code}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
 					  <div class="modal-dialog">
 					    <div class="modal-content">
 					      <div class="modal-header">
 					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 					      </div>
 					      <div class="modal-body">
-					        <input type="text" placeholder="Description" value="${row.value}"/>
+					        <input type="text" placeholder="Description" id="inputValue${row.field.id}${row.object.code}" value="${row.value}"/>
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					        <button type="button" class="btn btn-primary">Save changes</button>
+					        <button type="button" id="saveButon${row.field.id}${row.object.code}" class="btn btn-primary save">Save changes</button>
 					      </div>
 					    </div>
 					  </div>
