@@ -18,12 +18,10 @@
 			<display:table name="fields" pagesize="20" class="displaytag" id="row" requestURI="formation/list.htm">
 				<display:column property="field.id" title="id champs" />
     			<display:column property="field.name" title="nom champs" />
-    			 <display:column title="valeur" nulls="true">
+    			<display:column property="value" title="valeur" nulls="true"/>
+    			<display:column title="edit" nulls="true">
     			    <a href="#" class="btn btn-xs btn-success" data-toggle="modal" data-target="#champs${row.field.id}${row.object.code}">
-						<jstl:choose>
-    						<jstl:when test="${empty row.value}"> null</jstl:when>
-    						<jstl:otherwise>${row.value}</jstl:otherwise>
-						</jstl:choose>
+    			    	edit
     			    </a>
     				<div class="modal fade" id="champs${row.field.id}${row.object.code}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
 					  <div class="modal-dialog">
