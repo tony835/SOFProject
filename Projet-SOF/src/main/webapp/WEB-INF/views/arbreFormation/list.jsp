@@ -18,36 +18,35 @@
 
 	<tiles:insertDefinition name="master.page">
 		<tiles:putAttribute name="title">
-			<spring:message code="title.arbre.list" />
+			<spring:message code="title.arbre.list" /> ${param.code}
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
 			<a class="btn btn-default btn-sm" href="arbreFormation/create.htm?context=${param.code}"><spring:message
 					code="arbreFormation.creerObj" /></a>
-					<a class="btn btn-default btn-sm" href="formation/contributeur/edit.htm?code=${param.code}"><spring:message
+					<a class="btn btn-default btn-sm" href="formation/contributeur/edit.htm?cobject=${param.code}"><spring:message
 					code="arbreFormation.gererContributeur" /></a>
 					<a class="btn btn-default btn-sm" href="formation/list.htm"><spring:message
 					code="formation.lister" /></a>
-					
 			<display:table name="formations" pagesize="20" class="displaytag"
 				id="row" requestURI="arbreFormation/list.htm">
 				<jstl:set value="${row.getValue1()}" var="val"></jstl:set>
 
 
-				<display:column title="Login">
+				<display:column title="Code">
 					<jstl:forEach begin="0" end="${row.getValue1()}" step="1">....</jstl:forEach>${row.getValue0().getCode()}</display:column>
 				<display:column title="Name">${row.getValue0().getName()}</display:column>
 				<display:column title="Actions">
 					<a class="btn btn-default btn-xs"
-						href="arbreFormation/gestionFils.htm?code=${row.getValue0().getCode()} "><spring:message
+						href="arbreFormation/gestionFils.htm?cobject=${row.getValue0().getCode()} "><spring:message
 							code="objet.modifierFils" /></a> 
 							<a class="btn btn-default btn-xs"
-						href="arbreFormation/create.htm?context=${param.code}&amp;code=${row.getValue0().getCode()}"><spring:message
+						href="arbreFormation/create.htm?context=${param.code}&amp;cobject=${row.getValue0().getCode()}"><spring:message
 							code="objet.modifier" /></a>
 					</display:column>
 
 			</display:table>
 			
-		Objet non lies
+		<b>Objet non lies</b>
 			<display:table name="ObjetNonLie" pagesize="20" class="displaytag"
 				id="row" requestURI="arbreFormation/list.htm">
 				<tag:column code="formation.code" property="code" sortable="true" />
