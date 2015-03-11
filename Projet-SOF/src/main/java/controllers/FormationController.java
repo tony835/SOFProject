@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Random;
 
 import javax.validation.Valid;
 
@@ -19,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import services.FormationService;
 import services.ObjectService;
 import services.PersonService;
+import domain.FieldObject;
+import domain.FieldObjectId;
 import domain.Formation;
 import domain.Object;
 import domain.Person;
@@ -135,12 +138,12 @@ public class FormationController extends AbstractController {
 	 * Sauvegarde d'une formation
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView save(@Valid @ModelAttribute Formation formation, @RequestParam(required = false) String cobject,
+	public ModelAndView save(@RequestParam(required = false) String cobject, @Valid @ModelAttribute Formation formation,
 			BindingResult bindingResult) {
 		ModelAndView result = new ModelAndView("formation/edit");
 		if (bindingResult.hasErrors()) {
+			System.out.println(formation.getName());
 			result = new ModelAndView("formation/edit");
-			result.addObject("formation", formation);
 		} else {
 			try {
 				if (user.isConceptor()) {
@@ -185,8 +188,9 @@ public class FormationController extends AbstractController {
 								result = new ModelAndView("formation/edit");
 								result.addObject("formation", formation);
 								int tmp, nb = 0;
+								Random rand = new Random();
 								do {
-									tmp = (int) Math.random();
+									tmp = (int) rand.nextInt(1000);
 									++nb;
 									if (nb > 10)
 										break;
@@ -200,6 +204,14 @@ public class FormationController extends AbstractController {
 									return result;
 								}
 							}
+							// on sauvegarde la formation
+							else{
+								formationService.save(formation);
+								formation.setContexte(formation);
+								formationService.save(formation);
+								result = new ModelAndView("redirect:list.htm");
+								return result;
+							}
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -211,12 +223,12 @@ public class FormationController extends AbstractController {
 							result.addObject("error", "formation.edit.notExisting");
 							return result;
 						}
-						
+
 						f.setName(formation.getName());
 						f.setVisible(formation.isVisible());
 						f.setResponsable(formation.getResponsable());
 						formationService.save(f);
-						
+
 						result = new ModelAndView("redirect:list.htm");
 					} catch (Exception e) {
 						e.printStackTrace();

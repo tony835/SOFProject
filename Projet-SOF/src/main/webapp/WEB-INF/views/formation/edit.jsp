@@ -14,6 +14,7 @@
 	<tiles:putAttribute name="body">
 		<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
 		<script type="text/javascript" src="scripts/scripts_perso/editLogin.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 		<!-- Javascript -->
 		<script>
          $(function() {
