@@ -1,5 +1,9 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -113,21 +117,7 @@ public class ContributeurFormationController extends AbstractController {
 		return edit(code);
 	}
 	
-	@RequestMapping(value = "/xml")
-	public ModelAndView xml() {
 
-        XStream xStream = new XStream();
-        Collection<Formation> formations = formationService.findAll();
-        xStream.addDefaultImplementation(
-        		org.hibernate.collection.internal.PersistentBag.class, java.util.List.class);
-        	
-        	
-        Mapper mapper = xStream.getMapper();
-        xStream.registerConverter(new HibernateCollectionConverter(mapper));
-        System.out.println(xStream.toXML(formations));
-        return null;
-	
-	}
 	
 
 }
