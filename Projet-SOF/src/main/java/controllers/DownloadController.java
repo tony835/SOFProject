@@ -48,8 +48,12 @@ public class DownloadController {
 		String filename = "donnees.xml";
 		XStream xStream = new XStream();
 		Collection<Formation> formations = fomService.findAll();
-		for (Formation f : formations)
+		for (Formation f : formations){
 			f.getResponsable().setPassword(null);
+			f.getResponsable().setResponsableDesFormations(null);
+		
+
+		}
 
 		xStream.addDefaultImplementation(
 				org.hibernate.collection.internal.PersistentBag.class,
@@ -59,6 +63,9 @@ public class DownloadController {
 		xStream.registerConverter(new HibernateCollectionConverter(mapper));
 		xStream.alias("formation", Formation.class);
 		xStream.alias("personne", Person.class);
+		
+		xStream.setMode(XStream.ID_REFERENCES);
+
 		try {
 			String path = request.getSession().getServletContext()
 					.getRealPath("");
