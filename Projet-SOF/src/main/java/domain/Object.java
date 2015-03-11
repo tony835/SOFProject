@@ -45,7 +45,7 @@ public class Object {
 	@JoinColumn(name = "Code_type", referencedColumnName = "Code_type")
 	private TypeObject typeObject;
 
-	@OneToMany(mappedBy = "object")
+	@OneToMany(mappedBy = "object",fetch = FetchType.EAGER)
 	private Collection<FieldObject> fieldObjects;
 	
 	//@OneToMany(fetch = FetchType.EAGER)
