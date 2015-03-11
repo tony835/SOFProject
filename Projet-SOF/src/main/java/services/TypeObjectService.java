@@ -27,5 +27,13 @@ public class TypeObjectService {
 	public TypeObject findOne(String code){
 		return typeObjectDao.findOne(code);
 	}
+	public void save(TypeObject o){
+		typeObjectDao.save(o) ;
+	}
+
+	public void delete(TypeObject o) {
+		typeObjectDao.delete(o) ;
+		
+	}
 
 }

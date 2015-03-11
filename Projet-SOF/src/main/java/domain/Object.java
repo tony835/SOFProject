@@ -14,6 +14,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "Objet")
@@ -27,11 +31,13 @@ public class Object {
 	@Column(name = "Code_objet",nullable=false)
 	private String code;
 
+	@Size(min=1)
 	@Column(name = "Nom_objet")
 	private String name;
-
+	
 	@Column(name = "Version")
 	private String version;
+
 
 	@Column(name = "FMutualisable")
 	private boolean mutualisable;
@@ -44,9 +50,10 @@ public class Object {
 	@JoinColumn(name = "Code_type", referencedColumnName = "Code_type")
 	private TypeObject typeObject;
 
-	@OneToMany(mappedBy = "object")
+	@OneToMany(mappedBy = "object",fetch = FetchType.EAGER)
 	private Collection<FieldObject> fieldObjects;
-	
+	 
+	//@OneToMany(fetch = FetchType.EAGER)
 	@OneToMany(fetch = FetchType.EAGER)
 	private Collection<Fils> allFils;
 
@@ -65,14 +72,6 @@ public class Object {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getVersion() {
-		return version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
 	}
 
 	public boolean isMutualisable() {
@@ -114,4 +113,13 @@ public class Object {
 	public void setFieldObjects(Collection<FieldObject> fieldObjects) {
 		this.fieldObjects = fieldObjects;
 	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+	
 }

@@ -1,0 +1,253 @@
+<config>
+	<object_type>
+		<code>SPE</code>
+		<name>Spécialité</name>
+		<code_regex>test</code_regex>
+		<Erreur_descritpion></Erreur_descritpion>
+		<content_model></content_model>
+		<description>desc</description>
+		<field>
+			<Id>77</Id>
+			<name>12</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+		
+		<field>
+			<Id>1150</Id>
+			<name>12</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+		
+		<field>
+			<Id>1</Id>
+			<name>12</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+		<field>
+			<Id>122</Id>
+			<name>43</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+
+	</object_type>
+	<object_type>
+		<code>FOR</code>
+		<name>Formation</name>
+		<code_regex></code_regex>
+		<Erreur_descritpion></Erreur_descritpion>
+		<content_model>x</content_model>
+		<description>desc</description>
+		<field>
+			<Id>1</Id>
+			<name>12</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+		<field>
+			<Id>3</Id>
+			<name>88</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+	</object_type>
+
+	<object_type>
+		<code>ENS</code>
+		<name>Enseignement</name>
+		<code_regex></code_regex>
+		<Erreur_descritpion></Erreur_descritpion>
+		<content_model>x</content_model>
+		<description>desc</description>
+		<field>
+			<Id>1</Id>
+			<name>12</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+		<field>
+			<Id>3</Id>
+			<name>88</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+	</object_type>
+	<object_type>
+		<code>OPT</code>
+		<name>Option</name>
+		<code_regex></code_regex>
+		<Erreur_descritpion></Erreur_descritpion>
+		<content_model>x</content_model>
+		<description>desc</description>
+		<field>
+			<Id>1</Id>
+			<name>12</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+		<field>
+			<Id>3</Id>
+			<name>88</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+	</object_type>
+
+	<object_type>
+		<code>PRO</code>
+		<name>Programme</name>
+		<code_regex></code_regex>
+		<Erreur_descritpion></Erreur_descritpion>
+		<content_model>x</content_model>
+		<description>desc</description>
+		<field>
+			<Id>1</Id>
+			<name>12</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+		<field>
+			<Id>3</Id>
+			<name>88</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+	</object_type>
+
+	<object_type>
+		<code>SEM</code>
+		<name>Semestre</name>
+		<code_regex>Test</code_regex>
+		<Erreur_descritpion></Erreur_descritpion>
+		<content_model>x</content_model>
+		<description>desc</description>
+		<field>
+			<Id>1</Id>
+			<name>12</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+		<field>
+			<Id>3</Id>
+			<name>88</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+	</object_type>
+	<object_type>
+		<code>XXX</code>
+		<name>Spécialité</name>
+		<code_regex>test</code_regex>
+		<Erreur_descritpion></Erreur_descritpion>
+		<content_model></content_model>
+		<description>desc</description>
+		<field>
+			<Id>5</Id>
+			<name>12</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+		<field>
+			<Id>1150</Id>
+			<name>12</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+		
+		<field>
+			<Id>1</Id>
+			<name>12</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+		<field>
+			<Id>122</Id>
+			<name>43</name>
+			<description></description>
+			<content_type></content_type>
+			<required></required>
+			<length></length>
+			<tab_name></tab_name>
+		</field>
+
+	</object_type>
+	<designer>
+		<login>A</login>
+		<login>B</login>
+		<login>C</login>
+	</designer>
+	<formation_field>
+		<name>Domaine Arts, Lettres, Langues</name>
+		<name>Domaine Droit, Économie et Gestion</name>
+		<name>Domaine Sciences de la santé </name>
+		<name>Domaine Sciences et Technologies </name>
+		<name>Domaine Sciences et Technologies / Sciences de la santé</name>
+	</formation_field>
+	<diploma_type>
+		<name>Diplômes universitaires de technologie</name>
+		<name>Licences générales</name>
+		<name>Licences professionnelles</name>
+		<name>Masters</name>
+		<name>Diplômes d'établissement de 1er cycle</name>
+		<name>Diplômes d'établissement de 2ème cycle</name>
+		<name>Diplômes d'ingénieur</name>
+		<name>Diplômes d'état en Médecine</name>
+		<name>Diplômes d'état en Pharmacie</name>
+		<name>Diplômes d'état en Odontologie</name>
+		<name>Magistères</name>
+	</diploma_type>
+</config>

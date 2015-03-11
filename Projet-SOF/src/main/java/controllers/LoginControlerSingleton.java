@@ -17,55 +17,60 @@ public class LoginControlerSingleton {
 
 	@Autowired()
 	User user;
-	
+
 	@Autowired()
 	AuthentificationServiceDB authService;
-	
+
 	/**
-	* Retourne la vue du formulaire d'authentification correspondant à
-	* l'URL /Annuaire/auth/login.hmt en méthode GET.
-	*
-	* @return La vue du formulaire d'authentification.
-	*/
+	 * Retourne la vue du formulaire d'authentification correspondant à l'URL /Annuaire/auth/login.hmt en méthode GET.
+	 *
+	 * @return La vue du formulaire d'authentification.
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login () {
-	return "authentification/login";
-	}
-	/**
-	* Méthode appelée lors de la validation du formulaire d'authentification.
-	* Vérifie si le login et le mot de passe sont corrects, puis place les
-	* informations de la personne en session via la classe User.
-	*
-	* @see User
-	* @param u L'utilisateur en session.
-	* @param result Le résultat du binding.
-	* @return La vue du formulaire d'authentification avec un message en cas d'erreur(s),
-	* la vue correspondant à la liste des personnes de l'annuaire sinon.
-	*/
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView login (@ModelAttribute User u, BindingResult result) {
-		if(result.hasErrors()) {
-	return new ModelAndView("authentification/login", "error", "");
-	}
-	if(!authService.login(u)){
-		return new ModelAndView("authentification/login", "error", "Login ou mot de passe invalide");
+	public String login() {
+		return "authentification/login";
 	}
 
-	return new ModelAndView("authentification/login", "error", "Ca a réussi!");
+	/**
+	 * Méthode appelée lors de la validation du formulaire d'authentification. Vérifie si le login et le mot de passe
+	 * sont corrects, puis place les informations de la personne en session via la classe User.
+	 *
+	 * @see User
+	 * @param u
+	 *            L'utilisateur en session.
+	 * @param result
+	 *            Le résultat du binding.
+	 * @return La vue du formulaire d'authentification avec un message en cas d'erreur(s), la vue correspondant à la
+	 *         liste des personnes de l'annuaire sinon.
+	 */
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ModelAndView login(@ModelAttribute User u, BindingResult result) {
+		if (result.hasErrors()) {
+			return new ModelAndView("authentification/login", "error", "");
+		}
+		try {
+			if (!authService.login(u)) {
+				return new ModelAndView("authentification/login", "error", "erreur.login.logInv");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("authentification/login", "error", "erreur.BD");
+		}
+		return new ModelAndView("authentification/login", "error", "");
 	}
+
 	/**
 	 * 
-	* Vide la session utilisateur puis retourne la vue du formulaire
-	* d'authentification.
-	*
-	* @return Redirige vers la page d'authentification.
-	*/
+	 * Vide la session utilisateur puis retourne la vue du formulaire d'authentification.
+	 *
+	 * @return Redirige vers la page d'authentification.
+	 */
 	@RequestMapping(value = "/logout")
-	public String logout () {
+	public String logout() {
 		authService.flush();
-	return "redirect:login.htm";
-	}	
-	
+		return "redirect:login.htm";
+	}
+
 	@ModelAttribute("user")
 	public User newUser() {
 		return user;

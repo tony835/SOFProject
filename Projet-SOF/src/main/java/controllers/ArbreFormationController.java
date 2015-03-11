@@ -3,6 +3,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 import javax.validation.Valid;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.FilsService;
 import services.FormationService;
@@ -217,25 +219,122 @@ public class ArbreFormationController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public String create() {
+	public String create(@RequestParam(required=false) String context, @RequestParam(required=false) String cobject) {
+		if(cobject != null){
+			try{
+				if(objectService.findOne(cobject) == null)
+					return "redirect:create.htm?context="+context;
+			}catch (Exception e) {
+				return "redirect:create.htm?context="+context;
+			}
+		}
 		return "tmpObjectCreation/createObject";
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String saveNewObject(@ModelAttribute @Valid domain.Object o, BindingResult result, @RequestParam(required=false) String context, @RequestParam(required=false) String cobject) {
-		if(result.hasErrors()) {// TODO
-			return "redirect:create";
+	public ModelAndView saveNewObject( @RequestParam(required=false) String context, @RequestParam(required=false) String cobject, @Valid @ModelAttribute domain.Object myobject, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			ModelAndView m = new ModelAndView("tmpObjectCreation/createObject");
+			return m;
 		}
-		if(o.getAllFils() == null) System.out.println("Alexandre a raison");
 
-		domain.Object tmp = objectService.findOne(cobject);
-		o.setAllFils(tmp.getAllFils());
-		o.setContexte(tmp.getContexte());
 
-		objectService.save(o, user); // Tester les droits
+		// On créé un objet
+		if(cobject == null || cobject.equals("")){
+			Formation form = null;
+			try{
+				form = formationService.findOne(context);
+			}catch(Exception e){
+				e.printStackTrace();
+				return new ModelAndView("master-page/error", "error", "erreur.BD");
+			}
+			// On regarde que la formation existe déjà pour pouvoir l'avouter au context du nouvel objet.
+			if(form == null){
+				System.out.println("cas1");
+				ModelAndView resultat = new ModelAndView("redirect:create.htm?context="+((context==null)?"":context)+"&cobject="+((cobject==null)?"":cobject));
+				//redirectAttributes.addFlashAttribute("error", "arbreformation.formUnknow");
+				//redirectAttributes.addFlashAttribute("myobject", myobject);
+				return resultat;
+			}
+			myobject.setContexte(form);
 
-		return "redirect:list.htm?code="+o.getContexte().getCode();
 
+			try{
+				TypeObject type = null;
+				type = typeService.findOne(myobject.getTypeObject().getCode());
+				// Type non reconnu
+				if(type == null){
+					ModelAndView resultat = new ModelAndView("redirect:create.htm?context="+((context==null)?"":context)+"&cobject="+((cobject==null)?"":cobject));
+					//redirectAttributes.addFlashAttribute("myobject", myobject);
+					//redirectAttributes.addFlashAttribute("error", "arbreformation.typeUnknow");
+					return resultat;
+				}
+				domain.Object obj = null;
+				obj = objectService.findOne(myobject.getCode());
+				// On vérifie que l'objet n'existe pas déjà
+				if(obj != null){
+					System.out.println("cas3");
+					ModelAndView resultat = new ModelAndView("tmpObjectCreation/createObject");
+					resultat.addObject("myobject", myobject);
+					try {
+						// Il existe déja, on renvoit dans la même page, avec une erreur en essayant de donner
+						// un nouveau code
+						int tmp, nb = 0;
+						Random rand = new Random();
+						do {
+							System.out.println("ppppp");
+							tmp = (int) rand.nextInt(1000);
+							++nb;
+							if (nb > 10)
+								break;
+							System.out.println("essai");
+							System.out.println(myobject.getCode() + "" + tmp);
+						} while (objectService.findOne(myobject.getCode() + "" + tmp) != null);
+						if (nb < 10) {
+							myobject.setCode(myobject.getCode() + "" + tmp);
+							System.out.println(myobject.getCode() + "" + tmp);
+							resultat.addObject("error", "arbreformation.edit.codeAlreadyExistingProposingNew");
+							return resultat;
+						} else {
+							System.out.println("ici");
+							resultat.addObject("error", "arbreformation.codeAlreadyExisting");
+							return resultat;
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					return resultat;
+				}
+				objectService.save(myobject, user); // Tester les droits
+			}catch(Exception e){
+				e.printStackTrace();
+				return new ModelAndView("master-page/error", "error", "erreur.BD");
+			}
+
+		}else{// L'objet existe déjà
+			domain.Object obj = null;
+			try{
+				obj = objectService.findOne(cobject);
+				// On vérifie que l'objet existe déjà
+				// TODO A tester car passe mais n'affiche pas l'erreur
+				if(obj == null){
+					System.out.println("cas2");
+					ModelAndView resultat = new ModelAndView("redirect:create.htm?context="+((context==null)?"":context)+"&cobject="+((cobject==null)?"":cobject));
+					//redirectAttributes.addFlashAttribute("error", "arbreformation.cObjectUnknow");
+					//redirectAttributes.addFlashAttribute("myobject", myobject);
+					return resultat;
+				}
+				myobject.setContexte(obj.getContexte());
+				obj.setName(myobject.getName());
+				obj.setMutualisable(myobject.isMutualisable());
+				objectService.save(obj, user); // Tester les droits
+			}catch(Exception e){
+				e.printStackTrace();
+				return new ModelAndView("master-page/error", "error", "erreur.BD");
+			}
+		}
+		return new ModelAndView("redirect:list.htm?code="+myobject.getContexte().getCode());
 	}
 
 
@@ -258,8 +357,10 @@ public class ArbreFormationController extends AbstractController {
 			@RequestParam(value = "cobject", required = false) String code) {
 
 		if (code != null) {
-			return objectService.findOne(code);
+			domain.Object o = objectService.findOne(code);
+			return o;
 		}
+
 		domain.Object o = new domain.Object();
 		o.setCode("");
 		o.setName("");

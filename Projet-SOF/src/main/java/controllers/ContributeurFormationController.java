@@ -1,6 +1,12 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.swing.text.StyledEditorKit.BoldAction;
 
@@ -9,7 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.mapper.Mapper;
 
 import services.FormationService;
 import services.PersonService;
@@ -17,6 +28,7 @@ import domain.Formation;
 import domain.Person;
 
 @Controller
+@RestController
 @RequestMapping("/formation/contributeur")
 public class ContributeurFormationController extends AbstractController {
 
@@ -45,6 +57,12 @@ public class ContributeurFormationController extends AbstractController {
 		result.addObject("code", code);
 
 		return result;
+	}
+	@RequestMapping(value = "/listJs")
+	public  Collection<Person> list(@RequestParam String code) {
+		Collection<Person> contibuteurs = formationService.findOne(code)
+				.getContributeurs();
+		return contibuteurs;
 	}
 
 	/**
@@ -98,5 +116,8 @@ public class ContributeurFormationController extends AbstractController {
 
 		return edit(code);
 	}
+	
+
+	
 
 }
