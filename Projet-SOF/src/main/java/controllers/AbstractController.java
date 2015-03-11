@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class AbstractController {
 
 	// Panic handler ----------------------------------------------------------
-
+ 
 	/*@ExceptionHandler(Throwable.class)
 	public ModelAndView panic(Throwable oops) {
 		ModelAndView result;
