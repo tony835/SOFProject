@@ -29,7 +29,12 @@
       </script>
 
 		<form:form id="signupForm" methode="post" modelAttribute="formation">
-			<tag:textbox name="code" code="formation.code" path="code" />
+			<c:if test="${!empty param.cobject}">
+				<div hidden="true"><tag:textbox name="code" code="formation.code" path="code" /></div>
+			</c:if>
+			<c:if test="${empty param.cobject}">
+				<tag:textbox name="code" code="formation.code" path="code" />
+			</c:if>
 			<tag:textbox name="name" code="formation.nom" path="name" />
 			<div class="ui-widget">
 				<tag:textbox id="automplete-1" name="responsable.login" code="responsable.login" path="responsable.login" />
