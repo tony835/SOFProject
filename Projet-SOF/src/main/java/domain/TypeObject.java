@@ -31,11 +31,9 @@ public class TypeObject {
 	@Column(name="ContentModel")
 	String modelContenu;
 	
-	@Column(name="Erreur_descritpion")
+	@Column(name="Erreur_description")
 	String descError;
 	
-	@Column(name="Code_Regex")
-	String codeRegex ;
 	
 	@OneToMany(mappedBy="typeObject")
 	private Collection<Object> objects;
@@ -75,14 +73,6 @@ public class TypeObject {
 
 	public void setDescError(String descError) {
 		this.descError = descError;
-	}
-
-	public String getCodeRegex() {
-		return codeRegex;
-	}
-
-	public void setCodeRegex(String codeRegex) {
-		this.codeRegex = codeRegex;
 	}
 
 	public Collection<Object> getObjects() {

@@ -38,7 +38,7 @@
 				<display:column title="Name">${row.getValue0().getName()}</display:column>
 				<display:column title="Actions">
 					<a class="btn btn-default btn-xs"
-						href="arbreFormation/gestionFils.htm?code=${row.getValue0().getCode()} "><spring:message
+						href="arbreFormation/gestionFils.htm?cobject=${row.getValue0().getCode()} "><spring:message
 							code="objet.modifierFils" /></a> 
 							<a class="btn btn-default btn-xs"
 						href="arbreFormation/create.htm?context=${param.code}&amp;code=${row.getValue0().getCode()}"><spring:message

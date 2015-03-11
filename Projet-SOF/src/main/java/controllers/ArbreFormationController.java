@@ -102,24 +102,6 @@ public class ArbreFormationController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping("/gestionFils")
-	public ModelAndView gestionFils(@RequestParam String code) {
-		ModelAndView result;
-		result = new ModelAndView("arbreFormation/gestionFils");
-		List<Fils> list = objectService.getChild(code);
-		domain.Object o = objectService.findOne(code);
-		System.out.println("----->"+o.getCode());
-		result.addObject("objEnCours", o);
-		result.addObject("listFils", list);
-		return result;
-	}
-
-	@RequestMapping("/supprimer")
-	public ModelAndView suppressionLiens(@RequestParam(value="pere",required=true) String pere, @RequestParam(value="fils",required=true) String fils) {
-		objectService.delLienFils(objectService.findOne(pere), objectService.findOne(fils));
-		ModelAndView result = new ModelAndView("redirect:gestionFils.htm?code="+pere);
-		return result;
-	}
 
 	/**
 	 * Edition d'une formation
@@ -184,8 +166,34 @@ public class ArbreFormationController extends AbstractController {
 		return result;
 	}
 
+
+
+	@RequestMapping(value = "/gestionFils", method = RequestMethod.GET)
+	public ModelAndView gestionFils(@RequestParam String cobject) {
+
+		ModelAndView result;
+		result = new ModelAndView("arbreFormation/gestionFils");
+		List<Fils> list = objectService.getChild(cobject);
+		domain.Object selectedFils = new domain.Object();
+		domain.Object o = objectService.findOne(cobject);
+		result.addObject("objEnCours", o);
+		result.addObject("listFils", list);
+		result.addObject("typeobject", new TypeObject());
+		result.addObject("selectedFils", selectedFils);
+		
+		return result;
+	}
+
+	@RequestMapping("/supprimer")
+	public ModelAndView suppressionLiens(@RequestParam(value="pere",required=true) String pere, @RequestParam(value="fils",required=true) String fils) {
+		objectService.delLienFils(objectService.findOne(pere), objectService.findOne(fils));
+		ModelAndView result = new ModelAndView("redirect:gestionFils.htm?cobject="+pere);
+		return result;
+	}
+
+
 	@RequestMapping(value = "/gestionFilsEditRang", method = RequestMethod.POST)
-	public ModelAndView gestionFilsEditRang(@RequestParam(value="codeEnCours",required=true) String codeEnCours, @RequestParam(value="rang",required=true) String rang, @RequestParam(value="code",required=true) String code) {
+	public ModelAndView gestionFilsEditRang(@RequestParam(value="codeEnCours",required=true) String codeEnCours, @RequestParam(value="rang",required=true) String rang, @RequestParam(value="cobject",required=true) String code) {
 		domain.Object obj = objectService.findOne(codeEnCours);
 		Fils tmp = null;
 		if(obj != null){
@@ -204,7 +212,7 @@ public class ArbreFormationController extends AbstractController {
 				}
 			}
 		}
-		ModelAndView result = new ModelAndView("redirect:gestionFils.htm?code="+codeEnCours);
+		ModelAndView result = new ModelAndView("redirect:gestionFils.htm?cobject="+codeEnCours);
 		return result;
 	}
 
@@ -214,13 +222,13 @@ public class ArbreFormationController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String saveNewObject(@ModelAttribute @Valid domain.Object o, BindingResult result, @RequestParam(required=false) String context, @RequestParam(required=false) String code) {
+	public String saveNewObject(@ModelAttribute @Valid domain.Object o, BindingResult result, @RequestParam(required=false) String context, @RequestParam(required=false) String cobject) {
 		if(result.hasErrors()) {// TODO
 			return "redirect:create";
 		}
 		if(o.getAllFils() == null) System.out.println("Alexandre a raison");
-		
-		domain.Object tmp = objectService.findOne(code);
+
+		domain.Object tmp = objectService.findOne(cobject);
 		o.setAllFils(tmp.getAllFils());
 		o.setContexte(tmp.getContexte());
 
@@ -247,7 +255,7 @@ public class ArbreFormationController extends AbstractController {
 
 	@ModelAttribute("myobject")
 	public domain.Object newObject(
-			@RequestParam(value = "code", required = false) String code) {
+			@RequestParam(value = "cobject", required = false) String code) {
 
 		if (code != null) {
 			return objectService.findOne(code);
@@ -265,19 +273,71 @@ public class ArbreFormationController extends AbstractController {
 		return o;
 	}
 
+	@RequestMapping(value = "/sortNLObject", method = RequestMethod.POST)
+	public ModelAndView sortNLObject(@RequestParam(value="cobject",required=true) String code, @Valid @ModelAttribute TypeObject typeobject, BindingResult bindingResult){
+		return new ModelAndView("redirect:gestionFils.htm?cobject=" + code + "&typeobject="+typeobject.getCode()) ;
+	}
+
 	@ModelAttribute("typesList")
 	public List<TypeObject> productTypes() {
 		return (List<TypeObject>) typeService.findAll();
 	}
 
 	@ModelAttribute("NonLinkedObjectList")
-	public List<domain.Object> nlObjectList() {
-		return (List<domain.Object>) objectService.objectsNonLiee(null);
+	public List<domain.Object> nlObjectList(@RequestParam(value="typeobject",required=false) String typeobject, @RequestParam(value="cobject",required=true) String cobject) {
+		String type;
+		String context = objectService.findOne(cobject).getContexte().getCode();
+		List<domain.Object> nlObjectList;
+		
+		if (typeobject == null || typeobject.equals("")){
+			nlObjectList = (List<domain.Object>) objectService.objectsNonLiee(context);
+			return nlObjectList;
+		}
+		else{
+			type = typeService.findOne(typeobject).getCode(); 
+		}
+		nlObjectList = (List<domain.Object>) objectService.findTypedNonLinkedObject(context, type);
+		return nlObjectList;
 	}
 
 	@ModelAttribute("mutualisableObjectList")
-	public List<domain.Object> mObjectList() {
-		return (List<domain.Object>) objectService.findMutualisableObjects(null);
+	public List<domain.Object> mObjectList(@RequestParam(value="typeobject",required=false) String typeobject, @RequestParam(value="cobject",required=true) String cobject) {
+		String type;
+		String context = objectService.findOne(cobject).getContexte().getCode();
+		List<domain.Object> mObjectList;
+		
+		if (typeobject == null || typeobject.equals("")){
+			mObjectList = (List<domain.Object>) objectService.findMutualisableObjects(context);
+			return mObjectList;
+		}
+		else{
+			type = typeService.findOne(typeobject).getCode(); 
+		}
+		mObjectList = (List<domain.Object>) objectService.findTypedMutualisableObjects(context, type);
+		return mObjectList;
+
+	}
+
+
+
+	@RequestMapping(value = "/addFils", method = RequestMethod.POST)
+	public ModelAndView addFils(@RequestParam(value="cobject",required=true) String cobject, @Valid @ModelAttribute domain.Object selectedFils, BindingResult result) {
+
+
+		if(result.hasErrors()) {
+			System.out.println(result.toString());
+			return new ModelAndView("redirect:gestionFils.htm?cobject="+cobject);
+		}
+		domain.Object o = objectService.findOne(cobject);
+		Fils tmpF = new Fils();
+		tmpF.setRang(1);
+		tmpF.setFils(selectedFils);
+		pereFilsService.save(tmpF);
+		
+		o.getAllFils().add(tmpF);
+		objectService.save(o, user);
+
+		return new ModelAndView("redirect:gestionFils.htm?cobject="+cobject + o.getTypeObject().getCode());
 	}
 
 	@ModelAttribute("user")
@@ -297,5 +357,23 @@ public class ArbreFormationController extends AbstractController {
 				return retour;
 			}
 		});
+		
+//		binder.registerCustomEditor(Collection.class, "NonLinkedObjectList", new CustomCollectionEditor(Collection.class)
+//		{
+//			@Override
+//			protected Object convertElement(Object element)
+//			{
+//			
+//				System.out.println("init ... BENDER !!!");
+//				
+//				Collection <Fils> retour = new ArrayList<Fils>();
+//				Fils f = new Fils();
+//				f.setRang(1);
+//				f.setFils(objectService.findOne((String)element));
+//				retour.add(f);
+//				return retour;
+//			}
+//			
+//		});
 	}
 }
