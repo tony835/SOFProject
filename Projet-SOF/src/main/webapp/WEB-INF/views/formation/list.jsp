@@ -40,6 +40,7 @@
 				</jstl:if>
 
 			</display:table>
+						
 
 		</tiles:putAttribute>
 	</tiles:insertDefinition>
