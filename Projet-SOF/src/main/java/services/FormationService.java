@@ -61,6 +61,10 @@ public class FormationService {
 		return formationDao.findOne(code);
 	}
 
+	public Collection<String> findAllDistinctDiplome(){
+		return formationDao.findAllDistinctDiplome();
+	}
+	
 	public List<Pair<domain.Object, Integer>> getListFormationIndente(String code) {
 		Formation f = findOne(code);
 		if(f == null) return null;
