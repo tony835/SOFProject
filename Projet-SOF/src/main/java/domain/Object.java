@@ -14,6 +14,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "Objet")
@@ -27,6 +31,7 @@ public class Object {
 	@Column(name = "Code_objet",nullable=false)
 	private String code;
 
+	@Size(min=1)
 	@Column(name = "Nom_objet")
 	private String name;
 	
@@ -47,7 +52,7 @@ public class Object {
 
 	@OneToMany(mappedBy = "object",fetch = FetchType.EAGER)
 	private Collection<FieldObject> fieldObjects;
-	
+	 
 	//@OneToMany(fetch = FetchType.EAGER)
 	@OneToMany(fetch = FetchType.EAGER)
 	private Collection<Fils> allFils;

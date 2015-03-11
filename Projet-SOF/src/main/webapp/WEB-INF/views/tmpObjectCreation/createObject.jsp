@@ -24,9 +24,10 @@
 
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
+		<script type="text/javascript" src="scripts/scripts_perso/editObject.js"></script>
 
 
-		<form:form method="post" commandName="myobject">
+		<form:form id="signupForm" method="post" commandName="myobject">
 			<tag:textbox name="name" code="object.name" path="name" />
 
 			<jstl:if test="${empty (param.cobject)}">

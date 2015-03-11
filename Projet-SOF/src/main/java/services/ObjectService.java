@@ -37,6 +37,7 @@ public class ObjectService {
 	public boolean save(domain.Object obj, User user) {
 //		if(!user.getLogin().equals(obj.getContexte().getResponsable()))
 //			return false;
+		System.out.println("sauvegarde ...");
 		Assert.notNull(obj);
 		objectDao.save(obj);
 		return true;
@@ -48,6 +49,7 @@ public class ObjectService {
 	}
 
 	public domain.Object findOne(String code){
+				
 		return objectDao.findOne(code);
 	}
 
@@ -77,15 +79,21 @@ public class ObjectService {
 		return objectDao.findNonLinkedObject(code);
 	}
 	
+	public Collection<Object> findTypedNonLinkedObject(String code, String type){
+		return objectDao.findTypedNonLinkedObject(code, type);
+	}
+	
 	public Collection<Object> findMutualisableObjects(String code){
 		return objectDao.findOtherMutualisableObject(code);
 	}
 	
+	public Collection<Object> findTypedMutualisableObjects(String code, String type){
+		return objectDao.findOtherTypesMutualisableObject(code, type);
+	}
+	
 	public List<Fils> getChild(String code) {
 		domain.Object obj = findOne(code);
-		System.out.println("code = "+code+" "+" nombre de fils : "+obj.getAllFils().size());
 		List<Fils> list = new ArrayList<Fils>();
-		System.out.println(obj.getAllFils());
 		for (Fils fils : obj.getAllFils()){
 			boolean passe = false;
 			if(list.size() == 0){
@@ -105,5 +113,16 @@ public class ObjectService {
 			}
 		}
 		return list;
+	}
+
+	public List<Fils> Object2Fils(List<domain.Object> nlObjectList) {
+		List <Fils> nlFilsList = new ArrayList<Fils>();
+		for (int i = 0; i < nlObjectList.size(); i++){
+			Fils tmpF = new Fils();
+			tmpF.setRang(1);
+			tmpF.setFils(nlObjectList.get(i));
+			nlFilsList.add(tmpF);
+		}
+		return nlFilsList;		
 	}
 }

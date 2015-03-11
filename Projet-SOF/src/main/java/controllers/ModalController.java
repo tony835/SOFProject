@@ -1,10 +1,15 @@
 package controllers;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import services.ObjectService;
+import domain.FieldObject;
 
 
 @Controller
@@ -16,13 +21,14 @@ public class ModalController {
 	public ModalController() {
 	}
 	
-	@RequestMapping(value = "/test.htm")
-	public String afficheFields() {
+	@RequestMapping(value = "/tt.htm", method = RequestMethod.GET)
+	public ModelAndView listFields(
+	       /* @RequestParam(value = "obj", required=true) */String codeObject) {
+	    
+		Collection<FieldObject> fields = managerObject.findOne("obj3").getFieldObjects();
+		System.out.println(fields.size());
 		
-		domain.Object o = managerObject.findOne("ObjExCode") ;
-		System.out.println("object ->>>>>>>>>>>>>>>< " +o);
-		System.out.println(o.getTypeObject().getFields().size());
-		return "protoModal/modal";
+	    return new ModelAndView("protoModal/editFieldObject", "fields", fields);
 	}
 
 }

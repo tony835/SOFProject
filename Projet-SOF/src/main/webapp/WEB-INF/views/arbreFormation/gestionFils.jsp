@@ -30,27 +30,59 @@
 
 				<display:column title="Rang">
 					<form action="arbreFormation/gestionFilsEditRang.htm" method="post">
-						 <input hidden="hidden" readonly="false"
-							name="codeEnCours" value="${objEnCours.getCode()}"></input>
-							<input
-							hidden="hidden" readonly="false" name="code"
-							value="${row.getFils().getCode()}">
-							</input> <input name="rang"
-							value="${row.getRang()}">
-							</input>
+						<input hidden="hidden" readonly="false" name="codeEnCours"
+							value="${objEnCours.getCode()}"></input> <input hidden="hidden"
+							readonly="false" name="cobject"
+							value="${row.getFils().getCode()}"> </input> <input name="rang"
+							value="${row.getRang()}"> </input>
 						<button type="submit" name="Valider">Valider</button>
 					</form>
 
 				</display:column>
 				<display:column title="Action">
-				<a class="btn btn-default btn-xs" href="arbreFormation/supprimer.htm?pere=${objEnCours.getCode()}&amp;fils=${row.getFils().getCode()}"><spring:message
-					code="arbreFormation.supprimer" /></a>
-					</display:column>
+					<a class="btn btn-default btn-xs"
+						href="arbreFormation/supprimer.htm?pere=${objEnCours.getCode()}&amp;fils=${row.getFils().getCode()}"><spring:message
+							code="arbreFormation.supprimer" /></a>
+				</display:column>
 
 			</display:table>
+
+
+			<form:form
+				action="arbreFormation/sortNLObject.htm?cobject=${objEnCours.getCode()}"
+				method="post" modelAttribute="typeobject">
+				<form:select name="code" path="code" multiple="false">
+					<form:option value="" label="Tous les types" />
+					<form:options items="${typesList}" itemLabel="name"
+						itemValue="code" />
+				</form:select>
+				<tag:submit name="save" code="save" />
+			</form:form>
+
+			<form:form action="arbreFormation/addFils.htm?cobject=${objEnCours.getCode()}" method="post" modelAttribute="selectedFils">
+				<form:select name="code" path="code" multiple="false">
+					<form:option value="" label="Liste des objets non lies" />
+					<form:options items="${NonLinkedObjectList}" itemLabel="name"
+						itemValue="code" />
+				</form:select>
+				<tag:submit name="save" code="save" />
+			</form:form>
 			
-		<a class="btn btn-default btn-sm" href="arbreFormation/list.htm?code=${objEnCours.getContexte().getCode()}"><spring:message
+			<form:form action="arbreFormation/addFils.htm?cobject=${objEnCours.getCode()}" method="post" modelAttribute="selectedFils">
+				<form:select name="code" path="code" multiple="false">
+					<form:option value="" label="Liste des objets non lies" />
+					<form:options items="${mutualisableObjectList}" itemLabel="name"
+						itemValue="code" />
+				</form:select>
+				<tag:submit name="save" code="save" />
+			</form:form>
+
+
+
+			<a class="btn btn-default btn-sm"
+				href="arbreFormation/list.htm?code=${objEnCours.getContexte().getCode()}"><spring:message
 					code="arbreFormation.lister" /></a>
+
 
 		</tiles:putAttribute>
 	</tiles:insertDefinition>
