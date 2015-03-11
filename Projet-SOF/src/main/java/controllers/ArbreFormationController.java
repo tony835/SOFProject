@@ -385,7 +385,11 @@ public class ArbreFormationController extends AbstractController {
 	}
 
 	@ModelAttribute("NonLinkedObjectList")
-	public List<domain.Object> nlObjectList(@RequestParam(value="typeobject",required=false) String typeobject, @RequestParam(value="cobject",required=true) String cobject) {
+	public List<domain.Object> nlObjectList(@RequestParam(value="typeobject",required=false) String typeobject, @RequestParam(value="cobject",required=false) String cobject) {
+		
+		if(cobject == null || cobject.equals(""))
+			return new ArrayList<domain.Object>();
+		
 		String type;
 		String context = objectService.findOne(cobject).getContexte().getCode();
 		List<domain.Object> nlObjectList;
@@ -401,8 +405,13 @@ public class ArbreFormationController extends AbstractController {
 		return nlObjectList;
 	}
 
+	
 	@ModelAttribute("mutualisableObjectList")
-	public List<domain.Object> mObjectList(@RequestParam(value="typeobject",required=false) String typeobject, @RequestParam(value="cobject",required=true) String cobject) {
+	public List<domain.Object> mObjectList(@RequestParam(value="typeobject",required=false) String typeobject, @RequestParam(value="cobject",required=false) String cobject) {
+		
+		if(cobject == null || cobject.equals(""))
+			return new ArrayList<domain.Object>();
+		
 		String type;
 		String context = objectService.findOne(cobject).getContexte().getCode();
 		List<domain.Object> mObjectList;
@@ -419,8 +428,7 @@ public class ArbreFormationController extends AbstractController {
 
 	}
 
-
-
+	
 	@RequestMapping(value = "/addFils", method = RequestMethod.POST)
 	public ModelAndView addFils(@RequestParam(value="cobject",required=true) String cobject, @Valid @ModelAttribute domain.Object selectedFils, BindingResult result) {
 
