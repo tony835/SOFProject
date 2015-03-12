@@ -27,6 +27,8 @@ public interface FormationDao extends JpaRepository<Formation, String> {
 	@Query("select f from Formation f where f.diplomeType = $1 and f.formationField = $2")
 	Collection<Formation> findbyDomaineByDiplomeAndByType(String diplome, String domaine);
 	
+	@Query("select f from Formation f where f.visible= 1")
+	Collection<Formation> getVisibleFormation();
 
 
 //	@Query("select c from FieldObject o where o.fo.field.name = ?1")
