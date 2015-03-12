@@ -229,6 +229,8 @@
 		<login>A</login>
 		<login>B</login>
 		<login>C</login>
+		<login>toto</login>
+		<login>l1s000000</login>
 	</designer>
 	<formation_field>
 		<name>Domaine Arts, Lettres, Langues</name>

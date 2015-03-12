@@ -1,12 +1,18 @@
 package services;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.javatuples.Pair;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -50,7 +56,6 @@ public class FormationService {
 	 * Toutes les formations
 	 */
 	public Collection<Formation> findAll() {
-		System.out.println("passeeeee");
 		return formationDao.findAll();
 	}
 
@@ -100,5 +105,47 @@ public class FormationService {
 	public Collection<Formation> findByResponsable(String login) {
 		// TODO Auto-generated method stub
 		return formationDao.findbyResponsable(login);
+	}
+
+	public List<String> findDiplomaType() {
+		SAXBuilder sxb = new SAXBuilder();
+		List<String> DiplomaTypeList = new ArrayList<String>();
+		
+		Document document = null;
+		try {
+			document = sxb.build(getClass().getResource("/configApp.xml"));
+		} catch (JDOMException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		Element racine = document.getRootElement();
+		Element diplomaType = racine.getChild("diploma_type");
+		List<Element> diplomaTypeNames = diplomaType.getChildren("name");
+		
+		for (Element dtName : diplomaTypeNames){
+			DiplomaTypeList.add(dtName.getText());
+		}
+		return DiplomaTypeList;
+	}
+
+	public List<String> findFormationFieldList() {
+		SAXBuilder sxb = new SAXBuilder();
+		List<String> DiplomaTypeList = new ArrayList<String>();
+		
+		Document document = null;
+		try {
+			document = sxb.build(getClass().getResource("/configApp.xml"));
+		} catch (JDOMException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		Element racine = document.getRootElement();
+		Element formationField = racine.getChild("formation_field");
+		List<Element> formationFieldNames = formationField.getChildren("name");
+		
+		for (Element ffName : formationFieldNames){
+			DiplomaTypeList.add(ffName.getText());
+		}
+		return DiplomaTypeList;
 	}
 }
