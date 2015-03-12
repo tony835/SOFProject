@@ -46,7 +46,9 @@ public class ModalController {
 	public  @ResponseBody String ajax(@RequestParam(value = "codeObjet") String codeObjet,
 									  @RequestParam(value = "idField")String idField,
 									  @RequestParam(value = "value")String value) {
+		
 		FieldObject f = managerFieldObject.findOne(new FieldObjectId(idField,codeObjet));
+		if(f == null) return null ;
 		Field.TypeContenu type = f.getField().getTypeContenu() ;
 		if (type == Field.TypeContenu.INT){
 			try{
@@ -55,6 +57,7 @@ public class ModalController {
 				return f.getValue();
 			}
 		}
+		// Verifier également la taille
 		f.setValue(value);
 		managerFieldObject.save(f);
 		return f.getValue() ;

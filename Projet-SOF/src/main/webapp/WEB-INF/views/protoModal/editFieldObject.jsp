@@ -35,7 +35,8 @@
 			        	            url : 'modal/ajax.htm',
 			        	            data: {'codeObjet':"${row.object.code}",'idField':"${row.field.id}",'value':value},
 			        	            success : function(data) {
-			        	            	document.getElementById("spanValue${row.field.id}${row.object.code}").innerHTML = data ;
+			        	             	if(data.length != 0)
+			        	            		document.getElementById("spanValue${row.field.id}${row.object.code}").innerHTML = data ;
 			        	            	$("#modal${row.field.id}${row.object.code}").modal("hide");
 			        	            },
 			        	            error: function(){
