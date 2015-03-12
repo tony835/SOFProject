@@ -48,13 +48,17 @@ public class ObjectControllerVisualisation  extends AbstractController{
 	    Map<String, List<FieldObject>> maps= new HashMap<String, List<FieldObject>>();
 	    Collection<FieldObject> fIList= obj.getFieldObjects();
 	    Collection<FieldObject> fIListGeneral= new ArrayList<FieldObject>();
+	    Collection<Object> objectMemeType =  new ArrayList<Object>();
+	    if(obj.getTypeObject()!=null && obj.getContexte() !=null){
+		    objectMemeType= objectService.objectsSameTypeInContext(obj.getTypeObject().getCode(), obj.getContexte().getCode(),obj.getCode());
+		    System.out.println("holaaaaa c la"+ objectMemeType);
 
+	    }
+	  
 	    for(FieldObject f:fIList ){
 	    	if(f.getField().getTabName()==null){
 	    		fIListGeneral.add(f);
-	    	}
-	    	
-	    	if(maps.containsKey(f.getField().getTabName()))
+	    	}else if(maps.containsKey(f.getField().getTabName()))
 	    		maps.get(f.getField().getTabName()).add(f);
 	    	else {
 	    		List<FieldObject> filObjects= new ArrayList<FieldObject>();
@@ -68,6 +72,9 @@ public class ObjectControllerVisualisation  extends AbstractController{
 	    result.addObject("maps",maps);
 	    
 	    result.addObject("fIListGeneral",fIListGeneral);
+	    result.addObject("objectMemeType",objectMemeType);
+	    result.addObject("objectMemeTypeSize",objectMemeType.isEmpty());
+
 
 
 		return result;

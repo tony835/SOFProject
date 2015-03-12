@@ -1,23 +1,14 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page"
-	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-	xmlns:jstl="http://java.sun.com/jsp/jstl/core"
-	xmlns:spring="http://www.springframework.org/tags"
-	xmlns:form="http://www.springframework.org/tags/form"
-	xmlns:security="http://www.springframework.org/security/tags"
-	xmlns:display="http://displaytag.sf.net"
-	xmlns:tiles="http://tiles.apache.org/tags-tiles"
-	xmlns:tag="urn:jsptagdir:/WEB-INF/tags"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns="http://www.w3.org/1999/xhtml">
+<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="tag" tagdir="/WEB-INF/tags"%>
 
-
-	<jsp:output omit-xml-declaration="false" doctype-root-element="html"
-		doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
-		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" />
-
-
-
-	<jsp:directive.page contentType="text/html" />
 
 	<tiles:insertDefinition name="master.page">
 		<tiles:putAttribute name="title">
@@ -25,21 +16,15 @@
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
 
-
-			
-			
-
 			<display:table name="FormationFieldExist" requestURI="visualisation/formation/offreDomaine.htm" id="field">
 				<display:column title="Nom"  sortable="true">
-					<jstl:forEach items="${field}" var="s" varStatus="loop">
-						<jstl:url  var="fieldlink" value="/details.htm?field=${s} "/>
-						<a href="${fieldlink}"> <jstl:out value="${fn:replace(s,';',',')}" escapeXml="true"/> </a>
-					</jstl:forEach>
+
+						<jstl:url  var="fieldlink" value="visualisation/formation/listformation.htm?diploma=${Diploma}&amp;field=${FormationFieldExist.keySet().toArray()[field_rowNum - 1]} "/>
+						<a href="${fieldlink}"> <jstl:out value="${field}" escapeXml="true"/> </a>
+						
 				</display:column>
 				
 			</display:table>
 
 		</tiles:putAttribute>
 	</tiles:insertDefinition>
-
-</jsp:root>

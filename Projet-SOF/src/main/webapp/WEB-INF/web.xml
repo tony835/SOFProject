@@ -36,6 +36,11 @@
     <location>/WEB-INF/views/misc/403.jsp</location>
   </error-page>
   
+	<context-param>
+    	<param-name>defaultHtmlEscape</param-name>
+    	<param-value>true</param-value>
+	</context-param>
+  
   
 
 </web-app>

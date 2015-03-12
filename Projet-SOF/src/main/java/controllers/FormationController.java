@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 import javax.validation.Valid;
@@ -25,6 +26,7 @@ import domain.FieldObjectId;
 import domain.Formation;
 import domain.Object;
 import domain.Person;
+import domain.TypeObject;
 import domain.User;
 
 @Controller
@@ -144,6 +146,9 @@ public class FormationController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public ModelAndView save(@RequestParam(required = false) String cobject, @Valid @ModelAttribute Formation formation,
 			BindingResult bindingResult) {
+		
+		System.out.println("type de diplome : " + formation.getDiplomeType());
+		
 		ModelAndView result = new ModelAndView("formation/edit");
 		if (bindingResult.hasErrors()) {
 			System.out.println(formation.getName());
@@ -231,6 +236,8 @@ public class FormationController extends AbstractController {
 						f.setName(formation.getName());
 						f.setVisible(formation.isVisible());
 						f.setResponsable(formation.getResponsable());
+						f.setDiplomeType(formation.getDiplomeType());
+						f.setFormationField(formation.getFormationField());;
 						formationService.save(f);
 
 						result = new ModelAndView("redirect:list.htm");
@@ -264,6 +271,16 @@ public class FormationController extends AbstractController {
 		result.addObject("formations", formations);
 
 		return result;
+	}
+	
+	@ModelAttribute("diplomaTypeList")
+	public List<String> diplomaTypeList() {
+		return (List<String>) formationService.findDiplomaType();
+	}
+	
+	@ModelAttribute("formationFieldList")
+	public List<String> formationFieldList() {
+		return (List<String>) formationService.findFormationFieldList();
 	}
 
 	@ModelAttribute("user")

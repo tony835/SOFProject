@@ -29,17 +29,22 @@
     <jstl:forEach var="item" items="${maps.keySet()}">
             <li><a data-toggle="tab" href="#section${item}"> <jstl:out value="${item}"></jstl:out> </a></li>
     </jstl:forEach>
-          <li><a data-toggle="tab" href="#listFils"> Liste des fils </a></li>
-    
+    <jstl:if test="${!object.allFils.isEmpty()}">
+          <li><a data-toggle="tab" href="#listFils"> Structure </a></li>
+     </jstl:if>
+     
+      <jstl:if test="${!objectMemeTypeSize}">
+          <li><a data-toggle="tab" href="#objetMemeType"> Objet du meme type </a></li>
+     </jstl:if>
 
     </ul>
     <div class="tab-content">
         <div id="sectionA" class="tab-pane fade in active">
-        <br/>      <br/>
+        <br/>   
             <tag:showtext code="object.code" value="${object.code}"></tag:showtext>	
 	        <tag:showtext code="object.name" value="${object.name}"></tag:showtext>
 	      <jstl:forEach var="item" items="${fIListGeneral}">
-    <br/>
+   		 <br/>
            <jstl:out value="${item.value}"></jstl:out>
           </jstl:forEach>
         </div>
@@ -60,12 +65,25 @@
 	      <jstl:forEach var="fils" items="${object.allFils}">
  
           
-           			<a  href="objectVisualisation/details.htm?code=${fils.fils.code}"> <jstl:out value="${fils.fils.name}"></jstl:out></a>
+           			<a  href="objectVisualisation/details.htm?code=${fils.fils.code}"> <jstl:out value="${fils.fils.code}"></jstl:out>(<jstl:out value="${fils.fils.name}"></jstl:out>)</a>
+          </jstl:forEach>
+        </div>
+        
+
+  
+      <div id="objetMemeType" class="tab-pane fade">
+  
+	      <jstl:forEach var="objet" items="${objectMemeType}">
+
+          
+           			<a  href="objectVisualisation/details.htm?code=${objet.code}"> <jstl:out value="${objet.code}"></jstl:out>(<jstl:out value="${objet.name}"></jstl:out>)</a>
           </jstl:forEach>
         </div>
         
   </div>
-</div>
+  
+   </div> 
+
 </body>
 	
 	</tiles:putAttribute>

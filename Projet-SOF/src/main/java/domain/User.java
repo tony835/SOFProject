@@ -139,35 +139,31 @@ public class User implements Serializable {
 				return true;
 		}
 		return false;*/
-		System.out.println(conceptor);
 		return conceptor;
 	}
 
 	public void verifyIfIsConceptor(ServletContext context) {
-		System.out.println("verifyyyy");
 		SAXBuilder sxb = new SAXBuilder();
-
 
 		Document document = null;
 		try {
-			document = sxb.build(new File(context.getRealPath("/xmlFiles/Donnees.xml")));
+			document = sxb.build(getClass().getResource("/configApp.xml"));
+
 		} catch (JDOMException | IOException e) {
 			e.printStackTrace();
 		}
 
-
-
 		// On initialise un nouvel élément racine avec l'élément racine du document.
 		Element racine = document.getRootElement();
-		List<Element> listEtudiants = racine.getChildren("Concepteur");
-		Iterator<Element> i = listEtudiants.iterator();
+		Element designers = racine.getChild("designer");
+		List<Element> listDesigners = designers.getChildren("login");
 
-		while (i.hasNext()) {
-			System.out.println("ppppppppppp");
-			Element courant = (Element) i.next();
-			System.out.println(courant.getChild("login").getText());
-			if (courant.getChild("login").getText().equals(login))
+		
+		for (Element designer : listDesigners){
+			if (designer.getText().equals(login)){
 				conceptor = true;
+				break;
+			}
 		}
 	}
 }
