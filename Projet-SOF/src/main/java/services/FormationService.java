@@ -20,6 +20,7 @@ import org.springframework.util.Assert;
 import repositories.FormationDao;
 import domain.Fils;
 import domain.Formation;
+import domain.Object;
 
 @Transactional
 @Service
@@ -27,6 +28,9 @@ public class FormationService {
 
 	@Autowired
 	private FormationDao formationDao;
+	
+	@Autowired
+	ObjectService objectService;
 
 	/**
 	 * Création d'une formation
@@ -154,6 +158,22 @@ public class FormationService {
 	
 	public Collection<Formation> findbyDomaineByDiplomeAndByType(String diplome, String domaine){
 		return formationDao.findbyDomaineByDiplomeAndByType(diplome, domaine);
+	}
+
+	public String checkContentModel(String code) {
+		Formation f = findOne(code);
+		int nbErrors = 0;
+		String descErrors = "";
+		List<domain.Object> oContext = (List<domain.Object>) f.getObjectsContexte();
+		for(domain.Object o : oContext){
+			String cmError = objectService.checkContentModel(o);
+			if (!cmError.equals("")){
+				nbErrors ++;
+				descErrors += cmError + "\n";
+			}
+		}
+		f.setNumError(nbErrors);
+		return descErrors;
 	}
 	
 }
