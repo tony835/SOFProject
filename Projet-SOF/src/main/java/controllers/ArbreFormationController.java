@@ -337,21 +337,6 @@ public class ArbreFormationController extends AbstractController {
 		return new ModelAndView("redirect:list.htm?code="+myobject.getContexte().getCode());
 	}
 
-
-	@RequestMapping(value = "/editsons.htm", method = RequestMethod.GET)
-	public String manageSons() {
-		return "tmpObjectCreation/editSons";
-	}
-
-	@RequestMapping(value = "/editsons.htm", method = RequestMethod.POST)
-	public String saveObjectSons(@ModelAttribute @Valid domain.Object o, BindingResult result) {
-		if(result.hasErrors()) {
-			return "formation/list.htm";
-		}
-		//objectService.save(o, user);
-		return "formation/list";
-	}
-
 	@ModelAttribute("myobject")
 	public domain.Object newObject(
 			@RequestParam(value = "cobject", required = false) String code) {
