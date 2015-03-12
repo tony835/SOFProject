@@ -3,6 +3,7 @@
 	xmlns:form="http://www.springframework.org/tags/form" xmlns:security="http://www.springframework.org/security/tags"
 	xmlns:display="http://displaytag.sf.net" xmlns:tiles="http://tiles.apache.org/tags-tiles"
 	xmlns:tag="urn:jsptagdir:/WEB-INF/tags" xmlns="http://www.w3.org/1999/xhtml">
+	
 	<jsp:output omit-xml-declaration="false" doctype-root-element="html" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
 		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" />
 	<jsp:directive.page contentType="text/html" />
@@ -10,12 +11,11 @@
 		<tiles:putAttribute name="title">
 			<spring:message code="title.formation.list" />
 		</tiles:putAttribute>
-		
+
 		<tiles:putAttribute name="body">
-		
+
 			<jstl:if test="${user.isConceptor()}">
-				<a class="btn btn-default btn-sm" href="formation/edit.htm"><spring:message
-						code="formation.create" /></a>
+				<a class="btn btn-default btn-sm" href="formation/edit.htm"><spring:message code="formation.create" /></a>
 			</jstl:if>
 
 			<display:table name="formations" pagesize="20" class="displaytag" id="row" requestURI="formation/list.htm">
@@ -38,10 +38,15 @@
 								code="formation.editStructure" /></a>
 					</display:column>
 				</jstl:if>
-
 			</display:table>
-						
-
+			
+			<div class="center">
+				<jstl:if test="${!empty error}">
+					<p style="color: Red">
+						<spring:message code="${error}" />
+					</p>
+				</jstl:if>
+			</div>
 		</tiles:putAttribute>
 	</tiles:insertDefinition>
 </jsp:root>

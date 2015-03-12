@@ -25,7 +25,7 @@
 
 
 				<display:table name="DiplomaTypeExist"
-					requestURI="visualisation/formation/offre.htm" id="field">
+					requestURI="visualisation/formation/audit/offre.htm" id="field">
 					<display:column title="Nom" sortable="true">
 						<jstl:forEach items="${field}" var="s" varStatus="loop">
 							<jstl:url var="fieldlink"
@@ -38,6 +38,7 @@
 			</jstl:when>
 			<jstl:otherwise>
         			<jstl:out value="Vous n'êtes pas connecté, merci de bien vouloir vous authentifier" />
+        			<a href="/Projet_SOF/auth/login.htm"><spring:message code="login" /></a>
    			 </jstl:otherwise>
 		</jstl:choose>
 	</tiles:putAttribute>

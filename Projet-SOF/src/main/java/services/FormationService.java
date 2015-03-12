@@ -1,12 +1,18 @@
 package services;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.javatuples.Pair;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -14,7 +20,6 @@ import org.springframework.util.Assert;
 import repositories.FormationDao;
 import domain.Fils;
 import domain.Formation;
-import domain.Object;
 
 @Transactional
 @Service
@@ -50,7 +55,6 @@ public class FormationService {
 	 * Toutes les formations
 	 */
 	public Collection<Formation> findAll() {
-		System.out.println("passeeeee");
 		return formationDao.findAll();
 	}
 
@@ -65,10 +69,21 @@ public class FormationService {
 		return formationDao.findAllDistinctDiplome();
 	}
 	
+	public Collection<String> findbyDomaineByDiplome(String diplome)
+	{
+		return formationDao.findbyDomaineByDiplome(diplome);
+	}
+	
+	public boolean isFormation(String code){
+		System.out.println(formationDao.isFormation(code));
+		return formationDao.isFormation(code) != null;
+	}
+	
 	public List<Pair<domain.Object, Integer>> getListFormationIndente(String code) {
 		Formation f = findOne(code);
 		if(f == null) return null;
 		List<Pair<domain.Object, Integer>> list = new ArrayList<Pair<domain.Object, Integer>>();
+		list.add(new Pair<domain.Object, Integer>(f, -1));
 		formationIndentShild(list, f.getAllFils(), 0);
 		return list;
 	}
@@ -98,7 +113,53 @@ public class FormationService {
 	}
 
 	public Collection<Formation> findByResponsable(String login) {
-		// TODO Auto-generated method stub
 		return formationDao.findbyResponsable(login);
 	}
+
+	public List<String> findDiplomaType() {
+		SAXBuilder sxb = new SAXBuilder();
+		List<String> DiplomaTypeList = new ArrayList<String>();
+		
+		Document document = null;
+		try {
+			document = sxb.build(getClass().getResource("/configApp.xml"));
+		} catch (JDOMException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		Element racine = document.getRootElement();
+		Element diplomaType = racine.getChild("diploma_type");
+		List<Element> diplomaTypeNames = diplomaType.getChildren("name");
+		
+		for (Element dtName : diplomaTypeNames){
+			DiplomaTypeList.add(dtName.getText());
+		}
+		return DiplomaTypeList;
+	}
+
+	public List<String> findFormationFieldList() {
+		SAXBuilder sxb = new SAXBuilder();
+		List<String> DiplomaTypeList = new ArrayList<String>();
+		
+		Document document = null;
+		try {
+			document = sxb.build(getClass().getResource("/configApp.xml"));
+		} catch (JDOMException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		Element racine = document.getRootElement();
+		Element formationField = racine.getChild("formation_field");
+		List<Element> formationFieldNames = formationField.getChildren("name");
+		
+		for (Element ffName : formationFieldNames){
+			DiplomaTypeList.add(ffName.getText());
+		}
+		return DiplomaTypeList;
+	}
+	
+	public Collection<Formation> findbyDomaineByDiplomeAndByType(String diplome, String domaine){
+		return formationDao.findbyDomaineByDiplomeAndByType(diplome, domaine);
+	}
+	
 }

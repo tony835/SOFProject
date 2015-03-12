@@ -19,7 +19,7 @@
 			<display:table name="FormationOfDiplomaAndField" requestURI="visualisation/formation/listformation.htm" id="formation">
 				<display:column title="Nom"  sortable="true">
 
-						<jstl:url  var="fieldlink" value="visualisation/formation/details?=${formation.getCode()} "/>
+						<jstl:url  var="fieldlink" value="objectVisualisation/details.htm?code=${formation.getCode()} "/>
 						<a href="${fieldlink}"> <jstl:out value="${formation.getName()}" escapeXml="true"/> </a>
 						
 				</display:column>

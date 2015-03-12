@@ -49,7 +49,7 @@ public class App2FormationController {
 	PersonService personService;
 
 	/**
-	 * Liste des formations en version visiteur
+	 * Liste des types de diplomes distinct de l'offre de formation
 	 * 
 	 * @return
 	 */
@@ -57,27 +57,11 @@ public class App2FormationController {
 	public ModelAndView allFormationVisitor() {
 
 		ModelAndView result;
-		Collection<Formation> formations = formationService.findAll();
-		List<String> diploma_type_exist = new ArrayList<String>();
-		for (Formation f : formations) {
-			if (!diploma_type_exist.contains(f.getDiplomeType()))
-				diploma_type_exist.add(f.getDiplomeType());
+		Collection<String> diploma_type_exist = new ArrayList<String>();
+		diploma_type_exist = formationService.findAllDistinctDiplome();
 
-		}
-		Collection<Object> objetsVisible = new ArrayList<Object>();
 
-		for (Formation formation : formations) {
-			if (formation.isVisible()) {
-				objetsVisible.add(objectService.findOne(formation.getCode()));
-			}
-		}
-
-		formations.clear();
-		formations = null;
-		// getFormation_Field();
 		result = new ModelAndView("formation/offre");
-
-		result.addObject("FormationVisible", objetsVisible);
 		result.addObject("DiplomaTypeExist", diploma_type_exist);
 
 		return result;
@@ -88,26 +72,16 @@ public class App2FormationController {
 	 * @param diploma
 	 * @return Map<String, String>
 	 */
-	@RequestMapping(value = { "/formation/field", "/formation/field/audit" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/formation/field" }, method = RequestMethod.GET)
 	public ModelAndView allFieldOfType(
 			@RequestParam(value = "diploma", required = true) String diploma) {
 		ModelAndView result;
-		Collection<Formation> formations = formationService.findAll();
 		Map<String, String> formation_field_exist = new HashMap<String, String>();
-		System.out.println(formations.size());
-		for (Formation f : formations) {
 
-			if (f.getDiplomeType() != null)
-
-				if (f.getDiplomeType().equals(diploma)) {
-					if (!formation_field_exist.containsKey(asciiToHex(f
-							.getFormationField()))) {
-						formation_field_exist.put(
-								asciiToHex(f.getFormationField()),
-								f.getFormationField());
-
-					}
-				}
+		Collection<String> field = formationService
+				.findbyDomaineByDiplome(diploma);
+		for (String f : field) {
+			formation_field_exist.put(asciiToHex(f), f);
 		}
 
 		result = new ModelAndView("formation/offreDomaine");
@@ -130,26 +104,12 @@ public class App2FormationController {
 			@RequestParam(value = "field", required = true) String field) {
 		ModelAndView result;
 
-		Collection<Formation> formations = formationService.findAll();
-		List<Formation> formation_diploma_and_field = new ArrayList<Formation>();
+		Collection<Formation> formation_diploma_and_field = new ArrayList<Formation>();
 
-		for (Formation f : formations) {
-			if (f.getDiplomeType() != null) {
-				if (f.isVisible()) {
-
-					if (f.getDiplomeType().equals(diploma)) {
-
-						if (asciiToHex(f.getFormationField()).equals(field)) {
-
-							if (!formation_diploma_and_field.contains(f)) {
-
-								formation_diploma_and_field.add(f);
-							}
-						}
-					}
-				}
-			}
-		}
+		String fieldDecode = decode(field);
+		formation_diploma_and_field = formationService
+				.findbyDomaineByDiplomeAndByType(diploma, fieldDecode);
+		
 		result = new ModelAndView("formation/FormationDiplomaField");
 
 		result.addObject("FormationOfDiplomaAndField",
@@ -157,27 +117,15 @@ public class App2FormationController {
 		return result;
 	}
 
-	
-	
-	
-	
-	
-//	------------------------------------ Contributor audit --------------------------------------------
-	
+	// ------------------------------------ Contributor audit
+	// --------------------------------------------
+
 	@RequestMapping("formation/audit/offre")
 	public ModelAndView allFormationContributor() {
 
 		ModelAndView result;
-		Collection<Formation> formations = formationService.findAll();
-		List<String> diploma_type_exist = new ArrayList<String>();
-		for (Formation f : formations) {
-			if (!diploma_type_exist.contains(f.getDiplomeType()))
-				diploma_type_exist.add(f.getDiplomeType());
-
-		}
-
-		formations.clear();
-		formations = null;
+		Collection<String> diploma_type_exist = new ArrayList<String>();
+		diploma_type_exist = formationService.findAllDistinctDiplome();
 
 		result = new ModelAndView("formation/offreAudit");
 
@@ -185,10 +133,53 @@ public class App2FormationController {
 
 		return result;
 	}
-	
-	
-	
-	
+
+	/**
+	 * 
+	 * @param diploma
+	 * @return Map<String, String>
+	 */
+	@RequestMapping(value = "/formation/audit/field", method = RequestMethod.GET)
+	public ModelAndView allFieldOfTypeContributor(
+			@RequestParam(value = "diploma", required = true) String diploma) {
+		ModelAndView result;
+		Map<String, String> formation_field_exist = new HashMap<String, String>();
+
+		Collection<String> field = formationService
+				.findbyDomaineByDiplome(diploma);
+		for (String f : field) {
+			formation_field_exist.put(asciiToHex(f), f);
+		}
+
+		// a modifier utiliser la meme page que le visiteur mais juste
+		// passer une variable disant que l'on est en version d'audit et
+		// connecté au moins pas de page doublon
+		result = new ModelAndView("formation/offreDomaineAudit");
+
+		result.addObject("Diploma", diploma);
+		result.addObject("FormationFieldExist", formation_field_exist);
+		return result;
+	}
+
+	@RequestMapping(value = "/formation/audit/listformation", method = RequestMethod.GET)
+	public ModelAndView allFormOfFieldAndDiplomaContributor(
+			@RequestParam(value = "diploma", required = true) String diploma,
+			@RequestParam(value = "field", required = true) String field) {
+		ModelAndView result;
+
+		Collection<Formation> formation_diploma_and_field = new ArrayList<Formation>();
+
+		String fieldDecode = decode(field);
+		formation_diploma_and_field = formationService
+				.findbyDomaineByDiplomeAndByType(diploma, fieldDecode);
+		
+		result = new ModelAndView("formation/FormationDiplomaFieldAudit");
+
+		result.addObject("FormationOfDiplomaAndField",
+				formation_diploma_and_field);
+		return result;
+	}
+
 	// inutile
 	/**
 	 * 
@@ -239,10 +230,6 @@ public class App2FormationController {
 		}
 		return ret;
 	}
-
-	// public String toHex(String arg) {
-	// return String.format("%040x", new BigInteger(1, arg.getBytes()));
-	// }
 
 	/**
 	 * 

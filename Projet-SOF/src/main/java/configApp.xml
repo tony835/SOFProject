@@ -6,15 +6,7 @@
 		<Erreur_descritpion></Erreur_descritpion>
 		<content_model></content_model>
 		<description>desc</description>
-		<field>
-			<Id>77</Id>
-			<name>12</name>
-			<description></description>
-			<content_type></content_type>
-			<required></required>
-			<length></length>
-			<tab_name></tab_name>
-		</field>
+		
 		
 		<field>
 			<Id>1150</Id>
@@ -229,6 +221,8 @@
 		<login>A</login>
 		<login>B</login>
 		<login>C</login>
+		<login>toto</login>
+		<login>l1s000000</login>
 	</designer>
 	<formation_field>
 		<name>Domaine Arts, Lettres, Langues</name>
