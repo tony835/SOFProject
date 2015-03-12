@@ -572,8 +572,8 @@ public class AlimentationBdd {
 					}
 				}
 			
-			Element ObjetSpé = racine.getChild("specialite");
-			List<Element> listFieldSp = ObjetSpé.getChildren();
+			Element ObjetSpe = racine.getChild("specialite");
+			List<Element> listFieldSp = ObjetSpe.getChildren();
 			Iterator<Element> a = listFieldSp.iterator();
 			while (a.hasNext()) {
 				Element courant = (Element)a.next();
