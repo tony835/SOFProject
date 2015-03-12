@@ -168,17 +168,9 @@ public class App2FormationController {
 	public ModelAndView allFormationContributor() {
 
 		ModelAndView result;
-		Collection<Formation> formations = formationService.findAll();
-		List<String> diploma_type_exist = new ArrayList<String>();
-		for (Formation f : formations) {
-			if (!diploma_type_exist.contains(f.getDiplomeType()))
-				diploma_type_exist.add(f.getDiplomeType());
-
-		}
-
-		formations.clear();
-		formations = null;
-
+		Collection<String> diploma_type_exist = new ArrayList<String>();
+		diploma_type_exist = formationService.findAllDistinctDiplome();
+		
 		result = new ModelAndView("formation/offreAudit");
 
 		result.addObject("DiplomaTypeExist", diploma_type_exist);
@@ -186,9 +178,33 @@ public class App2FormationController {
 		return result;
 	}
 	
-	
-	
-	
+	/**
+	 * 
+	 * @param diploma
+	 * @return Map<String, String>
+	 */
+	@RequestMapping(value = "/formation/audit/field", method = RequestMethod.GET)
+	public ModelAndView allFieldOfTypeContributor(
+			@RequestParam(value = "diploma", required = true) String diploma) {
+		ModelAndView result;
+		Map<String, String> formation_field_exist = new HashMap<String, String>();
+		System.out.println("Avant DB");
+		Collection<String> field = formationService.findbyDomaineByDiplome(diploma);
+		System.out.println("La collection est ok");
+		for(String i : field)
+		{
+			System.out.println(i);
+		}
+		
+		result = new ModelAndView("formation/offreDomaine");
+		
+
+		result.addObject("Diploma", diploma);
+		result.addObject("FormationFieldExist", formation_field_exist);
+		return result;
+	}
+
+
 	// inutile
 	/**
 	 * 
@@ -240,9 +256,6 @@ public class App2FormationController {
 		return ret;
 	}
 
-	// public String toHex(String arg) {
-	// return String.format("%040x", new BigInteger(1, arg.getBytes()));
-	// }
 
 	/**
 	 * 
