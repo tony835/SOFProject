@@ -14,7 +14,6 @@ import org.springframework.util.Assert;
 import repositories.FormationDao;
 import domain.Fils;
 import domain.Formation;
-import domain.Object;
 
 @Transactional
 @Service
@@ -103,7 +102,18 @@ public class FormationService {
 	}
 
 	public Collection<Formation> findByResponsable(String login) {
-		// TODO Auto-generated method stub
 		return formationDao.findbyResponsable(login);
+	}
+	
+	public Collection<Formation> findbyDomaineByDiplomeAndByType(String diplome, String domaine){
+		return formationDao.findbyDomaineByDiplomeAndByType(diplome, domaine);
+	}
+	
+	public Collection<String> findbyDomaineByDiplome(String diplome){
+		return formationDao.findbyDomaineByDiplome(diplome);
+	}
+	
+	public Collection<Formation> getVisibleFormation(){
+		return formationDao.getVisibleFormation();
 	}
 }
