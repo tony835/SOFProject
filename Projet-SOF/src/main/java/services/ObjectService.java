@@ -96,6 +96,8 @@ public class ObjectService {
 	public List<Fils> getChild(String code) {
 		domain.Object obj = findOne(code);
 		List<Fils> list = new ArrayList<Fils>();
+		if(obj == null)
+			return list;
 		for (Fils fils : obj.getAllFils()){
 			boolean passe = false;
 			if(list.size() == 0){

@@ -16,20 +16,23 @@
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
 
-			<jstl:if test="${user.isConnected()}">
-				<a href="visualisation/formation/audit.htm"> 
-					<spring:message code="formation.audit" />
-				</a>
-			</jstl:if>
-
-			<display:table name="DiplomaTypeExist" requestURI="visualisation/formation/offre.htm" id="field">
+			<jstl:choose>
+			<jstl:when test="${user.isConnected()}">
+			<display:table name="FormationFieldExist" requestURI="visualisation/formation/audit/offreDomaine.htm" id="field">
 				<display:column title="Nom"  sortable="true">
-					<jstl:forEach items="${field}" var="s" varStatus="loop">
-						<jstl:url  var="fieldlink" value="visualisation/formation/field.htm?diploma=${s} "/>
-						<a href="${fieldlink}"> <jstl:out value="${s}"/> </a>
-					</jstl:forEach>
+
+						<jstl:url  var="fieldlink" value="visualisation/formation/audit/listformation.htm?diploma=${Diploma}&amp;field=${FormationFieldExist.keySet().toArray()[field_rowNum - 1]} "/>
+						<a href="${fieldlink}"> <jstl:out value="${field}" escapeXml="true"/> </a>
+						
 				</display:column>
+				
 			</display:table>
-			
+			</jstl:when>
+			<jstl:otherwise>
+        			<jstl:out value="Vous n'êtes pas connecté, merci de bien vouloir vous authentifier" />
+        			<a href="/Projet_SOF/auth/login.htm"><spring:message code="login" /></a>
+   			 </jstl:otherwise>
+		</jstl:choose>
+
 		</tiles:putAttribute>
 	</tiles:insertDefinition>

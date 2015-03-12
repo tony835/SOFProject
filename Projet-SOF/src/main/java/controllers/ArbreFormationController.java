@@ -67,38 +67,17 @@ public class ArbreFormationController extends AbstractController {
 	 * @return La vue qui mène au jsp traitant cet action
 	 */
 	@RequestMapping("/list")
-	public ModelAndView allFormation(@RequestParam String code) {
-
-		/*
-		 * domain.Object objSem = objectService.findOne("SEM1"); domain.Object
-		 * objIsl = objectService.findOne("ISL");
-		 * objectService.addLinkFils(objIsl, objSem, 0);
-		 */
-		/*
-		 * domain.Object obj1; obj1 = objectService.findOne("aaaa");
-		 * if(obj1.getAllFils() == null) System.out.println("mince");
-		 * domain.Object obj2 = new domain.Object(); obj2.setCode("bbbbap");
-		 * objectService.save(obj2);
-		 * 
-		 * objectService.addLinkFils(obj1, obj2, 0);
-		 * 
-		 * obj1 = objectService.findOne("aaaa"); for (Fils f :
-		 * obj1.getAllFils()){
-		 * System.out.println("=======>"+f.getFils().getCode()); }
-		 */
-		/*
-		 * domain.Object objIsl = objectService.findOne("ISL"); Formation form =
-		 * formationService.findOne("FORM1");
-		 */
-		/* objectService.addLinkFils(form, objIsl, 0); */
-		/*
-		 * System.out.println(objIsl.getCode()+"===>"+objIsl.getAllFils().size())
-		 * ; for(Fils f:form.getAllFils()){
-		 * System.out.println(f.getFils().getCode
-		 * ()+"===>"+f.getFils().getAllFils().size()); }
-		 */
+	public ModelAndView allFormation(@RequestParam String code,
+			RedirectAttributes redirectAttributes) {
 		ModelAndView result;
 
+		// La formation n'existe pas
+		if (!formationService.isFormation(code)) {
+			result = new ModelAndView("redirect:/formation/list.htm");
+			redirectAttributes.addFlashAttribute("error",
+					"arbreformation.unknow");
+			return result;
+		}
 		Collection<domain.Object> objects = objectService.objectsNonLiee(code);
 		result = new ModelAndView("arbreFormation/list");
 		result.addObject("ObjetNonLie", objects);
@@ -110,7 +89,6 @@ public class ArbreFormationController extends AbstractController {
 		result.addObject("formations", arbreFormations);
 		result.addObject("descErrors", descErrors);
 
-		
 		return result;
 	}
 
@@ -187,18 +165,35 @@ public class ArbreFormationController extends AbstractController {
 
 		ModelAndView result;
 		result = new ModelAndView("arbreFormation/gestionFils");
-		List<Fils> list = objectService.getChild(cobject);
+		domain.Object o = null;
+		try {
+			o = objectService.findOne(cobject);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("master-page/error", "error", "erreur.BD");
+		}
+		if (o == null) {
+			return new ModelAndView("redirect:/formation/list.htm", "error",
+					"arbreformation.cObjectUnknow");
+		}
+		List<Fils> list = null;
+		try {
+			list = objectService.getChild(cobject);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("master-page/error", "error", "erreur.BD");
+		}
+		if (list == null) {
+			return new ModelAndView("master-page/error", "error", "erreur.BD");
+		}
 		domain.Object selectedFils = new domain.Object();
-		domain.Object o = objectService.findOne(cobject);
 		result.addObject("objEnCours", o);
 		result.addObject("listFils", list);
 		result.addObject("typeobject", new TypeObject());
 		result.addObject("selectedFils", selectedFils);
-		
+
 		String descError = objectService.checkContentModel(o);
 		result.addObject("descError", descError);
-
-		
 		return result;
 	}
 
@@ -206,8 +201,18 @@ public class ArbreFormationController extends AbstractController {
 	public ModelAndView suppressionLiens(
 			@RequestParam(value = "pere", required = true) String pere,
 			@RequestParam(value = "fils", required = true) String fils) {
-		objectService.delLienFils(objectService.findOne(pere),
-				objectService.findOne(fils));
+		try {
+			domain.Object pereO = objectService.findOne(pere);
+			domain.Object filsO = objectService.findOne(fils);
+			if (pereO == null || filsO == null) {
+				return new ModelAndView("arbreFormation/gestionFils", "error",
+						"arbreformation.cObjectUnknow");
+			}
+			objectService.delLienFils(pereO, filsO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("master-page/error", "error", "erreur.BD");
+		}
 		ModelAndView result = new ModelAndView(
 				"redirect:gestionFils.htm?cobject=" + pere);
 		return result;
@@ -218,7 +223,16 @@ public class ArbreFormationController extends AbstractController {
 			@RequestParam(value = "codeEnCours", required = true) String codeEnCours,
 			@RequestParam(value = "rang", required = true) String rang,
 			@RequestParam(value = "cobject", required = true) String code) {
-		domain.Object obj = objectService.findOne(codeEnCours);
+		domain.Object obj = null;
+		try {
+			obj = objectService.findOne(codeEnCours);
+		} catch (Exception e) {
+			return new ModelAndView("master-page/error", "error", "erreur.BD");
+		}
+		if (obj == null) {// erreur
+			return new ModelAndView("arbreFormation/gestionFils", "error",
+					"arbreformation.cObjectUnknow");
+		}
 		Fils tmp = null;
 		if (obj != null) {
 			for (Fils f : obj.getAllFils()) {
@@ -227,13 +241,18 @@ public class ArbreFormationController extends AbstractController {
 					break;
 				}
 			}
-
 			if (tmp != null) {
-				Integer rangInt = new Integer(rang);
-				if (rangInt != null) {
-					tmp.setRang(rangInt);
-					pereFilsService.save(tmp);
+				try {
+					Integer rangInt = new Integer(rang);
+					if (rangInt != null) {
+						tmp.setRang(rangInt);
+					}
+				} catch (Exception e) {
+					ModelAndView result = new ModelAndView(
+							"redirect:gestionFils.htm?cobject=" + codeEnCours);
+					return result;
 				}
+				pereFilsService.save(tmp);
 			}
 		}
 		ModelAndView result = new ModelAndView(
@@ -246,7 +265,8 @@ public class ArbreFormationController extends AbstractController {
 			@RequestParam(required = false) String cobject) {
 		if (cobject != null) {
 			try {
-				if (objectService.findOne(cobject) == null)
+				if (objectService.findOne(cobject) == null
+						|| formationService.isFormation(cobject))
 					return "redirect:create.htm?context=" + context;
 			} catch (Exception e) {
 				return "redirect:create.htm?context=" + context;
@@ -265,7 +285,6 @@ public class ArbreFormationController extends AbstractController {
 			ModelAndView m = new ModelAndView("tmpObjectCreation/createObject");
 			return m;
 		}
-
 		// On créé un objet
 		if (cobject == null || cobject.equals("")) {
 			Formation form = null;
@@ -291,7 +310,6 @@ public class ArbreFormationController extends AbstractController {
 				return resultat;
 			}
 			myobject.setContexte(form);
-
 			try {
 				TypeObject type = null;
 				type = typeService.findOne(myobject.getTypeObject().getCode());
@@ -347,7 +365,6 @@ public class ArbreFormationController extends AbstractController {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-
 					return resultat;
 				}
 				objectService.save(myobject, user); // Tester les droits
@@ -356,7 +373,6 @@ public class ArbreFormationController extends AbstractController {
 				return new ModelAndView("master-page/error", "error",
 						"erreur.BD");
 			}
-
 		} else {// L'objet existe déjà
 			domain.Object obj = null;
 			try {
@@ -430,49 +446,97 @@ public class ArbreFormationController extends AbstractController {
 	public List<domain.Object> nlObjectList(
 			@RequestParam(value = "typeobject", required = false) String typeobject,
 			@RequestParam(value = "cobject", required = false) String cobject) {
-
 		if (cobject == null || cobject.equals(""))
 			return new ArrayList<domain.Object>();
-
 		String type;
-		String context = objectService.findOne(cobject).getContexte().getCode();
-		List<domain.Object> nlObjectList;
-
-		if (typeobject == null || typeobject.equals("")) {
-			nlObjectList = (List<domain.Object>) objectService
-					.objectsNonLiee(context);
-			return nlObjectList;
-		} else {
-			type = typeService.findOne(typeobject).getCode();
+		String context;
+		try {
+			domain.Object o = objectService.findOne(cobject);
+			if (o == null) {
+				return new ArrayList<domain.Object>();
+			}
+			context = o.getContexte().getCode();
+		} catch (Exception e) {
+			return new ArrayList<domain.Object>();
 		}
-		nlObjectList = (List<domain.Object>) objectService
-				.findTypedNonLinkedObject(context, type);
-		return nlObjectList;
+		if (typeobject == null || typeobject.equals("")) {
+			try {
+				return (List<domain.Object>) objectService
+						.objectsNonLiee(context);
+			} catch (Exception e) {
+				return new ArrayList<domain.Object>();
+			}
+		} else {
+			try {
+				TypeObject t = typeService.findOne(typeobject);
+				if (t == null) {
+					return (List<domain.Object>) objectService
+							.objectsNonLiee(context);
+				}
+				type = t.getCode();
+			} catch (Exception e) {
+				return (List<domain.Object>) objectService
+						.objectsNonLiee(context);
+			}
+		}
+		return (List<domain.Object>) objectService.findTypedNonLinkedObject(
+				context, type);
 	}
 
 	@ModelAttribute("mutualisableObjectList")
 	public List<domain.Object> mObjectList(
 			@RequestParam(value = "typeobject", required = false) String typeobject,
 			@RequestParam(value = "cobject", required = false) String cobject) {
-
 		if (cobject == null || cobject.equals(""))
 			return new ArrayList<domain.Object>();
-
 		String type;
-		String context = objectService.findOne(cobject).getContexte().getCode();
-		List<domain.Object> mObjectList;
-
-		if (typeobject == null || typeobject.equals("")) {
-			mObjectList = (List<domain.Object>) objectService
-					.findMutualisableObjects(context);
-			return mObjectList;
-		} else {
-			type = typeService.findOne(typeobject).getCode();
+		domain.Object o = null;
+		try {
+			o = objectService.findOne(cobject);
+			if (o == null) {
+				return new ArrayList<domain.Object>();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<domain.Object>();
 		}
-		mObjectList = (List<domain.Object>) objectService
-				.findTypedMutualisableObjects(context, type);
-		return mObjectList;
-
+		String context = (o.getContexte() == null) ? "" : o.getContexte()
+				.getCode();
+		if (typeobject == null || typeobject.equals("")) {
+			try {
+				Collection<domain.Object> obj = objectService
+						.findMutualisableObjects(context);
+				if (obj == null) {
+					return new ArrayList<domain.Object>();
+				}
+				return (List<domain.Object>) obj;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ArrayList<domain.Object>();
+			}
+		} else {
+			try {
+				TypeObject t = typeService.findOne(typeobject);
+				if (t == null) {
+					return new ArrayList<domain.Object>();
+				}
+				type = t.getCode();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ArrayList<domain.Object>();
+			}
+		}
+		Collection<domain.Object> obj = null;
+		try {
+			obj = objectService.findTypedMutualisableObjects(context, type);
+			if (obj == null) {
+				return new ArrayList<domain.Object>();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<domain.Object>();
+		}
+		return (List<domain.Object>) obj;
 	}
 
 	@RequestMapping(value = "/addFils", method = RequestMethod.POST)
@@ -480,7 +544,6 @@ public class ArbreFormationController extends AbstractController {
 			@RequestParam(value = "cobject", required = true) String cobject,
 			@Valid @ModelAttribute domain.Object selectedFils,
 			BindingResult result) {
-
 		if (result.hasErrors()) {
 			System.out.println(" --- " + result.toString());
 			return new ModelAndView("redirect:gestionFils.htm?cobject="
@@ -491,17 +554,14 @@ public class ArbreFormationController extends AbstractController {
 		tmpF.setRang(1);
 		tmpF.setFils(selectedFils);
 		pereFilsService.save(tmpF);
-
 		o.getAllFils().add(tmpF);
 		objectService.save(o, user);
-
 		String type = "";
 		if (o.getTypeObject() != null && o.getTypeObject().getCode() != null
 				&& o.getTypeObject().getCode().equals(""))
 			type = "";
 		return new ModelAndView("redirect:gestionFils.htm?cobject=" + cobject
 				+ "&typeobject=" + type);
-
 	}
 
 	@ModelAttribute("user")
@@ -520,9 +580,9 @@ public class ArbreFormationController extends AbstractController {
 						return retour;
 					}
 				});
-
 		// binder.registerCustomEditor(Collection.class, "NonLinkedObjectList",
-		// new CustomCollectionEditor(Collection.class)
+		// new
+		// CustomCollectionEditor(Collection.class)
 		// {
 		// @Override
 		// protected Object convertElement(Object element)

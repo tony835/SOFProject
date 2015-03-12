@@ -60,7 +60,7 @@ public class FormationController extends AbstractController {
 	@RequestMapping("/list")
 	public ModelAndView allFormation() throws JDOMException, IOException {
 		ModelAndView result;
-		Collection<Formation> formations = null;
+				Collection<Formation> formations = null;
 		if (user.isConceptor())
 			formations = formationService.findAll();
 		else if (user.isConnected())
@@ -127,6 +127,10 @@ public class FormationController extends AbstractController {
 			return new ModelAndView("authentification/login");
 		else if (cobject != null && cobject != "") {
 			formation = formationService.findOne(cobject);
+			// Erreur pour trouver la formation
+			if(formation == null){
+				return new ModelAndView("redirect:edit.htm");
+			}
 		}
 
 		result = new ModelAndView("formation/edit");

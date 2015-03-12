@@ -32,9 +32,7 @@
 
 
 			<jstl:if test="${!empty descErrors}">
-				<p style="color: Red">
-					"${descErrors}"
-				</p>
+				<p style="color: Red">"${descErrors}"</p>
 			</jstl:if>
 
 			<display:table name="formations" pagesize="20" class="displaytag"
@@ -43,18 +41,25 @@
 
 
 				<display:column title="Code">
-					<jstl:forEach begin="0" end="${row.getValue1()}" step="1">....</jstl:forEach>${row.getValue0().getCode()}</display:column>
+					<jstl:if test="${row.getValue1() != -1}">
+						<jstl:forEach begin="0" end="${row.getValue1()}" step="1">....</jstl:forEach>${row.getValue0().getCode()}
+					</jstl:if>
+					<jstl:if test="${row.getValue1() == -1}">
+						${row.getValue0().getCode()}
+					</jstl:if>
+				</display:column>
 				<display:column title="Name">${row.getValue0().getName()}</display:column>
 				<display:column title="Actions">
-					<a class="btn btn-default btn-xs"
-						href="arbreFormation/gestionFils.htm?cobject=${row.getValue0().getCode()} "><spring:message
-							code="objet.modifierFils" /></a>
-					<a class="btn btn-default btn-xs"
-						href="arbreFormation/gestionFils.htm?cobject=${row.getValue0().getCode()} "><spring:message
-							code="objet.modifierFils" /></a>
-					<a class="btn btn-default btn-xs"
-						href="arbreFormation/create.htm?context=${param.code}&amp;cobject=${row.getValue0().getCode()}"><spring:message
-							code="objet.modifier" /></a>
+					<display:column title="Actions">
+						<a class="btn btn-default btn-xs"
+							href="arbreFormation/gestionFils.htm?cobject=${row.getValue0().getCode()} "><spring:message
+								code="objet.modifierFils" /></a>
+						<jstl:if test="${(row_rowNum - 1) != 0}">
+							<a class="btn btn-default btn-xs"
+								href="arbreFormation/create.htm?context=${param.code}&amp;cobject=${row.getValue0().getCode()}"><spring:message
+									code="objet.modifier" /></a>
+						</jstl:if>
+					</display:column>
 				</display:column>
 
 			</display:table>
