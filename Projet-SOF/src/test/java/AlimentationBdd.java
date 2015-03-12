@@ -712,7 +712,6 @@ public class AlimentationBdd {
 			while (j11.hasNext()) {
 				
 					Element courant = (Element)j11.next();
-				
 				    String Code_objet = courant.getAttributeValue("code");
 				
 				    List<Element> listField1 = courant.getChildren();
