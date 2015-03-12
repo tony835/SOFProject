@@ -56,9 +56,10 @@ public class App2FormationController {
 	@RequestMapping("formation/offre")
 	public ModelAndView allFormationVisitor() {
 
+		
 		ModelAndView result;
 		Collection<String> diploma_type_exist = new ArrayList<String>();
-		diploma_type_exist = formationService.findAllDistinctDiplome();
+		diploma_type_exist = formationService.findAllDistinctDiplomeVisitor();
 
 
 		result = new ModelAndView("formation/offre");
@@ -79,7 +80,7 @@ public class App2FormationController {
 		Map<String, String> formation_field_exist = new HashMap<String, String>();
 
 		Collection<String> field = formationService
-				.findbyDomaineByDiplome(diploma);
+				.findbyDomaineByDiplomeVisitor(diploma);
 		for (String f : field) {
 			formation_field_exist.put(asciiToHex(f), f);
 		}
@@ -108,7 +109,7 @@ public class App2FormationController {
 
 		String fieldDecode = decode(field);
 		formation_diploma_and_field = formationService
-				.findbyDomaineByDiplomeAndByType(diploma, fieldDecode);
+				.findbyDomaineByDiplomeAndByTypeVisitor(diploma, fieldDecode);
 		
 		result = new ModelAndView("formation/FormationDiplomaField");
 
@@ -234,7 +235,7 @@ public class App2FormationController {
 	/**
 	 * 
 	 * @param ascii
-	 * @return
+	 * @return 
 	 */
 	public static String asciiToHex(String ascii) {
 		StringBuilder hex = new StringBuilder();
