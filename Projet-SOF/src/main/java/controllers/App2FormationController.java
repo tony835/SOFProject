@@ -3,8 +3,10 @@ package controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -53,6 +55,7 @@ public class App2FormationController {
 	 */
 	@RequestMapping("formation/offre")
 	public ModelAndView allFormationVisitor() {
+
 		ModelAndView result;
 		Collection<Formation> formations = formationService.findAll();
 		List<String> diploma_type_exist = new ArrayList<String>();
@@ -71,7 +74,7 @@ public class App2FormationController {
 
 		formations.clear();
 		formations = null;
-		getFormation_Field();
+		// getFormation_Field();
 		result = new ModelAndView("formation/offre");
 
 		result.addObject("FormationVisible", objetsVisible);
@@ -80,40 +83,117 @@ public class App2FormationController {
 		return result;
 	}
 
-	@RequestMapping(value = "/formation/field", method = RequestMethod.GET)
+	/**
+	 * 
+	 * @param diploma
+	 * @return Map<String, String>
+	 */
+	@RequestMapping(value = { "/formation/field", "/formation/field/audit" }, method = RequestMethod.GET)
 	public ModelAndView allFieldOfType(
-			@RequestParam(value = "field", required = true) String nom) {
-		System.out.println("-----------------------------");
-		System.out.println(nom);
-		System.out.println("-----------------------------");
+			@RequestParam(value = "diploma", required = true) String diploma) {
 		ModelAndView result;
 		Collection<Formation> formations = formationService.findAll();
-		List<String> formation_field_exist = new ArrayList<String>();
+		Map<String, String> formation_field_exist = new HashMap<String, String>();
 		System.out.println(formations.size());
 		for (Formation f : formations) {
 
 			if (f.getDiplomeType() != null)
-				if (f.getDiplomeType().equals(nom)) {
-					 if(!formation_field_exist.contains(f.getFormationField().replace(",", ";")))
-					 {
-						System.out.println(f.getFormationField());
-						String newField=f.getFormationField().replace(",", ";");
-						System.out.println(newField);
-						formation_field_exist.add(newField);
-						
-					 }
-					System.out.println("OK");
-				}
 
+				if (f.getDiplomeType().equals(diploma)) {
+					if (!formation_field_exist.containsKey(asciiToHex(f
+							.getFormationField()))) {
+						formation_field_exist.put(
+								asciiToHex(f.getFormationField()),
+								f.getFormationField());
+
+					}
+				}
 		}
 
 		result = new ModelAndView("formation/offreDomaine");
 
+		result.addObject("Diploma", diploma);
 		result.addObject("FormationFieldExist", formation_field_exist);
 		return result;
 	}
 
+	/**
+	 * 
+	 * @param diploma
+	 * @param field
+	 * @return
+	 */
+	@RequestMapping(value = { "/formation/listformation",
+			"/formation/listformation/audit" }, method = RequestMethod.GET)
+	public ModelAndView allFormOfFieldAndDiploma(
+			@RequestParam(value = "diploma", required = true) String diploma,
+			@RequestParam(value = "field", required = true) String field) {
+		ModelAndView result;
+
+		Collection<Formation> formations = formationService.findAll();
+		List<Formation> formation_diploma_and_field = new ArrayList<Formation>();
+
+		for (Formation f : formations) {
+			if (f.getDiplomeType() != null) {
+				if (f.isVisible()) {
+
+					if (f.getDiplomeType().equals(diploma)) {
+
+						if (asciiToHex(f.getFormationField()).equals(field)) {
+
+							if (!formation_diploma_and_field.contains(f)) {
+
+								formation_diploma_and_field.add(f);
+							}
+						}
+					}
+				}
+			}
+		}
+		result = new ModelAndView("formation/FormationDiplomaField");
+
+		result.addObject("FormationOfDiplomaAndField",
+				formation_diploma_and_field);
+		return result;
+	}
+
+	
+	
+	
+	
+	
+//	------------------------------------ Contributor audit --------------------------------------------
+	
+	@RequestMapping("formation/audit/offre")
+	public ModelAndView allFormationContributor() {
+
+		ModelAndView result;
+		Collection<Formation> formations = formationService.findAll();
+		List<String> diploma_type_exist = new ArrayList<String>();
+		for (Formation f : formations) {
+			if (!diploma_type_exist.contains(f.getDiplomeType()))
+				diploma_type_exist.add(f.getDiplomeType());
+
+		}
+
+		formations.clear();
+		formations = null;
+
+		result = new ModelAndView("formation/offreAudit");
+
+		result.addObject("DiplomaTypeExist", diploma_type_exist);
+
+		return result;
+	}
+	
+	
+	
+	
 	// inutile
+	/**
+	 * 
+	 * @return
+	 */
 	private Collection<String> getFormation_Field() {
 		SAXBuilder sxb = new SAXBuilder();
 		Document document = null;
@@ -140,6 +220,12 @@ public class App2FormationController {
 
 	}
 
+	/**
+	 * 
+	 * @param racine
+	 * @param branche
+	 * @return
+	 */
 	private List<String> getAll(Element racine, String branche) {
 		List<Element> listDiploma = racine.getChild(branche)
 				.getChildren("name");
@@ -154,6 +240,46 @@ public class App2FormationController {
 		return ret;
 	}
 
+	// public String toHex(String arg) {
+	// return String.format("%040x", new BigInteger(1, arg.getBytes()));
+	// }
+
+	/**
+	 * 
+	 * @param ascii
+	 * @return
+	 */
+	public static String asciiToHex(String ascii) {
+		StringBuilder hex = new StringBuilder();
+
+		for (int i = 0; i < ascii.length(); i++) {
+			hex.append(Integer.toHexString(ascii.charAt(i)));
+		}
+		return hex.toString();
+	}
+
+	/**
+	 * 
+	 * @param hexString
+	 * @return
+	 */
+	public static String decode(final String hexString) {
+		final int len = hexString.length();
+		if (len % 2 != 0) {
+			throw new RuntimeException("bad length");
+		}
+		final StringBuilder sb = new StringBuilder(len / 2);
+		for (int i = 0; i < len; i += 2) {
+			final String code = hexString.substring(i, i + 2);
+			sb.append((char) Integer.parseInt(code, 16));
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
 	@ModelAttribute("user")
 	public User newUser() {
 		return user;

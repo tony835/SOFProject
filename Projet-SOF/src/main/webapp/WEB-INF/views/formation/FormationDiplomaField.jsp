@@ -16,19 +16,15 @@
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
 
-			<jstl:if test="${user.isConnected()}">
-				<a href="visualisation/formation/audit.htm"> 
-					<spring:message code="formation.audit" />
-				</a>
-			</jstl:if>
-
-			<display:table name="DiplomaTypeExist" requestURI="visualisation/formation/offre.htm" id="field">
+			<display:table name="FormationOfDiplomaAndField" requestURI="visualisation/formation/listformation.htm" id="formation">
 				<display:column title="Nom"  sortable="true">
-					<jstl:forEach items="${field}" var="s" varStatus="loop">
-						<jstl:url  var="fieldlink" value="visualisation/formation/field.htm?diploma=${s} "/>
-						<a href="${fieldlink}"> <jstl:out value="${s}"/> </a>
-					</jstl:forEach>
+
+						<jstl:url  var="fieldlink" value="visualisation/formation/details?=${formation.getCode()} "/>
+						<a href="${fieldlink}"> <jstl:out value="${formation.getName()}" escapeXml="true"/> </a>
+						
 				</display:column>
+				
 			</display:table>
+
 		</tiles:putAttribute>
 	</tiles:insertDefinition>
