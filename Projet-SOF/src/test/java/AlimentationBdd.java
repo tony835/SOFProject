@@ -305,8 +305,8 @@ public class AlimentationBdd {
 		  /**
 			 * alimenter la table objet
 			 */
-		  List<Element> ObjetSpécialite = racine.getChildren("specialite");
-		  Iterator<Element> i5 = ObjetSpécialite.iterator();
+		  List<Element> ObjetSpecialite = racine.getChildren("specialite");
+		  Iterator<Element> i5 = ObjetSpecialite.iterator();
 		  
 		  while (i5.hasNext()) 
 		  { Element courant = (Element) i5.next(); 
