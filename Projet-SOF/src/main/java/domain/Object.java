@@ -40,7 +40,7 @@ public class Object {
 
 
 	@Column(name = "FMutualisable")
-	private boolean mutualisable;
+	private Boolean mutualisable;
 
 	@ManyToOne
 	@JoinColumn(name = "contexte", referencedColumnName = "Code_objet")
