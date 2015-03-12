@@ -224,11 +224,16 @@ public class ArbreFormationController extends AbstractController {
 			}
 
 			if (tmp != null) {
-				Integer rangInt = new Integer(rang);
-				if (rangInt != null) {
-					tmp.setRang(rangInt);
-					pereFilsService.save(tmp);
+				try{
+					Integer rangInt = new Integer(rang);
+					if (rangInt != null) {
+						tmp.setRang(rangInt);
+					}
+				}catch(Exception e){
+					ModelAndView result = new ModelAndView("redirect:gestionFils.htm?cobject=" + codeEnCours);
+					return result;
 				}
+				pereFilsService.save(tmp);
 			}
 		}
 		ModelAndView result = new ModelAndView("redirect:gestionFils.htm?cobject=" + codeEnCours);
@@ -239,7 +244,7 @@ public class ArbreFormationController extends AbstractController {
 	public String create(@RequestParam(required = false) String context, @RequestParam(required = false) String cobject) {
 		if (cobject != null) {
 			try {
-				if (objectService.findOne(cobject) == null)
+				if (objectService.findOne(cobject) == null || formationService.isFormation(cobject))
 					return "redirect:create.htm?context=" + context;
 			} catch (Exception e) {
 				return "redirect:create.htm?context=" + context;

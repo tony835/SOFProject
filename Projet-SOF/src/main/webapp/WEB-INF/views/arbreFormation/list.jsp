@@ -36,9 +36,9 @@
 				<display:column title="Actions">
 					<a class="btn btn-default btn-xs" href="arbreFormation/gestionFils.htm?cobject=${row.getValue0().getCode()} "><spring:message
 							code="objet.modifierFils" /></a>
-					<a class="btn btn-default btn-xs"
+					<jstl:if test="${(row_rowNum - 1) != 0}"><a class="btn btn-default btn-xs"
 						href="arbreFormation/create.htm?context=${param.code}&amp;cobject=${row.getValue0().getCode()}"><spring:message
-							code="objet.modifier" /></a>
+							code="objet.modifier" /></a></jstl:if>
 				</display:column>
 
 			</display:table>
