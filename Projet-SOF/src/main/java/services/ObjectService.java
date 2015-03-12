@@ -125,4 +125,7 @@ public class ObjectService {
 		}
 		return nlFilsList;		
 	}
+	public Collection<Object> objectsSameTypeInContext(String codeTypeObject, String codecontext,String code ){
+		return objectDao.findOtheObjectSameTypeInContext(codeTypeObject, codecontext,code);
+	}
 }
