@@ -109,9 +109,4 @@ public class FormationService {
 		return formationDao.findbyDomaineByDiplomeAndByType(diplome, domaine);
 	}
 	
-
-	
-	public Collection<Formation> getVisibleFormation(){
-		return formationDao.getVisibleFormation();
-	}
 }
