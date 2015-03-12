@@ -556,18 +556,13 @@ public class AlimentationBdd {
 							||Id.equals("contributeurs")){}
 					else {
 					String name = courant.getName();
-					String content_type = courant.getValue();
-
-					// the mysql insert statement
 					String query = " insert into Descripteur_champs "
-							+ " values (?,null,null,?,null,null,?,'FOR')";
+							+ " values (?,?,100,?,0,null,'STRING','FOR')";
 					// create the mysql insert preparedstatement
 					PreparedStatement preparedStmt = conn.prepareStatement(query);
 					preparedStmt.setString(1, Id.toUpperCase());
 					preparedStmt.setString(2, name);
-					preparedStmt.setString(3, content_type);
-					
-					// execute the preparedstatement
+					preparedStmt.setString(3, name);
 					preparedStmt.execute();
 					}
 				}
@@ -583,17 +578,14 @@ public class AlimentationBdd {
 						 if(Id.equals(Rs)){ System.out.println("erreur");}
 						 else {
 					String name = courant.getName();
-					String content_type = courant.getValue();
 
-					// the mysql insert statement
 					String query = " insert into Descripteur_champs "
-							+ " values (?,null,null,?,null,null,?,'SPE')";
+							+ " values (?,?,100,?,0,null,'STRING','SPE')";
 					// create the mysql insert preparedstatement
 					PreparedStatement preparedStmt = conn.prepareStatement(query);
-					preparedStmt.setString(1, Id);
+					preparedStmt.setString(1, Id.toUpperCase());
 					preparedStmt.setString(2, name);
-					preparedStmt.setString(3, content_type);
-					
+					preparedStmt.setString(3, name);
 					// execute the preparedstatement
 					try{preparedStmt.execute();}
 					catch(Exception e1){
@@ -612,16 +604,15 @@ public class AlimentationBdd {
 						 if(Id.equals(Rs)){ System.out.println("erreur");}
 						 else {
 					String name = courant.getName();
-					String content_type = courant.getValue();
 
 					// the mysql insert statement
 					String query = " insert into Descripteur_champs "
-							+ " values (?,null,null,?,null,null,?,'PRO')";
+							+ " values (?,?,100,?,0,null,'STRING','PRO')";
 					// create the mysql insert preparedstatement
 					PreparedStatement preparedStmt = conn.prepareStatement(query);
-					preparedStmt.setString(1, Id);
+					preparedStmt.setString(1, Id.toUpperCase());
 					preparedStmt.setString(2, name);
-					preparedStmt.setString(3, content_type);
+					preparedStmt.setString(3, name);
 					
 					// execute the preparedstatement
 					try{preparedStmt.execute();}
@@ -640,16 +631,15 @@ public class AlimentationBdd {
 						 if(Id.equals(Rs)){ System.out.println("erreur");}
 						 else {
 					String name = courant.getName();
-					String content_type = courant.getValue();
 
 					// the mysql insert statement
 					String query = " insert into Descripteur_champs "
-							+ " values (?,null,null,?,null,null,?,'OPT')";
+							+ " values (?,?,100,?,0,null,'STRING','OPT')";
 					// create the mysql insert preparedstatement
 					PreparedStatement preparedStmt = conn.prepareStatement(query);
-					preparedStmt.setString(1, Id);
+					preparedStmt.setString(1, Id.toUpperCase());
 					preparedStmt.setString(2, name);
-					preparedStmt.setString(3, content_type);
+					preparedStmt.setString(3, name);
 					
 					// execute the preparedstatement
 					try{preparedStmt.execute();}
@@ -669,16 +659,15 @@ public class AlimentationBdd {
 						 if(Id.equals(Rs)){ System.out.println("erreur");}
 						 else {
 					String name = courant.getName();
-					String content_type = courant.getValue();
 
 					// the mysql insert statement
 					String query = " insert into Descripteur_champs "
-							+ " values (?,null,null,?,null,null,?,'SEM')";
+							+ " values (?,?,100,?,0,null,'STRING','SEM')";
 					// create the mysql insert preparedstatement
 					PreparedStatement preparedStmt = conn.prepareStatement(query);
-					preparedStmt.setString(1, Id);
+					preparedStmt.setString(1, Id.toUpperCase());
 					preparedStmt.setString(2, name);
-					preparedStmt.setString(3, content_type);
+					preparedStmt.setString(3, name);
 					
 					// execute the preparedstatement
 					try{preparedStmt.execute();}
@@ -686,7 +675,6 @@ public class AlimentationBdd {
 						}	
 				}}}			
 
-			
 			Element ObjetEns = racine.getChild("enseignement");
 			List<Element> listFieldEn = ObjetEns.getChildren();
 			Iterator<Element> t = listFieldEn.iterator();
@@ -698,16 +686,14 @@ public class AlimentationBdd {
 						 if(Id.equals(Rs)){ System.out.println("erreur");}
 						 else {
 					String name = courant.getName();
-					String content_type = courant.getValue();
 
-					// the mysql insert statement
 					String query = " insert into Descripteur_champs "
-							+ " values (?,null,null,?,null,null,?,'ENS')";
+							+ " values (?,?,100,?,0,null,'STRING','ENS')";
 					// create the mysql insert preparedstatement
 					PreparedStatement preparedStmt = conn.prepareStatement(query);
-					preparedStmt.setString(1, Id);
+					preparedStmt.setString(1, Id.toUpperCase());
 					preparedStmt.setString(2, name);
-					preparedStmt.setString(3, content_type);
+					preparedStmt.setString(3, name);
 					
 					// execute the preparedstatement
 					try{preparedStmt.execute();}
@@ -739,8 +725,12 @@ public class AlimentationBdd {
 					if(Id.equals("err")||Id.equals("nom")||Id.equals("responsables")
 							||Id.equals("contributeurs")){ }
 					else {
-					String content_type = courant1.getValue();
-
+					String content_type = ""; 
+				    Iterator<Element> h = courant1.getChildren().iterator();
+				    for(;h.hasNext();){
+						Element courant2 = (Element)h.next();
+						content_type+=courant2.getValue()+',';
+				    }
 					// the mysql insert statement
 					String query = " insert into A_pour_champs "
 							+ "values (?,?,?)";
@@ -773,8 +763,12 @@ public class AlimentationBdd {
 						if(Id.equals("err")||Id.equals("nom")||Id.equals("responsables")
 								||Id.equals("contributeurs")){}
 						else {
-						String content_type = courant1.getValue();
-
+							String content_type = ""; 
+						    Iterator<Element> h = courant1.getChildren().iterator();
+						    for(;h.hasNext();){
+								Element courant2 = (Element)h.next();
+								content_type+=courant2.getValue()+',';
+						    }
 						// the mysql insert statement
 						String query = " insert into A_pour_champs "
 								+ "values (?,?,?)";
@@ -806,7 +800,12 @@ public class AlimentationBdd {
 							if(Id.equals("err")||Id.equals("nom")||Id.equals("responsables")
 									||Id.equals("contributeurs")){}
 							else {
-							String content_type = courant1.getValue();
+								String content_type = ""; 
+							    Iterator<Element> h = courant1.getChildren().iterator();
+							    for(;h.hasNext();){
+									Element courant2 = (Element)h.next();
+									content_type+=courant2.getValue()+',';
+							    }
 
 							// the mysql insert statement
 							String query = " insert into A_pour_champs "
@@ -832,8 +831,12 @@ public class AlimentationBdd {
 				    courant.getChildren();
 				    String Id = courant.getName();
 				    String Code_objet = courant.getAttributeValue("code");
-					String content_type = courant.getValue();
-
+						String content_type = ""; 
+					    Iterator<Element> h = courant.getChildren().iterator();
+					    for(;h.hasNext();){
+							Element courant2 = (Element)h.next();
+							content_type+=courant2.getValue()+',';
+					    }
 					// the mysql insert statement
 					String query = " insert into A_pour_champs "
 							+ "  values (?,?,?)";
@@ -857,8 +860,12 @@ public class AlimentationBdd {
 				    courant.getChildren();
 				    String Id = courant.getName();
 				    String Code_objet = courant.getAttributeValue("code");
-					String content_type = courant.getValue();
-
+				    String content_type = ""; 
+				    Iterator<Element> h = courant.getChildren().iterator();
+				    for(;h.hasNext();){
+						Element courant2 = (Element)h.next();
+						content_type+=courant2.getValue()+',';
+				    }
 					// the mysql insert statement
 					String query = " insert into A_pour_champs "
 							+ "  values (?,?,?)";
@@ -882,8 +889,12 @@ public class AlimentationBdd {
 				    courant.getChildren();
 				    String Id = courant.getName();
 				    String Code_objet = courant.getAttributeValue("code");
-					String content_type = courant.getValue();
-
+				    String content_type = ""; 
+				    Iterator<Element> h = courant.getChildren().iterator();
+				    for(;h.hasNext();){
+						Element courant2 = (Element)h.next();
+						content_type+=courant2.getValue()+',';
+				    }
 					// the mysql insert statement
 					String query = " insert into A_pour_champs "
 							+ " values (?,?,?)";
