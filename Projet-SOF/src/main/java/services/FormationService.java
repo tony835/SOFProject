@@ -65,10 +65,16 @@ public class FormationService {
 		return formationDao.findAllDistinctDiplome();
 	}
 	
+	public boolean isFormation(String code){
+		System.out.println(formationDao.isFormation(code));
+		return formationDao.isFormation(code) != null;
+	}
+	
 	public List<Pair<domain.Object, Integer>> getListFormationIndente(String code) {
 		Formation f = findOne(code);
 		if(f == null) return null;
 		List<Pair<domain.Object, Integer>> list = new ArrayList<Pair<domain.Object, Integer>>();
+		list.add(new Pair<Object, Integer>(f, -1));
 		formationIndentShild(list, f.getAllFils(), 0);
 		return list;
 	}

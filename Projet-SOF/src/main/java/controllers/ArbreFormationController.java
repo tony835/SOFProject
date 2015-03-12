@@ -67,34 +67,15 @@ public class ArbreFormationController extends AbstractController {
 	 * @return La vue qui mène au jsp traitant cet action
 	 */
 	@RequestMapping("/list")
-	public ModelAndView allFormation(@RequestParam String code) {
-
-
-		/*domain.Object objSem = objectService.findOne("SEM1");
-		domain.Object objIsl = objectService.findOne("ISL");
-		objectService.addLinkFils(objIsl, objSem, 0);*/
-		/*domain.Object obj1;
-		obj1 = objectService.findOne("aaaa");
-		if(obj1.getAllFils() == null) System.out.println("mince");
-		domain.Object obj2 = new domain.Object();
-		obj2.setCode("bbbbap");
-		objectService.save(obj2);
-
-		objectService.addLinkFils(obj1, obj2, 0);
-
-		obj1 = objectService.findOne("aaaa");
-		for (Fils f : obj1.getAllFils()){
-			System.out.println("=======>"+f.getFils().getCode());
-		}*/
-		/*domain.Object objIsl = objectService.findOne("ISL");
-		Formation form = formationService.findOne("FORM1");*/
-		/*objectService.addLinkFils(form, objIsl, 0);*/
-		/*System.out.println(objIsl.getCode()+"===>"+objIsl.getAllFils().size());
-		for(Fils f:form.getAllFils()){
-			System.out.println(f.getFils().getCode()+"===>"+f.getFils().getAllFils().size());
-		}*/
+	public ModelAndView allFormation(@RequestParam String code, RedirectAttributes redirectAttributes) {
 		ModelAndView result;
 
+		// La formation n'existe pas
+		if (!formationService.isFormation(code)) {
+			result = new ModelAndView("redirect:/formation/list.htm");
+			redirectAttributes.addFlashAttribute("error", "arbreformation.unknow");
+			return result;
+		}
 		Collection<domain.Object> objects = objectService.objectsNonLiee(code);
 		result = new ModelAndView("arbreFormation/list");
 		result.addObject("ObjetNonLie", objects);
@@ -103,7 +84,6 @@ public class ArbreFormationController extends AbstractController {
 		result.addObject("formations", arbreFormations);
 		return result;
 	}
-
 
 	/**
 	 * Edition d'une formation
@@ -168,111 +148,150 @@ public class ArbreFormationController extends AbstractController {
 		return result;
 	}
 
-
-
 	@RequestMapping(value = "/gestionFils", method = RequestMethod.GET)
 	public ModelAndView gestionFils(@RequestParam String cobject) {
 
 		ModelAndView result;
 		result = new ModelAndView("arbreFormation/gestionFils");
-		List<Fils> list = objectService.getChild(cobject);
+		domain.Object o = null;
+		try{
+			o = objectService.findOne(cobject);
+		}catch(Exception e){
+			e.printStackTrace();
+			return new ModelAndView("master-page/error", "error", "erreur.BD");
+		}
+		if(o == null){
+			return new ModelAndView("redirect:/formation/list.htm", "error", "arbreformation.cObjectUnknow");
+		}
+		List<Fils> list = null;
+		try{
+			list = objectService.getChild(cobject);
+		}catch(Exception e){
+			e.printStackTrace();
+			return new ModelAndView("master-page/error", "error", "erreur.BD");
+		}
+		if(list == null){
+			return new ModelAndView("master-page/error", "error", "erreur.BD");
+		}
 		domain.Object selectedFils = new domain.Object();
-		domain.Object o = objectService.findOne(cobject);
 		result.addObject("objEnCours", o);
 		result.addObject("listFils", list);
 		result.addObject("typeobject", new TypeObject());
 		result.addObject("selectedFils", selectedFils);
-		
+
 		return result;
 	}
 
 	@RequestMapping("/supprimer")
-	public ModelAndView suppressionLiens(@RequestParam(value="pere",required=true) String pere, @RequestParam(value="fils",required=true) String fils) {
-		objectService.delLienFils(objectService.findOne(pere), objectService.findOne(fils));
-		ModelAndView result = new ModelAndView("redirect:gestionFils.htm?cobject="+pere);
+	public ModelAndView suppressionLiens(@RequestParam(value = "pere", required = true) String pere,
+			@RequestParam(value = "fils", required = true) String fils) {
+		try{
+			domain.Object pereO = objectService.findOne(pere);
+			domain.Object filsO = objectService.findOne(fils);
+			if(pereO == null || filsO == null){
+				return new ModelAndView("arbreFormation/gestionFils", "error", "arbreformation.cObjectUnknow");
+			}
+			objectService.delLienFils(pereO, filsO);
+		}catch (Exception e){
+			e.printStackTrace();
+			return new ModelAndView("master-page/error", "error", "erreur.BD");
+		}
+		ModelAndView result = new ModelAndView("redirect:gestionFils.htm?cobject=" + pere);
 		return result;
 	}
 
-
 	@RequestMapping(value = "/gestionFilsEditRang", method = RequestMethod.POST)
-	public ModelAndView gestionFilsEditRang(@RequestParam(value="codeEnCours",required=true) String codeEnCours, @RequestParam(value="rang",required=true) String rang, @RequestParam(value="cobject",required=true) String code) {
-		domain.Object obj = objectService.findOne(codeEnCours);
+	public ModelAndView gestionFilsEditRang(@RequestParam(value = "codeEnCours", required = true) String codeEnCours,
+			@RequestParam(value = "rang", required = true) String rang,
+			@RequestParam(value = "cobject", required = true) String code) {
+		
+		domain.Object obj = null;
+		try{
+			obj = objectService.findOne(codeEnCours);
+		}catch(Exception e){
+			return new ModelAndView("master-page/error", "error", "erreur.BD");
+		}
+		if(obj == null){// erreur
+			return new ModelAndView("arbreFormation/gestionFils", "error", "arbreformation.cObjectUnknow");
+		}
 		Fils tmp = null;
-		if(obj != null){
-			for (Fils f : obj.getAllFils()){
-				if(f.getFils().getCode().equals(code)){
+		if (obj != null) {
+			for (Fils f : obj.getAllFils()) {
+				if (f.getFils().getCode().equals(code)) {
 					tmp = f;
 					break;
 				}
 			}
 
-			if(tmp != null){
+			if (tmp != null) {
 				Integer rangInt = new Integer(rang);
-				if(rangInt != null){
+				if (rangInt != null) {
 					tmp.setRang(rangInt);
 					pereFilsService.save(tmp);
 				}
 			}
 		}
-		ModelAndView result = new ModelAndView("redirect:gestionFils.htm?cobject="+codeEnCours);
+		ModelAndView result = new ModelAndView("redirect:gestionFils.htm?cobject=" + codeEnCours);
 		return result;
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public String create(@RequestParam(required=false) String context, @RequestParam(required=false) String cobject) {
-		if(cobject != null){
-			try{
-				if(objectService.findOne(cobject) == null)
-					return "redirect:create.htm?context="+context;
-			}catch (Exception e) {
-				return "redirect:create.htm?context="+context;
+	public String create(@RequestParam(required = false) String context, @RequestParam(required = false) String cobject) {
+		if (cobject != null) {
+			try {
+				if (objectService.findOne(cobject) == null)
+					return "redirect:create.htm?context=" + context;
+			} catch (Exception e) {
+				return "redirect:create.htm?context=" + context;
 			}
 		}
 		return "tmpObjectCreation/createObject";
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ModelAndView saveNewObject( @RequestParam(required=false) String context, @RequestParam(required=false) String cobject, @Valid @ModelAttribute domain.Object myobject, BindingResult bindingResult) {
+	public ModelAndView saveNewObject(@RequestParam(required = false) String context,
+			@RequestParam(required = false) String cobject, @Valid @ModelAttribute domain.Object myobject,
+			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			ModelAndView m = new ModelAndView("tmpObjectCreation/createObject");
 			return m;
 		}
 
-
 		// On créé un objet
-		if(cobject == null || cobject.equals("")){
+		if (cobject == null || cobject.equals("")) {
 			Formation form = null;
-			try{
+			try {
 				form = formationService.findOne(context);
-			}catch(Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 				return new ModelAndView("master-page/error", "error", "erreur.BD");
 			}
 			// On regarde que la formation existe déjà pour pouvoir l'avouter au context du nouvel objet.
-			if(form == null){
+			if (form == null) {
 				System.out.println("cas1");
-				ModelAndView resultat = new ModelAndView("redirect:create.htm?context="+((context==null)?"":context)+"&cobject="+((cobject==null)?"":cobject));
-				//redirectAttributes.addFlashAttribute("error", "arbreformation.formUnknow");
-				//redirectAttributes.addFlashAttribute("myobject", myobject);
+				ModelAndView resultat = new ModelAndView("redirect:create.htm?context="
+						+ ((context == null) ? "" : context) + "&cobject=" + ((cobject == null) ? "" : cobject));
+				// redirectAttributes.addFlashAttribute("error", "arbreformation.formUnknow");
+				// redirectAttributes.addFlashAttribute("myobject", myobject);
 				return resultat;
 			}
 			myobject.setContexte(form);
 
-
-			try{
+			try {
 				TypeObject type = null;
 				type = typeService.findOne(myobject.getTypeObject().getCode());
 				// Type non reconnu
-				if(type == null){
-					ModelAndView resultat = new ModelAndView("redirect:create.htm?context="+((context==null)?"":context)+"&cobject="+((cobject==null)?"":cobject));
-					//redirectAttributes.addFlashAttribute("myobject", myobject);
-					//redirectAttributes.addFlashAttribute("error", "arbreformation.typeUnknow");
+				if (type == null) {
+					ModelAndView resultat = new ModelAndView("redirect:create.htm?context="
+							+ ((context == null) ? "" : context) + "&cobject=" + ((cobject == null) ? "" : cobject));
+					// redirectAttributes.addFlashAttribute("myobject", myobject);
+					// redirectAttributes.addFlashAttribute("error", "arbreformation.typeUnknow");
 					return resultat;
 				}
 				domain.Object obj = null;
 				obj = objectService.findOne(myobject.getCode());
 				// On vérifie que l'objet n'existe pas déjà
-				if(obj != null){
+				if (obj != null) {
 					System.out.println("cas3");
 					ModelAndView resultat = new ModelAndView("tmpObjectCreation/createObject");
 					resultat.addObject("myobject", myobject);
@@ -307,36 +326,36 @@ public class ArbreFormationController extends AbstractController {
 					return resultat;
 				}
 				objectService.save(myobject, user); // Tester les droits
-			}catch(Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 				return new ModelAndView("master-page/error", "error", "erreur.BD");
 			}
 
-		}else{// L'objet existe déjà
+		} else {// L'objet existe déjà
 			domain.Object obj = null;
-			try{
+			try {
 				obj = objectService.findOne(cobject);
 				// On vérifie que l'objet existe déjà
 				// TODO A tester car passe mais n'affiche pas l'erreur
-				if(obj == null){
+				if (obj == null) {
 					System.out.println("cas2");
-					ModelAndView resultat = new ModelAndView("redirect:create.htm?context="+((context==null)?"":context)+"&cobject="+((cobject==null)?"":cobject));
-					//redirectAttributes.addFlashAttribute("error", "arbreformation.cObjectUnknow");
-					//redirectAttributes.addFlashAttribute("myobject", myobject);
+					ModelAndView resultat = new ModelAndView("redirect:create.htm?context="
+							+ ((context == null) ? "" : context) + "&cobject=" + ((cobject == null) ? "" : cobject));
+					// redirectAttributes.addFlashAttribute("error", "arbreformation.cObjectUnknow");
+					// redirectAttributes.addFlashAttribute("myobject", myobject);
 					return resultat;
 				}
 				myobject.setContexte(obj.getContexte());
 				obj.setName(myobject.getName());
 				obj.setMutualisable(myobject.isMutualisable());
 				objectService.save(obj, user); // Tester les droits
-			}catch(Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 				return new ModelAndView("master-page/error", "error", "erreur.BD");
 			}
 		}
-		return new ModelAndView("redirect:list.htm?code="+myobject.getContexte().getCode());
+		return new ModelAndView("redirect:list.htm?code=" + myobject.getContexte().getCode());
 	}
-
 
 	@RequestMapping(value = "/editsons.htm", method = RequestMethod.GET)
 	public String manageSons() {
@@ -345,16 +364,15 @@ public class ArbreFormationController extends AbstractController {
 
 	@RequestMapping(value = "/editsons.htm", method = RequestMethod.POST)
 	public String saveObjectSons(@ModelAttribute @Valid domain.Object o, BindingResult result) {
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			return "formation/list.htm";
 		}
-		//objectService.save(o, user);
+		// objectService.save(o, user);
 		return "formation/list";
 	}
 
 	@ModelAttribute("myobject")
-	public domain.Object newObject(
-			@RequestParam(value = "cobject", required = false) String code) {
+	public domain.Object newObject(@RequestParam(value = "cobject", required = false) String code) {
 
 		if (code != null) {
 			domain.Object o = objectService.findOne(code);
@@ -375,8 +393,9 @@ public class ArbreFormationController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/sortNLObject", method = RequestMethod.POST)
-	public ModelAndView sortNLObject(@RequestParam(value="cobject",required=true) String code, @Valid @ModelAttribute TypeObject typeobject, BindingResult bindingResult){
-		return new ModelAndView("redirect:gestionFils.htm?cobject=" + code + "&typeobject="+typeobject.getCode()) ;
+	public ModelAndView sortNLObject(@RequestParam(value = "cobject", required = true) String code,
+			@Valid @ModelAttribute TypeObject typeobject, BindingResult bindingResult) {
+		return new ModelAndView("redirect:gestionFils.htm?cobject=" + code + "&typeobject=" + typeobject.getCode());
 	}
 
 	@ModelAttribute("typesList")
@@ -385,72 +404,123 @@ public class ArbreFormationController extends AbstractController {
 	}
 
 	@ModelAttribute("NonLinkedObjectList")
-	public List<domain.Object> nlObjectList(@RequestParam(value="typeobject",required=false) String typeobject, @RequestParam(value="cobject",required=false) String cobject) {
-		
-		if(cobject == null || cobject.equals(""))
+	public List<domain.Object> nlObjectList(@RequestParam(value = "typeobject", required = false) String typeobject,
+			@RequestParam(value = "cobject", required = false) String cobject) {
+
+		if (cobject == null || cobject.equals(""))
 			return new ArrayList<domain.Object>();
-		
+
 		String type;
-		String context = objectService.findOne(cobject).getContexte().getCode();
-		List<domain.Object> nlObjectList;
-		
-		if (typeobject == null || typeobject.equals("")){
-			nlObjectList = (List<domain.Object>) objectService.objectsNonLiee(context);
-			return nlObjectList;
+		String context;
+		try {
+			domain.Object o = objectService.findOne(cobject);
+			if (o == null) {
+				return new ArrayList<domain.Object>();
+			}
+			context = o.getContexte().getCode();
+		} catch (Exception e) {
+			return new ArrayList<domain.Object>();
 		}
-		else{
-			type = typeService.findOne(typeobject).getCode(); 
+
+		if (typeobject == null || typeobject.equals("")) {
+			try {
+				return (List<domain.Object>) objectService.objectsNonLiee(context);
+			} catch (Exception e) {
+				return new ArrayList<domain.Object>();
+			}
+		} else {
+			try {
+				TypeObject t = typeService.findOne(typeobject);
+				if (t == null) {
+					return (List<domain.Object>) objectService.objectsNonLiee(context);
+				}
+				type = t.getCode();
+			} catch (Exception e) {
+				return (List<domain.Object>) objectService.objectsNonLiee(context);
+			}
+
 		}
-		nlObjectList = (List<domain.Object>) objectService.findTypedNonLinkedObject(context, type);
-		return nlObjectList;
+		return (List<domain.Object>) objectService.findTypedNonLinkedObject(context, type);
 	}
 
-	
 	@ModelAttribute("mutualisableObjectList")
-	public List<domain.Object> mObjectList(@RequestParam(value="typeobject",required=false) String typeobject, @RequestParam(value="cobject",required=false) String cobject) {
-		
-		if(cobject == null || cobject.equals(""))
-			return new ArrayList<domain.Object>();
-		
-		String type;
-		String context = objectService.findOne(cobject).getContexte().getCode();
-		List<domain.Object> mObjectList;
-		
-		if (typeobject == null || typeobject.equals("")){
-			mObjectList = (List<domain.Object>) objectService.findMutualisableObjects(context);
-			return mObjectList;
-		}
-		else{
-			type = typeService.findOne(typeobject).getCode(); 
-		}
-		mObjectList = (List<domain.Object>) objectService.findTypedMutualisableObjects(context, type);
-		return mObjectList;
+	public List<domain.Object> mObjectList(@RequestParam(value = "typeobject", required = false) String typeobject,
+			@RequestParam(value = "cobject", required = false) String cobject) {
 
+		if (cobject == null || cobject.equals(""))
+			return new ArrayList<domain.Object>();
+
+		String type;
+		domain.Object o = null;
+		try {
+			o = objectService.findOne(cobject);
+			if (o == null) {
+				return new ArrayList<domain.Object>();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<domain.Object>();
+		}
+		String context = (o.getContexte() == null)?"":o.getContexte().getCode();
+
+		if (typeobject == null || typeobject.equals("")) {
+			try {
+				Collection<domain.Object> obj = objectService.findMutualisableObjects(context);
+				if (obj == null) {
+					return new ArrayList<domain.Object>();
+				}
+				return (List<domain.Object>) obj;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ArrayList<domain.Object>();
+			}
+		} else {
+			try {
+				TypeObject t = typeService.findOne(typeobject);
+				if (t == null) {
+					return new ArrayList<domain.Object>();
+				}
+				type = t.getCode();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ArrayList<domain.Object>();
+			}
+		}
+		Collection<domain.Object> obj = null;
+		try {
+			obj = objectService.findTypedMutualisableObjects(context, type);
+			if (obj == null) {
+				return new ArrayList<domain.Object>();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<domain.Object>();
+		}
+		return (List<domain.Object>) obj;
 	}
 
-	
 	@RequestMapping(value = "/addFils", method = RequestMethod.POST)
-	public ModelAndView addFils(@RequestParam(value="cobject",required=true) String cobject, @Valid @ModelAttribute domain.Object selectedFils, BindingResult result) {
+	public ModelAndView addFils(@RequestParam(value = "cobject", required = true) String cobject,
+			@Valid @ModelAttribute domain.Object selectedFils, BindingResult result) {
 
-
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			System.out.println(" --- " + result.toString());
-			return new ModelAndView("redirect:gestionFils.htm?cobject="+cobject);
+			return new ModelAndView("redirect:gestionFils.htm?cobject=" + cobject);
 		}
 		domain.Object o = objectService.findOne(cobject);
 		Fils tmpF = new Fils();
 		tmpF.setRang(1);
 		tmpF.setFils(selectedFils);
 		pereFilsService.save(tmpF);
-		
+
 		o.getAllFils().add(tmpF);
 		objectService.save(o, user);
 
 		String type = "";
-		if(o.getTypeObject() != null && o.getTypeObject().getCode()!= null && o.getTypeObject().getCode().equals(""))
+		if (o.getTypeObject() != null && o.getTypeObject().getCode() != null && o.getTypeObject().getCode().equals(""))
 			type = "";
-		return new ModelAndView("redirect:gestionFils.htm?cobject="+cobject + "&typeobject=" + type);
-		
+		return new ModelAndView("redirect:gestionFils.htm?cobject=" + cobject + "&typeobject=" + type);
+
 	}
 
 	@ModelAttribute("user")
@@ -460,33 +530,32 @@ public class ArbreFormationController extends AbstractController {
 
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(List.class, "typeObject", new CustomCollectionEditor(List.class)
-		{
+		binder.registerCustomEditor(List.class, "typeObject", new CustomCollectionEditor(List.class) {
 			@Override
-			protected Object convertElement(Object element)
-			{
+			protected Object convertElement(Object element) {
 				List<TypeObject> retour = new ArrayList<TypeObject>();
 				retour.add(typeService.findOne((String) element));
 				return retour;
 			}
 		});
-		
-//		binder.registerCustomEditor(Collection.class, "NonLinkedObjectList", new CustomCollectionEditor(Collection.class)
-//		{
-//			@Override
-//			protected Object convertElement(Object element)
-//			{
-//			
-//				System.out.println("init ... BENDER !!!");
-//				
-//				Collection <Fils> retour = new ArrayList<Fils>();
-//				Fils f = new Fils();
-//				f.setRang(1);
-//				f.setFils(objectService.findOne((String)element));
-//				retour.add(f);
-//				return retour;
-//			}
-//			
-//		});
+
+		// binder.registerCustomEditor(Collection.class, "NonLinkedObjectList", new
+		// CustomCollectionEditor(Collection.class)
+		// {
+		// @Override
+		// protected Object convertElement(Object element)
+		// {
+		//
+		// System.out.println("init ... BENDER !!!");
+		//
+		// Collection <Fils> retour = new ArrayList<Fils>();
+		// Fils f = new Fils();
+		// f.setRang(1);
+		// f.setFils(objectService.findOne((String)element));
+		// retour.add(f);
+		// return retour;
+		// }
+		//
+		// });
 	}
 }
