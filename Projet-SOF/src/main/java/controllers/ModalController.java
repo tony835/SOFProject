@@ -56,6 +56,9 @@ public class ModalController {
 			}catch(NumberFormatException e){
 				return f.getValue();
 			}
+		}else if(type == Field.TypeContenu.STRING){
+			String filterPattern="[<>{}\\[\\];\\&]";
+			value = value.replaceAll(filterPattern," ");
 		}
 		// Verifier également la taille
 		f.setValue(value);
