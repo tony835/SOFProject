@@ -14,10 +14,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Length;
+
 
 @Entity
 @Table(name = "Objet")
@@ -40,7 +39,7 @@ public class Object {
 
 
 	@Column(name = "FMutualisable")
-	private boolean mutualisable;
+	private Boolean mutualisable;
 
 	@ManyToOne
 	@JoinColumn(name = "contexte", referencedColumnName = "Code_objet")

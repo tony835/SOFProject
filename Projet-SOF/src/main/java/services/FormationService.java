@@ -20,7 +20,6 @@ import org.springframework.util.Assert;
 import repositories.FormationDao;
 import domain.Fils;
 import domain.Formation;
-import domain.Object;
 
 @Transactional
 @Service
@@ -70,6 +69,11 @@ public class FormationService {
 		return formationDao.findAllDistinctDiplome();
 	}
 	
+	public Collection<String> findbyDomaineByDiplome(String diplome)
+	{
+		return formationDao.findbyDomaineByDiplome(diplome);
+	}
+	
 	public List<Pair<domain.Object, Integer>> getListFormationIndente(String code) {
 		Formation f = findOne(code);
 		if(f == null) return null;
@@ -103,7 +107,6 @@ public class FormationService {
 	}
 
 	public Collection<Formation> findByResponsable(String login) {
-		// TODO Auto-generated method stub
 		return formationDao.findbyResponsable(login);
 	}
 
@@ -147,5 +150,15 @@ public class FormationService {
 			DiplomaTypeList.add(ffName.getText());
 		}
 		return DiplomaTypeList;
+	}
+	
+	public Collection<Formation> findbyDomaineByDiplomeAndByType(String diplome, String domaine){
+		return formationDao.findbyDomaineByDiplomeAndByType(diplome, domaine);
+	}
+	
+
+	
+	public Collection<Formation> getVisibleFormation(){
+		return formationDao.getVisibleFormation();
 	}
 }
