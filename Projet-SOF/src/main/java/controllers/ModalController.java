@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.HtmlUtils;
 
 import services.FieldObjectService;
 import services.ObjectService;
@@ -49,6 +50,9 @@ public class ModalController {
 		
 		FieldObject f = managerFieldObject.findOne(new FieldObjectId(idField,codeObjet));
 		if(f == null) return null ;
+		
+		value=HtmlUtils.htmlEscape(value);
+		
 		Field.TypeContenu type = f.getField().getTypeContenu() ;
 		if (type == Field.TypeContenu.INT){
 			try{
@@ -56,9 +60,6 @@ public class ModalController {
 			}catch(NumberFormatException e){
 				return f.getValue();
 			}
-		}else if(type == Field.TypeContenu.STRING){
-			String filterPattern="[<>{}\\[\\];\\&]";
-			value = value.replaceAll(filterPattern," ");
 		}
 		// Verifier également la taille
 		f.setValue(value);
