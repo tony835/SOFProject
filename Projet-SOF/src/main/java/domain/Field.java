@@ -39,7 +39,7 @@ public class Field {
 	@Enumerated(EnumType.STRING)
 	TypeContenu typeContenu;
 	
-	@Column(name="Required")
+	@Column(name="Required",columnDefinition = "TINYINT", length = 1)
 	boolean required ;
 
 	@ManyToOne
@@ -60,12 +60,12 @@ public class Field {
 		INT;
 		
 		public static TypeContenu fromSring(String type){
-			if(type.equals("enum"))
+			if(type.equals("enum") || type.equals("ENUM"))
 				return ENUM;
-			else if (type.equals("structure")){
+			else if (type.equals("structure")|| type.equals("STRUCTURE")){
 				return STRUCTURE ;
 			}
-			else if (type.equals("int")){
+			else if (type.equals("int")|| type.equals("INT")){
 				return INT;
 			}
 			else{
@@ -123,17 +123,18 @@ public class Field {
 		this.typeObject = typeObject;
 	}
 	
-	public int getLength() {
-		return length;
-	}
-	public void setLength(int length) {
-		this.length = length;
-	}
 	public String getTabName() {
 		return tabName;
 	}
 	public void setTabName(String tabName) {
 		this.tabName = tabName;
+	}
+	
+	public Integer getLength() {
+		return length;
+	}
+	public void setLength(Integer length) {
+		this.length = length;
 	}
 	@Override
 	public int hashCode() {
