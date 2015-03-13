@@ -24,7 +24,7 @@
 
 
 			<jstl:if test="${!empty descError}">
-				<p style="color: Red">"${descError}"</p>
+				<p style="color: Red">${descError}</p>
 			</jstl:if>
 
 			<display:table name="listFils" pagesize="20" class="displaytag"

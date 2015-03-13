@@ -32,7 +32,7 @@
 
 
 			<jstl:if test="${!empty descErrors}">
-				<p style="color: Red">"${descErrors}"</p>
+				<p style="color: Red">${descErrors}</p>
 			</jstl:if>
 
 			<display:table name="formations" pagesize="20" class="displaytag"

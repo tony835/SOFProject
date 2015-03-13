@@ -147,6 +147,11 @@ public class ObjectService {
 		if(actualSons.matches(expectedSons)){
 			return "";
 		}
-		return to.getDescError();
+		
+		String descError = to.getDescError();
+		if (descError == null){
+			return "erreur non repertorie";
+		}
+		return descError;
 	}
 }
