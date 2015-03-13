@@ -170,12 +170,12 @@ public class FormationService {
 		Formation f = findOne(code);
 		int nbErrors = 0;
 		String descErrors = "";
-		List<domain.Object> oContext = (List<domain.Object>) f.getObjectsContexte();
+		List<domain.Object> oContext = (List<domain.Object>) objectService.objectsNonLiee(code);
 		for(domain.Object o : oContext){
 			String cmError = objectService.checkContentModel(o);
 			if (!cmError.equals("")){
 				nbErrors ++;
-				descErrors += cmError + "\n";
+				descErrors += "Erreur " + o.getCode() + " : " + cmError + "\n";
 			}
 		}
 		f.setNumError(nbErrors);
