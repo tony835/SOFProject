@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.javatuples.Pair;
@@ -33,6 +34,7 @@ import domain.Person;
 import domain.TypeObject;
 import domain.User;
 
+@Transactional
 @Controller
 @RequestMapping("/arbreFormation")
 public class ArbreFormationController extends AbstractController {

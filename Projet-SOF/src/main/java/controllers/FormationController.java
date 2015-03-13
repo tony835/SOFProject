@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.jdom2.JDOMException;
@@ -29,6 +30,7 @@ import domain.Person;
 import domain.TypeObject;
 import domain.User;
 
+@Transactional
 @Controller
 @RequestMapping("/formation")
 public class FormationController extends AbstractController {

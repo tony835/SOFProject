@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,7 +26,6 @@ import domain.User;
 import services.ObjectService;
 import services.TypeObjectService;
 import services.PersonService;
-
 @Controller
 @RequestMapping("/objectVisualisation")
 public class ObjectControllerVisualisation  extends AbstractController{
@@ -42,13 +43,14 @@ public class ObjectControllerVisualisation  extends AbstractController{
 	PersonService personService;
 
 
-	
+	@Transactional
 	@RequestMapping(value = "/details", method = RequestMethod.GET)
 	public ModelAndView mObjectList(@RequestParam String code) {
 		ModelAndView result;
 //		System.out.println(personService.isContributorOfObject("FormNouvelle2"));
 	    result = new ModelAndView("object/details");
 	    Object obj= objectService.findOne(code);
+	    obj.getAllFils().size(); // Pour initialiser la liste des fils
 	    result.addObject("object",obj);
 	    Map<String, List<FieldObject>> maps= new HashMap<String, List<FieldObject>>();
 	    Collection<FieldObject> fIList= obj.getFieldObjects();
