@@ -65,7 +65,7 @@
 	      <jstl:forEach var="fils" items="${object.allFils}">
  
           
-           			<a  href="objectVisualisation/details.htm?code=${fils.fils.code}"> <jstl:out value="${fils.fils.code}"></jstl:out>(<jstl:out value="${fils.fils.name}"></jstl:out>)</a>
+           			<a  href="objectVisualisation/details.htm?code=${fils.fils.code}"> <jstl:out value="${fils.fils.code}"></jstl:out>(<jstl:out value="${fils.fils.name}"></jstl:out>)</a></br>
           </jstl:forEach>
         </div>
         
@@ -76,7 +76,7 @@
 	      <jstl:forEach var="objet" items="${objectMemeType}">
 
           
-           			<a  href="objectVisualisation/details.htm?code=${objet.code}"> <jstl:out value="${objet.code}"></jstl:out>(<jstl:out value="${objet.name}"></jstl:out>)</a>
+           			<a  href="objectVisualisation/details.htm?code=${objet.code}"> <jstl:out value="${objet.code}"></jstl:out>(<jstl:out value="${objet.name}"></jstl:out>)</a></br>
           </jstl:forEach>
         </div>
         

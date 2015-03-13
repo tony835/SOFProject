@@ -23,6 +23,7 @@ import domain.TypeObject;
 import domain.User;
 import services.ObjectService;
 import services.TypeObjectService;
+import services.PersonService;
 
 @Controller
 @RequestMapping("/objectVisualisation")
@@ -36,12 +37,16 @@ public class ObjectControllerVisualisation  extends AbstractController{
 
 	@Autowired
 	User user;
+	
+	@Autowired
+	PersonService personService;
 
 
 	
 	@RequestMapping(value = "/details", method = RequestMethod.GET)
 	public ModelAndView mObjectList(@RequestParam String code) {
 		ModelAndView result;
+//		System.out.println(personService.isContributorOfObject("FormNouvelle2"));
 	    result = new ModelAndView("object/details");
 	    Object obj= objectService.findOne(code);
 	    result.addObject("object",obj);
