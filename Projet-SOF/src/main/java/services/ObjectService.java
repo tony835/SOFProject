@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 import repositories.FilsDao;
 import repositories.ObjectDao;
 import domain.Fils;
+import domain.Formation;
 import domain.Object;
 import domain.TypeObject;
 import domain.User;
@@ -141,7 +142,10 @@ public class ObjectService {
 		String actualSons ="";
 		
 		for (Fils f : o.getAllFils()){
-			actualSons += f.getFils().getTypeObject().getCode() + "_";
+			if(f.getFils() != null	&& f.getFils().getTypeObject() != null
+									&& f.getFils().getTypeObject().getCode() != null){
+				actualSons += f.getFils().getTypeObject().getCode() + "_";
+			}
 		}
 		
 		if(actualSons.matches(expectedSons)){
@@ -153,5 +157,13 @@ public class ObjectService {
 			return "erreur non repertorie";
 		}
 		return descError;
+	}
+
+	public void getDescendants(List<Object> loContext, domain.Object o) {
+		for (Fils f : o.getAllFils()){
+			domain.Object tmpO = f.getFils();
+			loContext.add(f.getFils());
+			getDescendants(loContext, tmpO);
+		}
 	}
 }
