@@ -73,9 +73,18 @@ public class FormationService {
 		return formationDao.findAllDistinctDiplome();
 	}
 	
+	public Collection<String> findAllDistinctDiplomeVisitor(){
+		return formationDao.findAllDistinctDiplomeVisitor();
+	}
+	
 	public Collection<String> findbyDomaineByDiplome(String diplome)
 	{
 		return formationDao.findbyDomaineByDiplome(diplome);
+	}
+	
+	public Collection<String> findbyDomaineByDiplomeVisitor(String diplome)
+	{
+		return formationDao.findbyDomaineByDiplomeVisitor(diplome);
 	}
 	
 	public boolean isFormation(String code){
@@ -165,6 +174,11 @@ public class FormationService {
 	public Collection<Formation> findbyDomaineByDiplomeAndByType(String diplome, String domaine){
 		return formationDao.findbyDomaineByDiplomeAndByType(diplome, domaine);
 	}
+	
+	public Collection<Formation> findbyDomaineByDiplomeAndByTypeVisitor(String diplome, String domaine){
+		return formationDao.findbyDomaineByDiplomeAndByTypeVisitor(diplome, domaine);
+	}
+
 
 	public String checkContentModel(String code) {
 		Formation f = findOne(code);
