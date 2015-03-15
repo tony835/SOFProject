@@ -15,7 +15,9 @@ import org.springframework.util.Assert;
 import repositories.FilsDao;
 import repositories.ObjectDao;
 import domain.Fils;
+import domain.Formation;
 import domain.Object;
+import domain.TypeObject;
 import domain.User;
 
 
@@ -64,6 +66,7 @@ public class ObjectService {
 
 	public void delLienFils(domain.Object pere, domain.Object fils){
 		Fils tmp = null;
+		
 		for (Fils p : pere.getAllFils()){
 			if(p.getFils().getCode().equals(fils.getCode()))
 				tmp = p;
@@ -129,5 +132,38 @@ public class ObjectService {
 	}
 	public Collection<Object> objectsSameTypeInContext(String codeTypeObject, String codecontext,String code ){
 		return objectDao.findOtheObjectSameTypeInContext(codeTypeObject, codecontext,code);
+	}
+
+	public String checkContentModel(domain.Object o) {
+		TypeObject to = o.getTypeObject();
+		if(to == null)
+			return "";
+		String expectedSons = to.getModelContenu() + "_";
+		String actualSons ="";
+		
+		for (Fils f : o.getAllFils()){
+			if(f.getFils() != null	&& f.getFils().getTypeObject() != null
+									&& f.getFils().getTypeObject().getCode() != null){
+				actualSons += f.getFils().getTypeObject().getCode() + "_";
+			}
+		}
+		
+		if(actualSons.matches(expectedSons)){
+			return "";
+		}
+		
+		String descError = to.getDescError();
+		if (descError == null){
+			return "erreur non repertorie";
+		}
+		return descError;
+	}
+
+	public void getDescendants(List<Object> loContext, domain.Object o) {
+		for (Fils f : o.getAllFils()){
+			domain.Object tmpO = f.getFils();
+			loContext.add(f.getFils());
+			getDescendants(loContext, tmpO);
+		}
 	}
 }

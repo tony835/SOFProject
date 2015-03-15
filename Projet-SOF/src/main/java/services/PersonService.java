@@ -15,11 +15,15 @@ import org.springframework.stereotype.Service;
 
 import repositories.PersonDao;
 import domain.Person;
+import domain.User;
 
 @Service
 public class PersonService {
 	@Autowired
 	private PersonDao personneRepository;
+	
+	@Autowired
+	User user;
 
 	/**
 	 * Permet de savoir si la personne connecté est un concepteur ou pas
@@ -99,4 +103,9 @@ public class PersonService {
 		personneRepository.save(person);
 		
 	}
+	
+//	public Integer isContributorOfObject(String object)
+//	{
+//		return personneRepository.isContributorOfObject("maria1","FormNouvelle2");
+//	}
 }

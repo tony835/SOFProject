@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.swing.text.StyledEditorKit.BoldAction;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,7 @@ import services.FormationService;
 import services.PersonService;
 import domain.Formation;
 import domain.Person;
-
+@Transactional
 @Controller
 @RestController
 @RequestMapping("/formation/contributeur")
@@ -43,12 +44,14 @@ public class ContributeurFormationController extends AbstractController {
 
 	@Autowired
 	PersonService personService;
-
+	
+	@Transactional
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam String code) {
 		ModelAndView result;
-		Collection<Person> contibuteurs = formationService.findOne(code)
-				.getContributeurs();
+		Formation f = formationService.findOne(code);
+		f.getContributeurs().size();
+		Collection<Person> contibuteurs = f.getContributeurs();
 		result = new ModelAndView("arbreFormation/contributeur");
 		result.addObject("contibuteurs", contibuteurs);
 		Collection<Person> persons = personService.findAll();
@@ -68,13 +71,15 @@ public class ContributeurFormationController extends AbstractController {
 	/**
 	 * Sauvegarde d'une formation
 	 */
+	@Transactional
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public ModelAndView save(@RequestParam String contrib,
 			@RequestParam String code) {
 
-		ModelAndView result;
+		ModelAndView result;System.out.println("lppppmpmpmpm");
 		try {
 			Formation formation = formationService.findOne(code);
+			formation.getContributeurs().size();
 			Person contributeur = personService.findOne(contrib);
 			formation.getContributeurs().add(contributeur);
 			formationService.save(formation);

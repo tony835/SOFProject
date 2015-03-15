@@ -49,11 +49,11 @@ public class Object {
 	@JoinColumn(name = "Code_type", referencedColumnName = "Code_type")
 	private TypeObject typeObject;
 
-	@OneToMany(mappedBy = "object",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "object")
 	private Collection<FieldObject> fieldObjects;
 	 
 	//@OneToMany(fetch = FetchType.EAGER)
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany()
 	private Collection<Fils> allFils;
 
 

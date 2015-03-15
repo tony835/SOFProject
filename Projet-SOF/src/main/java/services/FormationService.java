@@ -20,6 +20,7 @@ import org.springframework.util.Assert;
 import repositories.FormationDao;
 import domain.Fils;
 import domain.Formation;
+import domain.Object;
 
 @Transactional
 @Service
@@ -27,6 +28,9 @@ public class FormationService {
 
 	@Autowired
 	private FormationDao formationDao;
+	
+	@Autowired
+	ObjectService objectService;
 
 	/**
 	 * Création d'une formation
@@ -69,9 +73,18 @@ public class FormationService {
 		return formationDao.findAllDistinctDiplome();
 	}
 	
+	public Collection<String> findAllDistinctDiplomeVisitor(){
+		return formationDao.findAllDistinctDiplomeVisitor();
+	}
+	
 	public Collection<String> findbyDomaineByDiplome(String diplome)
 	{
 		return formationDao.findbyDomaineByDiplome(diplome);
+	}
+	
+	public Collection<String> findbyDomaineByDiplomeVisitor(String diplome)
+	{
+		return formationDao.findbyDomaineByDiplomeVisitor(diplome);
 	}
 	
 	public boolean isFormation(String code){
@@ -160,6 +173,34 @@ public class FormationService {
 	
 	public Collection<Formation> findbyDomaineByDiplomeAndByType(String diplome, String domaine){
 		return formationDao.findbyDomaineByDiplomeAndByType(diplome, domaine);
+	}
+	
+	public Collection<Formation> findbyDomaineByDiplomeAndByTypeVisitor(String diplome, String domaine){
+		return formationDao.findbyDomaineByDiplomeAndByTypeVisitor(diplome, domaine);
+	}
+
+
+	public String checkContentModel(String code) {
+		Formation f = findOne(code);
+		int nbErrors = 0;
+		String descErrors = "";
+	//	List<domain.Object> oContext = (List<domain.Object>) objectService.objectsNonLiee(code); // TODO objet lié
+		
+		List<domain.Object> loContext = new ArrayList<domain.Object>();
+		loContext.add(f);
+		objectService.getDescendants(loContext,f); 
+
+		for(domain.Object o : loContext){
+			String cmError = objectService.checkContentModel(o);
+			if (!cmError.equals("")){
+				nbErrors ++;
+				descErrors += "Erreur " + o.getCode() + " : " + cmError + "<br/>";
+				
+			}
+		}
+		
+		f.setNumError(nbErrors);
+		return descErrors;
 	}
 	
 }

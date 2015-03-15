@@ -83,10 +83,17 @@ public class Parametrage {
 				f.setDescription(courant2.getChild("description").getText());
 				f.setTypeContenu(TypeContenu.fromSring(courant2.getChild(
 						"content_type").getText()));
-				f.setRequired(courant2.getChild("required").getText()
-						.equals("true") ? true : false);
+				boolean required = courant2.getChild("required").getText().equals("true") ? true : false ;
+				f.setRequired(required);
+				int length;
+				try{
+					length = Integer.parseInt(courant2.getChild("length").getText()) ;
+				}catch(NumberFormatException e){
+					length = 0;
+				}
+				f.setLength(length);//
+				f.setTabName(courant2.getChild("tab_name").getText());
 				typeObject.getFields().add(f);
-				// ???????? length tab_name
 			}
 			ret.add(typeObject);
 		}
@@ -131,32 +138,30 @@ public class Parametrage {
 
 		Element racine = document.getRootElement();
 		List <TypeObject> l= new Parametrage().getAllObjectTypeANDFieldFromXML(racine);
-		for(int i= 0; i<l.size();++i ){
-			TypeObject obj2 = typeObjectService.findOne(l.get(i).getCode());
-			if (obj2 == null ){
-				System.out.println("le type d'objet : " + l.get(i) + " a ete mis à jour ->  insert");
-				System.out.println("avant");
-				typeObjectService.save(l.get(i)) ;
-				System.out.println("apres");
+		for(Iterator iterTypeObject = l.iterator() ; iterTypeObject.hasNext(); ){
+			TypeObject typeObject = (TypeObject) iterTypeObject.next() ;
+			Field [] fields = typeObject.getFields().toArray(new Field[typeObject.getFields().size()]) ;
+			typeObject.setFields(null);
+			TypeObject typeObjectFromDB = typeObjectService.findOne(typeObject.getCode());
+			if (typeObjectFromDB == null ){
+				System.out.println("le type d'objet : " + typeObject + " a ete mis à jour ->  insert");
+				typeObjectService.save(typeObject) ;
 			}
-			else if(!obj2.equals(l.get(i))){
-				System.out.println("le type d'objet : " + l.get(i) + " a ete mis à jour -> delete and insert");
-				typeObjectService.delete(obj2) ;
-				typeObjectService.save(l.get(i)) ;
+			else if(!typeObjectFromDB.equals(typeObject)){
+				System.out.println("le type d'objet : " + typeObject + " a ete mis à jour -> update");
+				typeObjectService.save(typeObject) ;
 				
 			}
-			Iterator iter = l.get(i).getFields().iterator() ;
-			while(iter.hasNext()){
-				Field f = (Field)iter.next();
-				Field f2 = fieldManager.findOne( f.getId()) ;
+			for(int i =0;i<fields.length;++i){
+				fields[i].setTypeObject(typeObject);
+				Field f2 = fieldManager.findOne( fields[i].getId()) ;
 				if(f2 == null){
-					System.out.println("le champs : " + f + " a ete mis à jour ->  insert");
-					fieldManager.save(f);
+					System.out.println("le champs : " + fields[i] + " a ete mis à jour ->  insert");
+					fieldManager.save(fields[i]);
 				}
-				else if(!f2.equals(f)){ //le champs à été mis à jour(seul l'ID est encore )
-					System.out.println("le champs : " + f + " a ete mis à jour -> delete and insert");
-					fieldManager.delete(f2);//On supprime l'ancienne version
-					fieldManager.save(f);
+				else if(!f2.equals(fields[i].getId())){ //le champs à été mis à jour(seul l'ID est encore )
+					System.out.println("le champs : " + fields[i] + " a ete mis à jour -> update");
+					fieldManager.save(fields[i]);
 				}
 			}
 		}

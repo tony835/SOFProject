@@ -4,7 +4,7 @@
 		<name>Spécialité</name>
 		<code_regex>test</code_regex>
 		<Erreur_descritpion></Erreur_descritpion>
-		<content_model></content_model>
+		<content_model>xx</content_model>
 		<description>desc</description>
 		
 		
@@ -12,7 +12,7 @@
 			<Id>1150</Id>
 			<name>12</name>
 			<description></description>
-			<content_type></content_type>
+			<content_type>STRING</content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -22,7 +22,7 @@
 			<Id>1</Id>
 			<name>12</name>
 			<description></description>
-			<content_type></content_type>
+			<content_type>STRING</content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -31,7 +31,7 @@
 			<Id>122</Id>
 			<name>43</name>
 			<description></description>
-			<content_type></content_type>
+			<content_type>STRING</content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -49,7 +49,7 @@
 			<Id>1</Id>
 			<name>12</name>
 			<description></description>
-			<content_type></content_type>
+			<content_type>STRING</content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -58,7 +58,7 @@
 			<Id>3</Id>
 			<name>88</name>
 			<description></description>
-			<content_type></content_type>
+			<content_type>STRING</content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -76,7 +76,7 @@
 			<Id>1</Id>
 			<name>12</name>
 			<description></description>
-			<content_type></content_type>
+			<content_type>STRING</content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -85,7 +85,7 @@
 			<Id>3</Id>
 			<name>88</name>
 			<description></description>
-			<content_type></content_type>
+			<content_type>STRING</content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -102,7 +102,7 @@
 			<Id>1</Id>
 			<name>12</name>
 			<description></description>
-			<content_type></content_type>
+			<content_type>STRING</content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -111,7 +111,7 @@
 			<Id>3</Id>
 			<name>88</name>
 			<description></description>
-			<content_type></content_type>
+			<content_type>STRING</content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -129,7 +129,7 @@
 			<Id>1</Id>
 			<name>12</name>
 			<description></description>
-			<content_type></content_type>
+			<content_type>STRING</content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -138,7 +138,7 @@
 			<Id>3</Id>
 			<name>88</name>
 			<description></description>
-			<content_type></content_type>
+			<content_type>STRING</content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -156,7 +156,7 @@
 			<Id>1</Id>
 			<name>12</name>
 			<description></description>
-			<content_type></content_type>
+			<content_type>STRING</content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -165,7 +165,7 @@
 			<Id>3</Id>
 			<name>88</name>
 			<description></description>
-			<content_type></content_type>
+			<content_type>STRING</content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -182,7 +182,7 @@
 			<Id>5</Id>
 			<name>12</name>
 			<description></description>
-			<content_type></content_type>
+			<content_type>STRING</content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -191,7 +191,7 @@
 			<Id>1150</Id>
 			<name>12</name>
 			<description></description>
-			<content_type></content_type>
+			<content_type>STRING</content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -201,19 +201,19 @@
 			<Id>1</Id>
 			<name>12</name>
 			<description></description>
-			<content_type></content_type>
-			<required></required>
-			<length></length>
-			<tab_name></tab_name>
+			<content_type>STRING</content_type>
+			<required>true</required>
+			<length>kkk</length>
+			<tab_name>RR</tab_name>
 		</field>
 		<field>
 			<Id>122</Id>
 			<name>43</name>
-			<description></description>
-			<content_type></content_type>
-			<required></required>
-			<length></length>
-			<tab_name></tab_name>
+			<description>desc</description>
+			<content_type>STRING</content_type>
+			<required>true</required>
+			<length>10</length>
+			<tab_name>RR</tab_name>
 		</field>
 
 	</object_type>
