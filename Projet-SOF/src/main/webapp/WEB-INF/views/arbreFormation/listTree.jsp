@@ -1,4 +1,3 @@
-<%@page import="domain.Object"%>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -9,11 +8,11 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags"%>
 
-<%-- <tiles:insertDefinition name="master.page" flush="true"> --%>
-<%-- 	<tiles:putAttribute name="title"  type="string"> --%>
-<%-- 		<spring:message code="title.arbre.list" /> ${param.code} --%>
-<%-- 		</tiles:putAttribute> --%>
-<%-- 	<tiles:putAttribute name="body"  type="string"> --%>
+<tiles:insertDefinition name="master.page">
+	<tiles:putAttribute name="title" >
+		<spring:message code="title.arbre.list" /> ${param.code}
+		</tiles:putAttribute>
+	<tiles:putAttribute name="body">
 
 		<link rel="stylesheet"
 			href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -24,45 +23,17 @@
 			href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 
 		<body>
-
-
-
-			<div class="container">
-				<ul>
-					<li><a>${formation.code}</a> 
-					<jstl:forEach var="object" items="${formation.allFils}">
-							<ul>
-								<li><a>${object.fils.code}</a> <jstl:if
-										test="${!object.fils.allFils.isEmpty()}">
-										<jstl:forEach var="objecti" items="${object.fils.allFils}">
-
-											<ul>
-												<li><a>${objecti.fils.code}</a>
-												<jstl:set var="objectR" value="objecti"></jstl:set>
-<%-- 												<% 	while(! objectR.fils.allFils.isEmpty()) { %> --%>
-													<jstl:forEach var="objectf" items="${objectR.fils.allFils}">
-													
-
-													<ul>
-														<li><a>${objectf.fils.code}</a>
-														<jstl:set var="objectR" value="objectf"></jstl:set>
-																									
-													</li>
-										
-													</ul>
-												</jstl:forEach>
-<%-- 												<% } %>											 --%>
-												</li>
-								
-											</ul>
-										</jstl:forEach>
-
-									</jstl:if></li>
-							</ul>
-						</jstl:forEach></li>
-
-				</ul>
-			</div>
+			<a class="btn btn-default btn-sm" href="arbreFormation/create.htm?context=${param.code}"><spring:message
+					code="arbreFormation.creerObj" /></a>
+			<a class="btn btn-default btn-sm" href="formation/contributeur/edit.htm?cobject=${param.code}"><spring:message
+					code="arbreFormation.gererContributeur" /></a>
+			<a class="btn btn-default btn-sm" href="formation/list.htm"><spring:message code="formation.lister" /></a>
+		
+		<div class="container">
+		${arbre}
+		
+        </div>
+			
 		</body>
 		</html>
 		<script
@@ -84,8 +55,10 @@
 				var s = document.getElementsByTagName('script')[0];
 				s.parentNode.insertBefore(ga, s);
 			})();
+			
+
 		</script>
 
-<%-- 	</tiles:putAttribute> --%>
-<%-- </tiles:insertDefinition> --%>
+	</tiles:putAttribute>
+</tiles:insertDefinition>
 

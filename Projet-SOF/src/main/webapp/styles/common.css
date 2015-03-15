@@ -40,3 +40,7 @@
     height: 100px;
     overflow: scroll;
 }
+.hidden {
+visibility: hidden;
+display: none;
+}

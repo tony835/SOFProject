@@ -4,7 +4,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="Fils")
-public class Fils {
+public class Fils implements Comparable<Fils>{
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	int id;
@@ -12,7 +12,7 @@ public class Fils {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "Code_fils")
-	private Object fils;
+	private domain.Object fils;
 
 	@Column(name = "Rang")
 	private Integer Rang;
@@ -40,6 +40,14 @@ public class Fils {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@Override
+	public int compareTo(Fils o) {
+		// TODO Auto-generated method stub
+		Integer rang = ((Fils) o).getRang() ;
+
+		return this.Rang - rang;
 	}
 
 }
