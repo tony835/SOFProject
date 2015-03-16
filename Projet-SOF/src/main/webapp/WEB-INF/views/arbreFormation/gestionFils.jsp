@@ -21,11 +21,11 @@
 			<spring:message code="title.arbre.list" />
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
-
-
-			<jstl:if test="${!empty descError}">
-				<p style="color: Red">${descError}</p>
-			</jstl:if>
+			<div class="scroll">
+				<jstl:if test="${!empty descError}">
+					<p style="color: Red">${descError}</p>
+				</jstl:if>
+			</div>
 
 			<display:table name="listFils" pagesize="20" class="displaytag"
 				id="row" requestURI="arbreFormation/gestionFils.htm">
