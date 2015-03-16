@@ -15,14 +15,13 @@
 			<spring:message code="title.arbre.list" />
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
-			<div class="scroll">
-				<jstl:if test="${!empty descError}">
-					<p style="color: Red">${descError}</p>
-				</jstl:if>
-			</div>
 
-			<display:table name="listFils" pagesize="20" class="displaytag" id="row" requestURI="arbreFormation/gestionFils.htm">
-
+			<jstl:if test="${!empty descError}">
+				<p style="color: Red">${descError}</p>
+			</jstl:if>
+			
+			<display:table name="listFils" pagesize="20" class="displaytag"
+				id="row" requestURI="arbreFormation/gestionFils.htm">
 				<display:column title="Code">${row.getFils().getCode()}</display:column>
 				<display:column title="Name">${row.getFils().getName()}</display:column>
 
