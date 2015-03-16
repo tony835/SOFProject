@@ -240,6 +240,9 @@ public class ArbreFormationController extends AbstractController {
 			if(pereO == null || filsO == null){
 				return new ModelAndView("arbreFormation/gestionFils", "error", "arbreformation.cObjectUnknow");
 			}
+			if(filsO.getAllFils().size() != 0 && filsO.getContexte().getCode() == pereO.getContexte().getCode()){
+				//return new ModelAndView("arbreFormation/gestionFils", "error", "arbreformation.contientFeuille");
+			}
 			objectService.delLienFils(pereO, filsO);
 		}catch (Exception e){
 			e.printStackTrace();
@@ -559,13 +562,8 @@ public class ArbreFormationController extends AbstractController {
 		domain.Object o = objectService.findOne(cobject);
 		domain.Object selectF = objectService.findOne(selectedFils.getCode());
 
-		Fils tmpF = new Fils();
-		tmpF.setRang(1);
-		tmpF.setFils(selectF);
-		pereFilsService.save(tmpF);
+		objectService.addLinkFils(o, selectF, 1);
 
-		o.getAllFils().add(tmpF);
-		objectService.save(o, user);
 
 		String type = "";
 		if (o.getTypeObject() != null && o.getTypeObject().getCode() != null && o.getTypeObject().getCode().equals(""))

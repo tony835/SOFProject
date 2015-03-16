@@ -21,7 +21,7 @@
 	<tiles:putAttribute name="body">
 	<jstl:set var="formation" value="${code}"></jstl:set>
 <div id="scroll" class="scroll">
-	<display:table name="contibuteurs" class="displaytag" id="row">
+	<display:table name="contibuteurs" class="displaytag" id="row" requestURI="formation/contributeur/edit.htm">
 			    <tag:column code="contributeur.code" property="login" sortable="true" />
 				<tag:column code="contributeur.name" property="name" sortable="true" />
 				<display:column>

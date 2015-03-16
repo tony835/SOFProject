@@ -18,21 +18,21 @@ import org.xml.sax.SAXException;
 public class AlimentationBdd {
 	
 	public static void main(String[] args) throws JDOMException, IOException,
-			SAXException, ClassNotFoundException, SQLException {
+			SAXException, ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		
 
 		// create a mysql database connection
 		
 		String myDriver = "com.mysql.jdbc.Driver";
-		String myUrl = "jdbc:mysql://localhost:3306/isl";
-		Class.forName(myDriver);
-		Connection conn = DriverManager.getConnection(myUrl, "salah", "");
+		String myUrl = "jdbc:mysql://localhost:3306/l1001540";
+		Class.forName(myDriver).newInstance();
+		Connection conn = DriverManager.getConnection(myUrl, "l1001540", "ZEX9ia");
 
 		/** declarer les fichiers fichiers xml*/
 		SAXBuilder sxb = new SAXBuilder();
-		Document document2 = sxb.build(new File("src/main/resources/configApp.xml"));
-		Element racine2 = document2.getRootElement();
-		Document document = sxb.build(new File("src/main/resources/offre.xml"));
+//		Document document2 = sxb.build(new File("src/main/resources/configApp.xml"));
+//		Element racine2 = document2.getRootElement();
+		Document document = sxb.build(new File("/Users/alexandre/Dropbox/fac/projet_sof/Documents_annexes/offre.xml"));
 		Element racine = document.getRootElement();
 		
 		  // the mysql insert statement 
@@ -44,28 +44,28 @@ public class AlimentationBdd {
 		 * alimmentation des typesobjets depuis le fichier de configuration
 		 * */
 		
-		List<Element> listTypeObjet = racine2.getChildren("object_type");
-		Iterator<Element> i = listTypeObjet.iterator();
-
-		while (i.hasNext()) {
-			Element courant = (Element) i.next();
-			String code_type = courant.getChild("code").getText();
-			String Erreur_descritpion = courant.getChild("Erreur_descritpion").getText();
-			String content_model = courant.getChild("content_model").getText();
-			String Nom = courant.getChild("name").getText();
-
-			// the mysql insert statement
-			String query = " insert into TypesObjets "
-					+ " values (?,?,?,?)";
-			// create the mysql insert preparedstatement
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setString(1, code_type);
-			preparedStmt.setString(2, Erreur_descritpion);
-			preparedStmt.setString(3, content_model);
-			preparedStmt.setString(4, Nom);
-			// execute the preparedstatement
-			preparedStmt.execute();
-		}
+//		List<Element> listTypeObjet = racine2.getChildren("object_type");
+//		Iterator<Element> i = listTypeObjet.iterator();
+//
+//		while (i.hasNext()) {
+//			Element courant = (Element) i.next();
+//			String code_type = courant.getChild("code").getText();
+//			String Erreur_descritpion = courant.getChild("Erreur_descritpion").getText();
+//			String content_model = courant.getChild("content_model").getText();
+//			String Nom = courant.getChild("name").getText();
+//
+//			// the mysql insert statement
+//			String query = " insert into TypesObjets "
+//					+ " values (?,?,?,?)";
+//			// create the mysql insert preparedstatement
+//			PreparedStatement preparedStmt = conn.prepareStatement(query);
+//			preparedStmt.setString(1, code_type);
+//			preparedStmt.setString(2, Erreur_descritpion);
+//			preparedStmt.setString(3, content_model);
+//			preparedStmt.setString(4, Nom);
+//			// execute the preparedstatement
+//			preparedStmt.execute();
+//		}
 		
 		/**
 		 * alimenter la table personne
@@ -82,7 +82,7 @@ public class AlimentationBdd {
 		  
 		  // the mysql insert statement 
 		  String query = " insert into Person " +
-		  " values (?, ?, ?, ?, '')";
+		  " values (?, ?, ?, ?, 'toto')";
 		  
 		  // create the mysql insert preparedstatement 
 		  PreparedStatement  preparedStmt = conn.prepareStatement(query); preparedStmt.setString
@@ -137,7 +137,7 @@ public class AlimentationBdd {
 				if(Responsable.getChildren().isEmpty()){
 					// the mysql insert statement
 					String query = " insert into Formation "
-							+ " values (?,?,0,1,?,'TOTO')";
+							+ " values (?,?,0,1,?,'toto')";
 					// create the mysql insert preparedstatement
 					PreparedStatement preparedStmt = conn.prepareStatement(query);
 					preparedStmt.setString(1, type_diplome);

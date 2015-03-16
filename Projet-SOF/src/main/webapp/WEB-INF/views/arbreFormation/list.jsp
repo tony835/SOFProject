@@ -19,7 +19,7 @@
 		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 		<a class="btn btn-default btn-sm" href="arbreFormation/create.htm?context=${param.code}"><spring:message
 				code="arbreFormation.creerObj" /></a>
-		<a class="btn btn-default btn-sm" href="formation/contributeur/edit.htm?cobject=${param.code}"><spring:message
+		<a class="btn btn-default btn-sm" href="formation/contributeur/edit.htm?code=${param.code}"><spring:message
 				code="arbreFormation.gererContributeur" /></a>
 		<a class="btn btn-default btn-sm" href="formation/list.htm"><spring:message code="formation.lister" /></a>
 

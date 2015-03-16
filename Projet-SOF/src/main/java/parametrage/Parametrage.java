@@ -165,15 +165,15 @@ public class Parametrage {
 				}
 			}
 		}
-		List <Person> l2= getAllDesigner(racine);
-		for(int i=0;i<l2.size();++i){
-			Person p = persoManager.findOne(l2.get(i).getLogin()) ;
-			if(p == null){
-				System.out.println("le concepteur : "+  l2.get(i).getLogin() + " a ete ajoute -> insert");
-				persoManager.save(l2.get(i));
-			}
-		}
-		
+//		List <Person> l2= getAllDesigner(racine);
+//		for(int i=0;i<l2.size();++i){
+//			Person p = persoManager.findOne(l2.get(i).getLogin()) ;
+//			if(p == null){
+//				System.out.println("le concepteur : "+  l2.get(i).getLogin() + " a ete ajoute -> insert");
+//				persoManager.save(l2.get(i));
+//			}
+//		}
+//		
 		
 		////////////////////////////////////////
 		List <TypeObject> typeObjectsDB = typeObjectService.findAll();
