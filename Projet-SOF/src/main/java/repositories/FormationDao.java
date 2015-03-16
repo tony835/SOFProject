@@ -38,4 +38,10 @@ public interface FormationDao extends JpaRepository<Formation, String> {
 	
 	@Query("select code from Formation where code = ?1")
 	String isFormation(String code);
+
+	@Query("select f from Formation f where f.visible=true")
+	Collection<Formation> findVisible();
+	
+	@Query("select f from Formation f where ?1 in (select c.login from f.contributeurs c) ")
+	String formationWithContributeur(String login);
 }

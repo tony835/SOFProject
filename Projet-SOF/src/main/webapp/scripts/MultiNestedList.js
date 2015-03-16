@@ -47,6 +47,7 @@ $('ul li.hasSubmenu a.toogle').click(function(){
   $this.children("i").toggle();
   return false;
 });
+
 // ferme les noeuds de tous les objets
 $('ul li.hasSubmenu a.toogle').each(function(){
 	  $this = $(this);
