@@ -91,31 +91,47 @@ public class ArbreFormationController extends AbstractController {
 
 		getArbre(formation);
 		result.addObject("arbre", arbreRetour);
-		String descErrors = formationService.checkContentModel(code);
-		result.addObject("descErrors", descErrors);
+		//String descErrors = formationService.checkContentModel(code);
+		//result.addObject("descErrors", descErrors);
 
 		return result;
 	}
 	
 	String arbreRetour = "";
-	private void getArbreLi(domain.Object obj, String codeContext) {
-		arbreRetour += "<li> <a>" + obj.getCode() + " " + obj.getName() +" </a>"+addactionsObj(obj, codeContext);
+	private void getArbreLi(domain.Object obj, String codeContext, Formation formation) {
+		
+		if(!objectService.checkContentModel(obj).equals("")){
+			arbreRetour += "<li> <a>" + obj.getCode() + " " + obj.getName() +"  <p style=\"color: Red\">Erreur</p>"+addactionsObj(obj, codeContext) + "</a>";
+			formation.incrNbError();
+		}
+		else {
+			arbreRetour += "<li> <a>" + obj.getCode() + " " + obj.getName() +" </a>"+addactionsObj(obj, codeContext);	
+		}
+		
 		if (obj.getAllFils().size() != 0)
-			getArbreUl(obj, codeContext);
+			getArbreUl(obj, codeContext, formation);
 		arbreRetour += "</li>\n";
 	}
-
-	private void getArbreUl(domain.Object obj, String codeContext) {
+	
+	private void getArbreUl(domain.Object obj, String codeContext, Formation formation) {
 		arbreRetour += "<ul>\n";
 		for (Fils o : orderByRang(obj.getAllFils()))
-			getArbreLi(o.getFils(),codeContext);
+			getArbreLi(o.getFils(),codeContext, formation);
 		arbreRetour += "</ul>\n";
 	}
 
 	private void getArbre(Formation formation){
-		arbreRetour = "<ul id=\"list\"><li><a>"+formation.getCode()+" "+formation.getName()+"</a> "+addactionsFormation(formation.getCode());
-		getArbreUl(formation,formation.getCode());
+		if(!objectService.checkContentModel(formation).equals("")){
+			formation.setNumError(1);
+			arbreRetour = "<ul id=\"list\"><li><a>"+formation.getCode() + "</a> " + formation.getName() + " </a> <p style=\"color: Red\">Erreur</p>" + addactionsFormation(formation.getCode());
+		}
+		else {
+			formation.setNumError(0);
+			arbreRetour = "<ul id=\"list\"><li><a>"+formation.getCode()+" "+formation.getName()+"</a> "+addactionsFormation(formation.getCode());
+		}
+		getArbreUl(formation,formation.getCode(), formation);
 		arbreRetour += "</li></ul>";
+		
 	}
 	
 	private String addactionsObj(domain.Object o, String context) {
@@ -227,7 +243,10 @@ public class ArbreFormationController extends AbstractController {
 		result.addObject("listFils", list);
 		result.addObject("typeobject", new TypeObject());
 		result.addObject("selectedFils", selectedFils);
-
+		
+		String descError = objectService.checkContentModel(o);
+		result.addObject("descError", descError);
+		
 		return result;
 	}
 
