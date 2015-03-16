@@ -207,4 +207,11 @@ public class FormationService {
 		return formationDao.findVisible();
 	}
 	
+	public Collection<String> formationWithContributeur(String login)
+	{
+		return formationDao.formationWithContributeur(login);
+	}
+	
+	
+	
 }
