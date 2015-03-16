@@ -135,6 +135,9 @@ public class ArbreFormationController extends AbstractController {
 	}
 
 	private String addactionsObj(domain.Object o, String context) {
+		if(!o.getContexte().getCode().equals(context) || !objectService.isContributor(context)){
+			return "";
+		}
 		return "<div> <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/gestionFils.htm?cobject="+o.getCode()+"\"> Modifier les fils </a>"+
 				" <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/create.htm?context="+context+"&amp;cobject="+o.getCode()+"\">Modifier l'objet</a></div>";
 	}
