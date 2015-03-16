@@ -201,5 +201,10 @@ public class FormationService {
 		f.setNumError(nbErrors);
 		return descErrors;
 	}
+
+	public Collection<Formation> findVisible() {
+		// TODO Auto-generated method stub
+		return formationDao.findVisible();
+	}
 	
 }

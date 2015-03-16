@@ -13,6 +13,7 @@ import java.util.Locale;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,12 +43,13 @@ public class DownloadController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(DownloadController.class);
 
+	@Transactional
 	@RequestMapping(value = "/xml", method = RequestMethod.GET)
 	public void downloadnotepadfile(HttpServletRequest request,
 			HttpServletResponse response) {
 		String filename = "donnees.xml";
 		XStream xStream = new XStream();
-		Collection<Formation> formations = fomService.findAll();
+		Collection<Formation> formations = fomService.findVisible();
 		for (Formation f : formations){
 			f.getResponsable().setPassword(null);
 			f.getResponsable().setResponsableDesFormations(null);

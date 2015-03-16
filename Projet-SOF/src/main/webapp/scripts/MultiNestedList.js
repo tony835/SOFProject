@@ -10,6 +10,7 @@ $('li:last-child').each(function(){
   if ($this.children('ul').length === 0){
     // Add border-left in every UL where the last LI has not children
     $this.closest('ul').css("border-left", "1px solid gray");
+    $this.children("i").toggle();
   } else {
     // Add border in child LI, except in the last one
     $this.closest('ul').children("li").not(":last").css("border-left","1px solid gray");
@@ -36,6 +37,8 @@ $('ul li.hasSubmenu').each(function(){
   $this = $(this);
   $this.prepend("<a href='#'><i class='fa fa-minus-circle'></i><i style='display:none;' class='fa fa-plus-circle'></i></a>");
   $this.children("a").not(":last").removeClass().addClass("toogle");
+
+
 });
 // Actions to expand and consense
 $('ul li.hasSubmenu a.toogle').click(function(){
@@ -44,3 +47,10 @@ $('ul li.hasSubmenu a.toogle').click(function(){
   $this.children("i").toggle();
   return false;
 });
+
+// ferme les noeuds de tous les objets
+$('ul li.hasSubmenu a.toogle').each(function(){
+	  $this = $(this);
+	  $this.closest("li").children("ul").toggle("slow");
+	  $this.children("i").toggle();
+	});
