@@ -153,7 +153,7 @@ public class ObjectService {
 		}
 		
 		String descError = to.getDescError();
-		if (descError == null){
+		if (descError == null || descError.equals("")){
 			return "erreur non repertorie";
 		}
 		return descError;
