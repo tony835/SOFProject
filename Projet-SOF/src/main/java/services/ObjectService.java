@@ -2,10 +2,12 @@ package services;
 
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.jdom2.JDOMException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,28 +32,34 @@ public class ObjectService {
 	private ObjectDao objectDao;
 
 	@Autowired
+	private FormationService formationService;
+
+	@Autowired
 	private FilsDao filsDao;
-	
+
+	@Autowired
+	private User user;
+
 	public domain.Object create() {
 		return new domain.Object();
 	}
 
 	public boolean save(domain.Object obj, User user) {
-//		if(!user.getLogin().equals(obj.getContexte().getResponsable()))
-//			return false;
+		//		if(!user.getLogin().equals(obj.getContexte().getResponsable()))
+		//			return false;
 		System.out.println("sauvegarde ...");
 		Assert.notNull(obj);
 		objectDao.save(obj);
 		return true;
 	}
-	
+
 	public void save(domain.Object obj) {
 		Assert.notNull(obj);
 		objectDao.save(obj);
 	}
 
 	public domain.Object findOne(String code){
-				
+
 		return objectDao.findOne(code);
 	}
 
@@ -64,36 +72,51 @@ public class ObjectService {
 		objectDao.save(pere);
 	}
 
-	public void delLienFils(domain.Object pere, domain.Object fils){
-		Fils tmp = null;
-		
-		for (Fils p : pere.getAllFils()){
-			if(p.getFils().getCode().equals(fils.getCode()))
-				tmp = p;
-		}
-		if(tmp != null){
-			pere.getAllFils().remove(tmp);			
-			objectDao.save(pere);
-			filsDao.delete(tmp);
+	public boolean isContributor(String code){
+		try{
+			return formationService.isContributor(code);
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
 		}
 	}
-	
+
+	public void delLienFils(domain.Object pere, domain.Object fils){
+		try {
+			if(user.isConceptor() || isContributor(pere.getContexte().getCode())){
+				Fils tmp = null;
+
+				for (Fils p : pere.getAllFils()){
+					if(p.getFils().getCode().equals(fils.getCode()))
+						tmp = p;
+				}
+				if(tmp != null){
+					pere.getAllFils().remove(tmp);			
+					objectDao.save(pere);
+					filsDao.delete(tmp);
+				}
+			}
+		} catch (JDOMException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public Collection<Object> objectsNonLiee(String code){
 		return objectDao.findNonLinkedObject(code);
 	}
-	
+
 	public Collection<Object> findTypedNonLinkedObject(String code, String type){
 		return objectDao.findTypedNonLinkedObject(code, type);
 	}
-	
+
 	public Collection<Object> findMutualisableObjects(String code){
 		return objectDao.findOtherMutualisableObject(code);
 	}
-	
+
 	public Collection<Object> findTypedMutualisableObjects(String code, String type){
 		return objectDao.findOtherTypesMutualisableObject(code, type);
 	}
-	
+
 	public List<Fils> getChild(String code) {
 		domain.Object obj = findOne(code);
 		List<Fils> list = new ArrayList<Fils>();
@@ -140,18 +163,18 @@ public class ObjectService {
 			return "";
 		String expectedSons = to.getModelContenu() + "_";
 		String actualSons ="";
-		
+
 		for (Fils f : o.getAllFils()){
 			if(f.getFils() != null	&& f.getFils().getTypeObject() != null
-									&& f.getFils().getTypeObject().getCode() != null){
+					&& f.getFils().getTypeObject().getCode() != null){
 				actualSons += f.getFils().getTypeObject().getCode() + "_";
 			}
 		}
-		
+
 		if(actualSons.matches(expectedSons)){
 			return "";
 		}
-		
+
 		String descError = to.getDescError();
 		if (descError == null || descError.equals("")){
 			return "erreur non repertorie";

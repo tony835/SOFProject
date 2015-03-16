@@ -69,7 +69,7 @@ public class ArbreFormationController extends AbstractController {
 	 * 
 	 * @return La vue qui mène au jsp traitant cet action
 	 */
-	
+
 	@Transactional
 	@RequestMapping("/list")
 	public ModelAndView allFormation(@RequestParam String code, RedirectAttributes redirectAttributes) {
@@ -96,7 +96,7 @@ public class ArbreFormationController extends AbstractController {
 
 		return result;
 	}
-	
+
 	String arbreRetour = "";
 	private void getArbreLi(domain.Object obj, String codeContext) {
 		arbreRetour += "<li> <a>" + obj.getCode() + " " + obj.getName() +" </a>"+addactionsObj(obj, codeContext);
@@ -117,16 +117,16 @@ public class ArbreFormationController extends AbstractController {
 		getArbreUl(formation,formation.getCode());
 		arbreRetour += "</li></ul>";
 	}
-	
+
 	private String addactionsObj(domain.Object o, String context) {
 		return "<div> <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/gestionFils.htm?cobject="+o.getCode()+"\"> Modifier les fils </a>"+
-		" <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/create.htm?context="+context+"&amp;cobject="+o.getCode()+"\">Modifier l'objet</a></div>";
+				" <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/create.htm?context="+context+"&amp;cobject="+o.getCode()+"\">Modifier l'objet</a></div>";
 	}
-	
+
 	private String addactionsFormation(String context) {
 		return "<div> <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/gestionFils.htm?cobject="+context+"\"> Modifier les fils </a></div>";
 	}
-	
+
 	private List<Fils> orderByRang(Collection<Fils> allFils) {
 		List<Fils> list= new ArrayList<Fils>();
 		list.addAll(allFils);
@@ -153,12 +153,12 @@ public class ArbreFormationController extends AbstractController {
 
 	/**
 	 * Sauvegarde d'une formation
+	 * @param formation La formation à sauvegarder
+	 * @param bindingResult les résultats d'erreurs
+	 * @return le modèle and view
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public ModelAndView save(@Valid @ModelAttribute Formation formation, BindingResult bindingResult) {
-		System.out.println("passe");
-		System.out.println("-----------");
-
 		ModelAndView result;
 		if (bindingResult.hasErrors()) {
 			result = new ModelAndView("arbreFormation/edit");
@@ -199,10 +199,10 @@ public class ArbreFormationController extends AbstractController {
 
 	@RequestMapping(value = "/gestionFils", method = RequestMethod.GET)
 	public ModelAndView gestionFils(@RequestParam String cobject) {
-
 		ModelAndView result;
 		result = new ModelAndView("arbreFormation/gestionFils");
 		domain.Object o = null;
+		Fils p;
 		try{
 			o = objectService.findOne(cobject);
 		}catch(Exception e){
@@ -223,8 +223,14 @@ public class ArbreFormationController extends AbstractController {
 			return new ModelAndView("master-page/error", "error", "erreur.BD");
 		}
 		domain.Object selectedFils = new domain.Object();
+		System.out.println("------");
+		System.out.println(o.getCode());
+		System.out.println(o.getContexte().getCode());
 		result.addObject("objEnCours", o);
 		result.addObject("listFils", list);
+		for (Fils fils : list){
+			fils.getFils().getAllFils().size();
+		}
 		result.addObject("typeobject", new TypeObject());
 		result.addObject("selectedFils", selectedFils);
 
@@ -240,8 +246,9 @@ public class ArbreFormationController extends AbstractController {
 			if(pereO == null || filsO == null){
 				return new ModelAndView("arbreFormation/gestionFils", "error", "arbreformation.cObjectUnknow");
 			}
-			if(filsO.getAllFils().size() != 0 && filsO.getContexte().getCode() == pereO.getContexte().getCode()){
-				//return new ModelAndView("arbreFormation/gestionFils", "error", "arbreformation.contientFeuille");
+			// Si on peut modifier le fils (le père est dans le même arbre)
+			if(filsO.getAllFils().size() != 0 && !filsO.getContexte().getCode().equals(pereO.getContexte().getCode())){
+				return new ModelAndView("arbreFormation/gestionFils", "error", "arbreformation.contientFeuille");
 			}
 			objectService.delLienFils(pereO, filsO);
 		}catch (Exception e){
