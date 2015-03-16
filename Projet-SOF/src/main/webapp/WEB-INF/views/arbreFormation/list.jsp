@@ -23,7 +23,7 @@
 				code="arbreFormation.gererContributeur" /></a>
 		<a class="btn btn-default btn-sm" href="formation/list.htm"><spring:message code="formation.lister" /></a>
 
-       <div class="scoll">
+       <div class="scroll">
 		<jstl:if test="${!empty descErrors}">
 			<p style="color: Red">${descErrors}</p>
 		</jstl:if>
