@@ -184,7 +184,6 @@ public class FormationService {
 		Formation f = findOne(code);
 		int nbErrors = 0;
 		String descErrors = "";
-	//	List<domain.Object> oContext = (List<domain.Object>) objectService.objectsNonLiee(code); // TODO objet lié
 		
 		List<domain.Object> loContext = new ArrayList<domain.Object>();
 		loContext.add(f);
