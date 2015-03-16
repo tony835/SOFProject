@@ -30,6 +30,6 @@
 					</jstl:forEach>
 				</display:column>
 			</display:table>
-			
+			<a href="downloadfile/xml.htm"> <spring:message code="telecharger.formation"></spring:message></a>
 		</tiles:putAttribute>
 	</tiles:insertDefinition>

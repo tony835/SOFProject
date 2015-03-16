@@ -113,7 +113,7 @@ public class ArbreFormationController extends AbstractController {
 	}
 
 	private void getArbre(Formation formation){
-		arbreRetour = "<ul><li><a>"+formation.getCode()+" "+formation.getName()+"</a> "+addactionsFormation(formation.getCode());
+		arbreRetour = "<ul id=\"list\"><li><a>"+formation.getCode()+" "+formation.getName()+"</a> "+addactionsFormation(formation.getCode());
 		getArbreUl(formation,formation.getCode());
 		arbreRetour += "</li></ul>";
 	}
