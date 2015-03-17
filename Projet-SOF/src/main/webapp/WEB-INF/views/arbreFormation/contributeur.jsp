@@ -1,5 +1,4 @@
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -19,23 +18,23 @@
 
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
-	<jstl:set var="formation" value="${code}"></jstl:set>
-<div id="scroll" class="scroll">
-	<display:table name="contibuteurs" class="displaytag" id="row" requestURI="formation/contributeur/edit.htm">
-			    <tag:column code="contributeur.code" property="login" sortable="true" />
-				<tag:column code="contributeur.name" property="name" sortable="true" />
-				<display:column>
+		<jstl:if test="${!empty contibuteurs }">
+
+			<jstl:set var="formation" value="${code}"></jstl:set>
+			<div id="scroll" class="scroll">
+				<display:table name="contibuteurs" class="displaytag" id="row" requestURI="formation/contributeur/edit.htm">
+					<tag:column code="contributeur.code" property="login" sortable="true" />
+					<tag:column code="contributeur.name" property="name" sortable="true" />
+					<display:column>
 						<a href="formation/contributeur/delete.htm?contrib=${row.login}&code=${formation}"> x </a>
-				</display:column>
-				
-	</display:table>
-	</div>
-			
-<head>
-<meta charset="utf-8"> 
-<link
-	href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
-	rel="stylesheet">
+					</display:column>
+
+				</display:table>
+			</div>
+
+			<head>
+<meta charset="utf-8">
+<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <!-- Javascript -->
@@ -51,24 +50,29 @@
             });
          });
       </script>
-</head>
-		<form id="signupForm" action="formation/contributeur/edit.htm"
-			class="form-horizontal" method="post">
-			<div class="form-group">
+			</head>
 
-				<div class="ui-widget">
-					<label for="automplete-1">Contributeur: </label> 
-					<input name="contrib" id="automplete-1">
-				</div>
-					<input hidden="hidden" name="code" value="${formation}">
-				<spring:message code="save" var="var" />
+			<form id="signupForm" action="formation/contributeur/edit.htm" class="form-horizontal" method="post">
 				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-						<input class="btn btn-default" type="submit" value="${var}" />
+
+					<div class="ui-widget">
+						<label for="automplete-1">Contributeur: </label> <input name="contrib" id="automplete-1">
+					</div>
+					<input hidden="hidden" name="code" value="${formation}">
+					<spring:message code="save" var="var" />
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<input class="btn btn-default" type="submit" value="${var}" />
+						</div>
 					</div>
 				</div>
-			</div>
-		</form>
+			</form>
+			<a class="btn btn-default btn-sm" href="arbreFormation/list.htm?code=${param.code}"><spring:message
+					code="arbreFormation.lister" /></a>
+		</jstl:if>
+		<jstl:if test="${empty contibuteurs }">
+			<spring:message code="contributeur.edit.erreur.formErr"/>
+		</jstl:if>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
 

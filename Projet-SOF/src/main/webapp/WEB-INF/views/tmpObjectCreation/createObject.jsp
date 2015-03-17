@@ -46,8 +46,7 @@
 			</jstl:if>
 			<tag:checkbox code="checkbox.mutualisable" value="mutualisable" path="mutualisable" />
 
-			<tag:submit name="save" code="save" />
-			<tag:cancel url="" code="cancel" />
+			<tag:submitAndCancel nameSubmit="save" codeCancel="cancel" codeSubmit="save" urlCancel="" />
 		</form:form>
 		<div class="center">
 			<c:if test="${!empty error}">

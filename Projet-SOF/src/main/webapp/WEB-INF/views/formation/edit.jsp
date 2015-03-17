@@ -67,8 +67,8 @@
 
 
 			<tag:checkbox code="checkbox.visible" value="checkbox.visible" path="visible" />
-			<tag:submit name="save" code="save" />
-			<tag:cancel url="" code="cancel" />
+			<tag:submitAndCancel nameSubmit="save" codeCancel="cancel" codeSubmit="save" urlCancel="" />
+
 		</form:form>
 		<div class="center">
 			<c:if test="${!empty error}">

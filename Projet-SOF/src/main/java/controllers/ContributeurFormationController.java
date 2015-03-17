@@ -27,6 +27,7 @@ import services.FormationService;
 import services.PersonService;
 import domain.Formation;
 import domain.Person;
+
 @Transactional
 @Controller
 @RestController
@@ -44,27 +45,37 @@ public class ContributeurFormationController extends AbstractController {
 
 	@Autowired
 	PersonService personService;
-	
+
 	@Transactional
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam String code) {
+	public ModelAndView edit(@RequestParam(required = false) String code) {
 		ModelAndView result;
-		Formation f = formationService.findOne(code);
-		f.getContributeurs().size();
-		Collection<Person> contibuteurs = f.getContributeurs();
 		result = new ModelAndView("arbreFormation/contributeur");
-		result.addObject("contibuteurs", contibuteurs);
-		Collection<Person> persons = personService.findAll();
-		result.addObject("allcontributeurs", persons);
+		if(code == null || code.length() == 0){
+			return result;
+		}
+		try {
+			Formation f = formationService.findOne(code);
+			if(f == null){
+				return result;
+			}
+			f.getContributeurs().size();
+			Collection<Person> contibuteurs = f.getContributeurs();
+			result.addObject("contibuteurs", contibuteurs);
+			Collection<Person> persons = personService.findAll();
+			result.addObject("allcontributeurs", persons);
 
-		result.addObject("code", code);
+			result.addObject("code", code);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return result;
 	}
+
 	@RequestMapping(value = "/listJs")
-	public  Collection<Person> list(@RequestParam String code) {
-		Collection<Person> contibuteurs = formationService.findOne(code)
-				.getContributeurs();
+	public Collection<Person> list(@RequestParam String code) {
+		Collection<Person> contibuteurs = formationService.findOne(code).getContributeurs();
 		return contibuteurs;
 	}
 
@@ -73,10 +84,9 @@ public class ContributeurFormationController extends AbstractController {
 	 */
 	@Transactional
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView save(@RequestParam String contrib,
-			@RequestParam String code) {
+	public ModelAndView save(@RequestParam String contrib, @RequestParam String code) {
 
-		ModelAndView result;System.out.println("lppppmpmpmpm");
+		ModelAndView result;
 		try {
 			Formation formation = formationService.findOne(code);
 			formation.getContributeurs().size();
@@ -94,8 +104,7 @@ public class ContributeurFormationController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam String contrib,
-			@RequestParam String code) {
+	public ModelAndView delete(@RequestParam String contrib, @RequestParam String code) {
 
 		ModelAndView result;
 		try {
@@ -104,11 +113,11 @@ public class ContributeurFormationController extends AbstractController {
 			Collection<Person> persons = formation.getContributeurs();
 			Person tmp = null;
 			for (Person per : persons) {
-				if (per.getLogin().equals(contributeur.getLogin())){
+				if (per.getLogin().equals(contributeur.getLogin())) {
 					tmp = per;
 				}
 			}
-			if(tmp != null)
+			if (tmp != null)
 				persons.remove(tmp);
 			formation.setContributeurs(persons);
 			formationService.save(formation);
@@ -121,8 +130,5 @@ public class ContributeurFormationController extends AbstractController {
 
 		return edit(code);
 	}
-	
-
-	
 
 }
