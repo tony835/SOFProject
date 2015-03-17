@@ -22,7 +22,7 @@
 				<tag:column code="formation.code" property="code" sortable="true" />
 				<tag:column code="formation.name" property="name" sortable="true" />
 				<tag:column code="formation.visible" property="visible" sortable="true" />
-				<tag:column code="responsable.login" property="responsable.login" sortable="true" />
+				<tag:column code="responsable.login" property="responsable.name" sortable="true" />
 				<tag:column code="formation.numError" property="numError" sortable="true" />
 
 				<jstl:if test="${user.isConceptor()}">
