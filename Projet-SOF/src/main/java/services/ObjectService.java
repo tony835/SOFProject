@@ -198,8 +198,8 @@ public class ObjectService {
 		}
 	}
 	
-	public String isContributorOfObject(String login, String object)
-	{
-		return objectDao.isContributorOfObject(login, object);
-	}
+//	public String isContributorOfObject(String login, String object)
+//	{
+//		return objectDao.isContributorOfObject(login, object);
+//	}
 }
