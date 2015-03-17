@@ -125,12 +125,28 @@ public class App2FormationController {
 	public ModelAndView allFormationContributor() {
 
 		ModelAndView result;
+		Collection<Formation> formation_of_contributor = new ArrayList<Formation>();
+		Map<String, String> formation_identification = new HashMap<String, String>();
+		if(!user.getLogin().isEmpty())
+		{
+			formation_of_contributor = formationService.formationWithContributeur(user.getLogin());
+			System.out.println("-------------------DEBUG------------------------");
+			for (Formation f : formation_of_contributor)
+			{
+				formation_identification.put(f.getCode(), f.getName());
+				System.out.println(f.getCode());
+				System.out.println(f.getName());
+			}
+			System.out.println("-------------------FIN--DEBUG------------------------");
+		}
+			
 		Collection<String> diploma_type_exist = new ArrayList<String>();
 		diploma_type_exist = formationService.findAllDistinctDiplome();
 
 		result = new ModelAndView("formation/offreAudit");
 
 		result.addObject("DiplomaTypeExist", diploma_type_exist);
+		result.addObject("FormationOfConnectedContributor", formation_identification);
 
 		return result;
 	}
@@ -181,56 +197,56 @@ public class App2FormationController {
 		return result;
 	}
 
-	// inutile
-	/**
-	 * 
-	 * @return
-	 */
-	private Collection<String> getFormation_Field() {
-		SAXBuilder sxb = new SAXBuilder();
-		Document document = null;
-		try {
-			document = sxb.build(getClass().getResource("/configApp.xml"));
-		} catch (JDOMException | IOException e) {
-			e.printStackTrace();
-		}
 
-		Element racine = document.getRootElement();
+//	/**
+//	 * 
+//	 * @return
+//	 */
+//	private Collection<String> getFormation_Field() {
+//		SAXBuilder sxb = new SAXBuilder();
+//		Document document = null;
+//		try {
+//			document = sxb.build(getClass().getResource("/configApp.xml"));
+//		} catch (JDOMException | IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		Element racine = document.getRootElement();
+//
+//		List<String> f = getAll(racine, "diploma_type");
+//
+//		List<String> g = getAll(racine, "formation_field");
+//
+//		for (String e : f) {
+//			System.out.println(e);
+//		}
+//		for (String e : g) {
+//			System.out.println(e);
+//		}
+//
+//		return null;
+//
+//	}
 
-		List<String> f = getAll(racine, "diploma_type");
-
-		List<String> g = getAll(racine, "formation_field");
-
-		for (String e : f) {
-			System.out.println(e);
-		}
-		for (String e : g) {
-			System.out.println(e);
-		}
-
-		return null;
-
-	}
-
-	/**
-	 * 
-	 * @param racine
-	 * @param branche
-	 * @return
-	 */
-	private List<String> getAll(Element racine, String branche) {
-		List<Element> listDiploma = racine.getChild(branche)
-				.getChildren("name");
-
-		Iterator<Element> i = listDiploma.iterator();
-		List<String> ret = new ArrayList<String>();
-
-		while (i.hasNext()) {
-			Element courant = (Element) i.next();
-			ret.add(courant.getValue());
-		}
-		return ret;
-	}
+//	/**
+//	 * 
+//	 * @param racine
+//	 * @param branche
+//	 * @return
+//	 */
+//	private List<String> getAll(Element racine, String branche) {
+//		List<Element> listDiploma = racine.getChild(branche)
+//				.getChildren("name");
+//
+//		Iterator<Element> i = listDiploma.iterator();
+//		List<String> ret = new ArrayList<String>();
+//
+//		while (i.hasNext()) {
+//			Element courant = (Element) i.next();
+//			ret.add(courant.getValue());
+//		}
+//		return ret;
+//	}
 
 	/**
 	 * 

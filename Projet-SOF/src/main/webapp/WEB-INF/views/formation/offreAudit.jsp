@@ -18,13 +18,23 @@
 	<tiles:putAttribute name="body">
 
 		<jstl:choose>
-			<jstl:when test="${user.isConnected()}">
-				<a href="visualisation/formation/audit.htm"> <spring:message
-						code="formation.audit" />
+			<jstl:when test="${!FormationOfConnectedContributor.isEmpty()}">
+				<a href="visualisation/formation/offre.htm"> <jstl:out value="Version visiteur"/>
 				</a>
+				</br>
+				<jstl:out value="Vous êtes contributeurs des formations suivantes:"/>
+				
+			<display:table name="FormationOfConnectedContributor" requestURI="visualisation/formation/audit/offre.htm" id="formation">
+				<display:column title="Nom"  sortable="true">
 
+						<jstl:url  var="objectlink" value="objectVisualisation/details.htm?code=${FormationOfConnectedContributor.keySet().toArray()[field_rowNum - 1]}"/>
+						<a href="${objectlink}"> <jstl:out value="${formation}" escapeXml="true"/> </a>
+						
+				</display:column>
+				
+			</display:table>
 
-				<display:table name="DiplomaTypeExist"
+			<display:table name="DiplomaTypeExist"
 					requestURI="visualisation/formation/audit/offre.htm" id="field">
 					<display:column title="Nom" sortable="true">
 						<jstl:forEach items="${field}" var="s" varStatus="loop">

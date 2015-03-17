@@ -17,7 +17,7 @@
 		<tiles:putAttribute name="body">
 
 			<jstl:if test="${user.isConnected()}">
-				<a href="visualisation/formation/audit.htm"> 
+				<a href="visualisation/formation/audit/offre.htm"> 
 					<spring:message code="formation.audit" />
 				</a>
 			</jstl:if>
