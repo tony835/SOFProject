@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.Collection;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +36,7 @@ public class ModalController {
 	public ModalController() {
 	}
 	
+	@Transactional
 	@RequestMapping(value = "/tt.htm", method = RequestMethod.GET)
 	public ModelAndView listFields(
 	        @RequestParam(value = "obj", required=true) String codeObject) {

@@ -197,4 +197,9 @@ public class ObjectService {
 			getDescendants(loContext, tmpO);
 		}
 	}
+	
+	public String isContributorOfObject(String login, String object)
+	{
+		return objectDao.isContributorOfObject(login, object);
+	}
 }
