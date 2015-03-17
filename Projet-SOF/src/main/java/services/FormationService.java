@@ -21,6 +21,7 @@ import repositories.FormationDao;
 import domain.Fils;
 import domain.Formation;
 import domain.Object;
+import domain.User;
 
 @Transactional
 @Service
@@ -32,6 +33,9 @@ public class FormationService {
 	@Autowired
 	ObjectService objectService;
 
+	@Autowired
+	private User user;
+	
 	/**
 	 * Création d'une formation
 	 * 
@@ -42,6 +46,15 @@ public class FormationService {
 		Formation result;
 		result = new Formation();
 		return result;
+	}
+	
+	public boolean isContributor(String code){
+		try{
+			return formationDao.findOne(code).getResponsable().getLogin().equals(user.getLogin());
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	/**

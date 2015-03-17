@@ -16,6 +16,8 @@ public interface FormationDao extends JpaRepository<Formation, String> {
 	@Query("select o from Formation o where o.responsable.login = ?1")
 	Collection<Formation> findbyResponsable(String login);
 	
+	@Query("select o.code from Formation o where o.code=?1 and o.responsable.login = ?2")
+	String isResponsableOfFormation(String code, String responsable);
 	
 	@Query("select DISTINCT(diplomeType) from Formation")
 	Collection<String> findAllDistinctDiplome();

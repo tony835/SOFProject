@@ -113,5 +113,8 @@ public class Formation extends Object {
 		this.formationField = formationField;
 	}
 
+	public void incrNbError(){
+		numError ++;
+	}
 
 }
