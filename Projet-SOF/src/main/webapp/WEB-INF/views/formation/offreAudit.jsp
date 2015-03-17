@@ -18,23 +18,37 @@
 	<tiles:putAttribute name="body">
 
 		<jstl:choose>
-			<jstl:when test="${!FormationOfConnectedContributor.isEmpty()}">
-				<a href="visualisation/formation/offre.htm"> <jstl:out value="Version visiteur"/>
-				</a>
-				</br>
-				<jstl:out value="Vous êtes contributeurs des formations suivantes:"/>
-				
-			<display:table name="FormationOfConnectedContributor" requestURI="visualisation/formation/audit/offre.htm" id="formation">
-				<display:column title="Nom"  sortable="true">
+			<jstl:when test="${user.isConnected()}">
+				<jstl:choose>
+					<jstl:when test="${!FormationOfConnectedContributor.isEmpty()}">
+						<a href="visualisation/formation/offre.htm"> <jstl:out
+								value="Version visiteur" />
+						</a>
+						</br>
+						<jstl:out
+							value="Vous êtes contributeurs des formations suivantes:" />
 
-						<jstl:url  var="objectlink" value="objectVisualisation/details.htm?code=${FormationOfConnectedContributor.keySet().toArray()[field_rowNum - 1]}"/>
-						<a href="${objectlink}"> <jstl:out value="${formation}" escapeXml="true"/> </a>
-						
-				</display:column>
-				
-			</display:table>
+						<display:table name="FormationOfConnectedContributor"
+							requestURI="visualisation/formation/audit/offre.htm"
+							id="formation">
+							<display:column title="Nom" sortable="true">
 
-			<display:table name="DiplomaTypeExist"
+								<jstl:url var="objectlink"
+									value="objectVisualisation/details.htm?code=${FormationOfConnectedContributor.keySet().toArray()[formation_rowNum - 1]}" />
+								<a href="${objectlink}"> <jstl:out value="${formation}"
+										escapeXml="true" />
+								</a>
+
+							</display:column>
+
+						</display:table>
+
+					</jstl:when>
+					<jstl:otherwise>
+						<jstl:out value="Vous n'êtes contributeur d'aucune formation." />
+					</jstl:otherwise>
+				</jstl:choose>
+				<display:table name="DiplomaTypeExist"
 					requestURI="visualisation/formation/audit/offre.htm" id="field">
 					<display:column title="Nom" sortable="true">
 						<jstl:forEach items="${field}" var="s" varStatus="loop">
@@ -47,9 +61,11 @@
 				</display:table>
 			</jstl:when>
 			<jstl:otherwise>
-        			<jstl:out value="Vous n'êtes pas connecté, merci de bien vouloir vous authentifier" />
-        			<a href="/Projet_SOF/auth/login.htm"><spring:message code="login" /></a>
-   			 </jstl:otherwise>
+				<jstl:out
+					value="Vous n'êtes pas connecté, merci de bien vouloir vous authentifier" />
+				<a href="/Projet_SOF/auth/login.htm"><spring:message
+						code="login" /></a>
+			</jstl:otherwise>
 		</jstl:choose>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
