@@ -97,16 +97,6 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * Permet de vérifier si l'utilisateur est un administrateur.
-	 *
-	 * @return True si l'utilisateur est un administrateur, false sinon.
-	 */
-	public boolean isConcepteur() {
-		//TODO regarder dans fichier xml
-		return false;
-	}
-
-	/**
 	 * Permet de réinitialiser la session courante.
 	 */
 	public void flush() {
@@ -121,24 +111,6 @@ public class User implements Serializable {
 	}
 
 	public boolean isConceptor() throws JDOMException, IOException {
-		/*SAXBuilder sxb = new SAXBuilder();
-
-
-    		Document document = sxb.build(new File("Donnees.xml"));
-
-
-
-		// On initialise un nouvel élément racine avec l'élément racine du document.
-		Element racine = document.getRootElement();
-		List<Element> listEtudiants = racine.getChildren("Concepteur");
-		Iterator<Element> i = listEtudiants.iterator();
-
-		while (i.hasNext()) {
-			Element courant = (Element) i.next();
-			if (courant.getChild("login").getText().equals(login))
-				return true;
-		}
-		return false;*/
 		return conceptor;
 	}
 
