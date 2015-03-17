@@ -43,5 +43,5 @@ public interface FormationDao extends JpaRepository<Formation, String> {
 	Collection<Formation> findVisible();
 	
 	@Query("select f from Formation f where ?1 in (select c.login from f.contributeurs c) ")
-	Collection<String> formationWithContributeur(String login);
+	Collection<Formation> formationWithContributeur(String login);
 }

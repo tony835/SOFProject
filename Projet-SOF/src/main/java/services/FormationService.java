@@ -203,11 +203,10 @@ public class FormationService {
 	}
 
 	public Collection<Formation> findVisible() {
-		// TODO Auto-generated method stub
 		return formationDao.findVisible();
 	}
 	
-	public Collection<String> formationWithContributeur(String login)
+	public Collection<Formation> formationWithContributeur(String login)
 	{
 		return formationDao.formationWithContributeur(login);
 	}
