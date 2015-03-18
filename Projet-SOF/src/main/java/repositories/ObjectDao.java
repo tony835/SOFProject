@@ -29,6 +29,6 @@ public interface ObjectDao extends JpaRepository<domain.Object, String> {
 	@Query("select o from Object o where o.contexte.code = ?2  and  o.typeObject.code= ?1  and o.code <> ?3")
 	Collection<Object> findOtheObjectSameTypeInContext(String codeTypeObject,String codecotext, String codeObject);
 	
-//	@Query("select c.login from Object o where o.code=?2 and ?1 in (select c.login from o.context.contributeurs c) ")
-//	String isContributorOfObject(String login, String object);
+	@Query("select o.code from Object o where o.code=?2 and ?1 in (select c.login from o.contexte.contributeurs c) ")
+	Collection<String> isContributorOfObject(String login, String object);
 }
