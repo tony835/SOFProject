@@ -100,7 +100,7 @@
 				</div>
 
 			</form:form>
-			<a class="btn btn-default btn-sm" href="arbreFormation/list.htm?code=${objEnCours.getContexte().getCode()}"><spring:message
+			<a class="btn btn-default btn-sm" href="arbreFormation/list.htm?code=${objEnCours.getContexte().getCode()}#${objEnCours.getCode()}"><spring:message
 					code="arbreFormation.lister" /></a>
 
 			<div class="center">

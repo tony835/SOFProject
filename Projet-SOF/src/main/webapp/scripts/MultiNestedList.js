@@ -35,7 +35,7 @@ $('ul li').each(function(){
 // Add button to expand and condense - Using FontAwesome
 $('ul li.hasSubmenu').each(function(){
   $this = $(this);
-  $this.prepend("<a href='#'><i class='fa fa-minus-circle'></i><i style='display:none;' class='fa fa-plus-circle'></i></a>");
+  $this.prepend("<a href='#'><i class='fa fa-plus-circle'></i><i style='display:none;' class='fa fa-minus-circle'></i></a>");
   $this.children("a").not(":last").removeClass().addClass("toogle");
 
 
@@ -49,8 +49,34 @@ $('ul li.hasSubmenu a.toogle').click(function(){
 });
 
 // ferme les noeuds de tous les objets
-$('ul li.hasSubmenu a.toogle').each(function(){
+$('ul li.hasSubmenu').each(function(){
 	  $this = $(this);
-	  $this.closest("li").children("ul").toggle("slow");
+	  $this.closest("li").children("ul").toggle();
 	  $this.children("i").toggle();
 	});
+
+//ouvre un objet quand il vient d'être modifié
+$(window).load(function() {
+//	var url = window.location.search;
+//	var name ="";
+	name =  window.location.hash.substring(1);
+//	var t = location.search.substring(1).split('&');
+//	for (var i=0; i<t.length; i++){
+//		var x = t[ i ].split('=');
+//		if(x[0] == "modifiedO"){
+//			name = x[1];
+//			break;
+//		}			
+//	}
+	if(name != ""){
+		$li = $(document.getElementsByName(name)); //TODO simplifier en ne prenant que les name des <li>
+		$li.children("ul").toggle();
+		$li.parentsUntil($("#list"),"ul").toggle();
+
+		//TODO toggle du "i", pour l'image + -> -
+
+		var aTag = $("a[id='"+ name +"']");
+		$('html,body').animate({scrollTop: aTag.offset().top}, 1);
+
+	}	
+});
