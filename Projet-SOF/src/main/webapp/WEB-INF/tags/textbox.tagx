@@ -12,6 +12,7 @@
 	<jsp:directive.attribute name="name" type="java.lang.String" required="false" />
 	<jsp:directive.attribute name="type" type="java.lang.String" required="false" />
 	<jsp:directive.attribute name="id" type="java.lang.String" required="false" />
+	<jsp:directive.attribute name="size" type="java.lang.String" required="false" />
 
 	<jstl:if test="${readonly == null}">
 		<jstl:set var="readonly" value="false" />
@@ -26,7 +27,7 @@
 			<spring:message code="${code}" />
 		</form:label>
 		<div class="col-sm-10">
-			<form:input id="${id}" class="form-control" type="${type}" path="${path}" readonly="${readonly}" placeholder="${codeVal}"></form:input>
+			<form:input id="${id}" size="${size}" class="form-control" type="${type}" path="${path}" readonly="${readonly}" placeholder="${codeVal}"></form:input>
 			<form:errors name="${name}" path="${path}" cssClass="error" />
 		</div>
 	</div>
