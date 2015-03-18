@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.FormationService;
 import services.ObjectService;
 import services.PersonService;
+import services.TypeObjectService;
 import domain.FieldObject;
 import domain.FieldObjectId;
 import domain.Formation;
@@ -49,9 +50,12 @@ public class FormationController extends AbstractController {
 
 	@Autowired
 	ObjectService objectService;
+	
 	@Autowired
 	PersonService personService;
 
+	@Autowired
+	TypeObjectService typeObjService;
 	/**
 	 * Liste touts les formations.
 	 * 
@@ -217,6 +221,8 @@ public class FormationController extends AbstractController {
 							}
 							// on sauvegarde la formation
 							else{
+								formation.setTypeObject(typeObjService.findOne("FOR"));
+								formation.setMutualisable(false);
 								formationService.save(formation);
 								formation.setContexte(formation);
 								formationService.save(formation);
@@ -225,6 +231,7 @@ public class FormationController extends AbstractController {
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
+							return new ModelAndView("master-page/error", "error", "erreur.BD");
 						}
 					}
 

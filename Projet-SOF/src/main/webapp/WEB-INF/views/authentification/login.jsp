@@ -15,7 +15,7 @@
 		<script type="text/javascript" src="scripts/scripts_perso/login.js"></script>
 		<form:form id="signupForm" method="POST" commandName="user">
 			<tag:textbox name="login" code="authentification.login" path="login" />
-			<tag:textbox name="password" code="authentification.password" path="password" />
+			<tag:textbox type="password" size="8" name="password" code="authentification.password" path="password" />
 			<tag:submit name="valid" code="valid"></tag:submit>
 		</form:form>
 		<div class="center">
