@@ -24,16 +24,13 @@ public class AlimentationBdd {
 
 		// create a mysql database connection
 		String myDriver = "com.mysql.jdbc.Driver";
-		String myUrl = "jdbc:mysql://localhost:3306/isl";
+		String myUrl = "jdbc:mysql://localhost:3306/l1001540";
 		Class.forName(myDriver);
-		Connection conn = DriverManager.getConnection(myUrl, "salah", "");
+		Connection conn = DriverManager.getConnection(myUrl, "l1001540", "ZEX9ia");
 
 		/** declarer les fichiers fichiers xml */
 		SAXBuilder sxb = new SAXBuilder();
-		Document document2 = sxb.build(new File(
-				"src/main/resources/configApp.xml"));
-		Element racine2 = document2.getRootElement();
-		Document document = sxb.build(new File("src/main/resources/offre.xml"));
+		Document document = sxb.build(new File("/Users/alexandre/Dropbox/fac/projet_sof/Documents_annexes/offre.xml"));
 		Element racine = document.getRootElement();
 		System.out.println("");
 		// the mysql insert statement
@@ -45,7 +42,7 @@ public class AlimentationBdd {
 		 * alimmentation des typesobjets depuis le fichier de configuration
 		 * */
 
-		List<Element> listTypeObjet = racine2.getChildren("object_type");
+		/*List<Element> listTypeObjet = racine2.getChildren("object_type");
 		Iterator<Element> i = listTypeObjet.iterator();
 
 		while (i.hasNext()) {
@@ -65,7 +62,7 @@ public class AlimentationBdd {
 			preparedStmt.setString(3, content_model);
 			preparedStmt.setString(4, Nom);
 			preparedStmt.execute();
-		}
+		}*/
 
 		/**
 		 * alimenter la table personne
