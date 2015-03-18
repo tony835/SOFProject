@@ -19,7 +19,7 @@ public class FieldObject {
 	@JoinColumn(name="Id_champ",referencedColumnName="Id",nullable=false)
 	private Field field ;
 
-	@Column(name = "value")
+	@Column(name = "value",length = 4096)
 	private String value;
 
 
