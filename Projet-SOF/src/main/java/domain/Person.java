@@ -43,10 +43,10 @@ public class Person implements Serializable{
 	@Column(name="Mail")
 	private String mail ;
 	
-	@OneToMany(mappedBy="responsable", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="responsable")
 	private Collection<Formation> responsableDesFormations;
 	
-	@ManyToMany(mappedBy="contributeurs", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy="contributeurs")
 	private Collection<Formation> contributeurDesFormations;
 		
 	

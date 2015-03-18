@@ -138,4 +138,15 @@ public class User implements Serializable {
 			}
 		}
 	}
+	
+	public boolean isContributor(Formation formation){
+		for(Person p : formation.getContributeurs()){
+			if(p.getLogin().equals(login)) return true;
+		}
+		return false;
+	}
+	
+	public boolean isResponsable(Formation formation){
+		return formation.getResponsable().getLogin().equals(login);
+	}
 }

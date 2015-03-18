@@ -50,12 +50,13 @@ public class FormationController extends AbstractController {
 
 	@Autowired
 	ObjectService objectService;
-	
+
 	@Autowired
 	PersonService personService;
 
 	@Autowired
 	TypeObjectService typeObjService;
+
 	/**
 	 * Liste touts les formations.
 	 * 
@@ -65,16 +66,18 @@ public class FormationController extends AbstractController {
 	 */
 	@RequestMapping("/list")
 	public ModelAndView allFormation() throws JDOMException, IOException {
-		ModelAndView result;
-				Collection<Formation> formations = null;
-		if (user.isConceptor())
-			formations = formationService.findAll();
-		else if (user.isConnected())
-			formations = formationService.findByResponsable(user.getLogin());
-
-		result = new ModelAndView("formation/list");
-		result.addObject("formations", formations);
-
+		ModelAndView result = new ModelAndView("formation/list");
+		try {
+			Collection<Formation> formations = null;
+			if (user.isConceptor())
+				formations = formationService.findAll();
+			else if (user.isConnected())
+				formations = formationService.findByResponsable(user.getLogin());
+			result.addObject("formations", formations);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("master-page/error", "error", "erreur.BD");
+		}
 		return result;
 	}
 
@@ -134,7 +137,7 @@ public class FormationController extends AbstractController {
 		else if (cobject != null && cobject != "") {
 			formation = formationService.findOne(cobject);
 			// Erreur pour trouver la formation
-			if(formation == null){
+			if (formation == null) {
 				return new ModelAndView("redirect:edit.htm");
 			}
 		}
@@ -150,11 +153,11 @@ public class FormationController extends AbstractController {
 	 * Sauvegarde d'une formation
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView save(@RequestParam(required = false) String cobject, @Valid @ModelAttribute Formation formation,
-			BindingResult bindingResult) {
-		
+	public ModelAndView save(@RequestParam(required = false) String cobject,
+			@Valid @ModelAttribute Formation formation, BindingResult bindingResult) {
+
 		System.out.println("type de diplome : " + formation.getDiplomeType());
-		
+
 		ModelAndView result = new ModelAndView("formation/edit");
 		if (bindingResult.hasErrors()) {
 			System.out.println(formation.getName());
@@ -220,7 +223,7 @@ public class FormationController extends AbstractController {
 								}
 							}
 							// on sauvegarde la formation
-							else{
+							else {
 								formation.setTypeObject(typeObjService.findOne("FOR"));
 								formation.setMutualisable(false);
 								formationService.save(formation);
@@ -237,7 +240,7 @@ public class FormationController extends AbstractController {
 
 					try {
 						f = formationService.findOne(formation.getCode());
-						if(f == null){
+						if (f == null) {
 							result.addObject("error", "formation.edit.notExisting");
 							return result;
 						}
@@ -246,7 +249,8 @@ public class FormationController extends AbstractController {
 						f.setVisible(formation.isVisible());
 						f.setResponsable(formation.getResponsable());
 						f.setDiplomeType(formation.getDiplomeType());
-						f.setFormationField(formation.getFormationField());;
+						f.setFormationField(formation.getFormationField());
+						;
 						formationService.save(f);
 
 						result = new ModelAndView("redirect:list.htm");
@@ -281,12 +285,12 @@ public class FormationController extends AbstractController {
 
 		return result;
 	}
-	
+
 	@ModelAttribute("diplomaTypeList")
 	public List<String> diplomaTypeList() {
 		return (List<String>) formationService.findDiplomaType();
 	}
-	
+
 	@ModelAttribute("formationFieldList")
 	public List<String> formationFieldList() {
 		return (List<String>) formationService.findFormationFieldList();

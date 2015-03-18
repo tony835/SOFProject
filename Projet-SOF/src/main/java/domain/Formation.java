@@ -30,7 +30,7 @@ public class Formation extends Object {
 	@Column(name = "Visible")
 	boolean visible;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="contexte")
+	@OneToMany(mappedBy="contexte")
 	private Collection<Object> objectsContexte;
 
 	@NotNull

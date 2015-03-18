@@ -18,7 +18,7 @@
 
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
-		<jstl:if test="${!empty contibuteurs }">
+		<jstl:if test="${contibuteurs != null}">
 
 			<jstl:set var="formation" value="${code}"></jstl:set>
 			<div id="scroll" class="scroll">
@@ -70,7 +70,7 @@
 			<a class="btn btn-default btn-sm" href="arbreFormation/list.htm?code=${param.code}"><spring:message
 					code="arbreFormation.lister" /></a>
 		</jstl:if>
-		<jstl:if test="${empty contibuteurs }">
+		<jstl:if test="${contibuteurs == null}">
 			<spring:message code="contributeur.edit.erreur.formErr"/>
 		</jstl:if>
 	</tiles:putAttribute>
