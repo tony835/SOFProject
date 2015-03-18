@@ -83,7 +83,7 @@ public class ObjectService {
 
 	public void delLienFils(domain.Object pere, domain.Object fils){
 		try {
-			if(user.isConceptor() || isContributor(pere.getContexte().getCode())){
+			if(user.isResponsable(pere.getContexte())){
 				Fils tmp = null;
 
 				for (Fils p : pere.getAllFils()){
@@ -96,7 +96,7 @@ public class ObjectService {
 					filsDao.delete(tmp);
 				}
 			}
-		} catch (JDOMException | IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

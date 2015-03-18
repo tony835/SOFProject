@@ -103,59 +103,69 @@ public class ArbreFormationController extends AbstractController {
 
 	String arbreRetour = "";
 
-
 	private void getArbreLi(domain.Object obj, String codeContext, Formation formation) {
-		
+
 		String codeO = obj.getCode();
-		if(!objectService.checkContentModel(obj).equals("")){
-			arbreRetour += "<li name=\"" + codeO + "\"> <a id=\""+ codeO + "\">"/*"\"><a>"*/ + codeO + " " + obj.getName() +"  <p style=\"color: Red\">Erreur</p> </a>"+addactionsObj(obj, codeContext);
+		if (!objectService.checkContentModel(obj).equals("")) {
+			arbreRetour += "<li name=\"" + codeO + "\"> <a id=\"" + codeO + "\">"/* "\"><a>" */+ codeO + " "
+					+ obj.getName() + "  <p style=\"color: Red\">Erreur</p> </a>" + addactionsObj(obj, codeContext);
 			formation.incrNbError();
+		} else {
+			arbreRetour += "<li name=\"" + codeO + "\"> <a id=\"" + codeO + "\">"/* "\"><a>" */+ codeO + " "
+					+ obj.getName() + " </a>" + addactionsObj(obj, codeContext);
 		}
-		else {
-			arbreRetour += "<li name=\"" + codeO + "\"> <a id=\""+ codeO + "\">"/*"\"><a>"*/ + codeO + " " + obj.getName() +" </a>"+addactionsObj(obj, codeContext);	
-		}
-		
+
 		if (obj.getAllFils().size() != 0)
 			getArbreUl(obj, codeContext, formation);
 		arbreRetour += "</li>\n";
 	}
-	
+
 	private void getArbreUl(domain.Object obj, String codeContext, Formation formation) {
 		arbreRetour += "<ul>\n";
 		for (Fils o : orderByRang(obj.getAllFils()))
-			getArbreLi(o.getFils(),codeContext, formation);
+			getArbreLi(o.getFils(), codeContext, formation);
 		arbreRetour += "</ul>\n";
 	}
-	private void getArbre(Formation formation){
+
+	private void getArbre(Formation formation) {
 		String codeF = formation.getCode();
-		if(!objectService.checkContentModel(formation).equals("")){
+		if (!objectService.checkContentModel(formation).equals("")) {
 			formation.setNumError(1);
-			arbreRetour = "<ul id=\"list\"><li name=\"" + codeF + "\"> <a id=\""+ codeF + "\">"/*"\"><a>"*/+codeF + " " + formation.getName() + "  <p style=\"color: Red\">Erreur</p> </a>" + addactionsFormation(codeF);
-		}
-		else {
+			arbreRetour = "<ul id=\"list\"><li name=\"" + codeF + "\"> <a id=\"" + codeF + "\">"/* "\"><a>" */+ codeF
+					+ " " + formation.getName() + "  <p style=\"color: Red\">Erreur</p> </a>"
+					+ addactionsFormation(codeF);
+		} else {
 			formation.setNumError(0);
-			arbreRetour = "<ul id=\"list\"><li name=\"" + codeF + "\"> <a id=\""+ codeF + "\">"/*"\"><a>"*/+codeF+" "+formation.getName()+"</a> "+addactionsFormation(codeF);
+			arbreRetour = "<ul id=\"list\"><li name=\"" + codeF + "\"> <a id=\"" + codeF + "\">"/* "\"><a>" */+ codeF
+					+ " " + formation.getName() + "</a> " + addactionsFormation(codeF);
 		}
-		getArbreUl(formation,codeF, formation);
+		getArbreUl(formation, codeF, formation);
 		arbreRetour += "</li></ul>";
 	}
+
 	private String addactionsObj(domain.Object o, String context) {
-		if(o.getContexte() != null && (!o.getContexte().getCode().equals(context) || !objectService.isContributor(context))){
+		if (o.getContexte() != null
+				&& (!o.getContexte().getCode().equals(context) || !objectService.isContributor(context))) {
 			return "";
 		}
-		return "<div> <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/gestionFils.htm?cobject="+o.getCode()+"\"> Modifier les fils </a>"+
-				" <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/create.htm?context="+context+"&amp;cobject="+o.getCode()+"\">Modifier l'objet</a></div>";
+		return "<div> <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/gestionFils.htm?cobject=" + o.getCode()
+				+ "\"> Modifier les fils </a>"
+				+ " <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/create.htm?context=" + context
+				+ "&amp;cobject=" + o.getCode() + "\">Modifier l'objet</a></div>";
 	}
+
 	private String addactionsFormation(String context) {
-		return "<div> <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/gestionFils.htm?cobject="+context+"\"> Modifier les fils </a></div>";
+		return "<div> <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/gestionFils.htm?cobject=" + context
+				+ "\"> Modifier les fils </a></div>";
 	}
 
 	private List<Fils> orderByRang(Collection<Fils> allFils) {
-		List<Fils> list= new ArrayList<Fils>();
+		List<Fils> list = new ArrayList<Fils>();
 		list.addAll(allFils);
 		Collections.sort(list);
 		return list;
 	}
+
 	/**
 	 * Edition d'une formation
 	 * 
@@ -223,12 +233,11 @@ public class ArbreFormationController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/gestionFils", method = RequestMethod.GET)
-	public ModelAndView gestionFils(@RequestParam String cobject) {
-		System.out.println("passe ici");
+	public ModelAndView gestionFils(@RequestParam String cobject, RedirectAttributes redirectAttributes) {
 		ModelAndView result;
 		result = new ModelAndView("arbreFormation/gestionFils");
 		domain.Object o = null;
-		Fils p;
+		
 		try {
 			o = objectService.findOne(cobject);
 		} catch (Exception e) {
@@ -238,6 +247,13 @@ public class ArbreFormationController extends AbstractController {
 		if (o == null) {
 			return new ModelAndView("redirect:/formation/list.htm", "error", "arbreformation.cObjectUnknow");
 		}
+		
+		if (!user.isResponsable(o.getContexte())) {
+			result = new ModelAndView("redirect:/auth/login.htm");
+			redirectAttributes.addFlashAttribute("error", "ArbreFormation.noResponsable");
+			return result;
+		}
+		
 		List<Fils> list = null;
 		try {
 			list = objectService.getChild(cobject);
@@ -249,9 +265,7 @@ public class ArbreFormationController extends AbstractController {
 			return new ModelAndView("master-page/error", "error", "erreur.BD");
 		}
 		domain.Object selectedFils = new domain.Object();
-		System.out.println("------");
-		System.out.println(o.getCode());
-		System.out.println(o.getContexte().getCode());
+		
 		result.addObject("objEnCours", o);
 		result.addObject("listFils", list);
 		for (Fils fils : list) {
@@ -282,6 +296,11 @@ public class ArbreFormationController extends AbstractController {
 				redirectAttributes.addFlashAttribute("error", "arbreformation.contientFeuille");
 				return result;
 			}
+			if (!user.isResponsable(pereO.getContexte())) {
+				ModelAndView result = new ModelAndView("redirect:/arbreFormation/gestionFils.htm?cobject=" + pere);
+				redirectAttributes.addFlashAttribute("error", "ArbreFormation.noResponsable");
+				return result;
+			}
 			objectService.delLienFils(pereO, filsO);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -294,7 +313,7 @@ public class ArbreFormationController extends AbstractController {
 	@RequestMapping(value = "/gestionFilsEditRang", method = RequestMethod.POST)
 	public ModelAndView gestionFilsEditRang(@RequestParam(value = "codeEnCours", required = true) String codeEnCours,
 			@RequestParam(value = "rang", required = true) String rang,
-			@RequestParam(value = "cobject", required = true) String code) {
+			@RequestParam(value = "cobject", required = true) String code, RedirectAttributes redirectAttributes) {
 
 		domain.Object obj = null;
 		try {
@@ -304,6 +323,11 @@ public class ArbreFormationController extends AbstractController {
 		}
 		if (obj == null) {// erreur
 			return new ModelAndView("arbreFormation/gestionFils", "error", "arbreformation.cObjectUnknow");
+		}
+		if(!user.isResponsable(obj.getContexte())){
+			ModelAndView resultat = new ModelAndView("redirect:/arbreFormation/gestionFils.htm?cobject=" + codeEnCours);
+			redirectAttributes.addFlashAttribute("error", "ArbreFormation.noResponsable");
+			return resultat;
 		}
 		Fils tmp = null;
 		if (obj != null) {
@@ -346,7 +370,7 @@ public class ArbreFormationController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ModelAndView saveNewObject(@RequestParam(required = false) String context,
 			@RequestParam(required = false) String cobject, @Valid @ModelAttribute domain.Object myobject,
-			BindingResult bindingResult) {
+			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
 			ModelAndView m = new ModelAndView("tmpObjectCreation/createObject");
 			return m;
@@ -366,8 +390,8 @@ public class ArbreFormationController extends AbstractController {
 				System.out.println("cas1");
 				ModelAndView resultat = new ModelAndView("redirect:create.htm?context="
 						+ ((context == null) ? "" : context) + "&cobject=" + ((cobject == null) ? "" : cobject));
-				// redirectAttributes.addFlashAttribute("error", "arbreformation.formUnknow");
-				// redirectAttributes.addFlashAttribute("myobject", myobject);
+				redirectAttributes.addFlashAttribute("error", "arbreformation.formUnknow");
+				redirectAttributes.addFlashAttribute("myobject", myobject);
 				return resultat;
 			}
 			myobject.setContexte(form);
@@ -379,8 +403,8 @@ public class ArbreFormationController extends AbstractController {
 				if (type == null) {
 					ModelAndView resultat = new ModelAndView("redirect:create.htm?context="
 							+ ((context == null) ? "" : context) + "&cobject=" + ((cobject == null) ? "" : cobject));
-					// redirectAttributes.addFlashAttribute("myobject", myobject);
-					// redirectAttributes.addFlashAttribute("error", "arbreformation.typeUnknow");
+					redirectAttributes.addFlashAttribute("myobject", myobject);
+					redirectAttributes.addFlashAttribute("error", "arbreformation.typeUnknow");
 					return resultat;
 				}
 				domain.Object obj = null;
@@ -596,23 +620,36 @@ public class ArbreFormationController extends AbstractController {
 
 	@RequestMapping(value = "/addFils", method = RequestMethod.POST)
 	public ModelAndView addFils(@RequestParam(value = "cobject", required = true) String cobject,
-			@Valid @ModelAttribute domain.Object selectedFils, BindingResult result) {
+			@Valid @ModelAttribute domain.Object selectedFils, BindingResult result, RedirectAttributes redirectAttributes) {
 
 		if (result.hasErrors()) {
 			System.out.println(" --- " + result.toString());
 			return new ModelAndView("redirect:gestionFils.htm?cobject=" + cobject);
 		}
-		domain.Object o = objectService.findOne(cobject);
-		domain.Object selectF = objectService.findOne(selectedFils.getCode());
+		try {
+			
+			domain.Object o = objectService.findOne(cobject);
+			domain.Object selectF = objectService.findOne(selectedFils.getCode());
 
-		objectService.addLinkFils(o, selectF, 1);
-
-		String type = "";
-		if (o.getTypeObject() != null && o.getTypeObject().getCode() != null && o.getTypeObject().getCode().equals(""))
-			type = "";
-		return new ModelAndView("redirect:gestionFils.htm?cobject=" + cobject + "&typeobject=" + type);
-
+			if (o != null && selectF != null) {
+				if(!user.isResponsable(o.getContexte())){
+					ModelAndView resultat = new ModelAndView("redirect:/arbreFormation/gestionFils.htm?cobject=" + o.getCode());
+					redirectAttributes.addFlashAttribute("error", "ArbreFormation.noResponsable");
+					return resultat;
+				}
+				objectService.addLinkFils(o, selectF, 1);
+			}
+			String type = "";
+			if (o.getTypeObject() != null && o.getTypeObject().getCode() != null
+					&& o.getTypeObject().getCode().equals(""))
+				type = "";
+			return new ModelAndView("redirect:gestionFils.htm?cobject=" + cobject + "&typeobject=" + type);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("master-page/error", "error", "erreur.BD");
+		}
 	}
+
 	@ModelAttribute("user")
 	public User newUser() {
 		return user;
