@@ -47,7 +47,13 @@ public class ObjectControllerVisualisation  extends AbstractController{
 	@RequestMapping(value = "/details", method = RequestMethod.GET)
 	public ModelAndView mObjectList(@RequestParam String code) {
 		ModelAndView result;
-//		System.out.println(personService.isContributorOfObject("FormNouvelle2"));
+//		System.out.println(" DEBUG----est contributeur de l'objet");
+//		System.out.println(user.getLogin());
+//		System.out.println(code);
+//		
+		System.out.println(objectService.isContributorOfObject(user.getLogin(), code));
+//		System.out.println(" FINDEBUG----est contributeur de l'objet");
+
 	    result = new ModelAndView("object/details");
 	    Object obj= objectService.findOne(code);
 	    obj.getAllFils().size(); // Pour initialiser la liste des fils
@@ -58,8 +64,7 @@ public class ObjectControllerVisualisation  extends AbstractController{
 	    Collection<Object> objectMemeType =  new ArrayList<Object>();
 	    if(obj.getTypeObject()!=null && obj.getContexte() !=null){
 		    objectMemeType= objectService.objectsSameTypeInContext(obj.getTypeObject().getCode(), obj.getContexte().getCode(),obj.getCode());
-		    System.out.println("holaaaaa c la"+ objectMemeType);
-
+		   
 	    }
 	  
 	    for(FieldObject f:fIList ){
@@ -73,8 +78,6 @@ public class ObjectControllerVisualisation  extends AbstractController{
 	    		maps.put(f.getField().getTabName(), filObjects);	
 	    	}	    	
 	    }
-	    System.out.println(fIListGeneral);
-	    System.out.println(maps);
 
 	    result.addObject("maps",maps);
 	    
