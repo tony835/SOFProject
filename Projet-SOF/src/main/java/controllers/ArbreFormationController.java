@@ -321,7 +321,7 @@ public class ArbreFormationController extends AbstractController {
 				return new ModelAndView("arbreFormation/gestionFils", "error", "arbreformation.cObjectUnknow");
 			}
 			// Si on peut modifier le fils (le père est dans le même arbre)
-			if (filsO.getAllFils().size() != 0 && !filsO.getContexte().getCode().equals(pereO.getContexte().getCode())) {
+			if (filsO.getAllFils().size() != 0 && filsO.getContexte().getCode().equals(pereO.getContexte().getCode())) {
 				ModelAndView result = new ModelAndView("redirect:/arbreFormation/gestionFils.htm?cobject=" + pere);
 				redirectAttributes.addFlashAttribute("error", "arbreformation.contientFeuille");
 				return result;
