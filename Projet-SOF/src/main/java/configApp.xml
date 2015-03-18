@@ -2,17 +2,16 @@
 	<object_type>
 		<code>SPE</code>
 		<name>Spécialité</name>
-		<code_regex>test</code_regex>
-		<Erreur_descritpion></Erreur_descritpion>
-		<content_model>xx</content_model>
+		<code_regex>PRO+</code_regex>
+		<Erreur_descritpion>contient des programmes</Erreur_descritpion>
+		<content_model>PRO+</content_model>
 		<description>desc</description>
-		
 		
 		<field>
 			<Id>1150</Id>
 			<name>12</name>
 			<description></description>
-			<content_type>STRING</content_type>
+			<content_type></content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -22,7 +21,7 @@
 			<Id>1</Id>
 			<name>12</name>
 			<description></description>
-			<content_type>STRING</content_type>
+			<content_type></content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -31,25 +30,26 @@
 			<Id>122</Id>
 			<name>43</name>
 			<description></description>
-			<content_type>STRING</content_type>
+			<content_type></content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
 		</field>
 
 	</object_type>
+		
 	<object_type>
 		<code>FOR</code>
 		<name>Formation</name>
-		<code_regex></code_regex>
-		<Erreur_descritpion></Erreur_descritpion>
-		<content_model>x</content_model>
+		<code_regex>(SPE)+|(PRO)+</code_regex>
+		<Erreur_descritpion>contient spécialité ou programme</Erreur_descritpion>
+		<content_model>(SPE)+|(PRO)+</content_model>
 		<description>desc</description>
 		<field>
 			<Id>1</Id>
 			<name>12</name>
 			<description></description>
-			<content_type>STRING</content_type>
+			<content_type></content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -58,25 +58,25 @@
 			<Id>3</Id>
 			<name>88</name>
 			<description></description>
-			<content_type>STRING</content_type>
+			<content_type></content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
 		</field>
 	</object_type>
-
+	
 	<object_type>
 		<code>ENS</code>
 		<name>Enseignement</name>
-		<code_regex></code_regex>
-		<Erreur_descritpion></Erreur_descritpion>
-		<content_model>x</content_model>
+		<code_regex>ENS+</code_regex>
+		<Erreur_descritpion>contient enseignement</Erreur_descritpion>
+		<content_model>ENS+</content_model>
 		<description>desc</description>
 		<field>
 			<Id>1</Id>
 			<name>12</name>
 			<description></description>
-			<content_type>STRING</content_type>
+			<content_type></content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -85,51 +85,25 @@
 			<Id>3</Id>
 			<name>88</name>
 			<description></description>
-			<content_type>STRING</content_type>
+			<content_type></content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
 		</field>
 	</object_type>
-	<object_type>
-		<code>OPT</code>
-		<name>Option</name>
-		<code_regex></code_regex>
-		<Erreur_descritpion></Erreur_descritpion>
-		<content_model>x</content_model>
-		<description>desc</description>
-		<field>
-			<Id>1</Id>
-			<name>12</name>
-			<description></description>
-			<content_type>STRING</content_type>
-			<required></required>
-			<length></length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>3</Id>
-			<name>88</name>
-			<description></description>
-			<content_type>STRING</content_type>
-			<required></required>
-			<length></length>
-			<tab_name></tab_name>
-		</field>
-	</object_type>
-
+	
 	<object_type>
 		<code>PRO</code>
 		<name>Programme</name>
-		<code_regex></code_regex>
-		<Erreur_descritpion></Erreur_descritpion>
-		<content_model>x</content_model>
+		<code_regex>COM+</code_regex>
+		<Erreur_descritpion>contient composante</Erreur_descritpion>
+		<content_model>COM+</content_model>
 		<description>desc</description>
 		<field>
 			<Id>1</Id>
 			<name>12</name>
 			<description></description>
-			<content_type>STRING</content_type>
+			<content_type></content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -138,25 +112,24 @@
 			<Id>3</Id>
 			<name>88</name>
 			<description></description>
-			<content_type>STRING</content_type>
+			<content_type></content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
 		</field>
 	</object_type>
-
 	<object_type>
-		<code>SEM</code>
-		<name>Semestre</name>
-		<code_regex>Test</code_regex>
-		<Erreur_descritpion></Erreur_descritpion>
-		<content_model>x</content_model>
+		<code>COM</code>
+		<name>Composante</name>
+		<code_regex>(COM)+|(ENS)+</code_regex>
+		<Erreur_descritpion>contient composante et enseignement</Erreur_descritpion>
+		<content_model>(COM)+|(ENS)+</content_model>
 		<description>desc</description>
 		<field>
 			<Id>1</Id>
 			<name>12</name>
 			<description></description>
-			<content_type>STRING</content_type>
+			<content_type></content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
@@ -165,58 +138,13 @@
 			<Id>3</Id>
 			<name>88</name>
 			<description></description>
-			<content_type>STRING</content_type>
+			<content_type></content_type>
 			<required></required>
 			<length></length>
 			<tab_name></tab_name>
 		</field>
 	</object_type>
-	<object_type>
-		<code>XXX</code>
-		<name>Spécialité</name>
-		<code_regex>test</code_regex>
-		<Erreur_descritpion></Erreur_descritpion>
-		<content_model></content_model>
-		<description>desc</description>
-		<field>
-			<Id>5</Id>
-			<name>12</name>
-			<description></description>
-			<content_type>STRING</content_type>
-			<required></required>
-			<length></length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>1150</Id>
-			<name>12</name>
-			<description></description>
-			<content_type>STRING</content_type>
-			<required></required>
-			<length></length>
-			<tab_name></tab_name>
-		</field>
-		
-		<field>
-			<Id>1</Id>
-			<name>12</name>
-			<description></description>
-			<content_type>STRING</content_type>
-			<required>true</required>
-			<length>kkk</length>
-			<tab_name>RR</tab_name>
-		</field>
-		<field>
-			<Id>122</Id>
-			<name>43</name>
-			<description>desc</description>
-			<content_type>STRING</content_type>
-			<required>true</required>
-			<length>10</length>
-			<tab_name>RR</tab_name>
-		</field>
-
-	</object_type>
+	
 	<designer>
 		<login>A</login>
 		<login>B</login>
