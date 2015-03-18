@@ -52,21 +52,24 @@
 			</display:table>
 
 
-			<form:form action="arbreFormation/sortNLObject.htm?cobject=${objEnCours.getCode()}" method="post"
+
+		<form:form action="arbreFormation/sortNLObject.htm?cobject=${objEnCours.getCode()}" method="post"
 				modelAttribute="typeobject">
 				<div class="form-group">
 					<form:label class="col-sm-2 control-label" path="">
 						Tous les types
 					</form:label>
 					<div class="col-sm-9">
-						<form:select class="form-control" name="code" path="code" multiple="false">
+						<form:select class="form-control" name="code" path="code" multiple="false" onchange="this.form.submit()">
 							<form:option value="" label="Tous les types" />
 							<form:options items="${typesList}" itemLabel="name" itemValue="code" />
 						</form:select>
 					</div>
-					<tag:submitBasic name="save" code="save" />
+					
 				</div>
 			</form:form>
+					
+
 
 			<form:form action="arbreFormation/addFils.htm?cobject=${objEnCours.getCode()}" method="post"
 				modelAttribute="selectedFils">
@@ -80,6 +83,7 @@
 							<form:options items="${NonLinkedObjectList}" itemLabel="name" itemValue="code" />
 						</form:select>
 					</div>
+					<br/> 	<br/>
 					<tag:submitBasic name="save" code="save" />
 				</div>
 			</form:form>
@@ -96,6 +100,8 @@
 							<form:options items="${mutualisableObjectList}" itemLabel="name" itemValue="code" />
 						</form:select>
 					</div>
+								
+					
 					<tag:submitBasic name="save" code="save" />
 				</div>
 

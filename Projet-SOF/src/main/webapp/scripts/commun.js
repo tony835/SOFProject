@@ -11,11 +11,6 @@ function relativeRedir(loc) {
 }
 
 
-function ChanGeValue() {
-	var x = document.getElementById("mySelect").selectedIndex;
-	var y = document.getElementById("mySelect").options;
-	window.location.replace("personne/list.htm?nomGroupe=" + y[x].text);
-}
 
 function askSubmission(msg, form) {
 	if (confirm(msg))
