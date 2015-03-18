@@ -45,7 +45,7 @@
 	        <tag:showtext code="object.name" value="${object.name}"></tag:showtext>
 	      <jstl:forEach var="item" items="${fIListGeneral}">
    		 <br/>
-           <jstl:out value="${item.value}"></jstl:out>
+           ${item.value}
           </jstl:forEach>
         </div>
         
