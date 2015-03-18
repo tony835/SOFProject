@@ -72,20 +72,38 @@ public class ArbreFormationController extends AbstractController {
 
 	@Transactional
 	@RequestMapping("/list")
-	public ModelAndView allFormation(@RequestParam String code, RedirectAttributes redirectAttributes) {
+	public ModelAndView allFormation(@RequestParam(required = false) String code, RedirectAttributes redirectAttributes) {
 		ModelAndView result;
-
+		if (code == null || code.length() == 0) {
+			result = new ModelAndView("redirect:/formation/list.htm");
+			redirectAttributes.addFlashAttribute("error", "arbreformation.ArgInvalide");
+			return result;
+		}
+		Formation formation = null;
 		// La formation n'existe pas
-		if (!formationService.isFormation(code)) {
+		if ((formation = formationService.findOne(code)) == null) {
 			result = new ModelAndView("redirect:/formation/list.htm");
 			redirectAttributes.addFlashAttribute("error", "arbreformation.unknow");
 			return result;
 		}
+
+		// Si la personne n'est pas un responsable
+		if (!user.isResponsable(formation)) {
+			if(user.isConnected()){
+				result = new ModelAndView("redirect:/formation/list.htm");
+			}
+			else{
+				result = new ModelAndView("redirect:/auth/login.htm");
+			}
+			redirectAttributes.addFlashAttribute("error", "ArbreFormation.noResponsable");
+			return result;
+		}
+
 		Collection<domain.Object> objects = objectService.objectsNonLiee(code);
 		result = new ModelAndView("arbreFormation/list");
 		result.addObject("ObjetNonLie", objects);
 		List<Pair<domain.Object, Integer>> arbreFormations = formationService.getListFormationIndente(code);
-		Formation formation = formationService.findOne(code);
+		formation = formationService.findOne(code);
 
 		if (formation == null) {// erreur
 
@@ -144,8 +162,9 @@ public class ArbreFormationController extends AbstractController {
 	}
 
 	private String addactionsObj(domain.Object o, String context) {
-		if (o.getContexte() != null
-				&& (!o.getContexte().getCode().equals(context) || !objectService.isContributor(context))) {
+		if (o.getContexte() == null)
+			return "";
+		if (!o.getContexte().getCode().equals(context) || !user.isResponsable(o.getContexte())) {
 			return "";
 		}
 		return "<div> <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/gestionFils.htm?cobject=" + o.getCode()
@@ -233,11 +252,18 @@ public class ArbreFormationController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/gestionFils", method = RequestMethod.GET)
-	public ModelAndView gestionFils(@RequestParam String cobject, RedirectAttributes redirectAttributes) {
+	public ModelAndView gestionFils(@RequestParam(required=false) String cobject, RedirectAttributes redirectAttributes) {
 		ModelAndView result;
+
+		if (cobject == null || cobject.length() == 0) {
+			result = new ModelAndView("redirect:/formation/list.htm");
+			redirectAttributes.addFlashAttribute("error", "arbreformation.ArgInvalide");
+			return result;
+		}
+
 		result = new ModelAndView("arbreFormation/gestionFils");
 		domain.Object o = null;
-		
+
 		try {
 			o = objectService.findOne(cobject);
 		} catch (Exception e) {
@@ -247,13 +273,13 @@ public class ArbreFormationController extends AbstractController {
 		if (o == null) {
 			return new ModelAndView("redirect:/formation/list.htm", "error", "arbreformation.cObjectUnknow");
 		}
-		
+
 		if (!user.isResponsable(o.getContexte())) {
 			result = new ModelAndView("redirect:/auth/login.htm");
 			redirectAttributes.addFlashAttribute("error", "ArbreFormation.noResponsable");
 			return result;
 		}
-		
+
 		List<Fils> list = null;
 		try {
 			list = objectService.getChild(cobject);
@@ -265,7 +291,7 @@ public class ArbreFormationController extends AbstractController {
 			return new ModelAndView("master-page/error", "error", "erreur.BD");
 		}
 		domain.Object selectedFils = new domain.Object();
-		
+
 		result.addObject("objEnCours", o);
 		result.addObject("listFils", list);
 		for (Fils fils : list) {
@@ -281,9 +307,13 @@ public class ArbreFormationController extends AbstractController {
 	}
 
 	@RequestMapping("/supprimer")
-	public ModelAndView suppressionLiens(@RequestParam(value = "pere", required = true) String pere,
-			@RequestParam(value = "fils", required = true) String fils, RedirectAttributes redirectAttributes) {
-
+	public ModelAndView suppressionLiens(@RequestParam(value = "pere", required = false) String pere,
+			@RequestParam(value = "fils", required = false) String fils, RedirectAttributes redirectAttributes) {
+		if ((pere == null || pere.length() == 0) || (fils == null || fils.length() == 0)) {
+			ModelAndView result = new ModelAndView("redirect:/arbreFormation/gestionFils.htm?cobject=" + pere);
+			redirectAttributes.addFlashAttribute("error", "arbreformation.ArgInvalide");
+			return result;
+		}
 		try {
 			domain.Object pereO = objectService.findOne(pere);
 			domain.Object filsO = objectService.findOne(fils);
@@ -311,9 +341,15 @@ public class ArbreFormationController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/gestionFilsEditRang", method = RequestMethod.POST)
-	public ModelAndView gestionFilsEditRang(@RequestParam(value = "codeEnCours", required = true) String codeEnCours,
-			@RequestParam(value = "rang", required = true) String rang,
-			@RequestParam(value = "cobject", required = true) String code, RedirectAttributes redirectAttributes) {
+	public ModelAndView gestionFilsEditRang(@RequestParam(value = "codeEnCours", required = false) String codeEnCours,
+			@RequestParam(value = "rang", required = false) String rang,
+			@RequestParam(value = "cobject", required = false) String code, RedirectAttributes redirectAttributes) {
+
+		if ((codeEnCours == null || codeEnCours.length() == 0) || (rang == null || rang.length() == 0) || (code == null || code.length() == 0)) {
+			ModelAndView resultat = new ModelAndView("redirect:/arbreFormation/gestionFils.htm?cobject=" + codeEnCours);
+			redirectAttributes.addFlashAttribute("error", "arbreformation.ArgInvalide");
+			return resultat;
+		}
 
 		domain.Object obj = null;
 		try {
@@ -324,7 +360,7 @@ public class ArbreFormationController extends AbstractController {
 		if (obj == null) {// erreur
 			return new ModelAndView("arbreFormation/gestionFils", "error", "arbreformation.cObjectUnknow");
 		}
-		if(!user.isResponsable(obj.getContexte())){
+		if (!user.isResponsable(obj.getContexte())) {
 			ModelAndView resultat = new ModelAndView("redirect:/arbreFormation/gestionFils.htm?cobject=" + codeEnCours);
 			redirectAttributes.addFlashAttribute("error", "ArbreFormation.noResponsable");
 			return resultat;
@@ -388,10 +424,8 @@ public class ArbreFormationController extends AbstractController {
 			// On regarde que la formation existe déjà pour pouvoir l'avouter au context du nouvel objet.
 			if (form == null) {
 				System.out.println("cas1");
-				ModelAndView resultat = new ModelAndView("redirect:create.htm?context="
-						+ ((context == null) ? "" : context) + "&cobject=" + ((cobject == null) ? "" : cobject));
-				redirectAttributes.addFlashAttribute("error", "arbreformation.formUnknow");
-				redirectAttributes.addFlashAttribute("myobject", myobject);
+				ModelAndView resultat = new ModelAndView("tmpObjectCreation/createObject");
+				resultat.addObject("error", "arbreformation.formUnknow");
 				return resultat;
 			}
 			myobject.setContexte(form);
@@ -401,10 +435,8 @@ public class ArbreFormationController extends AbstractController {
 				type = typeService.findOne(myobject.getTypeObject().getCode());
 				// Type non reconnu
 				if (type == null) {
-					ModelAndView resultat = new ModelAndView("redirect:create.htm?context="
-							+ ((context == null) ? "" : context) + "&cobject=" + ((cobject == null) ? "" : cobject));
-					redirectAttributes.addFlashAttribute("myobject", myobject);
-					redirectAttributes.addFlashAttribute("error", "arbreformation.typeUnknow");
+					ModelAndView resultat = new ModelAndView("tmpObjectCreation/createObject");
+					resultat.addObject("error", "arbreformation.typeUnknow");
 					return resultat;
 				}
 				domain.Object obj = null;
@@ -458,10 +490,8 @@ public class ArbreFormationController extends AbstractController {
 				// TODO A tester car passe mais n'affiche pas l'erreur
 				if (obj == null) {
 					System.out.println("cas2");
-					ModelAndView resultat = new ModelAndView("redirect:create.htm?context="
-							+ ((context == null) ? "" : context) + "&cobject=" + ((cobject == null) ? "" : cobject));
-					// redirectAttributes.addFlashAttribute("error", "arbreformation.cObjectUnknow");
-					// redirectAttributes.addFlashAttribute("myobject", myobject);
+					ModelAndView resultat = new ModelAndView("tmpObjectCreation/createObject");
+					resultat.addObject("error", "arbreformation.cObjectUnknow");
 					return resultat;
 				}
 				myobject.setContexte(obj.getContexte());
@@ -495,7 +525,9 @@ public class ArbreFormationController extends AbstractController {
 
 		if (code != null) {
 			domain.Object o = objectService.findOne(code);
-			return o;
+			if(o != null){
+				return o;
+			}
 		}
 
 		domain.Object o = new domain.Object();
@@ -512,9 +544,16 @@ public class ArbreFormationController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/sortNLObject", method = RequestMethod.POST)
-	public ModelAndView sortNLObject(@RequestParam(value = "cobject", required = true) String code,
+	public ModelAndView sortNLObject(@RequestParam(value = "cobject", required = false) String code,
 			@Valid @ModelAttribute TypeObject typeobject, BindingResult bindingResult) {
-		return new ModelAndView("redirect:gestionFils.htm?cobject=" + code + "&typeobject=" + typeobject.getCode());
+		if (code == null || code.length() == 0) {
+			ModelAndView resultat = new ModelAndView("redirect:gestionFils.htm?cobject=" + code + "&typeobject=");
+			return resultat;
+		}
+		if(typeobject != null){
+			return new ModelAndView("redirect:gestionFils.htm?cobject=" + code + "&typeobject=" + typeobject.getCode());
+		}
+		return new ModelAndView("redirect:gestionFils.htm?cobject=" + code + "&typeobject=");
 	}
 
 	@ModelAttribute("typesList")
@@ -619,21 +658,28 @@ public class ArbreFormationController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/addFils", method = RequestMethod.POST)
-	public ModelAndView addFils(@RequestParam(value = "cobject", required = true) String cobject,
-			@Valid @ModelAttribute domain.Object selectedFils, BindingResult result, RedirectAttributes redirectAttributes) {
+	public ModelAndView addFils(@RequestParam(value = "cobject", required = false) String cobject,
+			@Valid @ModelAttribute domain.Object selectedFils, BindingResult result,
+			RedirectAttributes redirectAttributes) {
 
+		if (cobject == null || cobject.length() == 0) {
+			ModelAndView resultat = new ModelAndView("redirect:gestionFils.htm?cobject=" + cobject + "&typeobject=");
+			redirectAttributes.addFlashAttribute("error", "arbreformation.ArgInvalide");
+			return resultat;
+		}
 		if (result.hasErrors()) {
 			System.out.println(" --- " + result.toString());
 			return new ModelAndView("redirect:gestionFils.htm?cobject=" + cobject);
 		}
 		try {
-			
+
 			domain.Object o = objectService.findOne(cobject);
 			domain.Object selectF = objectService.findOne(selectedFils.getCode());
 
 			if (o != null && selectF != null) {
-				if(!user.isResponsable(o.getContexte())){
-					ModelAndView resultat = new ModelAndView("redirect:/arbreFormation/gestionFils.htm?cobject=" + o.getCode());
+				if (!user.isResponsable(o.getContexte())) {
+					ModelAndView resultat = new ModelAndView("redirect:/arbreFormation/gestionFils.htm?cobject="
+							+ o.getCode());
 					redirectAttributes.addFlashAttribute("error", "ArbreFormation.noResponsable");
 					return resultat;
 				}

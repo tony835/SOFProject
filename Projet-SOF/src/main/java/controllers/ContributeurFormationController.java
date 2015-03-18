@@ -1,14 +1,7 @@
 package controllers;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
-import javax.swing.text.StyledEditorKit.BoldAction;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.mapper.Mapper;
 
 import services.FormationService;
 import services.PersonService;
 import domain.Formation;
 import domain.Person;
+import domain.User;
 
 @Transactional
 @Controller
@@ -46,6 +36,9 @@ public class ContributeurFormationController extends AbstractController {
 	@Autowired
 	PersonService personService;
 
+	@Autowired
+	User user;
+
 	@Transactional
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam(required = false) String code) {
@@ -55,12 +48,15 @@ public class ContributeurFormationController extends AbstractController {
 			return result;
 		}
 		try {
-			Formation f = formationService.findOne(code);
-			if(f == null){
+			Formation formation = formationService.findOne(code);
+			if(formation == null){
 				return result;
 			}
-			f.getContributeurs().size();
-			Collection<Person> contibuteurs = f.getContributeurs();
+			if (!user.isResponsable(formation)) {
+				result = new ModelAndView("redirect:/formation/list.htm");
+			}
+			formation.getContributeurs().size();
+			Collection<Person> contibuteurs = formation.getContributeurs();
 			contibuteurs.size();
 			System.out.println("Il y a "+contibuteurs.size()+" contributeurs.");
 			result.addObject("contibuteurs", contibuteurs);
@@ -87,15 +83,27 @@ public class ContributeurFormationController extends AbstractController {
 	@Transactional
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public ModelAndView save(@RequestParam String contrib, @RequestParam String code) {
-
 		ModelAndView result;
 		try {
 			Formation formation = formationService.findOne(code);
+			if (formation == null || !user.isResponsable(formation)) {
+				result = new ModelAndView("redirect:/formation/list.htm");
+			}
 			formation.getContributeurs().size();
+
+			for(Person f : formation.getContributeurs()){
+				if(f.getLogin().equals(contrib)){
+					result = edit(code);
+					result.addObject("message", "commit.formation.contributeurAlreadyExisting");
+					return result;
+				}
+			}
 			Person contributeur = personService.findOne(contrib);
-			formation.getContributeurs().add(contributeur);
-			formationService.save(formation);
-		} catch (Throwable oops) {
+			if(contributeur != null){
+				formation.getContributeurs().add(contributeur);
+				formationService.save(formation);
+			}
+		} catch (Exception oops) {
 			oops.printStackTrace();
 			result = edit(code);
 			result.addObject("message", "commit.formation.contributeur");
@@ -111,6 +119,9 @@ public class ContributeurFormationController extends AbstractController {
 		ModelAndView result;
 		try {
 			Formation formation = formationService.findOne(code);
+			if (formation == null || !user.isResponsable(formation)) {
+				result = new ModelAndView("redirect:/formation/list.htm");
+			}
 			Person contributeur = personService.findOne(contrib);
 			Collection<Person> persons = formation.getContributeurs();
 			Person tmp = null;

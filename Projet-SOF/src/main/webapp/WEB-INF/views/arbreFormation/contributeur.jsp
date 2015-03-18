@@ -9,14 +9,11 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags"%>
 
 
-
 <tiles:insertDefinition name="master.page">
 	<tiles:putAttribute name="title">
-
 		<spring:message code="title.conributeur.edit" />
-
-
 	</tiles:putAttribute>
+
 	<tiles:putAttribute name="body">
 		<jstl:if test="${contibuteurs != null}">
 
@@ -51,29 +48,24 @@
          });
       </script>
 			</head>
-
 			<form id="signupForm" action="formation/contributeur/edit.htm" class="form-horizontal" method="post">
 				<div class="form-group">
-
 					<div class="ui-widget">
-						<label for="automplete-1">Contributeur: </label> <input name="contrib" id="automplete-1">
-					</div>
-					<input hidden="hidden" name="code" value="${formation}">
-					<spring:message code="save" var="var" />
-					<div class="form-group">
-						<div class="col-sm-offset-2 col-sm-10">
-							<input class="btn btn-default" type="submit" value="${var}" />
+						<label class="col-sm-2 control-label" for="automplete-1">Contributeur: </label>
+						<div class="col-sm-10">
+							<input name="contrib" id="automplete-1">
 						</div>
 					</div>
+					<input hidden="hidden" name="code" value="${formation}">
+					<tag:submitAndCancel nameSubmit="save" codeCancel="cancel" codeSubmit="save" urlCancel="" />
 				</div>
 			</form>
 			<a class="btn btn-default btn-sm" href="arbreFormation/list.htm?code=${param.code}"><spring:message
 					code="arbreFormation.lister" /></a>
 		</jstl:if>
 		<jstl:if test="${contibuteurs == null}">
-			<spring:message code="contributeur.edit.erreur.formErr"/>
+			<spring:message code="contributeur.edit.erreur.formErr" />
+			<tag:back codeBack="general.back" />
 		</jstl:if>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
-
-
