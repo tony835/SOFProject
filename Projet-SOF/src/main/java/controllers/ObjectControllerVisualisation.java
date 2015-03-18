@@ -41,6 +41,9 @@ public class ObjectControllerVisualisation  extends AbstractController{
 	
 	@Autowired
 	PersonService personService;
+	
+    List<String> navigation= new ArrayList<String>();
+
 
 
 	@Transactional
@@ -54,7 +57,7 @@ public class ObjectControllerVisualisation  extends AbstractController{
 		System.out.println(objectService.isContributorOfObject(user.getLogin(), code));
 //		System.out.println(" FINDEBUG----est contributeur de l'objet");
 
-	    result = new ModelAndView("object/details");
+	    result = new ModelAndView("object/detailsAriane");
 	    Object obj= objectService.findOne(code);
 	    obj.getAllFils().size(); // Pour initialiser la liste des fils
 	    result.addObject("object",obj);
@@ -78,16 +81,23 @@ public class ObjectControllerVisualisation  extends AbstractController{
 	    		maps.put(f.getField().getTabName(), filObjects);	
 	    	}	    	
 	    }
+	    if(navigation.contains("objectVisualisation/details.htm?code="+code)){
+	    	navigation.remove("objectVisualisation/details.htm?code="+code);
+	    }
+    	navigation.add("objectVisualisation/details.htm?code="+code);
+
 
 	    result.addObject("maps",maps);
-	    
 	    result.addObject("fIListGeneral",fIListGeneral);
 	    result.addObject("objectMemeType",objectMemeType);
 	    result.addObject("objectMemeTypeSize",objectMemeType.isEmpty());
-
-
-
 		return result;
+		
+		
+	}
+	@ModelAttribute("navigation")
+	public List<String> navigations() {
+		return navigation;
 	}
 
 	@ModelAttribute("user")
