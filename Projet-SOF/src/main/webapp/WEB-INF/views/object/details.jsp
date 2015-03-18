@@ -1,5 +1,5 @@
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -25,7 +25,7 @@
 			<div class="bs-example">
 				<ul class="nav nav-tabs">
 					<li class="active"><a data-toggle="tab" href="#sectionA">Information
-							géneral</a></li>
+							gÃ©neral</a></li>
 					<jstl:forEach var="item" items="${maps.keySet()}">
 						<li><a data-toggle="tab" href="#section${item}"> <jstl:out
 									value="${item}"></jstl:out>
@@ -51,7 +51,7 @@
 							<jstl:choose>
 								<jstl:when test="${!item.value.isEmpty()}">
 									<jstl:out value="${item.field.name}:"></jstl:out>
-									<jstl:out value="${item.value}"></jstl:out>
+									<span id="spanValue${item.field.id}${object.code}"><jstl:out value="${item.value}"></jstl:out></span>
 									<a href="#" class="btn btn-xs btn-success" data-toggle="modal"
 										data-target="#modal${item.field.id}${object.code}"> edit </a>
 									<br />
@@ -61,7 +61,7 @@
 			       	 			var value = document.getElementById("inputValue${item.field.id}${object.code}").value ;
 			        	        $.ajax({
 			        	            url : 'modal/ajax.htm',
-			        	            data: {'codeObjet':"${object.code}",'idField':"${item.field.id}",'item.value':value},
+			        	            data: {'codeObjet':"${object.code}",'idField':"${item.field.id}",'value':value},
 			        	            success : function(data) {
 			        	             	if(data.length != 0)
 			        	            		document.getElementById("spanValue${item.field.id}${object.code}").innerHTML = data ;

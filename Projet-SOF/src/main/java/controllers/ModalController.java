@@ -50,7 +50,7 @@ public class ModalController {
 	public  @ResponseBody String ajax(@RequestParam(value = "codeObjet") String codeObjet,
 									  @RequestParam(value = "idField")String idField,
 									  @RequestParam(value = "value")String value) {
-		
+
 		FieldObject f = managerFieldObject.findOne(new FieldObjectId(idField,codeObjet));
 		if(f == null) return null ;
 		
