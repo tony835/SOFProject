@@ -50,14 +50,10 @@ public class ObjectControllerVisualisation  extends AbstractController{
 	@RequestMapping(value = "/details", method = RequestMethod.GET)
 	public ModelAndView mObjectList(@RequestParam String code) {
 		ModelAndView result;
-//		System.out.println(" DEBUG----est contributeur de l'objet");
-//		System.out.println(user.getLogin());
-//		System.out.println(code);
-//		
 		System.out.println(objectService.isContributorOfObject(user.getLogin(), code));
-//		System.out.println(" FINDEBUG----est contributeur de l'objet");
 
-	    result = new ModelAndView("object/detailsAriane");
+		Boolean audit=false;
+	    result = new ModelAndView("object/details");
 	    Object obj= objectService.findOne(code);
 	    obj.getAllFils().size(); // Pour initialiser la liste des fils
 	    result.addObject("object",obj);
@@ -88,6 +84,7 @@ public class ObjectControllerVisualisation  extends AbstractController{
 
 
 	    result.addObject("maps",maps);
+	    result.addObject("Audit",audit);
 	    result.addObject("fIListGeneral",fIListGeneral);
 	    result.addObject("objectMemeType",objectMemeType);
 	    result.addObject("objectMemeTypeSize",objectMemeType.isEmpty());

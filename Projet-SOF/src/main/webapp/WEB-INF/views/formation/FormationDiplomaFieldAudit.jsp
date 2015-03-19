@@ -17,7 +17,7 @@
 		<tiles:putAttribute name="body">
 
 			<jstl:choose>
-			<jstl:when test="${user.isConnected()}">
+			<jstl:when test="${user.isConnected()} && ${Audit}">
 			<display:table name="FormationOfDiplomaAndField" requestURI="visualisation/formation/audit/listformation.htm" id="formation">
 				<display:column title="Nom"  sortable="true">
 
