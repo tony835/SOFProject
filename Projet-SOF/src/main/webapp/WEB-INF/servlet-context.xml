@@ -19,7 +19,7 @@
 	<!-- Enable @Controller annotation support -->
 	<mvc:annotation-driven />
 	<!-- Context -->
-	<!-- Scan classpath for annotations (eg: @Service, @Repository etc) -->
+<!-- 	Scan classpath for annotations (eg: @Service, @Repository etc) -->
 
 	<import resource="config/packages.xml" />
 
@@ -33,7 +33,7 @@
 	</bean>
 
 	<!-- Parametrage application -->
-<!-- 	<bean name="starter" init-method="start" class="parametrage.Parametrage"  /> -->
+	<bean name="starter" init-method="start" class="parametrage.Parametrage"  />
 
 	<import resource="config/data.xml" />
 
