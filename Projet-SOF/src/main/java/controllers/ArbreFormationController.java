@@ -664,9 +664,13 @@ public class ArbreFormationController extends AbstractController {
 
 	@RequestMapping(value = "/addFils", method = RequestMethod.POST)
 	public ModelAndView addFils(@RequestParam(value = "cobject", required = false) String cobject,
+			@RequestParam(value = "typeobject", required = false) String typeobject,
 			@Valid @ModelAttribute domain.Object selectedFils, BindingResult result,
 			RedirectAttributes redirectAttributes) {
 
+		System.out.println(" ---------- " + typeobject);
+
+		
 		if (cobject == null || cobject.length() == 0) {
 			ModelAndView resultat = new ModelAndView("redirect:gestionFils.htm?cobject=" + cobject + "&typeobject=");
 			redirectAttributes.addFlashAttribute("error", "arbreformation.ArgInvalide");
@@ -691,9 +695,8 @@ public class ArbreFormationController extends AbstractController {
 				objectService.addLinkFils(o, selectF, 1);
 			}
 			String type = "";
-			TypeObject to = selectF.getTypeObject();
-			if (to != null && to.getCode() != null && !to.getCode().equals("")){
-				type = to.getCode();
+			if (typeobject != null && typeobject.length() != 0){
+				type = typeobject;
 			}
 			
 			return new ModelAndView("redirect:gestionFils.htm?cobject=" + cobject + "&typeobject=" + type);
