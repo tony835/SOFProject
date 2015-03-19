@@ -669,6 +669,7 @@ public class ArbreFormationController extends AbstractController {
 			@Valid @ModelAttribute domain.Object selectedFils, BindingResult result,
 			RedirectAttributes redirectAttributes) {
 		
+		
 		if (cobject == null || cobject.length() == 0) {
 			ModelAndView resultat = new ModelAndView("redirect:gestionFils.htm?cobject=" + cobject + "&typeobject=");
 			redirectAttributes.addFlashAttribute("error", "arbreformation.ArgInvalide");

@@ -79,14 +79,12 @@
 					</form:label>
 					<div class="col-sm-9">
 						<form:select class="form-control" name="code" path="code"
-							multiple="false">
+							multiple="false" required="true">
 							<form:option value="" label="Liste des objets non lies" />
 							<form:options items="${NonLinkedObjectList}" itemLabel="catCodeName" itemValue="code" />
 						</form:select>
 						<input name="rang" value="1"> </input>
 					</div>
-
-
 					<br/> 	<br/>
 					<tag:submitBasic name="save" code="save" />
 				</div>
@@ -99,17 +97,14 @@
 						Liste des objets mutualises
 					</form:label>
 					<div class="col-sm-9">
-						<form:select class="form-control" name="code" path="code" multiple="false">
+						<form:select class="form-control" name="code" path="code" multiple="false" required="true">
 							<form:option value="" label="Liste des objets mutualises" />
 							<form:options items="${mutualisableObjectList}" itemLabel="catCodeName" itemValue="code" />
 						</form:select>
 						<input name="rang" value="1"> </input>
-					</div>
-								
-					
+					</div>	
 					<tag:submitBasic name="save" code="save" />
 				</div>
-
 			</form:form>
 			<a class="btn btn-default btn-sm" href="arbreFormation/list.htm?code=${objEnCours.getContexte().getCode()}#${objEnCours.getCode()}"><spring:message
 					code="arbreFormation.lister" /></a>

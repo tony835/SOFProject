@@ -134,7 +134,6 @@ public class ObjectService {
 				continue;
 			}
 			for (int i = 0; i < list.size(); i++){
-				System.out.println(fils.getRang() +"<=?"+list.get(i));
 				if(fils.getRang() <= list.get(i).getRang()){
 					list.add(i, fils);
 					passe = true;
