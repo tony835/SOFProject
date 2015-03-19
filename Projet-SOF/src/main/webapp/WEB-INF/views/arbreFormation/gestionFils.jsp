@@ -71,7 +71,7 @@
 					
 
 
-			<form:form action="arbreFormation/addFils.htm?cobject=${objEnCours.getCode()}" method="post"
+			<form:form action="arbreFormation/addFils.htm?cobject=${objEnCours.getCode()}&amp;typeobject=${param.typeobject}" method="post"
 				modelAttribute="selectedFils">
 				<div class="form-group">
 					<form:label class="col-sm-2 control-label" path="">
@@ -88,7 +88,7 @@
 				</div>
 			</form:form>
 
-			<form:form action="arbreFormation/addFils.htm?cobject=${objEnCours.getCode()}" method="post"
+			<form:form action="arbreFormation/addFils.htm?cobject=${objEnCours.getCode()}&amp;typeobject=${param.typeobject}" method="post"
 				modelAttribute="selectedFils">
 				<div class="form-group">
 					<form:label class="col-sm-2 control-label" path="">
