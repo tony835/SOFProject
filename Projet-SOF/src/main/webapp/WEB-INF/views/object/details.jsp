@@ -12,16 +12,33 @@
 
 
 <tiles:insertDefinition name="master.page">
+
 	<tiles:putAttribute name="title">
 
-
+		<jstl:out value="${object.code}-${object.name}"/>
 
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
 
-
-
 		<body>
+			<div id="container">
+			<div class="breadCrumbHolder module">
+				<div id="breadCrumb0" class="breadCrumb module" style="height: 33px">
+					<ul>
+							<li>
+							<a	href="objectVisualisation/details.htm?code=${object.contexte.code}">${object.contexte.name}</a>
+							</li>
+							
+						<jstl:forEach var="item" items="${navigation}">
+						<jstl:if test="${!item.contains(object.code)}">
+						<li><a href="${item}">${item.substring(item.indexOf("=")+1)}</a></li>
+						</jstl:if>
+								</jstl:forEach>
+						<li>${object.code} - ${object.name}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 			<div class="bs-example">
 				<ul class="nav nav-tabs">
 					<li class="active"><a data-toggle="tab" href="#sectionA">Information
@@ -47,13 +64,15 @@
 						<tag:showtext code="object.code" value="${object.code}"></tag:showtext>
 						<tag:showtext code="object.name" value="${object.name}"></tag:showtext>
 						<br />
+
 						<jstl:forEach var="item" items="${fIListGeneral}">
 							<jstl:choose>
-								<jstl:when test="${!item.value.isEmpty()}">
-									<jstl:out value="${item.field.name}:"></jstl:out>
-									<span id="spanValue${item.field.id}${object.code}"><jstl:out value="${item.value}"></jstl:out></span>
+							<jstl:when test="${!item.value.isEmpty()}">
 									<a href="#" class="btn btn-xs btn-success" data-toggle="modal"
 										data-target="#modal${item.field.id}${object.code}"> edit </a>
+									<b>${item.field.name}:</b> 
+									<span id="spanValue${item.field.id}${object.code}">${item.value}</span>
+									
 									<br />
 									   <script>
 			    		$(document).ready(function() {
@@ -98,6 +117,13 @@
 									</div>
 								</div>
 							</div>
+								</jstl:when>
+								<jstl:when test="${!item.value.isEmpty()} && ${!Audit}">
+								<b>${item.field.name}:</b> 
+									<span id="spanValue${item.field.id}${object.code}">${item.value}</span>
+									
+								<br />
+								
 								</jstl:when>
 							</jstl:choose>
 
@@ -150,6 +176,23 @@
 			</div>
 
 
+				<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js">
+	
+</script>
+<script src="scripts/jquery.easing.1.3.js" type="text/javascript"
+	language="JavaScript">
+	
+</script>
+<script src="scripts/jquery.jBreadCrumb.1.1.js" type="text/javascript"
+	language="JavaScript">
+	
+</script>
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#breadCrumb0").jBreadCrumb();
+	})
+</script>
 		</body>
 
 	</tiles:putAttribute>

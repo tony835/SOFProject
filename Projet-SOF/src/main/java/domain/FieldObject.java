@@ -9,6 +9,9 @@ public class FieldObject {
 	@EmbeddedId
 	FieldObjectId fo;
 	
+	@Column(name = "Version") 
+	private String version;
+	
 	@MapsId(value="object")
 	@ManyToOne
 	@JoinColumn(name="Code_objet",referencedColumnName="Code_objet",nullable=false)

@@ -81,7 +81,7 @@ public class AlimentationBdd {
 			String prenom = courant.getChild("prenom").getText();
 
 			// the mysql insert statement
-			String query = " insert into Person " + " values (?, ?, ?, ?, '')";
+			String query = " insert into Person " + " values (?, ?, ?, ?, ?)";
 
 			// create the mysql insert preparedstatement
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -89,6 +89,7 @@ public class AlimentationBdd {
 			preparedStmt.setString(2, prenom);
 			preparedStmt.setString(3, mail);
 			preparedStmt.setString(4, Nom);
+			preparedStmt.setString(5, Code+"0");
 
 			// execute the preparedstatement
 			preparedStmt.execute();
@@ -138,7 +139,7 @@ public class AlimentationBdd {
 			if (Responsable.getChildren().isEmpty()) {
 				// the mysql insert statement
 				String query = " insert into Formation "
-						+ " values (?,?,0,1,?,'TOTO')";
+						+ " values (?,?,0,1,?,'toto')";
 				// create the mysql insert preparedstatement
 				PreparedStatement preparedStmt = conn.prepareStatement(query);
 				preparedStmt.setString(1, type_diplome);
@@ -1114,7 +1115,7 @@ public class AlimentationBdd {
 						// the mysql insert statement
 
 						String query = " insert into A_pour_champs "
-								+ "values (?,?,?)";
+								+ "values (?,?,?,0)";
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
@@ -1195,7 +1196,7 @@ public class AlimentationBdd {
 							break;
 						// the mysql insert statement
 						String query = " insert into A_pour_champs "
-								+ "values (?,?,?)";
+								+ "values (?,?,?,0)";
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
@@ -1272,7 +1273,7 @@ public class AlimentationBdd {
 							break;
 						// the mysql insert statement
 						String query = " insert into A_pour_champs "
-								+ "values (?,?,?)";
+								+ "values (?,?,?,0)";
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
@@ -1348,7 +1349,7 @@ public class AlimentationBdd {
 							break;
 						// the mysql insert statement
 						String query = " insert into A_pour_champs "
-								+ "values (?,?,?)";
+								+ "values (?,?,?,0)";
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
@@ -1425,7 +1426,7 @@ public class AlimentationBdd {
 							break;
 						// the mysql insert statement
 						String query = " insert into A_pour_champs "
-								+ "values (?,?,?)";
+								+ "values (?,?,?,0)";
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
@@ -1502,7 +1503,7 @@ public class AlimentationBdd {
 							break;
 						// the mysql insert statement
 						String query = " insert into A_pour_champs "
-								+ "values (?,?,?)";
+								+ "values (?,?,?,0)";
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
@@ -1578,7 +1579,7 @@ public class AlimentationBdd {
 							break;
 						// the mysql insert statement
 						String query = " insert into A_pour_champs "
-								+ "values (?,?,?)";
+								+ "values (?,?,?,0)";
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
@@ -1655,7 +1656,7 @@ public class AlimentationBdd {
 							break;
 						// the mysql insert statement
 						String query = " insert into A_pour_champs "
-								+ "values (?,?,?)";
+								+ "values (?,?,?,0)";
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);

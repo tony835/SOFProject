@@ -71,24 +71,28 @@
 					
 
 
-			<form:form action="arbreFormation/addFils.htm?cobject=${objEnCours.getCode()}" method="post"
+			<form:form action="arbreFormation/addFils.htm?cobject=${objEnCours.getCode()}&amp;typeobject=${param.typeobject}" method="post"
 				modelAttribute="selectedFils">
 				<div class="form-group">
 					<form:label class="col-sm-2 control-label" path="">
 						Liste des objets non lies
 					</form:label>
 					<div class="col-sm-9">
-						<form:select class="form-control" name="code" path="code" multiple="false">
+						<form:select class="form-control" name="code" path="code"
+							multiple="false">
 							<form:option value="" label="Liste des objets non lies" />
-							<form:options items="${NonLinkedObjectList}" itemLabel="name" itemValue="code" />
+							<form:options items="${NonLinkedObjectList}" itemLabel="catCodeName" itemValue="code" />
 						</form:select>
+						<input name="rang" value="1"> </input>
 					</div>
+
+
 					<br/> 	<br/>
 					<tag:submitBasic name="save" code="save" />
 				</div>
 			</form:form>
 
-			<form:form action="arbreFormation/addFils.htm?cobject=${objEnCours.getCode()}" method="post"
+			<form:form action="arbreFormation/addFils.htm?cobject=${objEnCours.getCode()}&amp;typeobject=${param.typeobject}" method="post"
 				modelAttribute="selectedFils">
 				<div class="form-group">
 					<form:label class="col-sm-2 control-label" path="">
@@ -97,8 +101,9 @@
 					<div class="col-sm-9">
 						<form:select class="form-control" name="code" path="code" multiple="false">
 							<form:option value="" label="Liste des objets mutualises" />
-							<form:options items="${mutualisableObjectList}" itemLabel="name" itemValue="code" />
+							<form:options items="${mutualisableObjectList}" itemLabel="catCodeName" itemValue="code" />
 						</form:select>
+						<input name="rang" value="1"> </input>
 					</div>
 								
 					
