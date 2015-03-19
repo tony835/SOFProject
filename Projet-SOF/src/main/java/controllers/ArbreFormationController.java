@@ -211,7 +211,7 @@ public class ArbreFormationController extends AbstractController {
 	 *            les résultats d'erreurs
 	 * @return le modèle and view
 	 */
-	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "/edit", method = RequestMethod.POST) // TODO
 	public ModelAndView save(@Valid @ModelAttribute Formation formation, BindingResult bindingResult) {
 		ModelAndView result;
 		if (bindingResult.hasErrors()) {

@@ -8,6 +8,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
 
@@ -19,8 +20,10 @@
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
 
-
-
+			 <jstl:if test="${!fn:contains(header.referer, 'objectVisualisation/details.htm')}">
+			 <jstl:set var="entre" value="true"></jstl:set> 			 
+			 </jstl:if> 
+  
 		<body>
 		<head>
 <link rel="stylesheet" href="styles/Base.css" type="text/css">
@@ -52,13 +55,14 @@
 							<li>
 							<a	href="objectVisualisation/details.htm?code=${object.contexte.code}">${object.contexte.name}</a>
 							</li>
-							
+						<jstl:if test="${entre!=true}">
 						<jstl:forEach var="item" items="${navigation}">
-						<jstl:if test="${!item.contains(object.code)}">
+						<jstl:if test="${!item.contains(object.code) && item!=null }">
 						<li><a href="${item}">${item.substring(item.indexOf("=")+1)}</a></li>
 						</jstl:if>
 								</jstl:forEach>
 								
+						</jstl:if>
 
 						<li>${object.code} - ${object.name}</li>
 					</ul>
