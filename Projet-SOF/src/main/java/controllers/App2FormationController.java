@@ -127,17 +127,14 @@ public class App2FormationController {
 		ModelAndView result;
 		Collection<Formation> formation_of_contributor = new ArrayList<Formation>();
 		Map<String, String> formation_identification = new HashMap<String, String>();
+		Boolean audit = true;
 		if(!user.getLogin().isEmpty())
 		{
 			formation_of_contributor = formationService.formationWithContributeur(user.getLogin());
-			System.out.println("-------------------DEBUG------------------------");
 			for (Formation f : formation_of_contributor)
 			{
 				formation_identification.put(f.getCode(), f.getName());
-				System.out.println(f.getCode());
-				System.out.println(f.getName());
 			}
-			System.out.println("-------------------FIN--DEBUG------------------------");
 		}
 			
 		Collection<String> diploma_type_exist = new ArrayList<String>();
@@ -146,6 +143,7 @@ public class App2FormationController {
 		result = new ModelAndView("formation/offreAudit");
 
 		result.addObject("DiplomaTypeExist", diploma_type_exist);
+		result.addObject("Audit", audit);
 		result.addObject("FormationOfConnectedContributor", formation_identification);
 
 		return result;

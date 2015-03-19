@@ -18,7 +18,8 @@
 	<tiles:putAttribute name="body">
 
 		<jstl:choose>
-			<jstl:when test="${user.isConnected()}">
+<%-- 		<jstl:when test="${user.isConnected()} && ${Audit}"> --%>
+			<jstl:when test="${Audit}">
 				<jstl:choose>
 					<jstl:when test="${!FormationOfConnectedContributor.isEmpty()}">
 						<a href="visualisation/formation/offre.htm"> <jstl:out

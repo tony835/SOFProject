@@ -28,6 +28,8 @@
 	type="text/css" />
 <link rel="stylesheet" href="styles/displaytag.css" type="text/css" />
 <link href="styles/bootstrap.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="styles/Base.css" type="text/css"/>
+<link rel="stylesheet" href="styles/BreadCrumb.css" type="text/css"/>
 
 <title><tiles:insertAttribute name="title" /></title>
 
