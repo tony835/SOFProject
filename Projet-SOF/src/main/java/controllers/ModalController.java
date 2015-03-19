@@ -54,7 +54,7 @@ public class ModalController {
 		FieldObject f = managerFieldObject.findOne(new FieldObjectId(idField,codeObjet));
 		if(f == null) return null ;
 		
-		value=HtmlUtils.htmlEscape(value);
+//		value=HtmlUtils.htmlEscape(value);
 		
 		Field.TypeContenu type = f.getField().getTypeContenu() ;
 		if (type == Field.TypeContenu.INT){
