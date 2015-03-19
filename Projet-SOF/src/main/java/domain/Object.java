@@ -14,6 +14,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.transaction.Transactional;
 import javax.validation.constraints.Size;
 
 
@@ -55,7 +56,6 @@ public class Object {
 	//@OneToMany(fetch = FetchType.EAGER)
 	@OneToMany()
 	private Collection<Fils> allFils;
-
 
 	public String getCode() {
 		return code;
@@ -121,4 +121,8 @@ public class Object {
 		this.version = version;
 	}
 	
+	@Transactional
+	public String getCatCodeName(){
+		return code + " : " + name;
+	}
 }

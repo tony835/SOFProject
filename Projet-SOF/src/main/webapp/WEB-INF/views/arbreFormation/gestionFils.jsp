@@ -80,7 +80,7 @@
 					<div class="col-sm-9">
 						<form:select class="form-control" name="code" path="code" multiple="false">
 							<form:option value="" label="Liste des objets non lies" />
-							<form:options items="${NonLinkedObjectList}" itemLabel="name" itemValue="code" />
+							<form:options items="${NonLinkedObjectList}" itemLabel="catCodeName" itemValue="code" />
 						</form:select>
 					</div>
 					<br/> 	<br/>
@@ -97,7 +97,7 @@
 					<div class="col-sm-9">
 						<form:select class="form-control" name="code" path="code" multiple="false">
 							<form:option value="" label="Liste des objets mutualises" />
-							<form:options items="${mutualisableObjectList}" itemLabel="name" itemValue="code" />
+							<form:options items="${mutualisableObjectList}" itemLabel="catCodeName" itemValue="code" />
 						</form:select>
 					</div>
 								
