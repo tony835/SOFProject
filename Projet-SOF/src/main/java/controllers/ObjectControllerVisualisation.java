@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,12 +49,18 @@ public class ObjectControllerVisualisation  extends AbstractController{
 
 	@Transactional
 	@RequestMapping(value = "/details", method = RequestMethod.GET)
-	public ModelAndView mObjectList(@RequestParam String code) {
+	public ModelAndView mObjectList(@RequestParam String code, @RequestHeader(value = "referer", required = false) final String referer) {
 		ModelAndView result;
-		System.out.println(objectService.isContributorOfObject(user.getLogin(), code));
-
+		System.out.println("FFFFFF"+referer);
+		
+		if(referer==null){
+			navigation= new ArrayList<String>();
+		}else if(!referer.contains("objectVisualisation/details"))
+				navigation= new ArrayList<String>();
+		
+		
 		Boolean audit=false;
-	    result = new ModelAndView("object/details");
+	    result = new ModelAndView("object/detailsAriane");
 	    Object obj= objectService.findOne(code);
 	    obj.getAllFils().size(); // Pour initialiser la liste des fils
 	    result.addObject("object",obj);
