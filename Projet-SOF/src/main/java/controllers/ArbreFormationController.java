@@ -587,7 +587,7 @@ public class ArbreFormationController extends AbstractController {
 
 		if (typeobject == null || typeobject.equals("")) {
 			try {
-				return (List<domain.Object>) objectService.objectsNonLiee(context);
+				return (List<domain.Object>) objectService.findNonFLinkedObject(context, cobject);
 			} catch (Exception e) {
 				return new ArrayList<domain.Object>();
 			}
@@ -595,15 +595,15 @@ public class ArbreFormationController extends AbstractController {
 			try {
 				TypeObject t = typeService.findOne(typeobject);
 				if (t == null) {
-					return (List<domain.Object>) objectService.objectsNonLiee(context);
+					return (List<domain.Object>) objectService.findNonFLinkedObject(context, cobject);
 				}
 				type = t.getCode();
 			} catch (Exception e) {
-				return (List<domain.Object>) objectService.objectsNonLiee(context);
+				return (List<domain.Object>) objectService.findNonFLinkedObject(context, cobject);
 			}
 
 		}
-		return (List<domain.Object>) objectService.findTypedNonLinkedObject(context, type);
+		return (List<domain.Object>) objectService.findTypedNonLinkedObject(context, type, cobject);
 	}
 
 	@ModelAttribute("mutualisableObjectList")
@@ -628,7 +628,7 @@ public class ArbreFormationController extends AbstractController {
 
 		if (typeobject == null || typeobject.equals("")) {
 			try {
-				Collection<domain.Object> obj = objectService.findMutualisableObjects(context);
+				Collection<domain.Object> obj = objectService.findMutualisableObjects(context, cobject);
 				if (obj == null) {
 					return new ArrayList<domain.Object>();
 				}
@@ -651,7 +651,7 @@ public class ArbreFormationController extends AbstractController {
 		}
 		Collection<domain.Object> obj = null;
 		try {
-			obj = objectService.findTypedMutualisableObjects(context, type);
+			obj = objectService.findTypedMutualisableObjects(context, type, cobject);
 			if (obj == null) {
 				return new ArrayList<domain.Object>();
 			}

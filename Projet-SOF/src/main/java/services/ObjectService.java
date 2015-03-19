@@ -105,16 +105,21 @@ public class ObjectService {
 		return objectDao.findNonLinkedObject(code);
 	}
 
-	public Collection<Object> findTypedNonLinkedObject(String code, String type){
-		return objectDao.findTypedNonLinkedObject(code, type);
+	public Collection<Object> findNonFLinkedObject(String contextCode, String fCode){
+		return objectDao.findNonFLinkedObject(contextCode, fCode);
 	}
 
-	public Collection<Object> findMutualisableObjects(String code){
-		return objectDao.findOtherMutualisableObject(code);
+	
+	public Collection<Object> findTypedNonLinkedObject(String code, String type, String cobject){
+		return objectDao.findTypedNonLinkedObject(code, type, cobject);
 	}
 
-	public Collection<Object> findTypedMutualisableObjects(String code, String type){
-		return objectDao.findOtherTypesMutualisableObject(code, type);
+	public Collection<Object> findMutualisableObjects(String code, String cobject){
+		return objectDao.findOtherMutualisableObject(code, cobject);
+	}
+
+	public Collection<Object> findTypedMutualisableObjects(String code, String type, String cobject){
+		return objectDao.findOtherTypesMutualisableObject(code, type, cobject);
 	}
 
 	public List<Fils> getChild(String code) {
