@@ -9,7 +9,7 @@ public class FieldObject {
 	@EmbeddedId
 	FieldObjectId fo;
 	
-	@Column(name = "Version")
+	@Column(name = "Version") 
 	private String version;
 	
 	@MapsId(value="object")
