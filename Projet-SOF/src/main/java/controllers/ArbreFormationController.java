@@ -252,7 +252,7 @@ public class ArbreFormationController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/gestionFils", method = RequestMethod.GET)
-	public ModelAndView gestionFils(@RequestParam(required=false) String cobject, RedirectAttributes redirectAttributes) {
+	public ModelAndView gestionFils(@RequestParam(required=false) String cobject, @RequestParam(required=false) String typeobject,RedirectAttributes redirectAttributes) {
 		ModelAndView result;
 
 		if (cobject == null || cobject.length() == 0) {
@@ -297,7 +297,13 @@ public class ArbreFormationController extends AbstractController {
 		for (Fils fils : list) {
 			fils.getFils().getAllFils().size();
 		}
-		result.addObject("typeobject", new TypeObject());
+		if(typeobject != null){
+			result.addObject("typeobject", typeService.findOne(typeobject));
+
+		}
+		else {
+			result.addObject("typeobject", new TypeObject());
+		}
 		result.addObject("selectedFils", selectedFils);
 
 		String descError = objectService.checkContentModel(o);
@@ -686,9 +692,11 @@ public class ArbreFormationController extends AbstractController {
 				objectService.addLinkFils(o, selectF, 1);
 			}
 			String type = "";
-			if (o.getTypeObject() != null && o.getTypeObject().getCode() != null
-					&& o.getTypeObject().getCode().equals(""))
-				type = "";
+			TypeObject to = selectF.getTypeObject();
+			if (to != null && to.getCode() != null && !to.getCode().equals("")){
+				type = to.getCode();
+			}
+			
 			return new ModelAndView("redirect:gestionFils.htm?cobject=" + cobject + "&typeobject=" + type);
 		} catch (Exception e) {
 			e.printStackTrace();
