@@ -102,13 +102,11 @@ public class ArbreFormationController extends AbstractController {
 		Collection<domain.Object> objects = objectService.objectsNonLiee(code);
 		result = new ModelAndView("arbreFormation/list");
 		result.addObject("ObjetNonLie", objects);
-		List<Pair<domain.Object, Integer>> arbreFormations = formationService.getListFormationIndente(code);
 		formation = formationService.findOne(code);
 
 		if (formation == null) {// erreur
 
 		}
-		result.addObject("formations", arbreFormations);
 		result.addObject("formation", formation);
 
 		formationService.getArbre(formation);

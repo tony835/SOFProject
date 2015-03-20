@@ -268,24 +268,6 @@ public class FormationController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping("/test")
-	public ModelAndView test() {
-		ModelAndView result;
-		Collection<Formation> formations = formationService.findAll();
-
-		/*
-		 * domain.Object o = objectService.create(); o.setCode("Rendu_ProcheYes"); objectService.save(o);
-		 * 
-		 * //formationService.findOne("FORM1"); objectService.addLinkFils(objectService.findOne("Rendu_Proche"), o, 0);
-		 */
-		formationService.getListFormationIndente("FORM1");
-
-		result = new ModelAndView("formation/list");
-		result.addObject("formations", formations);
-
-		return result;
-	}
-
 	@ModelAttribute("diplomaTypeList")
 	public List<String> diplomaTypeList() {
 		return (List<String>) formationService.findDiplomaType();

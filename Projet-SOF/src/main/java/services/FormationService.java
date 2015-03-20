@@ -105,16 +105,7 @@ public class FormationService {
 		System.out.println(formationDao.isFormation(code));
 		return formationDao.isFormation(code) != null;
 	}
-	
-	public List<Pair<domain.Object, Integer>> getListFormationIndente(String code) {
-		Formation f = findOne(code);
-		if(f == null) return null;
-		List<Pair<domain.Object, Integer>> list = new ArrayList<Pair<domain.Object, Integer>>();
-		list.add(new Pair<domain.Object, Integer>(f, -1));
-		formationIndentShild(list, f.getAllFils(), 0);
-		return list;
-	}
-	
+		
 	public List<Fils> getShild(String code) {
 		Formation formation = findOne(code);
 		List<Fils> list = new ArrayList<Fils>();
@@ -130,13 +121,6 @@ public class FormationService {
 			}
 		}
 		return list;
-	}
-
-	private void formationIndentShild(List<Pair<domain.Object, Integer>> list, Collection<Fils> l, int padding) {
-		for (Fils f : l) {
-			list.add(new Pair<domain.Object, Integer>(f.getFils(), padding));
-			formationIndentShild(list, f.getFils().getAllFils(), padding + 1);
-		}
 	}
 
 	public Collection<Formation> findByResponsable(String login) {
