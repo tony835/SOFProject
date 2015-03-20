@@ -64,12 +64,19 @@ public class ObjectService {
 	}
 
 	public void addLinkFils(domain.Object pere, domain.Object fils, Integer rang){
-		Fils p = new Fils();
-		p.setFils(fils);
-		p.setRang(rang);
-		filsDao.save(p);
-		pere.getAllFils().add(p);
-		objectDao.save(pere);
+		
+		List<domain.Object> lDesc = new ArrayList<domain.Object>();
+		lDesc.add(fils);
+		getDescendants(lDesc,fils);
+		
+		if(!lDesc.contains(pere)){
+			Fils p = new Fils();
+			p.setFils(fils);
+			p.setRang(rang);
+			filsDao.save(p);
+			pere.getAllFils().add(p);
+			objectDao.save(pere);
+		}
 	}
 
 	public boolean isContributor(String code){
@@ -167,13 +174,6 @@ public class ObjectService {
 			return "";
 		String expectedSons = to.getModelContenu();
 		
-		// si pas de modèle de contenu, on considère qu'il n'y a pas d'erreurs
-		// c'est ce que Massat voulait
-		if(expectedSons == null || expectedSons.equals("")) {
-			return "";
-		}
-		
-		
 		String actualSons ="";
 
 		for (Fils f : o.getAllFils()){
@@ -205,5 +205,14 @@ public class ObjectService {
 	public Collection<String> isContributorOfObject(String login, String object)
 	{
 		return objectDao.isContributorOfObject(login, object);
+	}
+	
+	public boolean canBeDeleted(domain.Object pere, domain.Object fils){
+		if(fils.getAllFils().size() == 0) return true;
+		if (fils.getContexte().getCode().equals(pere.getContexte().getCode())) {
+			if(objectDao.countNbFathers(fils.getCode()) > 1)
+				return true;
+		}
+		return false;
 	}
 }

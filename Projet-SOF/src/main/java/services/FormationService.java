@@ -3,6 +3,7 @@ package services;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -104,16 +105,7 @@ public class FormationService {
 		System.out.println(formationDao.isFormation(code));
 		return formationDao.isFormation(code) != null;
 	}
-	
-	public List<Pair<domain.Object, Integer>> getListFormationIndente(String code) {
-		Formation f = findOne(code);
-		if(f == null) return null;
-		List<Pair<domain.Object, Integer>> list = new ArrayList<Pair<domain.Object, Integer>>();
-		list.add(new Pair<domain.Object, Integer>(f, -1));
-		formationIndentShild(list, f.getAllFils(), 0);
-		return list;
-	}
-	
+		
 	public List<Fils> getShild(String code) {
 		Formation formation = findOne(code);
 		List<Fils> list = new ArrayList<Fils>();
@@ -129,13 +121,6 @@ public class FormationService {
 			}
 		}
 		return list;
-	}
-
-	private void formationIndentShild(List<Pair<domain.Object, Integer>> list, Collection<Fils> l, int padding) {
-		for (Fils f : l) {
-			list.add(new Pair<domain.Object, Integer>(f.getFils(), padding));
-			formationIndentShild(list, f.getFils().getAllFils(), padding + 1);
-		}
 	}
 
 	public Collection<Formation> findByResponsable(String login) {
@@ -224,6 +209,76 @@ public class FormationService {
 		return formationDao.formationWithContributeur(login);
 	}
 	
-	
+
+	public String getArbreRetour() {
+		return arbreRetour;
+	}
+
+
+	public String arbreRetour = "";
+
+	private void getArbreLi(domain.Object obj, String codeContext, Formation formation) {
+
+		String codeO = obj.getCode();
+		if (!objectService.checkContentModel(obj).equals("")) {
+			arbreRetour += "<li name=\"" + codeO + "\"> <a id=\"" + codeO + "\">"/* "\"><a>" */+ codeO + " "
+					+ obj.getName() + "  <img src=\"images/error.png\" alt=\"Erreur\" title=\"Erreur\" /> </a>" + addactionsObj(obj, codeContext);
+			formation.incrNbError();
+		} else {
+			arbreRetour += "<li name=\"" + codeO + "\"> <a id=\"" + codeO + "\">"/* "\"><a>" */+ codeO + " "
+					+ obj.getName() + " </a>" + addactionsObj(obj, codeContext);
+		}
+
+		if (obj.getAllFils().size() != 0)
+			getArbreUl(obj, codeContext, formation);
+		arbreRetour += "</li>\n";
+	}
+
+	private void getArbreUl(domain.Object obj, String codeContext, Formation formation) {
+		arbreRetour += "<ul>\n";
+		for (Fils o : orderByRang(obj.getAllFils()))
+			getArbreLi(o.getFils(), codeContext, formation);
+		arbreRetour += "</ul>\n";
+	}
+
+	public void getArbre(Formation formation) {
+		String codeF = formation.getCode();
+		if (!objectService.checkContentModel(formation).equals("")) {
+			formation.setNumError(1);
+			arbreRetour = "<ul id=\"list\"><li name=\"" + codeF + "\"> <a id=\"" + codeF + "\">"/* "\"><a>" */+ codeF
+					+ " " + formation.getName() + " <img src=\"images/error.png\" alt=\"Erreur\" title=\"Erreur\" /> </a>"
+					+ addactionsFormation(codeF);
+		} else {
+			formation.setNumError(0);
+			arbreRetour = "<ul id=\"list\"><li name=\"" + codeF + "\"> <a id=\"" + codeF + "\">"/* "\"><a>" */+ codeF
+					+ " " + formation.getName() + "</a> " + addactionsFormation(codeF);
+		}
+		getArbreUl(formation, codeF, formation);
+		arbreRetour += "</li></ul>";
+	}
+
+	private String addactionsObj(domain.Object o, String context) {
+		if (o.getContexte() == null)
+			return "";
+		if (!o.getContexte().getCode().equals(context) || !user.isResponsable(o.getContexte())) {
+			return "";
+		}
+		return "<div style=\"display:inline\"> <a class=\"btn btn-default btn-xs\" href=\"arbreFormation/gestionFils.htm?cobject=" + o.getCode()
+				+ "\"> Modifier les fils </a>"
+				+ " <a class=\"btn btn-default btn-xs\" href=\"arbreFormation/create.htm?context=" + context
+				+ "&amp;cobject=" + o.getCode() + "\">Modifier l'objet</a></div>";
+	}
+
+	private String addactionsFormation(String context) {
+		return "<div style=\"display:inline\"> <a class=\"btn btn-default btn-xs\" href=\"arbreFormation/gestionFils.htm?cobject=" + context
+				+ "\"> Modifier les fils </a></div>";
+	}
+
+	private List<Fils> orderByRang(Collection<Fils> allFils) {
+		List<Fils> list = new ArrayList<Fils>();
+		list.addAll(allFils);
+		Collections.sort(list);
+		return list;
+	}
 	
 }
