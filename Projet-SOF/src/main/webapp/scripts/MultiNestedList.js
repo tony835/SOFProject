@@ -10,7 +10,7 @@ $('li:last-child').each(function(){
   if ($this.children('ul').length === 0){
     // Add border-left in every UL where the last LI has not children
     $this.closest('ul').css("border-left", "1px solid gray");
-    $this.children("i").toggle();
+    //$this.children("i").toggle();
   } else {
     // Add border in child LI, except in the last one
     $this.closest('ul').children("li").not(":last").css("border-left","1px solid gray");
@@ -35,7 +35,7 @@ $('ul li').each(function(){
 // Add button to expand and condense - Using FontAwesome
 $('ul li.hasSubmenu').each(function(){
   $this = $(this);
-  $this.prepend("<a href='#'><i class='fa fa-plus-circle'></i><i style='display:none;' class='fa fa-minus-circle'></i></a>");
+  $this.prepend("<a href='#'><b>o</b></a>");
   $this.children("a").not(":last").removeClass().addClass("toogle");
 
 
@@ -44,7 +44,7 @@ $('ul li.hasSubmenu').each(function(){
 $('ul li.hasSubmenu a.toogle').click(function(){
   $this = $(this);
   $this.closest("li").children("ul").toggle("slow");
-  $this.children("i").toggle();
+  //$this.children("i").toggle();
   return false;
 });
 
@@ -52,7 +52,7 @@ $('ul li.hasSubmenu a.toogle').click(function(){
 $('ul li.hasSubmenu').each(function(){
 	  $this = $(this);
 	  $this.closest("li").children("ul").toggle();
-	  $this.children("i").toggle();
+	 // $this.children("i").toggle();
 	});
 
 //ouvre un objet quand il vient d'être modifié
