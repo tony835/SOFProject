@@ -56,7 +56,7 @@
 				<a class="btn btn-default btn-xs"
 					href="arbreFormation/create.htm?context=${param.code}&amp;cobject=${row.getCode()}"><spring:message
 						code="objet.modifier" /></a>
-			</display:column>
+		 	</display:column>
 		</display:table>
 
 		<br />
