@@ -111,79 +111,11 @@ public class ArbreFormationController extends AbstractController {
 		result.addObject("formations", arbreFormations);
 		result.addObject("formation", formation);
 
-		getArbre(formation);
-		result.addObject("arbre", arbreRetour);
-		// String descErrors = formationService.checkContentModel(code);
-		// result.addObject("descErrors", descErrors);
-
+		formationService.getArbre(formation);
+		result.addObject("arbre", formationService.arbreRetour);
 		return result;
 	}
 
-	String arbreRetour = "";
-
-	private void getArbreLi(domain.Object obj, String codeContext, Formation formation) {
-
-		String codeO = obj.getCode();
-		if (!objectService.checkContentModel(obj).equals("")) {
-			arbreRetour += "<li name=\"" + codeO + "\"> <a id=\"" + codeO + "\">"/* "\"><a>" */+ codeO + " "
-					+ obj.getName() + "  <p style=\"color: Red\">Erreur</p> </a>" + addactionsObj(obj, codeContext);
-			formation.incrNbError();
-		} else {
-			arbreRetour += "<li name=\"" + codeO + "\"> <a id=\"" + codeO + "\">"/* "\"><a>" */+ codeO + " "
-					+ obj.getName() + " </a>" + addactionsObj(obj, codeContext);
-		}
-
-		if (obj.getAllFils().size() != 0)
-			getArbreUl(obj, codeContext, formation);
-		arbreRetour += "</li>\n";
-	}
-
-	private void getArbreUl(domain.Object obj, String codeContext, Formation formation) {
-		arbreRetour += "<ul>\n";
-		for (Fils o : orderByRang(obj.getAllFils()))
-			getArbreLi(o.getFils(), codeContext, formation);
-		arbreRetour += "</ul>\n";
-	}
-
-	private void getArbre(Formation formation) {
-		String codeF = formation.getCode();
-		if (!objectService.checkContentModel(formation).equals("")) {
-			formation.setNumError(1);
-			arbreRetour = "<ul id=\"list\"><li name=\"" + codeF + "\"> <a id=\"" + codeF + "\">"/* "\"><a>" */+ codeF
-					+ " " + formation.getName() + "  <p style=\"color: Red\">Erreur</p> </a>"
-					+ addactionsFormation(codeF);
-		} else {
-			formation.setNumError(0);
-			arbreRetour = "<ul id=\"list\"><li name=\"" + codeF + "\"> <a id=\"" + codeF + "\">"/* "\"><a>" */+ codeF
-					+ " " + formation.getName() + "</a> " + addactionsFormation(codeF);
-		}
-		getArbreUl(formation, codeF, formation);
-		arbreRetour += "</li></ul>";
-	}
-
-	private String addactionsObj(domain.Object o, String context) {
-		if (o.getContexte() == null)
-			return "";
-		if (!o.getContexte().getCode().equals(context) || !user.isResponsable(o.getContexte())) {
-			return "";
-		}
-		return "<div> <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/gestionFils.htm?cobject=" + o.getCode()
-				+ "\"> Modifier les fils </a>"
-				+ " <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/create.htm?context=" + context
-				+ "&amp;cobject=" + o.getCode() + "\">Modifier l'objet</a></div>";
-	}
-
-	private String addactionsFormation(String context) {
-		return "<div> <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/gestionFils.htm?cobject=" + context
-				+ "\"> Modifier les fils </a></div>";
-	}
-
-	private List<Fils> orderByRang(Collection<Fils> allFils) {
-		List<Fils> list = new ArrayList<Fils>();
-		list.addAll(allFils);
-		Collections.sort(list);
-		return list;
-	}
 
 	/**
 	 * Edition d'une formation
@@ -292,8 +224,19 @@ public class ArbreFormationController extends AbstractController {
 		}
 		domain.Object selectedFils = new domain.Object();
 
+		List<Pair<Boolean, Fils>> listP = new ArrayList<Pair<Boolean,Fils>>();
+		for (Fils f : list){
+			// Si on peut modifier le fils (le père est dans le même arbre)
+			if(objectService.canBeDeleted(o, f.getFils())){
+				listP.add(new Pair<Boolean, Fils>(true, f));
+			}
+			else{
+				listP.add(new Pair<Boolean, Fils>(false,f));
+			}
+		}
+
 		result.addObject("objEnCours", o);
-		result.addObject("listFils", list);
+		result.addObject("listFils", listP);
 		for (Fils fils : list) {
 			fils.getFils().getAllFils().size();
 		}
@@ -326,7 +269,7 @@ public class ArbreFormationController extends AbstractController {
 				return new ModelAndView("arbreFormation/gestionFils", "error", "arbreformation.cObjectUnknow");
 			}
 			// Si on peut modifier le fils (le père est dans le même arbre)
-			if (filsO.getAllFils().size() != 0 && filsO.getContexte().getCode().equals(pereO.getContexte().getCode())) {
+			if (!objectService.canBeDeleted(pereO, filsO)) {
 				ModelAndView result = new ModelAndView("redirect:/arbreFormation/gestionFils.htm?cobject=" + pere);
 				redirectAttributes.addFlashAttribute("error", "arbreformation.contientFeuille");
 				return result;
@@ -668,8 +611,8 @@ public class ArbreFormationController extends AbstractController {
 			@RequestParam(value = "rang", required = false) String rang,
 			@Valid @ModelAttribute domain.Object selectedFils, BindingResult result,
 			RedirectAttributes redirectAttributes) {
-		
-		
+
+
 		if (cobject == null || cobject.length() == 0) {
 			ModelAndView resultat = new ModelAndView("redirect:gestionFils.htm?cobject=" + cobject + "&typeobject=");
 			redirectAttributes.addFlashAttribute("error", "arbreformation.ArgInvalide");
@@ -691,7 +634,7 @@ public class ArbreFormationController extends AbstractController {
 					redirectAttributes.addFlashAttribute("error", "ArbreFormation.noResponsable");
 					return resultat;
 				}
-				
+
 				if(rang == null || rang.equals("")){
 					rang = "1";
 				}
@@ -701,7 +644,7 @@ public class ArbreFormationController extends AbstractController {
 			if (typeobject != null && typeobject.length() != 0){
 				type = typeobject;
 			}
-			
+
 			return new ModelAndView("redirect:gestionFils.htm?cobject=" + cobject + "&typeobject=" + type);
 		} catch (Exception e) {
 			e.printStackTrace();
