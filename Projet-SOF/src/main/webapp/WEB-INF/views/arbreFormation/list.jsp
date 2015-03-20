@@ -44,8 +44,6 @@
 				var s = document.getElementsByTagName('script')[0];
 				s.parentNode.insertBefore(ga, s);
 			})();
-			
-
 		</script>
 
 		<b>Objet non lies</b>
@@ -61,5 +59,7 @@
 			</display:column>
 		</display:table>
 
+		<br />
+		<img src="images/error.png" alt="Erreur" /> : <spring:message code="arbreFormation.image.existingError" />
 	</tiles:putAttribute>
 </tiles:insertDefinition>

@@ -238,7 +238,7 @@ public class FormationService {
 		String codeO = obj.getCode();
 		if (!objectService.checkContentModel(obj).equals("")) {
 			arbreRetour += "<li name=\"" + codeO + "\"> <a id=\"" + codeO + "\">"/* "\"><a>" */+ codeO + " "
-					+ obj.getName() + "  <p style=\"color: Red\">Erreur</p> </a>" + addactionsObj(obj, codeContext);
+					+ obj.getName() + "  <img src=\"images/error.png\" alt=\"Erreur\" /> </a>" + addactionsObj(obj, codeContext);
 			formation.incrNbError();
 		} else {
 			arbreRetour += "<li name=\"" + codeO + "\"> <a id=\"" + codeO + "\">"/* "\"><a>" */+ codeO + " "
@@ -262,7 +262,7 @@ public class FormationService {
 		if (!objectService.checkContentModel(formation).equals("")) {
 			formation.setNumError(1);
 			arbreRetour = "<ul id=\"list\"><li name=\"" + codeF + "\"> <a id=\"" + codeF + "\">"/* "\"><a>" */+ codeF
-					+ " " + formation.getName() + "  <p style=\"color: Red\">Erreur</p> </a>"
+					+ " " + formation.getName() + " <img src=\"images/error.png\" alt=\"Erreur\" /> </a>"
 					+ addactionsFormation(codeF);
 		} else {
 			formation.setNumError(0);
@@ -279,14 +279,14 @@ public class FormationService {
 		if (!o.getContexte().getCode().equals(context) || !user.isResponsable(o.getContexte())) {
 			return "";
 		}
-		return "<div> <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/gestionFils.htm?cobject=" + o.getCode()
+		return "<div style=\"display:inline\"> <a class=\"btn btn-default btn-xs\" href=\"arbreFormation/gestionFils.htm?cobject=" + o.getCode()
 				+ "\"> Modifier les fils </a>"
-				+ " <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/create.htm?context=" + context
+				+ " <a class=\"btn btn-default btn-xs\" href=\"arbreFormation/create.htm?context=" + context
 				+ "&amp;cobject=" + o.getCode() + "\">Modifier l'objet</a></div>";
 	}
 
 	private String addactionsFormation(String context) {
-		return "<div> <a class=\"btn btn-default btn-sm\" href=\"arbreFormation/gestionFils.htm?cobject=" + context
+		return "<div style=\"display:inline\"> <a class=\"btn btn-default btn-xs\" href=\"arbreFormation/gestionFils.htm?cobject=" + context
 				+ "\"> Modifier les fils </a></div>";
 	}
 
