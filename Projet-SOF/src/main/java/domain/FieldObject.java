@@ -10,7 +10,8 @@ public class FieldObject {
 	FieldObjectId fo;
 	
 	@Column(name = "Version") 
-	private String version;
+	@Version
+	private int version;
 	
 	@MapsId(value="object")
 	@ManyToOne
@@ -57,6 +58,15 @@ public class FieldObject {
 	public void setField(Field field) {
 		this.field = field;
 	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+	
 
 
 }

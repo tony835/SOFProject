@@ -14,6 +14,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.transaction.Transactional;
 import javax.validation.constraints.Size;
 
@@ -36,7 +37,8 @@ public class Object {
 	private String name;
 	
 	@Column(name = "Version")
-	private String version;
+	@Version
+	private int version;
 
 
 	@Column(name = "FMutualisable")
@@ -113,11 +115,11 @@ public class Object {
 		this.fieldObjects = fieldObjects;
 	}
 
-	public String getVersion() {
+	public int getVersion() {
 		return version;
 	}
 
-	public void setVersion(String version) {
+	public void setVersion(int version) {
 		this.version = version;
 	}
 	

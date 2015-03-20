@@ -60,7 +60,7 @@ public class ObjectControllerVisualisation  extends AbstractController{
 		
 		
 		Boolean audit=false;
-	    result = new ModelAndView("object/detailsAriane");
+	    result = new ModelAndView("object/details");
 	    Object obj= objectService.findOne(code);
 	    obj.getAllFils().size(); // Pour initialiser la liste des fils
 	    result.addObject("object",obj);

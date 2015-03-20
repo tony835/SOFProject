@@ -538,7 +538,6 @@ public class ArbreFormationController extends AbstractController {
 		domain.Object o = new domain.Object();
 		o.setCode("");
 		o.setName("");
-		o.setVersion("");
 		o.setMutualisable(false);
 		o.setContexte(null);
 		o.setTypeObject(new TypeObject());
