@@ -238,7 +238,7 @@ public class FormationService {
 		String codeO = obj.getCode();
 		if (!objectService.checkContentModel(obj).equals("")) {
 			arbreRetour += "<li name=\"" + codeO + "\"> <a id=\"" + codeO + "\">"/* "\"><a>" */+ codeO + " "
-					+ obj.getName() + "  <img src=\"images/error.png\" alt=\"Erreur\" /> </a>" + addactionsObj(obj, codeContext);
+					+ obj.getName() + "  <img src=\"images/error.png\" alt=\"Erreur\" title=\"Erreur\" /> </a>" + addactionsObj(obj, codeContext);
 			formation.incrNbError();
 		} else {
 			arbreRetour += "<li name=\"" + codeO + "\"> <a id=\"" + codeO + "\">"/* "\"><a>" */+ codeO + " "
@@ -262,7 +262,7 @@ public class FormationService {
 		if (!objectService.checkContentModel(formation).equals("")) {
 			formation.setNumError(1);
 			arbreRetour = "<ul id=\"list\"><li name=\"" + codeF + "\"> <a id=\"" + codeF + "\">"/* "\"><a>" */+ codeF
-					+ " " + formation.getName() + " <img src=\"images/error.png\" alt=\"Erreur\" /> </a>"
+					+ " " + formation.getName() + " <img src=\"images/error.png\" alt=\"Erreur\" title=\"Erreur\" /> </a>"
 					+ addactionsFormation(codeF);
 		} else {
 			formation.setNumError(0);

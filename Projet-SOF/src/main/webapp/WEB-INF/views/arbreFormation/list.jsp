@@ -58,8 +58,5 @@
 						code="objet.modifier" /></a>
 		 	</display:column>
 		</display:table>
-
-		<br />
-		<img src="images/error.png" alt="Erreur" /> : <spring:message code="arbreFormation.image.existingError" />
 	</tiles:putAttribute>
 </tiles:insertDefinition>
