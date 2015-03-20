@@ -2,7 +2,7 @@
  
 table {
 	border: 1px solid #666;
-	width: 80%;
+width: 85%;
 	margin: 20px 0 20px 0 !important;
 }
 
@@ -105,6 +105,7 @@ span.pagebanner {
 	margin-top: 10px;
 	display: block;
 	border-bottom: none;
+	width: 90%;
 }
 
 span.pagelinks {
@@ -115,6 +116,7 @@ span.pagelinks {
 	display: block;
 	border-top: none;
 	margin-bottom: -5px;
+	width: 90%;
 }
 
 .group-1 {

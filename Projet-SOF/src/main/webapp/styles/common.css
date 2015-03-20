@@ -44,3 +44,20 @@
 visibility: hidden;
 display: none;
 }
+
+.right {
+    position: absolute;
+    right: 0px;
+    width: 300px;
+    background-color: #b0e0e6;
+}
+
+.fieldset
+{
+    border:2px solid green;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;	
+    border-radius:8px;	
+    
+}
+
