@@ -167,13 +167,6 @@ public class ObjectService {
 			return "";
 		String expectedSons = to.getModelContenu();
 		
-		// si pas de modèle de contenu, on considère qu'il n'y a pas d'erreurs
-		// c'est ce que Massat voulait
-		if(expectedSons == null || expectedSons.equals("")) {
-			return "";
-		}
-		
-		
 		String actualSons ="";
 
 		for (Fils f : o.getAllFils()){
