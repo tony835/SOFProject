@@ -64,12 +64,19 @@ public class ObjectService {
 	}
 
 	public void addLinkFils(domain.Object pere, domain.Object fils, Integer rang){
-		Fils p = new Fils();
-		p.setFils(fils);
-		p.setRang(rang);
-		filsDao.save(p);
-		pere.getAllFils().add(p);
-		objectDao.save(pere);
+		
+		List<domain.Object> lDesc = new ArrayList<domain.Object>();
+		lDesc.add(fils);
+		getDescendants(lDesc,fils);
+		
+		if(!lDesc.contains(pere)){
+			Fils p = new Fils();
+			p.setFils(fils);
+			p.setRang(rang);
+			filsDao.save(p);
+			pere.getAllFils().add(p);
+			objectDao.save(pere);
+		}
 	}
 
 	public boolean isContributor(String code){
