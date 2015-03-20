@@ -112,7 +112,7 @@ public class ArbreFormationController extends AbstractController {
 		result.addObject("formation", formation);
 
 		formationService.getArbre(formation);
-		result.addObject("arbre", formationService.arbreRetour);
+		result.addObject("arbre", formationService.getArbreRetour());
 		return result;
 	}
 

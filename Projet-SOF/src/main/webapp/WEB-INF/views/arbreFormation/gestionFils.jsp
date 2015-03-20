@@ -22,32 +22,23 @@
 			
 			<display:table name="listFils" pagesize="20" class="displaytag"
 				id="row" requestURI="arbreFormation/gestionFils.htm">
-				<display:column title="Code">${row.getFils().getCode()}</display:column>
-				<display:column title="Name">${row.getFils().getName()}</display:column>
+				<display:column title="Code">${row.getValue1().getFils().getCode()}</display:column>
+				<display:column title="Name">${row.getValue1().getFils().getName()}</display:column>
 
 				<display:column title="Rang">
 					<form action="arbreFormation/gestionFilsEditRang.htm" method="post">
 						<input hidden="hidden" readonly="false" name="codeEnCours" value="${objEnCours.getCode()}"></input> <input
-							hidden="hidden" readonly="false" name="cobject" value="${row.getFils().getCode()}"> </input> <input name="rang"
-							value="${row.getRang()}"> </input>
+							hidden="hidden" readonly="false" name="cobject" value="${row.getValue1().getFils().getCode()}"> </input> <input name="rang"
+							value="${row.getValue1().getRang()}"> </input>
 						<button type="submit" name="Valider">Valider</button>
 					</form>
 				</display:column>
 				<display:column title="Action">
-					<jstl:if test="${row.getFils().getAllFils().size() >= 1}">
-							<jstl:if test="${!row.getFils().getContexte().getCode().equals(objEnCours.getContexte().getCode())}">
+					<jstl:if test="${row.getValue0()}">
 								<a class="btn btn-default btn-xs"
-									href="arbreFormation/supprimer.htm?pere=${objEnCours.getCode()}&amp;fils=${row.getFils().getCode()}"><spring:message
+									href="arbreFormation/supprimer.htm?pere=${objEnCours.getCode()}&amp;fils=${row.getValue1().getFils().getCode()}"><spring:message
 										code="arbreFormation.supprimer" /></a>
-							</jstl:if>
 					</jstl:if>
-
-					<jstl:if test="${row.getFils().getAllFils().size() == 0}">
-						<a class="btn btn-default btn-xs"
-							href="arbreFormation/supprimer.htm?pere=${objEnCours.getCode()}&amp;fils=${row.getFils().getCode()}"><spring:message
-								code="arbreFormation.supprimer" /></a>
-					</jstl:if>
-
 				</display:column>
 			</display:table>
 

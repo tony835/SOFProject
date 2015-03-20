@@ -49,5 +49,5 @@ public interface ObjectDao extends JpaRepository<domain.Object, String> {
 	Collection<String> isContributorOfObject(String login, String object);
 	
 	@Query("select count(*) from Fils f WHERE f.fils.code = ?1 AND f.fils.mutualisable = false")
-		Collection<Object> countNbFathers(String code);
+		Integer countNbFathers(String code);
 }

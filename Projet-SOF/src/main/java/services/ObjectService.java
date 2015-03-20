@@ -206,4 +206,13 @@ public class ObjectService {
 	{
 		return objectDao.isContributorOfObject(login, object);
 	}
+	
+	public boolean canBeDeleted(domain.Object pere, domain.Object fils){
+		if(fils.getAllFils().size() == 0) return true;
+		if (fils.getContexte().getCode().equals(pere.getContexte().getCode())) {
+			if(objectDao.countNbFathers(fils.getCode()) > 1)
+				return true;
+		}
+		return false;
+	}
 }
