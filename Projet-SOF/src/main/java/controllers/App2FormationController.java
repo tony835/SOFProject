@@ -104,6 +104,7 @@ public class App2FormationController {
 			@RequestParam(value = "diploma", required = true) String diploma,
 			@RequestParam(value = "field", required = true) String field) {
 		ModelAndView result;
+		Boolean audit = false;
 
 		Collection<Formation> formation_diploma_and_field = new ArrayList<Formation>();
 
@@ -112,7 +113,8 @@ public class App2FormationController {
 				.findbyDomaineByDiplomeAndByTypeVisitor(diploma, fieldDecode);
 		
 		result = new ModelAndView("formation/FormationDiplomaField");
-
+		
+		result.addObject("Audit", audit);
 		result.addObject("FormationOfDiplomaAndField",
 				formation_diploma_and_field);
 		return result;
@@ -181,6 +183,7 @@ public class App2FormationController {
 			@RequestParam(value = "diploma", required = true) String diploma,
 			@RequestParam(value = "field", required = true) String field) {
 		ModelAndView result;
+		Boolean audit = true;
 
 		Collection<Formation> formation_diploma_and_field = new ArrayList<Formation>();
 
@@ -189,7 +192,7 @@ public class App2FormationController {
 				.findbyDomaineByDiplomeAndByType(diploma, fieldDecode);
 		
 		result = new ModelAndView("formation/FormationDiplomaFieldAudit");
-
+		result.addObject("Audit",audit);
 		result.addObject("FormationOfDiplomaAndField",
 				formation_diploma_and_field);
 		return result;

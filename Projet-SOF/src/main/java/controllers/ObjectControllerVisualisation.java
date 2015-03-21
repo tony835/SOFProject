@@ -48,7 +48,7 @@ public class ObjectControllerVisualisation  extends AbstractController{
 
 
 	@Transactional
-	@RequestMapping(value = "/details", method = RequestMethod.GET)
+	@RequestMapping(value = "/audit/details", method = RequestMethod.GET)
 	public ModelAndView mObjectList(@RequestParam String code, @RequestHeader(value = "referer", required = false) final String referer) {
 		ModelAndView result;
 		System.out.println("FFFFFF"+referer);
@@ -59,7 +59,70 @@ public class ObjectControllerVisualisation  extends AbstractController{
 				navigation= new ArrayList<String>();
 		
 		
-		Boolean audit=false;
+		Boolean audit=true;
+		Boolean isContributor;
+		if(!objectService.isContributorOfObject(user.getLogin(), code).isEmpty())
+		{
+			isContributor=true;
+		}
+		else
+		{
+			isContributor=false;
+		}
+		
+	    result = new ModelAndView("object/details");
+	    Object obj= objectService.findOne(code);
+	    obj.getAllFils().size(); // Pour initialiser la liste des fils
+	    result.addObject("object",obj);
+	    Map<String, List<FieldObject>> maps= new HashMap<String, List<FieldObject>>();
+	    Collection<FieldObject> fIList= obj.getFieldObjects();
+	    Collection<FieldObject> fIListGeneral= new ArrayList<FieldObject>();
+	    Collection<Object> objectMemeType =  new ArrayList<Object>();
+	    if(obj.getTypeObject()!=null && obj.getContexte() !=null){
+		    objectMemeType= objectService.objectsSameTypeInContext(obj.getTypeObject().getCode(), obj.getContexte().getCode(),obj.getCode());
+		   
+	    }
+	  
+	    for(FieldObject f:fIList ){
+	    	if(f.getField().getTabName()==null){
+	    		fIListGeneral.add(f);
+	    	}else if(maps.containsKey(f.getField().getTabName()))
+	    		maps.get(f.getField().getTabName()).add(f);
+	    	else {
+	    		List<FieldObject> filObjects= new ArrayList<FieldObject>();
+	    		filObjects.add(f);
+	    		maps.put(f.getField().getTabName(), filObjects);	
+	    	}	    	
+	    }
+	    if(navigation.contains("objectVisualisation/audit/details.htm?code="+code)){
+	    	navigation.remove("objectVisualisation/audit/details.htm?code="+code);
+	    }
+    	navigation.add("objectVisualisation/audit/details.htm?code="+code);
+
+
+	    result.addObject("maps",maps);
+	    result.addObject("Audit",audit);
+	    result.addObject("Contributor", isContributor);
+	    result.addObject("fIListGeneral",fIListGeneral);
+	    result.addObject("objectMemeType",objectMemeType);
+	    result.addObject("objectMemeTypeSize",objectMemeType.isEmpty());
+		return result;
+
+	}
+	
+	@Transactional
+	@RequestMapping(value = "/details", method = RequestMethod.GET)
+	public ModelAndView mObjectListVisitor(@RequestParam String code, @RequestHeader(value = "referer", required = false) final String referer) {
+		ModelAndView result;
+		System.out.println("FFFFFF"+referer);
+		
+		if(referer==null){
+			navigation= new ArrayList<String>();
+		}else if(!referer.contains("objectVisualisation/details"))
+				navigation= new ArrayList<String>();
+		
+		
+		Boolean audit=true;
 	    result = new ModelAndView("object/details");
 	    Object obj= objectService.findOne(code);
 	    obj.getAllFils().size(); // Pour initialiser la liste des fils
@@ -96,9 +159,10 @@ public class ObjectControllerVisualisation  extends AbstractController{
 	    result.addObject("objectMemeType",objectMemeType);
 	    result.addObject("objectMemeTypeSize",objectMemeType.isEmpty());
 		return result;
-		
-		
+
 	}
+	
+	
 	@ModelAttribute("navigation")
 	public List<String> navigations() {
 		return navigation;
