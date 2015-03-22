@@ -98,8 +98,8 @@ public class App2FormationController {
 	 * @param field
 	 * @return
 	 */
-	@RequestMapping(value = { "/formation/listformation",
-			"/formation/listformation/audit" }, method = RequestMethod.GET)
+	@RequestMapping(value = "/formation/listformation"
+			 , method = RequestMethod.GET)
 	public ModelAndView allFormOfFieldAndDiploma(
 			@RequestParam(value = "diploma", required = true) String diploma,
 			@RequestParam(value = "field", required = true) String field) {

@@ -122,7 +122,8 @@ public class ObjectControllerVisualisation  extends AbstractController{
 				navigation= new ArrayList<String>();
 		
 		
-		Boolean audit=true;
+		Boolean audit=false;
+		
 	    result = new ModelAndView("object/details");
 	    Object obj= objectService.findOne(code);
 	    obj.getAllFils().size(); // Pour initialiser la liste des fils

@@ -21,24 +21,25 @@
 
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
+		<jstl:choose>
+			<jstl:when test="${Audit==true}">
+				<jstl:if
+					test="${!fn:contains(header.referer, 'objectVisualisation/audit/details.htm')}">
+					<jstl:set var="entre" value="true"></jstl:set>
+				</jstl:if>
+			</jstl:when>
+			<jstl:otherwise>
+				<jstl:if
+					test="${!fn:contains(header.referer, 'objectVisualisation/details.htm')}">
+					<jstl:set var="entre" value="true"></jstl:set>
+				</jstl:if>
+			</jstl:otherwise>
 
-		<jstl:if
-			test="${!fn:contains(header.referer, 'objectVisualisation/details.htm')}">
-			<jstl:set var="entre" value="true"></jstl:set>
-		</jstl:if>
+		</jstl:choose>
 
-		<!-- a placer correctement -->
-		<%-- 		<jstl:choose> --%>
-		<%-- 			<jstl:when test="${user.isConnected()}"> --%>
 
-		<%-- 			</jstl:when> --%>
-		<%-- 			<jstl:otherwise> --%>
-		<%-- 				<jstl:out --%>
-		<%-- 					value="Vous n'êtes pas connecté, merci de bien vouloir vous authentifier pour accéder à cette version d'audit." /> --%>
-		<%-- 				<a href="/Projet_SOF/auth/login.htm"><spring:message --%>
-		<%-- 						code="login" /></a> --%>
-		<%-- 			</jstl:otherwise> --%>
-		<%-- 		</jstl:choose> --%>
+
+
 
 
 
@@ -107,8 +108,20 @@
 					<jstl:forEach var="item" items="${fIListGeneral}">
 
 
+
+
+
+
+
+
 						<jstl:choose>
-							<jstl:when test="${Audit==true}">
+						
+						<jstl:when test="${user.isConnected()}">
+						<jstl:choose>
+						
+						<jstl:when test="${Audit==true}">
+								
+
 
 								<jstl:choose>
 									<jstl:when test="${Contributor==true}">
@@ -183,7 +196,7 @@
 									</div>
 								</div>
 							</jstl:when>
-							<jstl:when test="${!item.value.isEmpty()} && ${Audit==false}">
+							<jstl:when test="${Audit==false}">
 								<jstl:choose>
 									<jstl:when test="${!item.value.isEmpty()}">
 										<b>${item.field.name}:</b>
@@ -203,8 +216,54 @@
 
 							</jstl:when>
 						</jstl:choose>
+						
+						</jstl:when>
+						<jstl:when test="${!user.isConnected()}">
+						<jstl:choose>
+						
+							<jstl:when test="${Audit==false}">
+							<jstl:choose>
+									<jstl:when test="${!item.value.isEmpty()}">
+										<b>${item.field.name}:</b>
+										<span id="spanValue${item.field.id}${object.code}">${item.value}</span>
+
+										<br />
+									</jstl:when>
+									<jstl:otherwise>
+										<b>${item.field.name}:</b>
+										<span id="spanValue${item.field.id}${object.code}">
+											Cette information n'a pas encore été renseignée, merci de
+											bien vouloir nous en excuser. </span>
+									</jstl:otherwise>
+
+								</jstl:choose>
+							
+							</jstl:when>
+						</jstl:choose>
+						</jstl:when>
+						
+						
+							
+							
+						</jstl:choose>
 
 					</jstl:forEach>
+					<jstl:choose>
+					<jstl:when test="${!user.isConnected()}">
+					<jstl:choose>
+							<jstl:when test="${Audit==true}">
+							<jstl:out
+											value="Vous n'êtes pas connecté, merci de bien vouloir vous authentifier pour accéder à cette version d'audit." />
+										<a href="/Projet_SOF/auth/login.htm"><spring:message
+												code="login" /></a>
+							
+							</jstl:when>
+							
+							</jstl:choose>
+							</jstl:when>
+							</jstl:choose>
+						
+					
 				</div>
 
 				<jstl:forEach var="item" items="${maps.keySet()}">
@@ -228,20 +287,20 @@
 								<a
 									href="objectVisualisation/audit/details.htm?code=${fils.fils.code}">
 									<jstl:out value="${fils.fils.code}"></jstl:out>(<jstl:out
-							value="${fils.fils.name}"></jstl:out>)
-						</a>
-						<br/>
+										value="${fils.fils.name}"></jstl:out>)
+								</a>
+								<br />
 							</jstl:when>
 							<jstl:otherwise>
 								<a href="objectVisualisation/details.htm?code=${fils.fils.code}">
-								<jstl:out value="${fils.fils.code}"></jstl:out>(<jstl:out
-							value="${fils.fils.name}"></jstl:out>)
-						</a>
-						<br/>
+									<jstl:out value="${fils.fils.code}"></jstl:out>(<jstl:out
+										value="${fils.fils.name}"></jstl:out>)
+								</a>
+								<br />
 							</jstl:otherwise>
 						</jstl:choose>
 
-						
+
 					</jstl:forEach>
 				</div>
 
@@ -256,7 +315,7 @@
 							<jstl:out value="${objet.code}"></jstl:out>(<jstl:out
 								value="${objet.name}"></jstl:out>)
 						</a>
-						<br/>
+						<br />
 
 					</jstl:forEach>
 				</div>
