@@ -340,7 +340,7 @@ public class ArbreFormationController extends AbstractController {
 			@RequestParam(required = false) String cobject, RedirectAttributes redirectAttributes) {
 		System.out.println("oooooo");
 		if (cobject != null) {
-			System.out.println("looool");
+		 	System.out.println("looool");
 			try {
 				if (objectService.findOne(cobject) == null) {
 					if (!user.isResponsable(objectService.findOne(cobject).getContexte())) {
