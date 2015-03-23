@@ -1,4 +1,4 @@
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="Java" contentType="text/html; charset=UTF-8"%>
 
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -38,7 +38,7 @@
 					</form:label>
 					<div class="col-sm-10">
 						<form:select class="form-control" path="typeObject.code" multiple="false">
-							<form:option value="" label="Séléctionner un type" />
+							<form:option value="" label="SÃ©lÃ©ctionner un type" />
 							<form:options items="${typesList}" itemLabel="name" itemValue="code" />
 						</form:select>
 					</div>

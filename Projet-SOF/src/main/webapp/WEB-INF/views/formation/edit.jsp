@@ -1,4 +1,4 @@
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="Java" contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
@@ -44,22 +44,22 @@
 			</div>
 			<div class="form-group">
 				<form:label class="col-sm-4 control-label" path="diplomeType">
-						Séléctionner un type de diplome
+						SÃ©lÃ©ctionner un type de diplome
 					</form:label>
 				<div class="col-sm-8">
 					<form:select class="form-control" path="diplomeType" multiple="false" modelAttribute="formation">
-						<form:option value="" label="Séléctionner un type de diplome" />
+						<form:option value="" label="SÃ©lÃ©ctionner un type de diplome" />
 						<form:options items="${diplomaTypeList}" />
 					</form:select>
 				</div>
 			</div>
 			<div class="form-group">
 				<form:label class="col-sm-4 control-label" path="formationField">
-						Séléctionner un domaine de formation
+						SÃ©lÃ©ctionner un domaine de formation
 					</form:label>
 				<div class="col-sm-8">
 					<form:select class="form-control" path="formationField" multiple="false" modelAttribute="formation">
-						<form:option value="" label="Séléctionner un domaine de formation" />
+						<form:option value="" label="SÃ©lÃ©ctionner un domaine de formation" />
 						<form:options items="${formationFieldList}" />
 					</form:select>
 				</div>

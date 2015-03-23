@@ -1,17 +1,20 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page"
-	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-	xmlns:jstl="http://java.sun.com/jsp/jstl/core"
-	xmlns:spring="http://www.springframework.org/tags"
-	xmlns:form="http://www.springframework.org/tags/form"
-	xmlns:display="http://displaytag.sf.net"
-	xmlns:tiles="http://tiles.apache.org/tags-tiles"
-	xmlns:tag="urn:jsptagdir:/WEB-INF/tags"
-	xmlns="http://www.w3.org/1999/xhtml">
+<%@ page language="Java" contentType="text/html; charset=UTF-8"%>
+<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="tag" tagdir="/WEB-INF/tags"%>
 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 
 
 	<html>
 <head>
+
 
 <base
 	href="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/" />
@@ -64,4 +67,3 @@
 </body>
 
 	</html>
-</jsp:root>

@@ -171,11 +171,13 @@
 																					$
 																							.ajax({
 																								url : 'modal/ajax.htm',
+																					            contentType: "charset=utf-8",
 																								data : {
 																									'codeObjet' : "${object.code}",
 																									'idField' : "${item.field.id}",
 																									'value' : value
 																								},
+																								
 																								success : function(
 																										data) {
 																									if (data.length != 0)

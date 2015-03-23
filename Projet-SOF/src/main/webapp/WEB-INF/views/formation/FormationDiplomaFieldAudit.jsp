@@ -1,5 +1,5 @@
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="Java" contentType="text/html; charset=UTF-8"%>
+
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
@@ -56,7 +56,7 @@
 			</jstl:when>
 			<jstl:otherwise>
 				<jstl:out
-					value="Vous n'êtes pas connecté, merci de bien vouloir vous authentifier" />
+					value="Vous n'Ãªtes pas connectÃ©, merci de bien vouloir vous authentifier" />
 				<a href="/Projet_SOF/auth/login.htm"><spring:message
 						code="login" /></a>
 			</jstl:otherwise>
