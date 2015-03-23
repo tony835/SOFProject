@@ -24,7 +24,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>3</tab_name>
 		</field>
 		<field>
 			<Id>ados_recherche</Id>
@@ -33,7 +33,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>3</tab_name>
 		</field>
 		<field>
 			<Id>aide_ins_pro</Id>
@@ -42,7 +42,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>4</tab_name>
 		</field>
 		<field>
 			<Id>aide_orientation</Id>
@@ -114,7 +114,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>2</tab_name>
 		</field>
 		<field>
 			<Id>conditions_admission</Id>
@@ -123,7 +123,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>1</tab_name>
 		</field>
 		<field>
 			<Id>connaissances</Id>
@@ -132,7 +132,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>2</tab_name>
 		</field>
 		<field>
 			<Id>contexte</Id>
@@ -189,7 +189,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>3</tab_name>
 		</field>
 		<field>
 			<Id>debut_habilitation</Id>
@@ -245,7 +245,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>4</tab_name>
 		</field>
 
 		<field>
@@ -329,7 +329,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>1</tab_name>
 		</field>
 		<field>
 			<Id>politique_stages</Id>
@@ -338,7 +338,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>2</tab_name>
 		</field>
 		<field>
 			<Id>pos_offre_etablis</Id>
@@ -367,7 +367,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>3</tab_name>
 		</field>
 		<field>
 			<Id>publiable</Id>
@@ -385,7 +385,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>1</tab_name>
 		</field>
 		<field>
 			<Id>ref-domaine</Id>
@@ -613,7 +613,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>4</tab_name>
 		</field>
 		<field>
 			<Id>aide_orientation</Id>
@@ -667,7 +667,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>1</tab_name>
 		</field>
 		<field>
 			<Id>connaissances</Id>
@@ -676,7 +676,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>2</tab_name>
 		</field>
 		<field>
 			<Id>date_modification</Id>
@@ -694,7 +694,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>3</tab_name>
 		</field>
 		<field>
 			<Id>finalite</Id>
@@ -712,7 +712,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>4</tab_name>
 		</field>
 
 		<field>
@@ -731,7 +731,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>1</tab_name>
 		</field>
 		<field>
 			<Id>politique_stages</Id>
@@ -740,7 +740,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>2</tab_name>
 		</field>
 		<field>
 			<Id>poursuite_etudes</Id>
@@ -749,7 +749,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>3</tab_name>
 		</field>
 		<field>
 			<Id>publiable</Id>
@@ -767,7 +767,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>1</tab_name>
 		</field>
 		<field>
 			<Id>version</Id>
@@ -850,7 +850,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>2</tab_name>
 		</field>
 		<field>
 			<Id>contenu</Id>
@@ -886,7 +886,7 @@
 			<content_type>STRING</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>2</tab_name>
 		</field>
 		<field>
 			<Id>langue</Id>
@@ -1113,7 +1113,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>2</tab_name>
 		</field>
 		<field>
 			<Id>date_modification</Id>
@@ -1131,7 +1131,7 @@
 			<content_type>STRING</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>2</tab_name>
 		</field>
 		<field>
 			<Id>ens_delocalises</Id>
@@ -1203,7 +1203,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>1</tab_name>
 		</field>
 		<field>
 			<Id>politique_stages</Id>
@@ -1212,7 +1212,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>2</tab_name>
 		</field>
 		<field>
 			<Id>pre_requis</Id>
