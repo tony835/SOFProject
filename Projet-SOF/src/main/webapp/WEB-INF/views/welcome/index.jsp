@@ -10,12 +10,41 @@
 
 
 	<tiles:insertDefinition name="master.page">
+	    <link href="styles/stylish-portfolio.css" rel="stylesheet">
 		<tiles:putAttribute name="title">
-			Vous etes ...
+		Vous etes ...
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
-			<a href="/Projet_SOF/auth/login.htm">Concepteur ou responsable</a> </br>
-			<a href="/Projet_SOF/visualisation/formation/offre.htm">Contributeur ou visiteur</a>
+			
+		<section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <hr class="small">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="portfolio-item">
+                                 <a href="/Projet_SOF/auth/login.htm">Concepteur ou responsable
+                                    <img class="img-portfolio img-responsive" src="images/casque.jpg">
+                                </a>
+                            </div>
+                        </div>
+                        <div class=col-md-7>
+                            <div class="portfolio-item">
+                                <a href="/Projet_SOF/visualisation/formation/offre.htm">Contributeur 
+                                    <img class="img-portfolio img-responsive" src="images/contributeur.jpg">
+                                </a>
+                            </div>
+                        </div>
+
+             
+                    </div>
+                </div>
+          
+            </div>
+        </div>
+   
+    </section>
 		</tiles:putAttribute>
 	</tiles:insertDefinition>
 
