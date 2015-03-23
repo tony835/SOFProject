@@ -170,10 +170,12 @@ public class ObjectService {
 
 	public String checkContentModel(domain.Object o) {
 		TypeObject to = o.getTypeObject();
+		
 		if(to == null)
 			return "";
+
 		String expectedSons = to.getModelContenu();
-		
+
 		String actualSons ="";
 
 		for (Fils f : o.getAllFils()){
@@ -183,7 +185,7 @@ public class ObjectService {
 			}
 		}
 
-		if(actualSons.matches(expectedSons)){
+		if(expectedSons != null && actualSons.matches(expectedSons)){
 			return "";
 		}
 
