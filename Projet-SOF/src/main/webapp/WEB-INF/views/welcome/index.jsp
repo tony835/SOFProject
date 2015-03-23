@@ -12,7 +12,7 @@
 	<tiles:insertDefinition name="master.page">
 	    <link href="styles/stylish-portfolio.css" rel="stylesheet">
 		<tiles:putAttribute name="title">
-		Vous etes ...
+		<spring:message code="you.are"/>
 		</tiles:putAttribute>
 		<tiles:putAttribute name="body">
 			
@@ -24,14 +24,14 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="portfolio-item">
-                                 <a href="/Projet_SOF/auth/login.htm">Concepteur ou responsable
+                                 <a href="/Projet_SOF/auth/login.htm"><spring:message code="you.conceptorOrResp" />
                                     <img class="img-portfolio img-responsive" src="images/casque.jpg">
                                 </a>
                             </div>
                         </div>
                         <div class=col-md-7>
                             <div class="portfolio-item">
-                                <a href="/Projet_SOF/visualisation/formation/offre.htm">Contributeur 
+                                <a href="/Projet_SOF/visualisation/formation/offre.htm"><spring:message code="you.contributor" /> 
                                     <img class="img-portfolio img-responsive" src="images/contributeur.jpg">
                                 </a>
                             </div>
