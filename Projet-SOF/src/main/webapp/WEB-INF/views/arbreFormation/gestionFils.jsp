@@ -18,8 +18,9 @@
 
 	<tiles:insertDefinition name="master.page">
 		<tiles:putAttribute name="title">
-			<spring:message code="title.arbre.list" />
+				<spring:message code="title.arbre.editchildren" /> ${param.cobject}
 		</tiles:putAttribute>
+		
 		<tiles:putAttribute name="body">
 			<jstl:if test="${!empty descError}">
 				<p style="color: Red">${descError}</p>
