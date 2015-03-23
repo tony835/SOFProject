@@ -72,7 +72,7 @@ public class Parametrage {
 			typeObject.setName(courant.getChild("name").getText());
 			typeObject.setModelContenu(courant.getChild("content_model")
 					.getText());
-			typeObject.setDescError(courant.getChild("description").getText());
+			typeObject.setDescError(courant.getChild("Erreur_descritpion").getText());
 			// ///////// Coderegex ??????????????????????????????
 			List<Element> listField = courant.getChildren("field");
 
