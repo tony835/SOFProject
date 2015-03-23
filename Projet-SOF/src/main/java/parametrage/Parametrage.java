@@ -8,12 +8,14 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import services.FieldService;
 import services.PersonService;
@@ -120,6 +122,10 @@ public class Parametrage {
 	public void init() {
 		System.out.println("Lancemant du parametrage de l'application");
 	}
+	@PreDestroy
+	public void fin() {
+		System.out.println("Fin du parametrage de l'application");
+	}
 
 	
 	public void start() {
@@ -159,7 +165,7 @@ public class Parametrage {
 					System.out.println("le champs : " + fields[i] + " a ete mis à jour ->  insert");
 					fieldManager.save(fields[i]);
 				}
-				else if(!f2.equals(fields[i].getId())){ //le champs à été mis à jour(seul l'ID est encore )
+				else if(!f2.equals(fields[i])){ //le champs à été mis à jour(seul l'ID est encore )
 					System.out.println("le champs : " + fields[i] + " a ete mis à jour -> update");
 					fieldManager.save(fields[i]);
 				}
