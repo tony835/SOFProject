@@ -32,9 +32,11 @@ public class AlimentationBdd {
 		SAXBuilder sxb = new SAXBuilder();
 		Document document = sxb.build(new File("/Users/alexandre/Dropbox/fac/projet_sof/Documents_annexes/offre.xml"));
 		Element racine = document.getRootElement();
-		System.out.println("");
 		// the mysql insert statement
-		String query2 = " UPDATE Objet SET contexte = ?";
+
+		// the mysql insert statement
+
+		String query2 = " UPDATE Objet SET contexte = (select code_objet from formation where code_objet = ?) where code_objet=?";
 		// create the mysql insert preparedstatement
 		PreparedStatement preparedStmt2 = conn.prepareStatement(query2);
 
@@ -42,27 +44,25 @@ public class AlimentationBdd {
 		 * alimmentation des typesobjets depuis le fichier de configuration
 		 * */
 
-		/*List<Element> listTypeObjet = racine2.getChildren("object_type");
-		Iterator<Element> i = listTypeObjet.iterator();
-
-		while (i.hasNext()) {
-			Element courant = (Element) i.next();
-			String code_type = courant.getChild("code").getText();
-			String Erreur_descritpion = courant.getChild("Erreur_descritpion")
-					.getText();
-			String content_model = courant.getChild("content_model").getText();
-			String Nom = courant.getChild("name").getText();
-
-			// the mysql insert statement
-			String query = " insert into TypesObjets " + " values (?,?,?,?)";
-			// create the mysql insert preparedstatement
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setString(1, code_type);
-			preparedStmt.setString(2, Erreur_descritpion);
-			preparedStmt.setString(3, content_model);
-			preparedStmt.setString(4, Nom);
-			preparedStmt.execute();
-		}*/
+		/*
+		 * List<Element> listTypeObjet = racine2.getChildren("object_type");
+		 * Iterator<Element> i = listTypeObjet.iterator();
+		 * 
+		 * while (i.hasNext()) { Element courant = (Element) i.next(); String
+		 * code_type = courant.getChild("code").getText(); String
+		 * Erreur_descritpion = courant.getChild("Erreur_descritpion")
+		 * .getText(); String content_model =
+		 * courant.getChild("content_model").getText(); String Nom =
+		 * courant.getChild("name").getText();
+		 * 
+		 * // the mysql insert statement String query =
+		 * " insert into TypesObjets " + " values (?,?,?,?)"; // create the
+		 * mysql insert preparedstatement PreparedStatement preparedStmt =
+		 * conn.prepareStatement(query); preparedStmt.setString(1, code_type);
+		 * preparedStmt.setString(2, Erreur_descritpion);
+		 * preparedStmt.setString(3, content_model); preparedStmt.setString(4,
+		 * Nom); preparedStmt.execute(); }
+		 */
 
 		/**
 		 * alimenter la table personne
@@ -89,10 +89,14 @@ public class AlimentationBdd {
 			preparedStmt.setString(2, prenom);
 			preparedStmt.setString(3, mail);
 			preparedStmt.setString(4, Nom);
-			preparedStmt.setString(5, Code+"0");
+			preparedStmt.setString(5, (Code+'0'));
 
 			// execute the preparedstatement
-			preparedStmt.execute();
+			try {
+				preparedStmt.execute();
+			} catch (Exception e) {
+				// e.//e.printStackTrace();();
+			}
 
 		}
 
@@ -119,7 +123,12 @@ public class AlimentationBdd {
 			preparedStmt.setString(2, nom);
 			preparedStmt.setString(3, version);
 			// preparedStmt.setString (4, Code_Objet);
-			preparedStmt.execute();
+			try {
+				preparedStmt.execute();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				// e.//e.printStackTrace();();
+			}
 		}
 
 		/**
@@ -134,7 +143,28 @@ public class AlimentationBdd {
 			String Code_Formation = courant.getAttributeValue("code");
 			String type_diplome = courant.getChild("type_diplome").getText();
 			Element Domaine = courant.getChild("ref-domaine");
-			String domaine = Domaine.getAttributeValue("ref");
+			String domaine = "";
+			switch (Domaine.getAttributeValue("ref")) {
+			case "SS":
+				domaine = "Sciences de la santé";
+				break;
+
+			case "ALL":
+				domaine = "Arts, Lettres, Langues";
+				break;
+			case "STAPS":
+				domaine = "Sciences et techniques des activités physiques et sportives";
+				break;
+			case "DEG":
+				domaine = "Droit, Économie et Gestion";
+				break;
+			case "SHS":
+				domaine = "Sciences humaines et sociales";
+				break;
+			case "ST":
+				domaine = "Sciences et Technologies";
+				break;
+			}
 			Element Responsable = courant.getChild("responsables");
 			if (Responsable.getChildren().isEmpty()) {
 				// the mysql insert statement
@@ -146,10 +176,12 @@ public class AlimentationBdd {
 				preparedStmt.setString(2, domaine);
 				preparedStmt.setString(3, Code_Formation);
 				// execute the preparedstatement
-				preparedStmt.execute();
-
-				preparedStmt2.setString(1, Code_Formation);
-				preparedStmt2.execute();
+				try {
+					preparedStmt.execute();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					// e.//e.printStackTrace();();
+				}
 
 			} else {
 				Element RefResponsable = Responsable.getChild("ref-personne");
@@ -166,12 +198,39 @@ public class AlimentationBdd {
 					preparedStmt.setString(3, Code_Formation);
 					preparedStmt.setString(4, Resp);
 					// execute the preparedstatement
-					preparedStmt.execute();
-					preparedStmt2.setString(1, Code_Formation);
-					preparedStmt2.execute();
+					try {
+						preparedStmt.execute();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						// e.//e.printStackTrace();();
+					}
+
 				}
+
 			}
+
+			preparedStmt2.setString(1, Code_Formation);
+			preparedStmt2.setString(2, Code_Formation);
+			preparedStmt2.execute();
 		}
+
+		/**
+		 * alimenter la table objet mise a jour
+		 */
+		/*
+		 * List<Element> ObjetFormation2 = racine.getChildren("mention");
+		 * Iterator<Element> i21 = ObjetFormation2.iterator();
+		 * 
+		 * while (i21.hasNext()) { Element courant = (Element) i21.next();
+		 * String Code_Objet = courant.getAttributeValue("code");
+		 * 
+		 * // the mysql insert statement String query2 =
+		 * " UPDATE Objet SET contexte = ?"; // create the mysql insert
+		 * preparedstatement PreparedStatement preparedStmt2 =
+		 * conn.prepareStatement(query2);
+		 * 
+		 * preparedStmt2.setString(1, Code_Objet); preparedStmt2.execute(); }
+		 */
 
 		/**
 		 * alimenter la table objet
@@ -210,7 +269,12 @@ public class AlimentationBdd {
 				preparedStmt.setString(4, contexte);
 
 				// execute the preparedstatement
-				preparedStmt.execute();
+				try {
+					preparedStmt.execute();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					// e.//e.printStackTrace();();
+				}
 			}
 		}
 
@@ -432,7 +496,12 @@ public class AlimentationBdd {
 				preparedStmt.setString(4, contexte);
 
 				// execute the preparedstatement
-				preparedStmt.execute();
+				try {
+					preparedStmt.execute();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					// e.//e.printStackTrace();();
+				}
 			}
 		}
 
@@ -462,7 +531,12 @@ public class AlimentationBdd {
 					preparedStmt.setInt(2, muta);
 					preparedStmt.setString(4, contexte);
 					// execute the preparedstatement
-					preparedStmt.execute();
+					try {
+						preparedStmt.execute();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						// e.//e.printStackTrace();();
+					}
 					break;
 				case "O":
 					muta = 1;
@@ -474,7 +548,12 @@ public class AlimentationBdd {
 					preparedStmt.setInt(2, muta);
 					preparedStmt.setString(4, contexte);
 					// execute the preparedstatement
-					preparedStmt.execute();
+					try {
+						preparedStmt.execute();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						// e.//e.printStackTrace();();
+					}
 				}
 			}
 
@@ -545,7 +624,12 @@ public class AlimentationBdd {
 					preparedStmt.setInt(2, muta);
 					preparedStmt.setString(4, contexte);
 					// execute the preparedstatement
-					preparedStmt.execute();
+					try {
+						preparedStmt.execute();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						// e.//e.printStackTrace();();
+					}
 					break;
 				case "O":
 					muta = 1;
@@ -557,7 +641,12 @@ public class AlimentationBdd {
 					preparedStmt.setInt(2, muta);
 					preparedStmt.setString(4, contexte);
 					// execute the preparedstatement
-					preparedStmt.execute();
+					try {
+						preparedStmt.execute();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						// e.//e.printStackTrace();();
+					}
 				}
 			}
 
@@ -625,7 +714,12 @@ public class AlimentationBdd {
 					preparedStmt.setInt(2, muta);
 					preparedStmt.setString(4, contexte);
 					// execute the preparedstatement
-					preparedStmt.execute();
+					try {
+						preparedStmt.execute();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						// e.//e.printStackTrace();();
+					}
 					break;
 				case "O":
 					muta = 1;
@@ -634,7 +728,12 @@ public class AlimentationBdd {
 					preparedStmt.setInt(2, muta);
 					preparedStmt.setString(4, contexte);
 					// execute the preparedstatement
-					preparedStmt.execute();
+					try {
+						preparedStmt.execute();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						// e.//e.printStackTrace();();
+					}
 				}
 			}
 
@@ -705,7 +804,12 @@ public class AlimentationBdd {
 						preparedStmt.setString(1, Code_Formation);
 						preparedStmt.setString(2, Cont);
 						// execute the preparedstatement
-						preparedStmt.execute();
+						try {
+							preparedStmt.execute();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							// e.//e.printStackTrace();();
+						}
 					}
 				}
 			}
@@ -713,7 +817,7 @@ public class AlimentationBdd {
 
 		String query1 = " select Id from Descripteur_champs";
 		PreparedStatement preparedStmt1 = conn.prepareStatement(query1);
-		final ResultSet Rs = preparedStmt1.executeQuery();
+		ResultSet Rs = preparedStmt1.executeQuery();
 
 		/**
 		 * alimmentation des fields
@@ -727,28 +831,46 @@ public class AlimentationBdd {
 			Iterator<Element> j1 = listField.iterator();
 			while (j1.hasNext()) {
 				Element courant1 = (Element) j1.next();
-				courant1.getChildren();
+				// courant1.getChildren();
+				String contents = "";
 				String Id = courant1.getName();
 				if (Id.equals("err") || Id.equals("nom")
 						|| Id.equals("responsables")
 						|| Id.equals("contributeurs") || Id.equals("tree")
 						|| Id.equals("structure") || Id.equals("liste-objets")
-						|| Id.equals("refs-composante")) {
+						|| Id.equals("refs-composante")
+						|| Id.equals("etat-rof")
+						|| Id.equals("type_diplome_rof")
+						|| Id.equals("responsable-rof")) {
+					continue;
+				} else if (Id.equals("nb_credits") || Id.equals("version")) {
+
+					contents = "INT";
+				} else if (courant1.getChildren().size() > 0
+						&& courant1.getChildren().get(0).getName()
+								.equals("body")) {
+					contents = "STRUCTURE";
+					//System.out.println(courant1.getChildren().get(0).getName()
+					//		+ " --" + Id + "---" + contents);
+
 				} else {
-					String name = courant1.getName();
-					String query = " insert into Descripteur_champs "
-							+ " values (?,?,100,?,0,null,'STRING','FOR')";
-					// create the mysql insert preparedstatement
-					PreparedStatement preparedStmt = conn
-							.prepareStatement(query);
-					preparedStmt.setString(1, Id.toUpperCase());
-					preparedStmt.setString(2, name);
-					preparedStmt.setString(3, name);
-					try {
-						preparedStmt.execute();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+
+					contents = "STRING";
+				}
+				String name = courant1.getName();
+				String query = " insert into Descripteur_champs "
+						+ " values (?,?,100,?,0,null,?,'FOR')";
+				// create the mysql insert preparedstatement
+				PreparedStatement preparedStmt = conn.prepareStatement(query);
+				preparedStmt.setString(1, Id.toUpperCase());
+				preparedStmt.setString(2, name);
+				preparedStmt.setString(3, name);
+				preparedStmt.setString(4, contents);
+
+				try {
+					preparedStmt.execute();
+				} catch (Exception e) {
+					// e.//e.printStackTrace();();
 				}
 			}
 		}
@@ -761,33 +883,54 @@ public class AlimentationBdd {
 			Iterator<Element> a = listFieldSp.iterator();
 			while (a.hasNext()) {
 				Element courant11 = (Element) a.next();
+				String contents = "";
 				courant11.getChildren();
 				String Id = courant11.getName();
 				if (Id.equals("err") || Id.equals("nom")
 						|| Id.equals("responsables")
 						|| Id.equals("contributeurs") || Id.equals("tree")
 						|| Id.equals("structure") || Id.equals("liste-objets")
-						|| Id.equals("refs-composante")) {
+						|| Id.equals("refs-composante")
+						|| Id.equals("etat-rof")
+						|| Id.equals("type_diplome_rof")
+						|| Id.equals("responsable-rof")) {
+					continue;
 				} else {
 					while (Rs.next()) {
 						if (Id.equals(Rs)) {
 							System.out.println("erreur");
-						} else {
-							String name = courant11.getName();
-							String query = " insert into Descripteur_champs "
-									+ " values (?,?,100,?,0,null,'STRING','SPE')";
-							// create the mysql insert preparedstatement
-							PreparedStatement preparedStmt = conn
-									.prepareStatement(query);
-							preparedStmt.setString(1, Id.toUpperCase());
-							preparedStmt.setString(2, name);
-							preparedStmt.setString(3, name);
-							// execute the preparedstatement
-							try {
-								preparedStmt.execute();
-							} catch (Exception e1) {
-								e1.printStackTrace();
-							}
+						} else if (Id.equals("nb_credits")
+								|| Id.equals("version")) {
+
+							contents = "INT";
+						} else if (courant1.getChildren().size() > 0
+								&& courant1.getChildren().get(0).getName()
+										.equals("body")) {
+
+							contents = "STRUCTURE";
+
+						}
+
+						else {
+							contents = "STRING";
+
+						}
+						String name = courant11.getName();
+						String query = " insert into Descripteur_champs "
+								+ " values (?,?,100,?,0,null,?,'SPE')";
+						// create the mysql insert preparedstatement
+						PreparedStatement preparedStmt = conn
+								.prepareStatement(query);
+						preparedStmt.setString(1, Id.toUpperCase());
+						preparedStmt.setString(2, name);
+						preparedStmt.setString(3, name);
+						preparedStmt.setString(4, contents);
+
+						// execute the preparedstatement
+						try {
+							preparedStmt.execute();
+						} catch (Exception e1) {
+							// e.printStackTrace();();
 						}
 					}
 
@@ -797,39 +940,59 @@ public class AlimentationBdd {
 		List<Element> ObjetPR = racine.getChildren("programme");
 		Iterator<Element> h11 = ObjetPR.iterator();
 		while (h11.hasNext()) {
-			Element courant11 = (Element) h11.next();
-			List<Element> listFieldPr = courant11.getChildren();
-			Iterator<Element> a1 = listFieldPr.iterator();
-			while (a1.hasNext()) {
-				Element courant111 = (Element) a1.next();
-				courant111.getChildren();
-				String Id = courant111.getName();
+			Element courant1 = (Element) h11.next();
+			List<Element> listFieldSp = courant1.getChildren();
+			Iterator<Element> a = listFieldSp.iterator();
+			while (a.hasNext()) {
+				Element courant11 = (Element) a.next();
+				String contents = "";
+				courant11.getChildren();
+				String Id = courant11.getName();
 				if (Id.equals("err") || Id.equals("nom")
 						|| Id.equals("responsables")
 						|| Id.equals("contributeurs") || Id.equals("tree")
 						|| Id.equals("structure") || Id.equals("liste-objets")
-						|| Id.equals("refs-composante")) {
+						|| Id.equals("refs-composante")
+						|| Id.equals("etat-rof")
+						|| Id.equals("type_diplome_rof")
+						|| Id.equals("responsable-rof")) {
+					continue;
 				} else {
 					while (Rs.next()) {
 						if (Id.equals(Rs)) {
 							System.out.println("erreur");
-						} else {
-							String name = courant111.getName();
-							String query = " insert into Descripteur_champs "
-									+ " values (?,?,100,?,0,null,'STRING','PRO')";
-							// create the mysql insert preparedstatement
-							PreparedStatement preparedStmt = conn
-									.prepareStatement(query);
-							preparedStmt.setString(1, Id.toUpperCase());
-							preparedStmt.setString(2, name);
-							preparedStmt.setString(3, name);
-							// execute the preparedstatement
-							try {
-								preparedStmt.execute();
-							} catch (Exception e1) {
-								e1.printStackTrace();
+						} else if (Id.equals("nb_credits")
+								|| Id.equals("version")) {
 
-							}
+							contents = "INT";
+						} else if (courant1.getChildren().size() > 0
+								&& courant1.getChildren().get(0).getName()
+										.equals("body")) {
+
+							contents = "STRUCTURE";
+
+						}
+
+						else {
+							contents = "STRING";
+
+						}
+						String name = courant11.getName();
+						String query = " insert into Descripteur_champs "
+								+ " values (?,?,100,?,0,null,?,'PRO')";
+						// create the mysql insert preparedstatement
+						PreparedStatement preparedStmt = conn
+								.prepareStatement(query);
+						preparedStmt.setString(1, Id.toUpperCase());
+						preparedStmt.setString(2, name);
+						preparedStmt.setString(3, name);
+						preparedStmt.setString(4, contents);
+
+						// execute the preparedstatement
+						try {
+							preparedStmt.execute();
+						} catch (Exception e1) {
+							// e.printStackTrace();();
 						}
 					}
 
@@ -839,39 +1002,58 @@ public class AlimentationBdd {
 		List<Element> ObjetEn = racine.getChildren("enseignement");
 		Iterator<Element> h111 = ObjetEn.iterator();
 		while (h111.hasNext()) {
-			Element courant111 = (Element) h111.next();
-			List<Element> listFieldEN = courant111.getChildren();
-			Iterator<Element> a11 = listFieldEN.iterator();
-			while (a11.hasNext()) {
-				Element courant1111 = (Element) a11.next();
-				courant1111.getChildren();
-				String Id = courant1111.getName();
+			Element courant1 = (Element) h111.next();
+			List<Element> listFieldSp = courant1.getChildren();
+			Iterator<Element> a = listFieldSp.iterator();
+			while (a.hasNext()) {
+				Element courant11 = (Element) a.next();
+				String contents = "";
+				courant11.getChildren();
+				String Id = courant11.getName();
 				if (Id.equals("err") || Id.equals("nom")
 						|| Id.equals("responsables")
 						|| Id.equals("contributeurs") || Id.equals("tree")
 						|| Id.equals("structure") || Id.equals("liste-objets")
-						|| Id.equals("refs-composante")) {
+						|| Id.equals("refs-composante")
+						|| Id.equals("etat-rof")
+						|| Id.equals("type_diplome_rof")
+						|| Id.equals("responsable-rof")) {
+					continue;
+
 				} else {
 					while (Rs.next()) {
 						if (Id.equals(Rs)) {
 							System.out.println("erreur");
-						} else {
-							String name = courant1111.getName();
-							String query = " insert into Descripteur_champs "
-									+ " values (?,?,100,?,0,null,'STRING','ENS')";
-							// create the mysql insert preparedstatement
-							PreparedStatement preparedStmt = conn
-									.prepareStatement(query);
-							preparedStmt.setString(1, Id.toUpperCase());
-							preparedStmt.setString(2, name);
-							preparedStmt.setString(3, name);
-							// execute the preparedstatement
-							try {
-								preparedStmt.execute();
-							} catch (Exception e1) {
-								e1.printStackTrace();
+						} else if (Id.equals("nb_credits")
+								|| Id.equals("version")) {
 
-							}
+							contents = "INT";
+						} else if (courant1.getChildren().size() > 0
+								&& courant1.getChildren().get(0).getName()
+										.equals("body")) {
+							contents = "STRUCTURE";
+						}
+
+						else {
+							contents = "STRING";
+
+						}
+						String name = courant11.getName();
+						String query = " insert into Descripteur_champs "
+								+ " values (?,?,100,?,0,null,?,'ENS')";
+						// create the mysql insert preparedstatement
+						PreparedStatement preparedStmt = conn
+								.prepareStatement(query);
+						preparedStmt.setString(1, Id.toUpperCase());
+						preparedStmt.setString(2, name);
+						preparedStmt.setString(3, name);
+						preparedStmt.setString(4, contents);
+
+						// execute the preparedstatement
+						try {
+							preparedStmt.execute();
+						} catch (Exception e1) {
+							// e.printStackTrace();();
 						}
 					}
 
@@ -879,42 +1061,63 @@ public class AlimentationBdd {
 			}
 		}
 
-		List<Element> ObjetOP = racine.getChildren("option");
-		Iterator<Element> h1111 = ObjetOP.iterator();
+		List<Element> ObjetOp = racine.getChildren("option");
+		Iterator<Element> h1111 = ObjetOp.iterator();
 		while (h1111.hasNext()) {
-			Element courant1111 = (Element) h1111.next();
-			List<Element> listFieldOp = courant1111.getChildren();
-			Iterator<Element> a111 = listFieldOp.iterator();
-			while (a111.hasNext()) {
-				Element courant11111 = (Element) a111.next();
-				courant11111.getChildren();
-				String Id = courant11111.getName();
+			Element courant1 = (Element) h1111.next();
+			List<Element> listFieldSp = courant1.getChildren();
+			Iterator<Element> a = listFieldSp.iterator();
+			while (a.hasNext()) {
+				Element courant11 = (Element) a.next();
+				String contents = "";
+				courant11.getChildren();
+				String Id = courant11.getName();
 				if (Id.equals("err") || Id.equals("nom")
 						|| Id.equals("responsables")
 						|| Id.equals("contributeurs") || Id.equals("tree")
 						|| Id.equals("structure") || Id.equals("liste-objets")
-						|| Id.equals("refs-composante")) {
+						|| Id.equals("refs-composante")
+						|| Id.equals("etat-rof")
+						|| Id.equals("type_diplome_rof")
+						|| Id.equals("responsable-rof")) {
+					continue;
+
 				} else {
 					while (Rs.next()) {
 						if (Id.equals(Rs)) {
 							System.out.println("erreur");
-						} else {
-							String name = courant11111.getName();
-							String query = " insert into Descripteur_champs "
-									+ " values (?,?,100,?,0,null,'STRING','COM')";
-							// create the mysql insert preparedstatement
-							PreparedStatement preparedStmt = conn
-									.prepareStatement(query);
-							preparedStmt.setString(1, Id.toUpperCase());
-							preparedStmt.setString(2, name);
-							preparedStmt.setString(3, name);
-							// execute the preparedstatement
-							try {
-								preparedStmt.execute();
-							} catch (Exception e1) {
-								e1.printStackTrace();
+						} else if (Id.equals("nb_credits")
+								|| Id.equals("version")) {
 
-							}
+							contents = "INT";
+						} else if (courant1.getChildren().size() > 0
+								&& courant1.getChildren().get(0).getName()
+										.equals("body")) {
+
+							contents = "STRUCTURE";
+
+						}
+
+						else {
+							contents = "STRING";
+
+						}
+						String name = courant11.getName();
+						String query = " insert into Descripteur_champs "
+								+ " values (?,?,100,?,0,null,?,'COM')";
+						// create the mysql insert preparedstatement
+						PreparedStatement preparedStmt = conn
+								.prepareStatement(query);
+						preparedStmt.setString(1, Id.toUpperCase());
+						preparedStmt.setString(2, name);
+						preparedStmt.setString(3, name);
+						preparedStmt.setString(4, contents);
+
+						// execute the preparedstatement
+						try {
+							preparedStmt.execute();
+						} catch (Exception e1) {
+							// e.printStackTrace();();
 						}
 					}
 
@@ -922,42 +1125,63 @@ public class AlimentationBdd {
 			}
 		}
 
-		List<Element> ObjetAN = racine.getChildren("annee");
-		Iterator<Element> o1 = ObjetAN.iterator();
-		while (o1.hasNext()) {
-			Element courant2 = (Element) o1.next();
-			List<Element> listFieldAn = courant2.getChildren();
-			Iterator<Element> a1111 = listFieldAn.iterator();
-			while (a1111.hasNext()) {
-				Element courant11111 = (Element) a1111.next();
-				courant11111.getChildren();
-				String Id = courant11111.getName();
+		List<Element> ObjetAn = racine.getChildren("annee");
+		Iterator<Element> ke = ObjetAn.iterator();
+		while (ke.hasNext()) {
+			Element courant1 = (Element) ke.next();
+			List<Element> listFieldSp = courant1.getChildren();
+			Iterator<Element> a = listFieldSp.iterator();
+			while (a.hasNext()) {
+				Element courant11 = (Element) a.next();
+				String contents = "";
+				courant11.getChildren();
+				String Id = courant11.getName();
 				if (Id.equals("err") || Id.equals("nom")
 						|| Id.equals("responsables")
 						|| Id.equals("contributeurs") || Id.equals("tree")
 						|| Id.equals("structure") || Id.equals("liste-objets")
-						|| Id.equals("refs-composante")) {
+						|| Id.equals("refs-composante")
+						|| Id.equals("etat-rof")
+						|| Id.equals("type_diplome_rof")
+						|| Id.equals("responsable-rof")) {
+					continue;
+
 				} else {
 					while (Rs.next()) {
 						if (Id.equals(Rs)) {
 							System.out.println("erreur");
-						} else {
-							String name = courant11111.getName();
-							String query = " insert into Descripteur_champs "
-									+ " values (?,?,100,?,0,null,'STRING','COM')";
-							// create the mysql insert preparedstatement
-							PreparedStatement preparedStmt = conn
-									.prepareStatement(query);
-							preparedStmt.setString(1, Id.toUpperCase());
-							preparedStmt.setString(2, name);
-							preparedStmt.setString(3, name);
-							// execute the preparedstatement
-							try {
-								preparedStmt.execute();
-							} catch (Exception e1) {
-								e1.printStackTrace();
+						} else if (Id.equals("nb_credits")
+								|| Id.equals("version")) {
 
-							}
+							contents = "INT";
+						} else if (courant1.getChildren().size() > 0
+								&& courant1.getChildren().get(0).getName()
+										.equals("body")) {
+
+							contents = "STRUCTURE";
+
+						}
+
+						else {
+							contents = "STRING";
+
+						}
+						String name = courant11.getName();
+						String query = " insert into Descripteur_champs "
+								+ " values (?,?,100,?,0,null,?,'COM')";
+						// create the mysql insert preparedstatement
+						PreparedStatement preparedStmt = conn
+								.prepareStatement(query);
+						preparedStmt.setString(1, Id.toUpperCase());
+						preparedStmt.setString(2, name);
+						preparedStmt.setString(3, name);
+						preparedStmt.setString(4, contents);
+
+						// execute the preparedstatement
+						try {
+							preparedStmt.execute();
+						} catch (Exception e1) {
+							// e.printStackTrace();();
 						}
 					}
 
@@ -966,41 +1190,62 @@ public class AlimentationBdd {
 		}
 
 		List<Element> ObjetGr = racine.getChildren("groupe");
-		Iterator<Element> o11 = ObjetGr.iterator();
-		while (o11.hasNext()) {
-			Element courant21 = (Element) o11.next();
-			List<Element> listFieldGr = courant21.getChildren();
-			Iterator<Element> a11111 = listFieldGr.iterator();
-			while (a11111.hasNext()) {
-				Element courant11111 = (Element) a11111.next();
-				courant11111.getChildren();
-				String Id = courant11111.getName();
+		Iterator<Element> KI = ObjetGr.iterator();
+		while (KI.hasNext()) {
+			Element courant1 = (Element) KI.next();
+			List<Element> listFieldSp = courant1.getChildren();
+			Iterator<Element> a = listFieldSp.iterator();
+			while (a.hasNext()) {
+				Element courant11 = (Element) a.next();
+				String contents = "";
+				courant11.getChildren();
+				String Id = courant11.getName();
 				if (Id.equals("err") || Id.equals("nom")
 						|| Id.equals("responsables")
 						|| Id.equals("contributeurs") || Id.equals("tree")
 						|| Id.equals("structure") || Id.equals("liste-objets")
-						|| Id.equals("refs-composante")) {
+						|| Id.equals("refs-composante")
+						|| Id.equals("etat-rof")
+						|| Id.equals("type_diplome_rof")
+						|| Id.equals("responsable-rof")) {
+					continue;
+
 				} else {
 					while (Rs.next()) {
 						if (Id.equals(Rs)) {
 							System.out.println("erreur");
-						} else {
-							String name = courant11111.getName();
-							String query = " insert into Descripteur_champs "
-									+ " values (?,?,100,?,0,null,'STRING','COM')";
-							// create the mysql insert preparedstatement
-							PreparedStatement preparedStmt = conn
-									.prepareStatement(query);
-							preparedStmt.setString(1, Id.toUpperCase());
-							preparedStmt.setString(2, name);
-							preparedStmt.setString(3, name);
-							// execute the preparedstatement
-							try {
-								preparedStmt.execute();
-							} catch (Exception e1) {
-								e1.printStackTrace();
+						} else if (Id.equals("nb_credits")
+								|| Id.equals("version")) {
 
-							}
+							contents = "INT";
+						} else if (courant1.getChildren().size() > 0
+								&& courant1.getChildren().get(0).getName()
+										.equals("body")) {
+
+							contents = "STRUCTURE";
+
+						}
+
+						else {
+							contents = "STRING";
+
+						}
+						String name = courant11.getName();
+						String query = " insert into Descripteur_champs "
+								+ " values (?,?,100,?,0,null,?,'COM')";
+						// create the mysql insert preparedstatement
+						PreparedStatement preparedStmt = conn
+								.prepareStatement(query);
+						preparedStmt.setString(1, Id.toUpperCase());
+						preparedStmt.setString(2, name);
+						preparedStmt.setString(3, name);
+						preparedStmt.setString(4, contents);
+
+						// execute the preparedstatement
+						try {
+							preparedStmt.execute();
+						} catch (Exception e1) {
+							// e.printStackTrace();();
 						}
 					}
 
@@ -1008,42 +1253,63 @@ public class AlimentationBdd {
 			}
 		}
 
-		List<Element> ObjetSe = racine.getChildren("semestre");
-		Iterator<Element> o111 = ObjetSe.iterator();
-		while (o111.hasNext()) {
-			Element courant211 = (Element) o111.next();
-			List<Element> listFieldSem = courant211.getChildren();
-			Iterator<Element> a111111 = listFieldSem.iterator();
-			while (a111111.hasNext()) {
-				Element courant11111 = (Element) a111111.next();
-				courant11111.getChildren();
-				String Id = courant11111.getName();
+		List<Element> ObjetSem = racine.getChildren("semestre");
+		Iterator<Element> ku = ObjetSem.iterator();
+		while (ku.hasNext()) {
+			Element courant1 = (Element) ku.next();
+			List<Element> listFieldSp = courant1.getChildren();
+			Iterator<Element> a = listFieldSp.iterator();
+			while (a.hasNext()) {
+				Element courant11 = (Element) a.next();
+				String contents = "";
+				courant11.getChildren();
+				String Id = courant11.getName();
 				if (Id.equals("err") || Id.equals("nom")
 						|| Id.equals("responsables")
 						|| Id.equals("contributeurs") || Id.equals("tree")
 						|| Id.equals("structure") || Id.equals("liste-objets")
-						|| Id.equals("refs-composante")) {
+						|| Id.equals("refs-composante")
+						|| Id.equals("etat-rof")
+						|| Id.equals("type_diplome_rof")
+						|| Id.equals("responsable-rof")) {
+					continue;
+
 				} else {
 					while (Rs.next()) {
 						if (Id.equals(Rs)) {
 							System.out.println("erreur");
-						} else {
-							String name = courant11111.getName();
-							String query = " insert into Descripteur_champs "
-									+ " values (?,?,100,?,0,null,'STRING','COM')";
-							// create the mysql insert preparedstatement
-							PreparedStatement preparedStmt = conn
-									.prepareStatement(query);
-							preparedStmt.setString(1, Id.toUpperCase());
-							preparedStmt.setString(2, name);
-							preparedStmt.setString(3, name);
-							// execute the preparedstatement
-							try {
-								preparedStmt.execute();
-							} catch (Exception e1) {
-								e1.printStackTrace();
+						} else if (Id.equals("nb_credits")
+								|| Id.equals("version")) {
 
-							}
+							contents = "INT";
+						} else if (courant1.getChildren().size() > 0
+								&& courant1.getChildren().get(0).getName()
+										.equals("body")) {
+
+							contents = "STRUCTURE";
+
+						}
+
+						else {
+							contents = "STRING";
+
+						}
+						String name = courant11.getName();
+						String query = " insert into Descripteur_champs "
+								+ " values (?,?,100,?,0,null,?,'COM')";
+						// create the mysql insert preparedstatement
+						PreparedStatement preparedStmt = conn
+								.prepareStatement(query);
+						preparedStmt.setString(1, Id.toUpperCase());
+						preparedStmt.setString(2, name);
+						preparedStmt.setString(3, name);
+						preparedStmt.setString(4, contents);
+
+						// execute the preparedstatement
+						try {
+							preparedStmt.execute();
+						} catch (Exception e1) {
+							// e.printStackTrace();();
 						}
 					}
 
@@ -1077,7 +1343,9 @@ public class AlimentationBdd {
 							|| Id.equals("contributeurs") || Id.equals("tree")
 							|| Id.equals("structure")
 							|| Id.equals("liste-objets")
-							|| Id.equals("refs-composante")) {
+							|| Id.equals("refs-composante")
+							|| Id.equals("etat-rof")
+							|| Id.equals("type_diplome_rof")) {
 					} else {
 						String content_type = "";
 						// quant c'esst un body on prends toutes la
@@ -1086,6 +1354,7 @@ public class AlimentationBdd {
 							Element content = courant3.getChild("body");
 							if (courant3.getChildren().get(0).getName()
 									.equals("body")) {
+
 								XMLOutputter outp = new XMLOutputter();
 
 								outp.setFormat(Format.getCompactFormat());
@@ -1094,6 +1363,7 @@ public class AlimentationBdd {
 								outp.output(content.getContent(), sw);
 								StringBuffer sb = sw.getBuffer();
 								content_type = sb.toString();
+
 							} else {
 								Iterator<Element> h = courant3.getChildren()
 										.iterator();
@@ -1129,7 +1399,7 @@ public class AlimentationBdd {
 						}
 
 						catch (Exception e11) {
-							e11.printStackTrace();
+							// e.printStackTrace();();
 
 						}
 					}
@@ -1159,7 +1429,9 @@ public class AlimentationBdd {
 							|| Id.equals("contributeurs") || Id.equals("tree")
 							|| Id.equals("structure")
 							|| Id.equals("liste-objets")
-							|| Id.equals("refs-composante")) {
+							|| Id.equals("refs-composante")
+							|| Id.equals("etat-rof")
+							|| Id.equals("type_diplome_rof")) {
 					} else {
 						String content_type = "";
 						// quant c'esst un body on prends toutes la descendance
@@ -1236,7 +1508,9 @@ public class AlimentationBdd {
 							|| Id.equals("contributeurs") || Id.equals("tree")
 							|| Id.equals("structure")
 							|| Id.equals("liste-objets")
-							|| Id.equals("refs-composante")) {
+							|| Id.equals("refs-composante")
+							|| Id.equals("etat-rof")
+							|| Id.equals("type_diplome_rof")) {
 					} else {
 						String content_type = "";
 						// quant c'esst un body on prends toutes la descendance
@@ -1312,7 +1586,9 @@ public class AlimentationBdd {
 							|| Id.equals("contributeurs") || Id.equals("tree")
 							|| Id.equals("structure")
 							|| Id.equals("liste-objets")
-							|| Id.equals("refs-composante")) {
+							|| Id.equals("refs-composante")
+							|| Id.equals("etat-rof")
+							|| Id.equals("type_diplome_rof")) {
 					} else {
 						String content_type = "";
 						// quant c'esst un body on prends toutes la descendance
@@ -1389,7 +1665,9 @@ public class AlimentationBdd {
 							|| Id.equals("contributeurs") || Id.equals("tree")
 							|| Id.equals("structure")
 							|| Id.equals("liste-objets")
-							|| Id.equals("refs-composante")) {
+							|| Id.equals("refs-composante")
+							|| Id.equals("etat-rof")
+							|| Id.equals("type_diplome_rof")) {
 					} else {
 						String content_type = "";
 						// quant c'esst un body on prends toutes la descendance
@@ -1466,7 +1744,9 @@ public class AlimentationBdd {
 							|| Id.equals("contributeurs") || Id.equals("tree")
 							|| Id.equals("structure")
 							|| Id.equals("liste-objets")
-							|| Id.equals("refs-composante")) {
+							|| Id.equals("refs-composante")
+							|| Id.equals("etat-rof")
+							|| Id.equals("type_diplome_rof")) {
 					} else {
 						String content_type = "";
 						// quant c'esst un body on prends toutes la descendance
@@ -1542,7 +1822,9 @@ public class AlimentationBdd {
 							|| Id.equals("contributeurs") || Id.equals("tree")
 							|| Id.equals("structure")
 							|| Id.equals("liste-objets")
-							|| Id.equals("refs-composante")) {
+							|| Id.equals("refs-composante")
+							|| Id.equals("etat-rof")
+							|| Id.equals("type_diplome_rof")) {
 					} else {
 						String content_type = "";
 						// quant c'esst un body on prends toutes la descendance
@@ -1619,7 +1901,9 @@ public class AlimentationBdd {
 							|| Id.equals("contributeurs") || Id.equals("tree")
 							|| Id.equals("structure")
 							|| Id.equals("liste-objets")
-							|| Id.equals("refs-composante")) {
+							|| Id.equals("refs-composante")
+							|| Id.equals("etat-rof")
+							|| Id.equals("type_diplome_rof")) {
 					} else {
 						String content_type = "";
 						// quant c'esst un body on prends toutes la descendance
