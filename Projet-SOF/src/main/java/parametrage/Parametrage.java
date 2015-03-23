@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.servlet.http.HttpServlet;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
