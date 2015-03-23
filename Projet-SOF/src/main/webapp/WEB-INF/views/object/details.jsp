@@ -226,7 +226,7 @@
 															data-dismiss="modal">Close</button>
 														<button type="button"
 															id="saveButon${item.field.id}${object.code}"
-															class="btn btn-primary save">Save changes</button>
+															class="btn btn-primary save" data-dismiss="modal">Save changes</button>
 													</div>
 												</div>
 											</div>
@@ -302,13 +302,154 @@
 
 				</div>
 
+
+
+
+
 				<jstl:forEach var="item" items="${maps.keySet()}">
 					<div id="section${item}" class="tab-pane fade">
 						<jstl:forEach var="itemh" items="${maps.get(item)}">
 							<br />
+							<jstl:choose>
 
-							<jstl:out value="${itemh.value}"></jstl:out>
-						</jstl:forEach>
+							<jstl:when test="${user.isConnected()}">
+								<jstl:choose>
+
+									<jstl:when test="${Audit==true}">
+
+										<jstl:choose>
+											<jstl:when test="${Contributor==true}">
+												<a href="#" class="btn btn-xs btn-success"
+													data-toggle="modal"
+													data-target="#modal${itemh.field.id}${object.code}">
+													edit </a>
+											</jstl:when>
+										</jstl:choose>
+
+										<b>${itemh.field.name}:</b>
+										<span id="spanValue${itemh.field.id}${object.code}">${itemh.value}</span>
+
+										<br />
+										<script>
+											$(document).ready(function() {
+																$(
+																		"#saveButon${itemh.field.id}${object.code}")
+																		.click(
+																				function() {
+																					var value = document
+																							.getElementById("inputValue${itemh.field.id}${object.code}").value;
+																					$
+																							.ajax({
+																								url : 'modal/ajax.htm',
+																					            contentType: "charset=utf-8",
+																								data : {
+																									'codeObjet' : "${object.code}",
+																									'idField' : "${itemh.field.id}",
+																									'value' : value
+																								},
+																								
+																								success : function(
+																										data) {
+																									if (data.length != 0)
+																										document
+																												.getElementById("spanValue${itemh.field.id}${object.code}").innerHTML = data;
+																									$(
+																											"#modal${itemh.field.id}${object.code}")
+																											.modal(
+																													"hide");
+																								},
+																								error : function() {
+																									alert("error");
+																								}
+																							});
+																				});
+															});
+										</script>
+										<div class="modal fade"
+											id="modal${itemh.field.id}${object.code}" tabindex="-1"
+											role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal"
+															aria-hidden="true"></button>
+													</div>
+													<div class="modal-body">
+															<jstl:if test="${itemh.field.getTypeContenu()=='STRING'}">
+													<input type="text" placeholder="Description"
+															id="inputValue${itemh.field.id}${object.code}"
+															value="${itemh.value}" size=50 />
+													</jstl:if>
+													<jstl:if test="${itemh.field.getTypeContenu()=='STRUCTURE'}">
+													<textarea placeholder="Description"
+															id="inputValue${itemh.field.id}${object.code}"
+															 value="${itemh.value}" rows="30" cols="90" >${itemh.value}</textarea>
+													</jstl:if>
+													<jstl:if test="${itemh.field.getTypeContenu()=='INT'}">
+													<input type="number" placeholder="Description"
+															id="inputValue${itemh.field.id}${object.code}"
+															value="${itemh.value}" size=50 />
+													</jstl:if>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default"
+															data-dismiss="modal">Close</button>
+														<button type="button"
+															id="saveButon${itemh.field.id}${object.code}"
+															class="btn btn-primary save" data-dismiss="modal">Save changes</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</jstl:when>
+									<jstl:when test="${Audit==false}">
+
+										<jstl:choose>
+											<jstl:when test="${!itemh.value.isEmpty()}">
+												<b>${itemh.field.name}:</b>
+												<span id="spanValue${itemh.field.id}${object.code}">${itemh.value}</span>
+
+												<br />
+											</jstl:when>
+											<jstl:otherwise>
+												<b>${itemh.field.name}:</b>
+												<span id="spanValue${itemh.field.id}${object.code}">
+													Cette information n'a pas encore été renseignée, merci de
+													bien vouloir nous en excuser. </span>
+											</jstl:otherwise>
+
+										</jstl:choose>
+
+									</jstl:when>
+								</jstl:choose>
+							</jstl:when>
+							<jstl:when test="${!user.isConnected()}">
+							<jstl:choose>
+								<jstl:when test="${Audit==false}">
+										<jstl:choose>
+											<jstl:when test="${!itemh.value.isEmpty()}">
+												<b>${itemh.field.name}:</b>
+												<span id="spanValue${itemh.field.id}${object.code}">${itemh.value}</span>
+
+												<br />
+											</jstl:when>
+											<jstl:otherwise>
+												<b>${itemh.field.name}:</b>
+												<span id="spanValue${itemh.field.id}${object.code}">
+													Cette information n'a pas encore été renseignée, merci de
+													bien vouloir nous en excuser. </span>
+											</jstl:otherwise>
+
+										</jstl:choose>
+
+									</jstl:when>
+
+							</jstl:choose>
+						</jstl:when>
+						</jstl:choose>
+
+					</jstl:forEach>
+				
 
 					</div>
 				</jstl:forEach>
