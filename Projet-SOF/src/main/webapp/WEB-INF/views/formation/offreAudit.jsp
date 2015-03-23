@@ -16,9 +16,29 @@
 		<spring:message code="offre.list" />
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
+			<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#myNavbar">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/Projet_SOF/welcome/index.htm">SOF</a>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+						<li><a href="visualisation/formation/offre.htm">Offre de formation</a></li>
+						<jstl:if test="${user.isConnected()}">
+						<li><a href="visualisation/formation/audit/offre.htm">Version d'audit</a></li>
+						</jstl:if>
+					</ul>
+				</div>
+			</div>
+		</nav>
 
 		<jstl:choose>
-<%-- 		<jstl:when test="${user.isConnected()} && ${Audit}"> --%>
+
 			<jstl:when test="${Audit}">
 				<jstl:choose>
 					<jstl:when test="${!FormationOfConnectedContributor.isEmpty()}">
@@ -35,7 +55,7 @@
 							<display:column title="Nom" sortable="true">
 
 								<jstl:url var="objectlink"
-									value="objectVisualisation/details.htm?code=${FormationOfConnectedContributor.keySet().toArray()[formation_rowNum - 1]}" />
+									value="objectVisualisation/audit/details.htm?code=${FormationOfConnectedContributor.keySet().toArray()[formation_rowNum - 1]}" />
 								<a href="${objectlink}"> <jstl:out value="${formation}"
 										escapeXml="true" />
 								</a>
