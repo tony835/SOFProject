@@ -21,6 +21,26 @@
 
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
+			<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#myNavbar">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/Projet_SOF/welcome/index.htm">SOF</a>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+						<li><a href="visualisation/formation/offre.htm">Offre de formation</a></li>
+						<jstl:if test="${user.isConnected()}">
+						<li><a href="visualisation/formation/audit/offre.htm">Version d'audit</a></li>
+						</jstl:if>
+					</ul>
+				</div>
+			</div>
+		</nav>
 		<jstl:choose>
 			<jstl:when test="${Audit==true}">
 				<jstl:if
@@ -87,6 +107,7 @@
 								value="${item}"></jstl:out>
 					</a></li>
 				</jstl:forEach>
+
 				<jstl:if test="${!object.allFils.isEmpty()}">
 					<li><a data-toggle="tab" href="#listFils"> Structure </a></li>
 				</jstl:if>
@@ -115,155 +136,156 @@
 
 
 						<jstl:choose>
-						
-						<jstl:when test="${user.isConnected()}">
-						<jstl:choose>
-						
-						<jstl:when test="${Audit==true}">
-								
 
-
+							<jstl:when test="${user.isConnected()}">
 								<jstl:choose>
-									<jstl:when test="${Contributor==true}">
-										<a href="#" class="btn btn-xs btn-success" data-toggle="modal"
-											data-target="#modal${item.field.id}${object.code}"> edit
-										</a>
-									</jstl:when>
-								</jstl:choose>
+
+									<jstl:when test="${Audit==true}">
 
 
-								<b>${item.field.name}:</b>
-								<span id="spanValue${item.field.id}${object.code}">${item.value}</span>
 
-								<br />
-								<script>
-									$(document)
-											.ready(
-													function() {
-														$(
-																"#saveButon${item.field.id}${object.code}")
-																.click(
-																		function() {
-																			var value = document
-																					.getElementById("inputValue${item.field.id}${object.code}").value;
-																			$
-																					.ajax({
-																						url : 'modal/ajax.htm',
-																						data : {
-																							'codeObjet' : "${object.code}",
-																							'idField' : "${item.field.id}",
-																							'value' : value
-																						},
-																						success : function(
-																								data) {
-																							if (data.length != 0)
-																								document
-																										.getElementById("spanValue${item.field.id}${object.code}").innerHTML = data;
-																							$(
-																									"#modal${item.field.id}${object.code}")
-																									.modal(
-																											"hide");
-																						},
-																						error : function() {
-																							alert("error");
-																						}
-																					});
-																		});
-													});
-								</script>
-								<div class="modal fade" id="modal${item.field.id}${object.code}"
-									tabindex="-1" role="dialog" aria-labelledby="basicModal"
-									aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal"
-													aria-hidden="true"></button>
-											</div>
-											<div class="modal-body">
-												<input type="text" placeholder="Description"
-													id="inputValue${item.field.id}${object.code}"
-													value="${item.value}" />
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-default"
-													data-dismiss="modal">Close</button>
-												<button type="button"
-													id="saveButon${item.field.id}${object.code}"
-													class="btn btn-primary save">Save changes</button>
+										<jstl:choose>
+											<jstl:when test="${Contributor==true}">
+												<a href="#" class="btn btn-xs btn-success"
+													data-toggle="modal"
+													data-target="#modal${item.field.id}${object.code}">
+													edit </a>
+											</jstl:when>
+										</jstl:choose>
+
+
+										<b>${item.field.name}:</b>
+										<span id="spanValue${item.field.id}${object.code}">${item.value}</span>
+
+										<br />
+										<script>
+											$(document)
+													.ready(
+															function() {
+																$(
+																		"#saveButon${item.field.id}${object.code}")
+																		.click(
+																				function() {
+																					var value = document
+																							.getElementById("inputValue${item.field.id}${object.code}").value;
+																					$
+																							.ajax({
+																								url : 'modal/ajax.htm',
+																								data : {
+																									'codeObjet' : "${object.code}",
+																									'idField' : "${item.field.id}",
+																									'value' : value
+																								},
+																								success : function(
+																										data) {
+																									if (data.length != 0)
+																										document
+																												.getElementById("spanValue${item.field.id}${object.code}").innerHTML = data;
+																									$(
+																											"#modal${item.field.id}${object.code}")
+																											.modal(
+																													"hide");
+																								},
+																								error : function() {
+																									alert("error");
+																								}
+																							});
+																				});
+															});
+										</script>
+										<div class="modal fade"
+											id="modal${item.field.id}${object.code}" tabindex="-1"
+											role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal"
+															aria-hidden="true"></button>
+													</div>
+													<div class="modal-body">
+														<input type="text" placeholder="Description"
+															id="inputValue${item.field.id}${object.code}"
+															value="${item.value}" size=50 />
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default"
+															data-dismiss="modal">Close</button>
+														<button type="button"
+															id="saveButon${item.field.id}${object.code}"
+															class="btn btn-primary save">Save changes</button>
+													</div>
+												</div>
 											</div>
 										</div>
-									</div>
-								</div>
+									</jstl:when>
+									<jstl:when test="${Audit==false}">
+										<jstl:choose>
+											<jstl:when test="${!item.value.isEmpty()}">
+												<b>${item.field.name}:</b>
+												<span id="spanValue${item.field.id}${object.code}">${item.value}</span>
+
+												<br />
+											</jstl:when>
+											<jstl:otherwise>
+												<b>${item.field.name}:</b>
+												<span id="spanValue${item.field.id}${object.code}">
+													Cette information n'a pas encore été renseignée, merci de
+													bien vouloir nous en excuser. </span>
+											</jstl:otherwise>
+
+										</jstl:choose>
+
+
+									</jstl:when>
+								</jstl:choose>
+
 							</jstl:when>
-							<jstl:when test="${Audit==false}">
+							<jstl:when test="${!user.isConnected()}">
 								<jstl:choose>
-									<jstl:when test="${!item.value.isEmpty()}">
-										<b>${item.field.name}:</b>
-										<span id="spanValue${item.field.id}${object.code}">${item.value}</span>
 
-										<br />
+									<jstl:when test="${Audit==false}">
+										<jstl:choose>
+											<jstl:when test="${!item.value.isEmpty()}">
+												<b>${item.field.name}:</b>
+												<span id="spanValue${item.field.id}${object.code}">${item.value}</span>
+
+												<br />
+											</jstl:when>
+											<jstl:otherwise>
+												<b>${item.field.name}:</b>
+												<span id="spanValue${item.field.id}${object.code}">
+													Cette information n'a pas encore été renseignée, merci de
+													bien vouloir nous en excuser. </span>
+											</jstl:otherwise>
+
+										</jstl:choose>
+
 									</jstl:when>
-									<jstl:otherwise>
-										<b>${item.field.name}:</b>
-										<span id="spanValue${item.field.id}${object.code}">
-											Cette information n'a pas encore été renseignée, merci de
-											bien vouloir nous en excuser. </span>
-									</jstl:otherwise>
-
 								</jstl:choose>
-
-
 							</jstl:when>
-						</jstl:choose>
-						
-						</jstl:when>
-						<jstl:when test="${!user.isConnected()}">
-						<jstl:choose>
-						
-							<jstl:when test="${Audit==false}">
-							<jstl:choose>
-									<jstl:when test="${!item.value.isEmpty()}">
-										<b>${item.field.name}:</b>
-										<span id="spanValue${item.field.id}${object.code}">${item.value}</span>
 
-										<br />
-									</jstl:when>
-									<jstl:otherwise>
-										<b>${item.field.name}:</b>
-										<span id="spanValue${item.field.id}${object.code}">
-											Cette information n'a pas encore été renseignée, merci de
-											bien vouloir nous en excuser. </span>
-									</jstl:otherwise>
 
-								</jstl:choose>
-							
-							</jstl:when>
-						</jstl:choose>
-						</jstl:when>
-						
-						
-							
-							
+
+
 						</jstl:choose>
 
 					</jstl:forEach>
 					<jstl:choose>
-					<jstl:when test="${!user.isConnected()}">
-					<jstl:choose>
-							<jstl:when test="${Audit==true}">
-							<jstl:out
-											value="Vous n'êtes pas connecté, merci de bien vouloir vous authentifier pour accéder à cette version d'audit." />
-										<a href="/Projet_SOF/auth/login.htm"><spring:message
-												code="login" /></a>
-							
-							</jstl:when>
-							
+						<jstl:when test="${!user.isConnected()}">
+							<jstl:choose>
+								<jstl:when test="${Audit==true}">
+									<jstl:out
+										value="Vous n'êtes pas connecté, merci de bien vouloir vous authentifier pour accéder à cette version d'audit." />
+									<a href="/Projet_SOF/auth/login.htm"><spring:message
+											code="login" /></a>
+
+								</jstl:when>
+
 							</jstl:choose>
-							</jstl:when>
-							</jstl:choose>
-						
-					
+						</jstl:when>
+					</jstl:choose>
+
+
 				</div>
 
 				<jstl:forEach var="item" items="${maps.keySet()}">
@@ -277,32 +299,37 @@
 					</div>
 				</jstl:forEach>
 
-
-				<div id="listFils" class="tab-pane fade">
-
-					<jstl:forEach var="fils" items="${object.allFils}">
+				<jstl:choose>
+					<jstl:when test="${Audit==true}">
 
 						<jstl:choose>
-							<jstl:when test="${Audit==true}">
-								<a
-									href="objectVisualisation/audit/details.htm?code=${fils.fils.code}">
-									<jstl:out value="${fils.fils.code}"></jstl:out>(<jstl:out
-										value="${fils.fils.name}"></jstl:out>)
-								</a>
-								<br />
+							<jstl:when test="${user.isConnected()}">
+								<div id="listFils" class="tab-pane fade">
+									<jstl:forEach var="fils" items="${object.allFils}">
+										<a
+											href="objectVisualisation/audit/details.htm?code=${fils.fils.code}">
+											<jstl:out value="${fils.fils.code}"></jstl:out>(<jstl:out
+												value="${fils.fils.name}"></jstl:out>)
+										</a>
+										<br />
+									</jstl:forEach>
+								</div>
 							</jstl:when>
-							<jstl:otherwise>
+						</jstl:choose>
+					</jstl:when>
+					<jstl:otherwise>
+						<div id="listFils" class="tab-pane fade">
+							<jstl:forEach var="fils" items="${object.allFils}">
 								<a href="objectVisualisation/details.htm?code=${fils.fils.code}">
 									<jstl:out value="${fils.fils.code}"></jstl:out>(<jstl:out
 										value="${fils.fils.name}"></jstl:out>)
 								</a>
 								<br />
-							</jstl:otherwise>
-						</jstl:choose>
+							</jstl:forEach>
+						</div>
+					</jstl:otherwise>
+				</jstl:choose>
 
-
-					</jstl:forEach>
-				</div>
 
 
 
