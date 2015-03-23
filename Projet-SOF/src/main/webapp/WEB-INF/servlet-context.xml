@@ -34,7 +34,7 @@
 
 
 	<import resource="config/data.xml" />
-
+ 
 	<tx:annotation-driven transaction-manager="transactionManager"
 		proxy-target-class="true" mode="proxy" />
 
