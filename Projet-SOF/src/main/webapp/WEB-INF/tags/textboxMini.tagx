@@ -1,0 +1,38 @@
+
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags"
+	xmlns:form="http://www.springframework.org/tags/form" xmlns:jstl="http://java.sun.com/jsp/jstl/core"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+
+	<jsp:output omit-xml-declaration="yes" />
+
+	<jsp:directive.attribute name="path" type="java.lang.String" required="true" rtexprvalue="true" />
+	<jsp:directive.attribute name="code" type="java.lang.String" required="false" rtexprvalue="true" />
+	<jsp:directive.attribute name="readonly" required="false" rtexprvalue="true" />
+	<jsp:directive.attribute name="name" type="java.lang.String" required="false" />
+	<jsp:directive.attribute name="type" type="java.lang.String" required="false" />
+	<jsp:directive.attribute name="id" type="java.lang.String" required="false" />
+	<jsp:directive.attribute name="size" type="java.lang.String" required="false" />
+	<jsp:directive.attribute name="afficheLabel" type="java.lang.String" required="false" />
+
+	<jstl:if test="${readonly == null}">
+		<jstl:set var="readonly" value="false" />
+	</jstl:if>
+		<jstl:set var="codeVal">
+			<spring:message code="${code}" />
+		</jstl:set>
+
+	<div class="form-group">
+		<jstl:if test="${afficheLabel == null}">
+			<form:label class="col-sm-2 control-label" path="${path}">
+				<spring:message code="${code}" />
+			</form:label>
+		</jstl:if>
+		<div class="col-sm-3">
+			<form:input id="${id}" size="${size}" class="form-control" type="${type}" path="${path}" readonly="${readonly}"
+				placeholder="${codeVal}"></form:input>
+			<form:errors name="${name}" path="${path}" cssClass="error" />
+		</div>
+	</div>
+
+</jsp:root>
