@@ -14,8 +14,9 @@
 	<tiles:putAttribute name="body">
 		<script type="text/javascript" src="scripts/scripts_perso/login.js"></script>
 		<form:form id="signupForm" method="POST" commandName="user">
-			<tag:textbox name="login" code="authentification.login" path="login" />
-			<tag:textbox type="password" size="8" name="password" code="authentification.password" path="password" />
+			<tag:textboxMini name="login" code="authentification.login" path="login" /><div><br/><br/></div>
+			<tag:textboxMini type="password" size="8" name="password" code="authentification.password" path="password" />
+			<div><br/><br/></div>
 			<tag:submit name="valid" code="valid"></tag:submit>
 		</form:form>
 		<div class="center">
