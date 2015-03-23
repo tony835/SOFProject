@@ -19,9 +19,9 @@
 			<jstl:when test="${not empty (param.cobject)}">
 				<spring:message code="title.object.edit" /> ${param.cobject}
 			</jstl:when>
-				: ${formationName}
 		</jstl:choose>
-
+	<spring:message>: ${formationName}
+	</spring:message>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
 		<script type="text/javascript" src="scripts/scripts_perso/editObject.js"></script>

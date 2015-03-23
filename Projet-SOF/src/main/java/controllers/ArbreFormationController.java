@@ -349,6 +349,8 @@ public class ArbreFormationController extends AbstractController {
 					}
 					return "redirect:create.htm?context=" + context;
 				} else {
+					redirectAttributes.addFlashAttribute("formationName", objectService.findOne(cobject).getContexte().getName());
+					System.out.println("llllooooll");
 					if (!user.isResponsable(objectService.findOne(cobject).getContexte())) {
 						redirectAttributes.addFlashAttribute("error", "ArbreFormation.noResponsable");
 						return "redirect:/auth/login.htm";
@@ -368,12 +370,11 @@ public class ArbreFormationController extends AbstractController {
 			e.printStackTrace();
 			return "master-page/error";
 		}
-		try{
-			redirectAttributes.addFlashAttribute("formationName", objectService.findOne(cobject).getContexte().getName());
-		}catch(Exception e){
-			e.printStackTrace();
-			return "redirect:create.htm?context=" + context;
+		if(context != null){
+			redirectAttributes.addFlashAttribute("formationName", objectService.findOne(context).getName());
+			System.out.println("===>"+objectService.findOne(context).getName());
 		}
+
 		return "tmpObjectCreation/createObject";
 	}
 
