@@ -19,7 +19,7 @@
 			<jstl:when test="${not empty (param.cobject)}">
 				<spring:message code="title.object.edit" /> ${param.cobject}
 			</jstl:when>
-
+				: ${formationName}
 		</jstl:choose>
 
 	</tiles:putAttribute>
