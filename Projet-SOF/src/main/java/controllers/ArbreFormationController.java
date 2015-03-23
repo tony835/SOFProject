@@ -368,6 +368,12 @@ public class ArbreFormationController extends AbstractController {
 			e.printStackTrace();
 			return "master-page/error";
 		}
+		try{
+			redirectAttributes.addFlashAttribute("formationName", objectService.findOne(cobject).getContexte().getName());
+		}catch(Exception e){
+			e.printStackTrace();
+			return "redirect:create.htm?context=" + context;
+		}
 		return "tmpObjectCreation/createObject";
 	}
 
