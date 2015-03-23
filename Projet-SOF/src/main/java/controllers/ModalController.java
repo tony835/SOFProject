@@ -55,6 +55,8 @@ public class ModalController {
 		if(f == null) return null ;
 		
 //		value=HtmlUtils.htmlEscape(value);
+		System.out.println(value);
+
 		
 		Field.TypeContenu type = f.getField().getTypeContenu() ;
 		if (type == Field.TypeContenu.INT){
@@ -67,7 +69,7 @@ public class ModalController {
 		// Verifier également la taille
 		f.setValue(value);
 		managerFieldObject.save(f);
-		return f.getValue() ;
+		return value;
 	}
 
 	
