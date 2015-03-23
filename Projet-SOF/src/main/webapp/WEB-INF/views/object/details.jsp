@@ -205,9 +205,21 @@
 															aria-hidden="true"></button>
 													</div>
 													<div class="modal-body">
-														<input type="text" placeholder="Description"
+															<jstl:if test="${item.field.getTypeContenu()=='STRING'}">
+													<input type="text" placeholder="Description"
 															id="inputValue${item.field.id}${object.code}"
 															value="${item.value}" size=50 />
+													</jstl:if>
+													<jstl:if test="${item.field.getTypeContenu()=='STRUCTURE'}">
+													<textarea placeholder="Description"
+															id="inputValue${item.field.id}${object.code}"
+															 value="${item.value}" rows="30" cols="90" >${item.value}</textarea>
+													</jstl:if>
+													<jstl:if test="${item.field.getTypeContenu()=='INT'}">
+													<input type="number" placeholder="Description"
+															id="inputValue${item.field.id}${object.code}"
+															value="${item.value}" size=50 />
+													</jstl:if>
 													</div>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-default"
