@@ -48,28 +48,27 @@
 
 		<b>Objet non lies</b>
 		<jstl:if test="${!ObjetNonLie.isEmpty()}">
-		
-		<display:table name="ObjetNonLie" pagesize="20" class="displaytag" id="row" requestURI="arbreFormation/list.htm">
-			<tag:column code="formation.code" property="code" sortable="true" />
-			<tag:column code="formation.name" property="name" sortable="true" />
-			<tag:column code="formation.type" property="typeObject.name" sortable="true" />
-			<tag:column code="formation.mutualisable" property="mutualisable" sortable="true" />
-			    <spring:message code="formation.mutualisation" var="var" />
+
+			<display:table name="ObjetNonLie" pagesize="20" class="displaytag" id="row" requestURI="arbreFormation/list.htm">
+				<tag:column code="formation.code" property="code" sortable="true" />
+				<tag:column code="formation.name" property="name" sortable="true" />
+				<tag:column code="formation.type" property="typeObject.name" sortable="true" />
+				<spring:message code="formation.mutualisation" var="var" />
 				<display:column title="${var}" sortable="${sortable}">
-				<jstl:if test="${row.mutualisable==true}">
-				<spring:message code="formation.mutualisable"></spring:message>
-				</jstl:if>
+					<jstl:if test="${row.mutualisable==true}">
+						<spring:message code="formation.mutualisable"></spring:message>
+					</jstl:if>
 					<jstl:if test="${row.mutualisable==false}">
 				--
 				</jstl:if>
 				</display:column>
-			<display:column title="Actions">
-				<a class="btn btn-default btn-xs"
-					href="arbreFormation/create.htm?context=${param.code}&amp;cobject=${row.getCode()}"><spring:message
-						code="objet.modifier" /></a>
-		 	</display:column>
-		</display:table>
+				<display:column title="Actions">
+					<a class="btn btn-default btn-xs"
+						href="arbreFormation/create.htm?context=${param.code}&amp;cobject=${row.getCode()}"><spring:message
+							code="objet.modifier" /></a>
+				</display:column>
+			</display:table>
 		</jstl:if>
-		
+
 	</tiles:putAttribute>
 </tiles:insertDefinition>
