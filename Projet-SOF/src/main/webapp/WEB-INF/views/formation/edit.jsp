@@ -53,7 +53,7 @@
 			</div>
 			<div class="form-group">
 				<form:label class="col-sm-4 control-label" path="diplomeType">
-						<spring:message code="select.diplome"></spring:message>
+						<spring:message code="formation.select.diplomatype"></spring:message>
 					</form:label>
 				<div class="col-sm-8">
 					<form:select class="form-control" path="diplomeType" multiple="false" modelAttribute="formation">
@@ -64,7 +64,7 @@
 			</div>
 			<div class="form-group">
 				<form:label class="col-sm-4 control-label" path="formationField">
-						Séléctionner un domaine de formation
+						<spring:message code="formation.select.formationfield"></spring:message>
 					</form:label>
 				<div class="col-sm-8">
 					<form:select class="form-control" path="formationField" multiple="false" modelAttribute="formation">
