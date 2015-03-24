@@ -26,6 +26,9 @@ public class ContributeurFormationController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
 
+	/**
+	 * Constructeur par defaut
+	 */
 	public ContributeurFormationController() {
 		super();
 	}
@@ -39,6 +42,11 @@ public class ContributeurFormationController extends AbstractController {
 	@Autowired
 	User user;
 
+	/**
+	 * Permet d'editer
+	 * @param code
+	 * @return ModelAndView
+	 */
 	@Transactional
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam(required = false) String code) {
@@ -70,6 +78,11 @@ public class ContributeurFormationController extends AbstractController {
 		return result;
 	}
 
+	/**
+	 * Permet de lister les contributeurs d'une formation
+	 * @param code Un code objet
+	 * @return Collection<Person>
+	 */
 	@RequestMapping(value = "/listJs")
 	public Collection<Person> list(@RequestParam String code) {
 		Collection<Person> contibuteurs = formationService.findOne(code).getContributeurs();
@@ -78,6 +91,9 @@ public class ContributeurFormationController extends AbstractController {
 
 	/**
 	 * Sauvegarde d'une formation
+	 * @param contrib
+	 * @param code
+	 * @return ModelAndView
 	 */
 	@Transactional
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
@@ -112,6 +128,12 @@ public class ContributeurFormationController extends AbstractController {
 		return edit(code);
 	}
 
+	/**
+	 * Permet de supprimer un contributeur sur une formation
+	 * @param contrib
+	 * @param code
+	 * @return ModelAndView
+	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam String contrib, @RequestParam String code) {
 
