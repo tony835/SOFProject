@@ -41,12 +41,13 @@ public class Parametrage {
 		List<Field> fields = new ArrayList<Field>();
 		while (i.hasNext()) {
 			Element courant = (Element) i.next();
+			String typeObjet = courant.getChild("code").getValue();
 			List<Element> listField = courant.getChildren("field");
 			Iterator<Element> j = listField.iterator();
 			while (j.hasNext()) {
 				Element courant2 = (Element) j.next();
 				Field f = new Field();
-				f.setId(courant2.getChild("Id").getText());
+				f.setId(courant2.getChild("Id").getText() + typeObjet);
 				f.setName(courant2.getChild("name").getText());
 				f.setDescription(courant2.getChild("description").getText());
 				f.setTypeContenu(TypeContenu.fromSring(courant2.getChild(
@@ -81,7 +82,7 @@ public class Parametrage {
 			while (j.hasNext()) {
 				Element courant2 = (Element) j.next();
 				Field f = new Field();
-				f.setId(courant2.getChild("Id").getText());
+				f.setId(courant2.getChild("Id").getText() + typeObject.getCode());
 				f.setName(courant2.getChild("name").getText());
 				f.setDescription(courant2.getChild("description").getText());
 				f.setTypeContenu(TypeContenu.fromSring(courant2.getChild(
