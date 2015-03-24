@@ -32,7 +32,7 @@ public class AuthentificationServiceDB {
 		String password = u.getPassword();
 		Person p = personneRepository.findOne(login);
 
-		if (p == null || !p.getPassword().equals(password)) {
+		if (p == null || p.getPassword() == null || !p.getPassword().equals(password)) {
 			u.setPassword("");
 			return false;
 		}

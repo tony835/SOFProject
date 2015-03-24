@@ -9,7 +9,7 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<spring:message code="createObject.select" var="selecttype"/>
+<spring:message code="createObject.select" var="selecttype" htmlEscape="false"/>
 
 <tiles:insertDefinition name="master.page">
 	<tiles:putAttribute name="title">

@@ -9,9 +9,9 @@
 	xmlns:tag="urn:jsptagdir:/WEB-INF/tags"
 	xmlns="http://www.w3.org/1999/xhtml">
 	
-<spring:message code="modifychildren.sorttype" var="sorttype"/>
-<spring:message code="modifychildren.selectobject" var="selectobject"/>
-<spring:message code="modifychildren.selectmobject" var="selectmobject"/>
+<spring:message code="modifychildren.sorttype" var="sorttype" htmlEscape="false" />
+<spring:message code="modifychildren.selectobject" var="selectobject" htmlEscape="false" />
+<spring:message code="modifychildren.selectmobject" var="selectmobject" htmlEscape="false" />
 
 
 	<jsp:output omit-xml-declaration="false" doctype-root-element="html"
