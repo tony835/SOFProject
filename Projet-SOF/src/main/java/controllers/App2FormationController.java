@@ -1,17 +1,10 @@
 package controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,7 +17,6 @@ import services.FormationService;
 import services.ObjectService;
 import services.PersonService;
 import domain.Formation;
-import domain.Object;
 import domain.User;
 
 @Controller
@@ -33,11 +25,14 @@ public class App2FormationController {
 
 	// Constructors -----------------------------------------------------------
 
+	/**
+	 * Constructeur par defaut
+	 */
 	public App2FormationController() {
 		super();
 	}
 
-	@Autowired()
+	@Autowired
 	User user;
 
 	@Autowired
@@ -50,8 +45,8 @@ public class App2FormationController {
 
 	/**
 	 * Liste des types de diplomes distinct de l'offre de formation
-	 * 
-	 * @return
+	 * @return Un ModelAndView contenant les diplomes distincts
+	 * @version 2.1
 	 */
 	@RequestMapping("formation/offre")
 	public ModelAndView allFormationVisitor() {
@@ -69,9 +64,9 @@ public class App2FormationController {
 	}
 
 	/**
-	 * 
+	 * Map les champs des types par diplome.
 	 * @param diploma
-	 * @return Map<String, String>
+	 * @return ModelAndView contenant l'offre par domaine de formation 
 	 */
 	@RequestMapping(value = { "/formation/field" }, method = RequestMethod.GET)
 	public ModelAndView allFieldOfType(
@@ -93,10 +88,10 @@ public class App2FormationController {
 	}
 
 	/**
-	 * 
+	 * Tous les champs des formations et des diplomes.
 	 * @param diploma
 	 * @param field
-	 * @return
+	 * @return ModelAndView 
 	 */
 	@RequestMapping(value = "/formation/listformation"
 			 , method = RequestMethod.GET)
@@ -123,6 +118,11 @@ public class App2FormationController {
 	// ------------------------------------ Contributor audit
 	// --------------------------------------------
 
+	
+	/**
+	 * Permet de récupérer tous les formations auxquelles un contributeur contribue.
+	 * @return ModelAndView
+	 */
 	@RequestMapping("formation/audit/offre")
 	public ModelAndView allFormationContributor() {
 
@@ -152,9 +152,9 @@ public class App2FormationController {
 	}
 
 	/**
-	 * 
-	 * @param diploma
-	 * @return Map<String, String>
+	 * Permet de recuperer tous les types de champs d'une formation pour la contribution.
+	 * @param diploma Un diplome
+	 * @return ModelAndView
 	 */
 	@RequestMapping(value = "/formation/audit/field", method = RequestMethod.GET)
 	public ModelAndView allFieldOfTypeContributor(
@@ -178,6 +178,13 @@ public class App2FormationController {
 		return result;
 	}
 
+	
+	/**
+	 * Permet de recuperer un formulaire d'un champs et d'un diplome pour la contribution.
+	 * @param diploma Un diplome
+	 * @param field Un champ
+	 * @return ModelAndView
+	 */
 	@RequestMapping(value = "/formation/audit/listformation", method = RequestMethod.GET)
 	public ModelAndView allFormOfFieldAndDiplomaContributor(
 			@RequestParam(value = "diploma", required = true) String diploma,
@@ -199,9 +206,9 @@ public class App2FormationController {
 	}
 
 	/**
-	 * 
+	 * Permet d'encoder une chaine de caractere.
 	 * @param ascii
-	 * @return 
+	 * @return String  Chaine de caractere encodée
 	 */
 	public static String asciiToHex(String ascii) {
 		StringBuilder hex = new StringBuilder();
@@ -213,9 +220,9 @@ public class App2FormationController {
 	}
 
 	/**
-	 * 
+	 * Permet de décoder une chaine de caractere.
 	 * @param hexString
-	 * @return
+	 * @return String  Chaine de caractere décodée
 	 */
 	public static String decode(final String hexString) {
 		final int len = hexString.length();
@@ -231,8 +238,8 @@ public class App2FormationController {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Permet de recuperer l'utilisateur courant.
+	 * @return User l'utilisateur courant.
 	 */
 	@ModelAttribute("user")
 	public User newUser() {
