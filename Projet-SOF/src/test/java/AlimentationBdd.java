@@ -1389,7 +1389,7 @@ public class AlimentationBdd {
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
-						preparedStmt.setString(1, Id);
+						preparedStmt.setString(1, Id + "FOR");
 						preparedStmt.setString(2, Code_objet);
 						preparedStmt.setString(3, content_type);
 
@@ -1472,7 +1472,7 @@ public class AlimentationBdd {
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
-						preparedStmt.setString(1, Id);
+						preparedStmt.setString(1, Id + "ENS");
 						preparedStmt.setString(2, Code_objet);
 						preparedStmt.setString(3, content_type);
 
@@ -1501,7 +1501,7 @@ public class AlimentationBdd {
 				Element courant9 = (Element) k.next();
 
 				if (!courant9.getValue().isEmpty()) {
-					String Id = courant9.getName();
+					String Id = courant9.getName() ;
 
 					if (Id.equals("err") || Id.equals("nom")
 							|| Id.equals("responsables")
@@ -1551,7 +1551,7 @@ public class AlimentationBdd {
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
-						preparedStmt.setString(1, Id);
+						preparedStmt.setString(1, Id +"SPE");
 						preparedStmt.setString(2, Code_objet);
 						preparedStmt.setString(3, content_type);
 
@@ -1570,7 +1570,7 @@ public class AlimentationBdd {
 		while (j4.hasNext()) {
 
 			Element courant13 = (Element) j4.next();
-			String Code_objet = courant13.getAttributeValue("code");
+			String Code_objet = courant13.getAttributeValue("code") ;
 
 			List<Element> listField1 = courant13.getChildren();
 			Iterator<Element> k = listField1.iterator();
@@ -1629,7 +1629,7 @@ public class AlimentationBdd {
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
-						preparedStmt.setString(1, Id);
+						preparedStmt.setString(1, Id + "PRO");
 						preparedStmt.setString(2, Code_objet);
 						preparedStmt.setString(3, content_type);
 
@@ -1708,7 +1708,7 @@ public class AlimentationBdd {
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
-						preparedStmt.setString(1, Id);
+						preparedStmt.setString(1, Id  + "COM");
 						preparedStmt.setString(2, Code_objet);
 						preparedStmt.setString(3, content_type);
 
@@ -1787,7 +1787,7 @@ public class AlimentationBdd {
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
-						preparedStmt.setString(1, Id);
+						preparedStmt.setString(1, Id +"COM");
 						preparedStmt.setString(2, Code_objet);
 						preparedStmt.setString(3, content_type);
 
@@ -1865,7 +1865,7 @@ public class AlimentationBdd {
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
-						preparedStmt.setString(1, Id);
+						preparedStmt.setString(1, Id +"COM");
 						preparedStmt.setString(2, Code_objet);
 						preparedStmt.setString(3, content_type);
 
@@ -1944,7 +1944,7 @@ public class AlimentationBdd {
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
-						preparedStmt.setString(1, Id);
+						preparedStmt.setString(1, Id + "COM");
 						preparedStmt.setString(2, Code_objet);
 						preparedStmt.setString(3, content_type);
 
