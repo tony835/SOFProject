@@ -225,4 +225,10 @@ public class ObjectService {
 		}
 		return false;
 	}
+
+	public Collection<domain.Object> objectsNonLieeM(Formation formation, String code) {
+		List lomContext = new ArrayList<domain.Object>();
+		getDescendants(lomContext, formation);
+		return null;
+	}
 }

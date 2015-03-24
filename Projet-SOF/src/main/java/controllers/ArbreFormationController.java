@@ -98,6 +98,7 @@ public class ArbreFormationController extends AbstractController {
 		}
 
 		Collection<domain.Object> objects = objectService.objectsNonLiee(code);
+		objects.addAll(objectService.objectsNonLieeM(formation, code));
 		result = new ModelAndView("arbreFormation/list");
 		result.addObject("ObjetNonLie", objects);
 		formation = formationService.findOne(code);
