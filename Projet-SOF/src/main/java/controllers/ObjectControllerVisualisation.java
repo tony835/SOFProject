@@ -95,11 +95,9 @@ public class ObjectControllerVisualisation  extends AbstractController{
 	    	
 	    	if(f.getField().getTabName()==null && fieldInParam.contains(f.getField().getId())){
 	    		
-	    		System.out.println("Info générale"+f.getField().getId()+"---- "+f.getValue());
 	    		fIListGeneral.add(f);
 	    	}else if(maps.containsKey(f.getField().getTabName()) && fieldInParam.contains(f.getField().getId()))
 	    	{
-	    		System.out.println("Info secondaire"+f.getField().getId()+"---- "+f.getValue());
 	    		maps.get(f.getField().getTabName()).add(f);
 	    		
 	    	}
@@ -153,17 +151,14 @@ public class ObjectControllerVisualisation  extends AbstractController{
 		   
 	    }
 	    fieldInParam = fieldService.getListFieldByCode(obj.getTypeObject().getCode());
-	    System.out.println(fieldInParam);
 	    for(FieldObject f:fIList ){
 	    	
 	    	
 	    	if(f.getField().getTabName()==null && fieldInParam.contains(f.getField().getId())){
 	    		
-	    		System.out.println("Info générale"+f.getField().getId()+"---- "+f.getValue());
 	    		fIListGeneral.add(f);
 	    	}else if(maps.containsKey(f.getField().getTabName()) && fieldInParam.contains(f.getField().getId()))
 	    	{
-	    		System.out.println("Info secondaire"+f.getField().getId()+"---- "+f.getValue());
 	    		maps.get(f.getField().getTabName()).add(f);
 	    		
 	    	}
