@@ -226,8 +226,9 @@ public class ObjectService {
 	}
 
 	public Collection<domain.Object> objectsNonLieeM(Formation formation, String code) {
-		List lomContext = new ArrayList<domain.Object>();
+		List<domain.Object> lomContext = new ArrayList<domain.Object>();
+		lomContext.add(formation);
 		getDescendants(lomContext, formation);
-		return null;
+		return objectDao.objectsNonLieeM(lomContext, code);
 	}
 }

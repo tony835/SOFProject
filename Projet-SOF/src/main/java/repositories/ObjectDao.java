@@ -1,6 +1,7 @@
 package repositories;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,8 +15,13 @@ import domain.Object;
 public interface ObjectDao extends JpaRepository<domain.Object, String> {
 	
 	
-	@Query("select o from Object o where o.contexte.code = ?1 and o.code <> o.contexte.code and not exists (select c from Fils c where c.fils.code=o.code and c.fils.contexte.code=o.contexte.code)")
+	@Query("select o from Object o where o.mutualisable = false AND o.contexte.code = ?1 and o.code <> o.contexte.code and not exists (select c from Fils c where c.fils.code=o.code and c.fils.contexte.code=o.contexte.code)")
 	Collection<Object> findNonLinkedObject(String contextCode);
+	
+	@Query("select distinct o from Object o where o.mutualisable = true "
+			+ "AND o.contexte.code = ?2 and o.code <> o.contexte.code "
+			+ "AND o NOT IN ?1")
+	Collection<Object> objectsNonLieeM(List<domain.Object>lomContext, String code);
 	
 	@Query("select o from Object o, Object o2 where o.contexte.code = ?1 and o2.code = ?2 "
 		+ "and o.code "
