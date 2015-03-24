@@ -56,7 +56,7 @@ public class FieldService {
 				typeObject.setFields(new ArrayList<Field>());
 				while (j.hasNext()) {
 					Element courant2 = (Element) j.next();
-					ids.add(courant2.getChild("Id").getText());
+					ids.add(courant2.getChild("Id").getText()+code);
 				}
 			}
 		}
