@@ -165,6 +165,39 @@
 
 										<br />
 										<script charset="UTF-8">
+										function d2h(d) {
+										    return d.toString(16);
+										}
+										function h2d (h) {
+										    return parseInt(h, 16);
+										}
+										function stringToHex (tmp) {
+										    var str = '',
+										        i = 0,
+										        tmp_len = tmp.length,
+										        c;
+										    
+										    for (; i < tmp_len; i += 1) {
+										        c = tmp.charCodeAt(i);
+										        str += d2h(c) + ' ';
+										    }
+										    return str;
+										}
+										function hexToString (tmp) {
+										    var arr = tmp.split(' '),
+										        str = '',
+										        i = 0,
+										        arr_len = arr.length,
+										        c;
+										    
+										    for (; i < arr_len; i += 1) {
+										        c = String.fromCharCode( h2d( arr[i] ) );
+										        str += c;
+										    }
+										    
+										    return str;
+										}
+										
 											$(document)
 													.ready(
 															function() {
@@ -182,14 +215,14 @@
 																								data : {
 																									'codeObjet' : "${object.code}",
 																									'idField' : "${item.field.id}",
-																									'value' : value
+																									'value' : stringToHex(value)
 																								},
 
 																								success : function(
 																										data) {
 																									if (data.length != 0)
 																										document
-																												.getElementById("spanValue${item.field.id}${object.code}").innerHTML = data;
+																												.getElementById("spanValue${item.field.id}${object.code}").innerHTML = value;
 																									$(
 																											"#modal${item.field.id}${object.code}")
 																											.modal(
@@ -356,14 +389,14 @@
 																									data : {
 																										'codeObjet' : "${object.code}",
 																										'idField' : "${itemh.field.id}",
-																										'value' : value
+																										'value' : stringToHex(value)
 																									},
 
 																									success : function(
 																											data) {
 																										if (data.length != 0)
 																											document
-																													.getElementById("spanValue${itemh.field.id}${object.code}").innerHTML = data;
+																													.getElementById("spanValue${itemh.field.id}${object.code}").innerHTML = value;
 																										$(
 																												"#modal${itemh.field.id}${object.code}")
 																												.modal(

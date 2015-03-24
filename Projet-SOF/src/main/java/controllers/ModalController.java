@@ -36,6 +36,21 @@ public class ModalController {
 	public ModalController() {
 	}
 	
+	private String hexToString (String tmp) {
+		String[] arr = tmp.split(" ");
+		String str = "";
+		int i = 0;
+		int  arr_len = arr.length;
+		char c;
+
+		for (; i < arr_len; i += 1) {
+			c = (char)(Integer.parseInt(arr[i],16 ));
+			str += c;
+		}
+		return str;
+	}
+
+	
 	@Transactional
 	@RequestMapping(value = "/tt.htm", method = RequestMethod.GET)
 	public ModelAndView listFields(
@@ -51,6 +66,7 @@ public class ModalController {
 									  @RequestParam(value = "idField")String idField,
 									  @RequestParam(value = "value")String value) {
 
+		value = hexToString(value);
 		FieldObject f = managerFieldObject.findOne(new FieldObjectId(idField,codeObjet));
 		if(f == null) return null ;
 		
