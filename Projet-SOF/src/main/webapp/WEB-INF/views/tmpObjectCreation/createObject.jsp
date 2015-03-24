@@ -21,7 +21,7 @@
 				
 			</jstl:when>
 			<jstl:when test="${not empty (param.cobject)}">
-				<spring:message code="title.object.edit" /> ${param.cobject}
+				<spring:message code="title.object.edit" /> ${myobject.catCodeName}
 			</jstl:when>
 		</jstl:choose>
 	</tiles:putAttribute>

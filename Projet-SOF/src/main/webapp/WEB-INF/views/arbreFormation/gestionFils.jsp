@@ -23,7 +23,7 @@
 
 	<tiles:insertDefinition name="master.page">
 		<tiles:putAttribute name="title">
-				<spring:message code="title.arbre.editchildren" /> ${param.cobject}: ${objEnCours.name}
+				<spring:message code="title.arbre.editchildren" /> ${objEnCours.catCodeName}
 		</tiles:putAttribute>
 		
 		<tiles:putAttribute name="body">
