@@ -10,6 +10,7 @@ import org.junit.runners.Suite.SuiteClasses;
 				LoginControlerSingletonTest.class,
 				AuthentificationServiceDBTest.class,
 				FormationServiceTest.class,
-				ObjectServiceTest.class})
+				ObjectServiceTest.class,
+				ArbreFormationControllerTest.class})
 public class JunitTestSuite {
 }

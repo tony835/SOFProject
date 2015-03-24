@@ -56,7 +56,7 @@ public class FormationServiceTest {
 
 	@Test
 	public void testFindOne() {
-		Assert.assertNotNull(service.findOne("FORM1"));
+		Assert.assertNotNull(service.findOne("FH2WLT"));
 	}
 
 
@@ -87,7 +87,7 @@ public class FormationServiceTest {
 
 	@Test
 	public void testGetShild() {
-		Assert.assertEquals(false, service.getShild("FORM1").isEmpty());
+		Assert.assertEquals(true, service.getShild("FH2WCH").isEmpty());
 	}
 
 	

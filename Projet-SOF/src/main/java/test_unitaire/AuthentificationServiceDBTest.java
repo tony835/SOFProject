@@ -49,8 +49,8 @@ public class AuthentificationServiceDBTest {
 
 	@Test
 	public void testLoginSucced() {
-		user.setLogin("toto");
-		user.setPassword("toto");
+		user.setLogin("IN10388");
+		user.setPassword("IN103880");
 		
 		Assert.assertTrue(service.login(user));
 	}
@@ -91,8 +91,8 @@ public class AuthentificationServiceDBTest {
 	@Test
 	public void testFlush() {
 		user = service.newUser();
-		user.setLogin("toto");
-		user.setPassword("toto");
+		user.setLogin("IN10082");
+		user.setPassword("IN100820");
 		
 		service.login(user);
 		Assert.assertTrue(service.login(user));
