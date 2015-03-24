@@ -159,15 +159,6 @@
 			<tab_name>Organisation</tab_name>
 		</field>
 		<field>
-			<Id>conditions_admission</Id>
-			<name>CONDITIONS D'ADMISSION</name>
-			<description>conditions_admission</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name>Organisation</tab_name>
-		</field>
-		<field>
 			<Id>aspects_format_pro</Id>
 			<name>FORMATION PROFESSIONNELLE</name>
 			<description>aspects_format_pro</description>

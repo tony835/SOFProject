@@ -54,13 +54,21 @@ public class Parametrage {
 						"content_type").getText()));
 				f.setRequired(courant2.getChild("required").getText()
 						.equals("true") ? true : false);
+				int length;
+				try{
+					length = Integer.parseInt(courant2.getChild("length").getText()) ;
+				}catch(NumberFormatException e){
+					length = 0;
+				}
+				f.setLength(length);
+				f.setTabName((courant2.getChild("tab_name").getText().isEmpty())? 
+						null : courant2.getChild("tab_name").getText());
+
 				fields.add(f);
 			}
-
 		}
 		return fields;
 	}
-
 	private List<TypeObject> getAllObjectTypeANDFieldFromXML(Element racine) {
 		List<Element> listTypesObject = racine.getChildren("object_type");
 		Iterator<Element> i = listTypesObject.iterator();
@@ -96,7 +104,8 @@ public class Parametrage {
 					length = 0;
 				}
 				f.setLength(length);//
-				f.setTabName(courant2.getChild("tab_name").getText());
+				f.setTabName((courant2.getChild("tab_name").getText().isEmpty())? 
+						null : courant2.getChild("tab_name").getText());
 				typeObject.getFields().add(f);
 			}
 			ret.add(typeObject);
@@ -171,15 +180,6 @@ public class Parametrage {
 				}
 			}
 		}
-		//		List <Person> l2= getAllDesigner(racine);
-		//		for(int i=0;i<l2.size();++i){
-		//			Person p = persoManager.findOne(l2.get(i).getLogin()) ;
-		//			if(p == null){
-		//				System.out.println("le concepteur : "+  l2.get(i).getLogin() + " a ete ajoute -> insert");
-		//				persoManager.save(l2.get(i));
-		//			}
-		//		}
-		//		
 
 		////////////////////////////////////////
 		List <TypeObject> typeObjectsDB = typeObjectService.findAll();
@@ -206,7 +206,7 @@ public class Parametrage {
 				}
 			}
 			if(j == l3.size()){
-				System.out.println("!!!!Attention le champs " + fieldsDB.get(i) + " est present dans la base et non définit dans le fichier XML");
+				System.out.println("!!!!Attention le champs " + fieldsDB.get(i) + " est present dans la base et non définit dans le fichier XML");		
 			}
 		}
 

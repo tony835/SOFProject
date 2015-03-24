@@ -862,7 +862,7 @@ public class AlimentationBdd {
 						+ " values (?,?,100,?,0,null,?,'FOR')";
 				// create the mysql insert preparedstatement
 				PreparedStatement preparedStmt = conn.prepareStatement(query);
-				preparedStmt.setString(1, Id.toUpperCase());
+				preparedStmt.setString(1, Id.toUpperCase() + "FOR");
 				preparedStmt.setString(2, name);
 				preparedStmt.setString(3, name);
 				preparedStmt.setString(4, contents);
@@ -921,7 +921,7 @@ public class AlimentationBdd {
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
-						preparedStmt.setString(1, Id.toUpperCase());
+						preparedStmt.setString(1, Id.toUpperCase() + "SPE");
 						preparedStmt.setString(2, name);
 						preparedStmt.setString(3, name);
 						preparedStmt.setString(4, contents);
@@ -983,7 +983,7 @@ public class AlimentationBdd {
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
-						preparedStmt.setString(1, Id.toUpperCase());
+						preparedStmt.setString(1, Id.toUpperCase() + "PRO");
 						preparedStmt.setString(2, name);
 						preparedStmt.setString(3, name);
 						preparedStmt.setString(4, contents);
@@ -1044,7 +1044,7 @@ public class AlimentationBdd {
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
-						preparedStmt.setString(1, Id.toUpperCase());
+						preparedStmt.setString(1, Id.toUpperCase() + "ENS");
 						preparedStmt.setString(2, name);
 						preparedStmt.setString(3, name);
 						preparedStmt.setString(4, contents);
@@ -1108,7 +1108,7 @@ public class AlimentationBdd {
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
-						preparedStmt.setString(1, Id.toUpperCase());
+						preparedStmt.setString(1, Id.toUpperCase() + "COM");
 						preparedStmt.setString(2, name);
 						preparedStmt.setString(3, name);
 						preparedStmt.setString(4, contents);
@@ -1172,7 +1172,7 @@ public class AlimentationBdd {
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
-						preparedStmt.setString(1, Id.toUpperCase());
+						preparedStmt.setString(1, Id.toUpperCase() + "COM");
 						preparedStmt.setString(2, name);
 						preparedStmt.setString(3, name);
 						preparedStmt.setString(4, contents);
@@ -1236,7 +1236,7 @@ public class AlimentationBdd {
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
-						preparedStmt.setString(1, Id.toUpperCase());
+						preparedStmt.setString(1, Id.toUpperCase() + "COM");
 						preparedStmt.setString(2, name);
 						preparedStmt.setString(3, name);
 						preparedStmt.setString(4, contents);
@@ -1300,7 +1300,7 @@ public class AlimentationBdd {
 						// create the mysql insert preparedstatement
 						PreparedStatement preparedStmt = conn
 								.prepareStatement(query);
-						preparedStmt.setString(1, Id.toUpperCase());
+						preparedStmt.setString(1, Id.toUpperCase() + "COM");
 						preparedStmt.setString(2, name);
 						preparedStmt.setString(3, name);
 						preparedStmt.setString(4, contents);
