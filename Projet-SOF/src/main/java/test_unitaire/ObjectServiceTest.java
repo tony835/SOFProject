@@ -47,24 +47,24 @@ public class ObjectServiceTest {
 	
 	@Test
 	public void testFindOne() {
-		Assert.assertNotNull(service.findOne("FORM1"));
+		Assert.assertNotNull(service.findOne("FH2WTE"));
 	}
 
 	
 	@Test
 	public void testObjectsNonLiee() {
-		Assert.assertNotNull(service.objectsNonLiee("FORM1"));
+		Assert.assertNotNull(service.objectsNonLiee("FHUAAC"));
 	}
 
 	
 	@Test
 	public void testFindNonFLinkedObject() {
-		Assert.assertNotNull(service.findNonFLinkedObject("FORM1","FORM1"));
+		Assert.assertNotNull(service.findNonFLinkedObject("FHUMBM","FHUMMI"));
 	}
 	
 	@Test
 	public void testGetChild() {
-		Assert.assertNotNull(service.getChild("FORM1"));
+		Assert.assertNotNull(service.getChild("FHUSPG"));
 	}
 
 	

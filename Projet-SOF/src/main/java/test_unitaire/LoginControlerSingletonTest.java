@@ -103,8 +103,8 @@ public class LoginControlerSingletonTest {
 	public void testLoginUserAuthServiceNoErrors() {
 		ModelAndView result;
 		User user = new User();
-		user.setLogin("toto");
-		user.setPassword("toto");
+		user.setLogin("IN10003");
+		user.setPassword("IN100030");
 		
 		BindingResult bindingResult = mock(BindingResult.class);
 	    when(bindingResult.hasErrors()).thenReturn(false);
