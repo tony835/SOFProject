@@ -7,6 +7,10 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags"%>
+
+<spring:message code="formation.select.diplomatype" var="selectdiptype" htmlEscape="false" />
+<spring:message code="formation.select.formationfield" var="selectformfield" htmlEscape="false" />
+
 <tiles:insertDefinition name="master.page">
 	<tiles:putAttribute name="title">
 		<spring:message code="title.formation.edit" />
@@ -53,7 +57,7 @@
 					</form:label>
 				<div class="col-sm-8">
 					<form:select class="form-control" path="diplomeType" multiple="false" modelAttribute="formation">
-						<form:option value="" label="Séléctionner un type de diplome" />
+						<form:option value="" label="${selectdiptype}" />
 						<form:options items="${diplomaTypeList}" />
 					</form:select>
 				</div>
@@ -64,7 +68,7 @@
 					</form:label>
 				<div class="col-sm-8">
 					<form:select class="form-control" path="formationField" multiple="false" modelAttribute="formation">
-						<form:option value="" label="Séléctionner un domaine de formation" />
+						<form:option value="" label="${selectformfield}" />
 						<form:options items="${formationFieldList}" />
 					</form:select>
 				</div>
