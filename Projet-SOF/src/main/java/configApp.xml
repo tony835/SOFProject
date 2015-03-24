@@ -2,11 +2,9 @@
 	<object_type>
 		<code>FOR</code>
 		<name>Formation</name>
-		<code_regex>(SPE_)+|(PRO_)+</code_regex>
 		<Erreur_descritpion>une Formation peut contenir que des spécialités ou
 			des programmes</Erreur_descritpion>
 		<content_model>(SPE_)+|(PRO_)+</content_model>
-		<description>desc</description>
 		<field>
 			<Id>ados_pro</Id>
 			<name>LIENS AVEC LE MILIEU SOCIO-ÉCONOMIQUE</name>
@@ -148,12 +146,9 @@
 	<object_type>
 		<code>SPE</code>
 		<name>Spécialité</name>
-		<code_regex>(PRO_)+</code_regex>
 		<Erreur_descritpion>une spécialité peut contenir que des programmes
 		</Erreur_descritpion>
-		<content_model>(PRO_)+</content_model>
-		<description>desc</description>
-		
+		<content_model>(PRO_)+</content_model>		
 		<field>
 			<Id>aspects_format_continue</Id>
 			<name>FORMATION CONTINUE ET ALTERNANCE</name>
@@ -268,11 +263,9 @@
 	<object_type>
 		<code>ENS</code>
 		<name>Enseignement</name>
-		<code_regex>(ENS_)*</code_regex>
 		<Erreur_descritpion>un enseignement peut contenir que des
 			enseignements</Erreur_descritpion>
 		<content_model>(ENS_)*</content_model>
-		<description>desc</description>
 		<field>
 			<Id>competences</Id>
 			<name>COMPETENCES</name>
@@ -396,12 +389,9 @@
 	<object_type>
 		<code>PRO</code>
 		<name>Programme</name>
-		<code_regex>(COM_)+</code_regex>
 		<Erreur_descritpion>un programme peut contenir que des composantes
 		</Erreur_descritpion>
-		<content_model>(COM_)+</content_model>
-		<description>desc</description>
-		
+		<content_model>(COM_)+</content_model>		
 		<field>
 			<Id>aspects_format_recherche</Id>
 			<name>FORMATION ET RECHERCHE</name>
@@ -542,11 +532,9 @@
 	<object_type>
 		<code>COM</code>
 		<name>Composante</name>
-		<code_regex>((COM_)|(ENS_))*</code_regex>
 		<Erreur_descritpion>une Composante peut contenir que des composantes
 			et des enseignements</Erreur_descritpion>
 		<content_model>((COM_)|(ENS_))*</content_model>
-		<description>desc</description>
 		<field>
 			<Id>nb_credits</Id>
 			<name>NOMBRE DE CRÉDITS</name>
