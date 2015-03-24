@@ -85,7 +85,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>En plus</tab_name>
+			<tab_name>Autres</tab_name>
 		</field>
 		<field>
 			<Id>nb_credits</Id>
@@ -121,7 +121,7 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>En plus</tab_name>
+			<tab_name>Autres</tab_name>
 		</field>
 		<field>
 			<Id>public</Id>
