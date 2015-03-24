@@ -71,7 +71,7 @@
 
 		<div id="container">
 			<div class="breadCrumbHolder module">
-				<div id="breadCrumb0" class="breadCrumb module" style="height: 33px">
+				<div id="breadCrumb" class="breadCrumb module" style="height: 33px">
 					<ul>
 
 						<jstl:choose>
@@ -534,9 +534,11 @@
 			
 		</script>
 		<script type="text/javascript">
-			jQuery(document).ready(function() {
-				jQuery("#breadCrumb0").jBreadCrumb();
-			})
+		jQuery(document).ready(function()
+				{
+					jQuery("#breadCrumb").jBreadCrumb({easing:'swing'});
+				})
+
 		</script>
 
 
