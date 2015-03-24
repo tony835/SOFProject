@@ -25,6 +25,8 @@
 						code="formation.create" /></a>
 			</jstl:if>
 
+					<jstl:if test="${!formations.isEmpty()}">
+
 			<display:table name="formations" pagesize="20" class="displaytag"
 				id="row" requestURI="formation/list.htm">
 				<tag:column code="formation.code" property="code" sortable="true" />
@@ -60,6 +62,8 @@
 					</display:column>
 				</jstl:if>
 			</display:table>
+			
+				</jstl:if>
 
 			<div class="center">
 				<jstl:if test="${!empty error}">

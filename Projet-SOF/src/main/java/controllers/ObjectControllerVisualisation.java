@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javassist.bytecode.ClassFileWriter.FieldWriter;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,7 @@ import domain.User;
 import services.ObjectService;
 import services.TypeObjectService;
 import services.PersonService;
+import services.FieldService;
 @Controller
 @RequestMapping("/objectVisualisation")
 public class ObjectControllerVisualisation  extends AbstractController{
@@ -43,6 +46,9 @@ public class ObjectControllerVisualisation  extends AbstractController{
 	@Autowired
 	PersonService personService;
 	
+	@Autowired
+	FieldService fieldService;
+	
     List<String> navigation= new ArrayList<String>();
 
 
@@ -51,7 +57,6 @@ public class ObjectControllerVisualisation  extends AbstractController{
 	@RequestMapping(value = "/audit/details", method = RequestMethod.GET)
 	public ModelAndView mObjectList(@RequestParam String code, @RequestHeader(value = "referer", required = false) final String referer) {
 		ModelAndView result;
-		System.out.println("FFFFFF"+referer);
 		
 		if(referer==null){
 			navigation= new ArrayList<String>();
@@ -82,12 +87,22 @@ public class ObjectControllerVisualisation  extends AbstractController{
 		    objectMemeType= objectService.objectsSameTypeInContext(obj.getTypeObject().getCode(), obj.getContexte().getCode(),obj.getCode());
 		   
 	    }
-	  
+	    List<String> fieldInParam = new ArrayList<String>();
+	    fieldInParam = fieldService.getListFieldByCode(obj.getTypeObject().getCode());
+	    
 	    for(FieldObject f:fIList ){
-	    	if(f.getField().getTabName()==null){
+	    	
+	    	
+	    	if(f.getField().getTabName()==null && fieldInParam.contains(f.getField().getId())){
+	    		
+	    		System.out.println("Info générale"+f.getField().getId()+"---- "+f.getValue());
 	    		fIListGeneral.add(f);
-	    	}else if(maps.containsKey(f.getField().getTabName()))
+	    	}else if(maps.containsKey(f.getField().getTabName()) && fieldInParam.contains(f.getField().getId()))
+	    	{
+	    		System.out.println("Info secondaire"+f.getField().getId()+"---- "+f.getValue());
 	    		maps.get(f.getField().getTabName()).add(f);
+	    		
+	    	}
 	    	else {
 	    		List<FieldObject> filObjects= new ArrayList<FieldObject>();
 	    		filObjects.add(f);
@@ -114,7 +129,8 @@ public class ObjectControllerVisualisation  extends AbstractController{
 	@RequestMapping(value = "/details", method = RequestMethod.GET)
 	public ModelAndView mObjectListVisitor(@RequestParam String code, @RequestHeader(value = "referer", required = false) final String referer) {
 		ModelAndView result;
-		System.out.println("FFFFFF"+referer);
+		List<String> fieldInParam = new ArrayList<String>();
+		
 		
 		if(referer==null){
 			navigation= new ArrayList<String>();
@@ -136,12 +152,21 @@ public class ObjectControllerVisualisation  extends AbstractController{
 		    objectMemeType= objectService.objectsSameTypeInContext(obj.getTypeObject().getCode(), obj.getContexte().getCode(),obj.getCode());
 		   
 	    }
-	  
+	    fieldInParam = fieldService.getListFieldByCode(obj.getTypeObject().getCode());
+	    System.out.println(fieldInParam);
 	    for(FieldObject f:fIList ){
-	    	if(f.getField().getTabName()==null){
+	    	
+	    	
+	    	if(f.getField().getTabName()==null && fieldInParam.contains(f.getField().getId())){
+	    		
+	    		System.out.println("Info générale"+f.getField().getId()+"---- "+f.getValue());
 	    		fIListGeneral.add(f);
-	    	}else if(maps.containsKey(f.getField().getTabName()))
+	    	}else if(maps.containsKey(f.getField().getTabName()) && fieldInParam.contains(f.getField().getId()))
+	    	{
+	    		System.out.println("Info secondaire"+f.getField().getId()+"---- "+f.getValue());
 	    		maps.get(f.getField().getTabName()).add(f);
+	    		
+	    	}
 	    	else {
 	    		List<FieldObject> filObjects= new ArrayList<FieldObject>();
 	    		filObjects.add(f);

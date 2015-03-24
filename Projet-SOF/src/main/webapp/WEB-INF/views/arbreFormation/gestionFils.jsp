@@ -8,6 +8,11 @@
 	xmlns:tiles="http://tiles.apache.org/tags-tiles"
 	xmlns:tag="urn:jsptagdir:/WEB-INF/tags"
 	xmlns="http://www.w3.org/1999/xhtml">
+	
+<spring:message code="modifychildren.sorttype" var="sorttype"/>
+<spring:message code="modifychildren.selectobject" var="selectobject"/>
+<spring:message code="modifychildren.selectmobject" var="selectmobject"/>
+
 
 	<jsp:output omit-xml-declaration="false" doctype-root-element="html"
 		doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -18,13 +23,15 @@
 
 	<tiles:insertDefinition name="master.page">
 		<tiles:putAttribute name="title">
-				<spring:message code="title.arbre.editchildren" /> ${param.cobject}: ${objEnCours.name}
+				<spring:message code="title.arbre.editchildren" /> ${objEnCours.catCodeName}
 		</tiles:putAttribute>
 		
 		<tiles:putAttribute name="body">
 			<jstl:if test="${!empty descError}">
 				<p style="color: Red">${descError}</p>
 			</jstl:if>
+						<jstl:if test="${!listFils.isEmpty()}">
+			
 			
 <display:table name="listFils" pagesize="20" class="displaytag"
 				id="row" requestURI="arbreFormation/gestionFils.htm">
@@ -48,7 +55,7 @@
 					</jstl:if>
 				</display:column>
 			</display:table>
-
+	</jstl:if>
 
 	    
 	    <fieldset>
@@ -66,7 +73,7 @@
 					<div class="col-sm-6">
 						<form:select class="form-control" name="code" path="code"
 							multiple="false" onchange="this.form.submit()">
-							<form:option value="" label="Tous les types" />
+							<form:option value="" label="${sorttype}" />
 							<form:options items="${typesList}" itemLabel="name"
 								itemValue="code" />
 						</form:select>
@@ -89,7 +96,7 @@
 					<div class="col-sm-6">
 						<form:select class="form-control" name="code" path="code"
 							multiple="false" required="true">
-							<form:option value="" label="Liste des objets non lies" />
+							<form:option value="" label="${selectobject}" />
 							<form:options items="${NonLinkedObjectList}"
 								itemLabel="catCodeName" itemValue="code" />
 						</form:select>
@@ -116,7 +123,7 @@
 					<div class="col-sm-6">
 						<form:select class="form-control" name="code" path="code"
 							multiple="false" required="true">
-							<form:option value="" label="Liste des objets mutualises" />
+							<form:option value="" label="${selectmobject}" />
 							<form:options items="${mutualisableObjectList}"
 								itemLabel="catCodeName" itemValue="code" />
 						</form:select>

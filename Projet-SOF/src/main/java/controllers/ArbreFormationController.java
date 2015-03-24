@@ -62,8 +62,8 @@ public class ArbreFormationController extends AbstractController {
 
 	@Autowired
 	User user;
-
-	/**
+	domain.Object formation;
+	 /**
 	 * Liste touts les formations.
 	 * 
 	 * @return La vue qui mène au jsp traitant cet action
@@ -348,6 +348,7 @@ public class ArbreFormationController extends AbstractController {
 					}
 					return "redirect:create.htm?context=" + context;
 				} else {
+					formation =  objectService.findOne(cobject).getContexte();
 					redirectAttributes.addFlashAttribute("formationName", objectService.findOne(cobject).getContexte().getName());
 					System.out.println("llllooooll");
 					if (!user.isResponsable(objectService.findOne(cobject).getContexte())) {
@@ -370,6 +371,7 @@ public class ArbreFormationController extends AbstractController {
 			return "master-page/error";
 		}
 		if(context != null){
+			formation =  objectService.findOne(context);
 			redirectAttributes.addFlashAttribute("formationName", objectService.findOne(context).getName());
 			System.out.println("===>"+objectService.findOne(context).getName());
 		}
@@ -520,6 +522,11 @@ public class ArbreFormationController extends AbstractController {
 		return new ModelAndView("redirect:gestionFils.htm?cobject=" + code + "&typeobject=");
 	}
 
+	@ModelAttribute("formationName")
+	public domain.Object formationName() {
+		return  formation;
+	}
+	
 	@ModelAttribute("typesList")
 	public List<TypeObject> productTypes() {
 		return (List<TypeObject>) typeService.findTypeFils();

@@ -2,7 +2,7 @@
  
 table {
 	border: 1px solid #666;
-width: 85%;
+width: 75%;
 	margin: 20px 0 20px 0 !important;
 }
 
@@ -98,25 +98,17 @@ span.rtf {
 }
 
 span.pagebanner {
-	background-color: #eee;
-	border: 1px dotted #999;
-	padding: 2px 4px 2px 4px;
-	width: 79%;
-	margin-top: 10px;
-	display: block;
-	border-bottom: none;
-	width: 90%;
+color:  #fff;
 }
 
 span.pagelinks {
-	background-color: #eee;
-	border: 1px dotted #999;
+	background-color: #fff;
 	padding: 2px 4px 2px 4px;
-	width: 79%;
 	display: block;
-	border-top: none;
+		margin-top: 10px;
+	
 	margin-bottom: -5px;
-	width: 90%;
+	width: 75%;
 }
 
 .group-1 {
