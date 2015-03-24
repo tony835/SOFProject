@@ -25,6 +25,8 @@
 			<jstl:if test="${!empty descError}">
 				<p style="color: Red">${descError}</p>
 			</jstl:if>
+						<jstl:if test="${!listFils.isEmpty()}">
+			
 			
 <display:table name="listFils" pagesize="20" class="displaytag"
 				id="row" requestURI="arbreFormation/gestionFils.htm">
@@ -48,7 +50,7 @@
 					</jstl:if>
 				</display:column>
 			</display:table>
-
+	</jstl:if>
 
 	    
 	    <fieldset>

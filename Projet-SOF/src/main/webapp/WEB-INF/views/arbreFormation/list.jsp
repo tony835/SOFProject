@@ -47,6 +47,8 @@
 		</script>
 
 		<b>Objet non lies</b>
+		<jstl:if test="${!ObjetNonLie.isEmpty()}">
+		
 		<display:table name="ObjetNonLie" pagesize="20" class="displaytag" id="row" requestURI="arbreFormation/list.htm">
 			<tag:column code="formation.code" property="code" sortable="true" />
 			<tag:column code="formation.name" property="name" sortable="true" />
@@ -67,5 +69,7 @@
 						code="objet.modifier" /></a>
 		 	</display:column>
 		</display:table>
+		</jstl:if>
+		
 	</tiles:putAttribute>
 </tiles:insertDefinition>

@@ -115,7 +115,7 @@
 				</jstl:forEach>
 
 				<jstl:if test="${!object.allFils.isEmpty()}">
-					<li><a data-toggle="tab" href="#listFils"> Structure </a></li>
+					<li><a data-toggle="tab" href="#listFils"> <spring:message code= "composants.structure"></spring:message> </a></li>
 				</jstl:if>
 
 				<jstl:if test="${!objectMemeTypeSize}">

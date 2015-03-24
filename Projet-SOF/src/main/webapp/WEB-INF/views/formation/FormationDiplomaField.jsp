@@ -35,6 +35,7 @@
 				</div>
 			</div>
 		</nav>
+		<jstl:if test="${!FormationOfDiplomaAndField.isEmpty()}">
 
 			<display:table name="FormationOfDiplomaAndField" requestURI="visualisation/formation/listformation.htm" id="formation">
 				<display:column title="Nom"  sortable="true">
@@ -45,6 +46,7 @@
 				</display:column>
 				
 			</display:table>
+	</jstl:if>
 
 		</tiles:putAttribute>
 	</tiles:insertDefinition>
