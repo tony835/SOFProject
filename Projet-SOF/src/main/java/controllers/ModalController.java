@@ -57,7 +57,6 @@ public class ModalController {
 	        @RequestParam(value = "obj", required=true) String codeObject) {
 	    
 		Collection<FieldObject> fields = managerObject.findOne(codeObject).getFieldObjects();
-		System.out.println(fields.size());
 		
 	    return new ModelAndView("protoModal/editFieldObject", "fields", fields);
 	} 
@@ -71,7 +70,6 @@ public class ModalController {
 		if(f == null) return null ;
 		
 //		value=HtmlUtils.htmlEscape(value);
-		System.out.println(value);
 
 		
 		Field.TypeContenu type = f.getField().getTypeContenu() ;

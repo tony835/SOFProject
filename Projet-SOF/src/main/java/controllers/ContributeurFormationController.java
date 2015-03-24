@@ -58,7 +58,6 @@ public class ContributeurFormationController extends AbstractController {
 			formation.getContributeurs().size();
 			Collection<Person> contibuteurs = formation.getContributeurs();
 			contibuteurs.size();
-			System.out.println("Il y a "+contibuteurs.size()+" contributeurs.");
 			result.addObject("contibuteurs", contibuteurs);
 			Collection<Person> persons = personService.findAll();
 			result.addObject("allcontributeurs", persons);

@@ -102,7 +102,6 @@ public class FormationService {
 	}
 	
 	public boolean isFormation(String code){
-		System.out.println(formationDao.isFormation(code));
 		return formationDao.isFormation(code) != null;
 	}
 		

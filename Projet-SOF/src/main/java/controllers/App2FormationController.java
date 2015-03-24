@@ -170,7 +170,7 @@ public class App2FormationController {
 
 		// a modifier utiliser la meme page que le visiteur mais juste
 		// passer une variable disant que l'on est en version d'audit et
-		// connecté au moins pas de page doublon
+		// connectï¿½ au moins pas de page doublon
 		result = new ModelAndView("formation/offreDomaineAudit");
 
 		result.addObject("Diploma", diploma);
@@ -197,57 +197,6 @@ public class App2FormationController {
 				formation_diploma_and_field);
 		return result;
 	}
-
-
-//	/**
-//	 * 
-//	 * @return
-//	 */
-//	private Collection<String> getFormation_Field() {
-//		SAXBuilder sxb = new SAXBuilder();
-//		Document document = null;
-//		try {
-//			document = sxb.build(getClass().getResource("/configApp.xml"));
-//		} catch (JDOMException | IOException e) {
-//			e.printStackTrace();
-//		}
-//
-//		Element racine = document.getRootElement();
-//
-//		List<String> f = getAll(racine, "diploma_type");
-//
-//		List<String> g = getAll(racine, "formation_field");
-//
-//		for (String e : f) {
-//			System.out.println(e);
-//		}
-//		for (String e : g) {
-//			System.out.println(e);
-//		}
-//
-//		return null;
-//
-//	}
-
-//	/**
-//	 * 
-//	 * @param racine
-//	 * @param branche
-//	 * @return
-//	 */
-//	private List<String> getAll(Element racine, String branche) {
-//		List<Element> listDiploma = racine.getChild(branche)
-//				.getChildren("name");
-//
-//		Iterator<Element> i = listDiploma.iterator();
-//		List<String> ret = new ArrayList<String>();
-//
-//		while (i.hasNext()) {
-//			Element courant = (Element) i.next();
-//			ret.add(courant.getValue());
-//		}
-//		return ret;
-//	}
 
 	/**
 	 * 

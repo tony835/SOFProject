@@ -493,8 +493,8 @@
 									<jstl:forEach var="fils" items="${object.allFils}">
 										<li><a
 											href="objectVisualisation/audit/details.htm?code=${fils.fils.code}">
-											<jstl:out value="${fils.fils.code}"></jstl:out>(<jstl:out
-												value="${fils.fils.name}"></jstl:out>)
+											<jstl:out value="${fils.fils.code}"/>: <jstl:out
+												value="${fils.fils.name}"/>:
 										</a>
 										</li>
 									</jstl:forEach>
@@ -508,8 +508,8 @@
 						<ul>
 							<jstl:forEach var="fils" items="${object.allFils}">
 								<li><a href="objectVisualisation/details.htm?code=${fils.fils.code}">
-									<jstl:out value="${fils.fils.code}"></jstl:out>(<jstl:out
-										value="${fils.fils.name}"></jstl:out>)
+									<jstl:out value="${fils.fils.code}"/>: <jstl:out
+										value="${fils.fils.name}"/>
 								</a></li>
 								
 							</jstl:forEach>
@@ -527,8 +527,8 @@
 
 
 						<li><a href="objectVisualisation/details.htm?code=${objet.code}">
-							<jstl:out value="${objet.code}"></jstl:out>(<jstl:out
-								value="${objet.name}"></jstl:out>)
+							<jstl:out value="${objet.code}"/>: <jstl:out
+								value="${objet.name}"/>
 						</a>
 						</li>
 

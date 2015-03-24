@@ -156,11 +156,9 @@ public class FormationController extends AbstractController {
 	public ModelAndView save(@RequestParam(required = false) String cobject,
 			@Valid @ModelAttribute Formation formation, BindingResult bindingResult) {
 
-		System.out.println("type de diplome : " + formation.getDiplomeType());
 
 		ModelAndView result = new ModelAndView("formation/edit");
 		if (bindingResult.hasErrors()) {
-			System.out.println(formation.getName());
 			result = new ModelAndView("formation/edit");
 		} else {
 			try {

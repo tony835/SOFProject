@@ -34,7 +34,7 @@ public class Parametrage {
 	PersonService persoManager ;
 	@Autowired
 	TypeObjectService typeObjectService ;
-	
+
 	private List<Field> getALLFields(Element racine) {
 		List<Element> lstTypeObject = racine.getChildren("object_type");
 		Iterator<Element> i = lstTypeObject.iterator();
@@ -128,17 +128,15 @@ public class Parametrage {
 		System.out.println("Fin du parametrage de l'application");
 	}
 
-	
+
 	public void start() {
-		
-		
 		SAXBuilder sxb = new SAXBuilder();
 		Document document = null;
 		try {
-			 
-			 
-			 
-		document = sxb.build(getClass().getResource("/configApp.xml"));
+
+
+
+			document = sxb.build(getClass().getResource("/configApp.xml"));
 		} catch (JDOMException | IOException e) {
 			e.printStackTrace();
 		}
@@ -157,7 +155,7 @@ public class Parametrage {
 			else if(!typeObjectFromDB.equals(typeObject)){
 				System.out.println("le type d'objet : " + typeObject + " a ete mis à jour -> update");
 				typeObjectService.save(typeObject) ;
-				
+
 			}
 			for(int i =0;i<fields.length;++i){
 				fields[i].setTypeObject(typeObject);
@@ -172,16 +170,16 @@ public class Parametrage {
 				}
 			}
 		}
-//		List <Person> l2= getAllDesigner(racine);
-//		for(int i=0;i<l2.size();++i){
-//			Person p = persoManager.findOne(l2.get(i).getLogin()) ;
-//			if(p == null){
-//				System.out.println("le concepteur : "+  l2.get(i).getLogin() + " a ete ajoute -> insert");
-//				persoManager.save(l2.get(i));
-//			}
-//		}
-//		
-		
+		//		List <Person> l2= getAllDesigner(racine);
+		//		for(int i=0;i<l2.size();++i){
+		//			Person p = persoManager.findOne(l2.get(i).getLogin()) ;
+		//			if(p == null){
+		//				System.out.println("le concepteur : "+  l2.get(i).getLogin() + " a ete ajoute -> insert");
+		//				persoManager.save(l2.get(i));
+		//			}
+		//		}
+		//		
+
 		////////////////////////////////////////
 		List <TypeObject> typeObjectsDB = typeObjectService.findAll();
 		for(int i =0 ; i< typeObjectsDB.size();++i){
@@ -195,7 +193,7 @@ public class Parametrage {
 				System.out.println("!!!!Attention le type d'objet " + typeObjectsDB.get(i) + " est present dans la base et non définit dans le fichier XML");
 			}
 		}
-		
+
 		////////////////////////
 		List <Field> fieldsDB = fieldManager.findAll();
 		List l3 = getALLFields(racine);

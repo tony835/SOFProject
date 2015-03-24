@@ -338,9 +338,7 @@ public class ArbreFormationController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String create(@RequestParam(required = false) String context,
 			@RequestParam(required = false) String cobject, RedirectAttributes redirectAttributes) {
-		System.out.println("oooooo");
 		if (cobject != null) {
-		 	System.out.println("looool");
 			try {
 				if (objectService.findOne(cobject) == null) {
 					if (!user.isResponsable(objectService.findOne(cobject).getContexte())) {
@@ -351,7 +349,6 @@ public class ArbreFormationController extends AbstractController {
 				} else {
 					formation =  objectService.findOne(cobject).getContexte();
 					redirectAttributes.addFlashAttribute("formationName", objectService.findOne(cobject).getContexte().getName());
-					System.out.println("llllooooll");
 					if (!user.isResponsable(objectService.findOne(cobject).getContexte())) {
 						redirectAttributes.addFlashAttribute("error", "ArbreFormation.noResponsable");
 						return "redirect:/auth/login.htm";
@@ -374,7 +371,6 @@ public class ArbreFormationController extends AbstractController {
 		if(context != null){
 			formation =  objectService.findOne(context);
 			redirectAttributes.addFlashAttribute("formationName", objectService.findOne(context).getName());
-			System.out.println("===>"+objectService.findOne(context).getName());
 		}
 
 		return "tmpObjectCreation/createObject";
@@ -399,7 +395,6 @@ public class ArbreFormationController extends AbstractController {
 			}
 			// On regarde que la formation existe déjà pour pouvoir l'avouter au context du nouvel objet.
 			if (form == null) {
-				System.out.println("cas1");
 				ModelAndView resultat = new ModelAndView("tmpObjectCreation/createObject");
 				resultat.addObject("error", "arbreformation.formUnknow");
 				return resultat;
@@ -425,7 +420,6 @@ public class ArbreFormationController extends AbstractController {
 				obj = objectService.findOne(myobject.getCode());
 				// On vérifie que l'objet n'existe pas déjà
 				if (obj != null) {
-					System.out.println("cas3");
 					ModelAndView resultat = new ModelAndView("tmpObjectCreation/createObject");
 					resultat.addObject("myobject", myobject);
 					try {
@@ -434,21 +428,17 @@ public class ArbreFormationController extends AbstractController {
 						int tmp, nb = 0;
 						Random rand = new Random();
 						do {
-							System.out.println("ppppp");
 							tmp = (int) rand.nextInt(1000);
 							++nb;
 							if (nb > 10)
 								break;
-							System.out.println("essai");
-							System.out.println(myobject.getCode() + "" + tmp);
+							
 						} while (objectService.findOne(myobject.getCode() + "" + tmp) != null);
 						if (nb < 10) {
 							myobject.setCode(myobject.getCode() + "" + tmp);
-							System.out.println(myobject.getCode() + "" + tmp);
 							resultat.addObject("error", "arbreformation.edit.codeAlreadyExistingProposingNew");
 							return resultat;
 						} else {
-							System.out.println("ici");
 							resultat.addObject("error", "arbreformation.codeAlreadyExisting");
 							return resultat;
 						}
@@ -471,7 +461,6 @@ public class ArbreFormationController extends AbstractController {
 				// On vérifie que l'objet existe déjà
 				// TODO A tester car passe mais n'affiche pas l'erreur
 				if (obj == null) {
-					System.out.println("cas2");
 					ModelAndView resultat = new ModelAndView("tmpObjectCreation/createObject");
 					resultat.addObject("error", "arbreformation.cObjectUnknow");
 					return resultat;
@@ -642,7 +631,6 @@ public class ArbreFormationController extends AbstractController {
 			return resultat;
 		}
 		if (result.hasErrors()) {
-			System.out.println(" --- " + result.toString());
 			return new ModelAndView("redirect:gestionFils.htm?cobject=" + cobject);
 		}
 		try {
@@ -690,24 +678,5 @@ public class ArbreFormationController extends AbstractController {
 				return retour;
 			}
 		});
-
-		// binder.registerCustomEditor(Collection.class, "NonLinkedObjectList", new
-		// CustomCollectionEditor(Collection.class)
-		// {
-		// @Override
-		// protected Object convertElement(Object element)
-		// {
-		//
-		// System.out.println("init ... BENDER !!!");
-		//
-		// Collection <Fils> retour = new ArrayList<Fils>();
-		// Fils f = new Fils();
-		// f.setRang(1);
-		// f.setFils(objectService.findOne((String)element));
-		// retour.add(f);
-		// return retour;
-		// }
-		//
-		// });
 	}
 }
