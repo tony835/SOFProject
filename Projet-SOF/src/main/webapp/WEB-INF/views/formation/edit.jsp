@@ -13,7 +13,12 @@
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
 		<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+		<c:if test="${pageContext.response.locale == \'en\'}">
 		<script type="text/javascript" src="scripts/scripts_perso/editLogin.js"></script>
+		</c:if>
+		<c:if test="${pageContext.response.locale != \'en\'}">
+		<script type="text/javascript" src="scripts/scripts_perso/editLoginFR.js"></script>
+		</c:if>
 		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 		<!-- Javascript -->
 		<script>

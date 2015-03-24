@@ -12,9 +12,14 @@
 		<spring:message code="title.authentification.login" />
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
-		<script type="text/javascript" src="scripts/scripts_perso/login.js"></script>
+		<c:if test="${pageContext.response.locale == \'en\'}">
+			<script type="text/javascript" src="scripts/scripts_perso/login.js"></script>
+		</c:if>
+		<c:if test="${pageContext.response.locale != \'en\'}">
+			<script type="text/javascript" src="scripts/scripts_perso/loginFR.js"></script>
+		</c:if>
 		<form:form id="signupForm" method="POST" commandName="user">
-			<tag:textboxMini name="login" code="authentification.login" path="login" /><div><br/><br/></div>
+			<tag:textboxMini name="login" code="authentification.login" path="login" /><div><br/><br/><br/></div>
 			<tag:textboxMini type="password" size="8" name="password" code="authentification.password" path="password" />
 			<div><br/><br/></div>
 			<tag:submit name="valid" code="valid"></tag:submit>

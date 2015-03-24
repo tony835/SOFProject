@@ -25,8 +25,12 @@
 		</jstl:if>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
-		<script type="text/javascript"
-			src="scripts/scripts_perso/editObject.js"></script>
+	<c:if test="${pageContext.response.locale == \'en\'}">
+		<script type="text/javascript" src="scripts/scripts_perso/editObject.js"></script>
+		</c:if>
+		<c:if test="${pageContext.response.locale != \'en\'}">
+		<script type="text/javascript" src="scripts/scripts_perso/editObjectFR.js"></script>
+		</c:if>
 
 
 		<form:form id="signupForm" method="post" commandName="myobject">
