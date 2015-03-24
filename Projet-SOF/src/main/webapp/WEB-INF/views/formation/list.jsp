@@ -43,8 +43,15 @@
 
 				<tag:column code="responsable.login" property="responsable.name"
 					sortable="true" />
-				<tag:column code="formation.numError" property="numError"
-					sortable="true" />
+				
+				<spring:message code="formation.numError" var="var" />
+					
+				<display:column title="${var}" sortable="true">
+				${row.numError}
+				<jstl:if test="${row.numError>0}">
+					<img src="images/error.png" alt="Erreur" title="Erreur" />
+				</jstl:if>
+				</display:column>
 
 				<jstl:if test="${user.isConceptor()}">
 					<display:column>
