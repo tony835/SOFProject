@@ -134,21 +134,12 @@
 
 					<jstl:forEach var="item" items="${fIListGeneral}">
 
-
-
-
-
-
-
-
 						<jstl:choose>
 
 							<jstl:when test="${user.isConnected()}">
 								<jstl:choose>
 
 									<jstl:when test="${Audit==true}">
-
-
 
 										<jstl:choose>
 											<jstl:when test="${Contributor==true}">
@@ -158,7 +149,6 @@
 													edit </a>
 											</jstl:when>
 										</jstl:choose>
-
 
 										<b>${item.field.name}:</b>
 										<span id="spanValue${item.field.id}${object.code}">${item.value}</span>
@@ -319,10 +309,6 @@
 									</jstl:when>
 								</jstl:choose>
 							</jstl:when>
-
-
-
-
 						</jstl:choose>
 
 					</jstl:forEach>
@@ -343,10 +329,6 @@
 
 
 				</div>
-
-
-
-
 
 				<jstl:forEach var="item" items="${maps.keySet()}">
 					<div id="section${item}" class="tab-pane fade">
@@ -507,27 +489,31 @@
 						<jstl:choose>
 							<jstl:when test="${user.isConnected()}">
 								<div id="listFils" class="tab-pane fade">
+								<ul>
 									<jstl:forEach var="fils" items="${object.allFils}">
-										<a
+										<li><a
 											href="objectVisualisation/audit/details.htm?code=${fils.fils.code}">
 											<jstl:out value="${fils.fils.code}"></jstl:out>(<jstl:out
 												value="${fils.fils.name}"></jstl:out>)
 										</a>
-										<br />
+										</li>
 									</jstl:forEach>
+									</ul>
 								</div>
 							</jstl:when>
 						</jstl:choose>
 					</jstl:when>
 					<jstl:otherwise>
 						<div id="listFils" class="tab-pane fade">
+						<ul>
 							<jstl:forEach var="fils" items="${object.allFils}">
-								<a href="objectVisualisation/details.htm?code=${fils.fils.code}">
+								<li><a href="objectVisualisation/details.htm?code=${fils.fils.code}">
 									<jstl:out value="${fils.fils.code}"></jstl:out>(<jstl:out
 										value="${fils.fils.name}"></jstl:out>)
-								</a>
-								<br />
+								</a></li>
+								
 							</jstl:forEach>
+							</ul>
 						</div>
 					</jstl:otherwise>
 				</jstl:choose>
@@ -536,17 +522,18 @@
 
 
 				<div id="objetMemeType" class="tab-pane fade">
-
+<ul>
 					<jstl:forEach var="objet" items="${objectMemeType}">
 
 
-						<a href="objectVisualisation/details.htm?code=${objet.code}">
+						<li><a href="objectVisualisation/details.htm?code=${objet.code}">
 							<jstl:out value="${objet.code}"></jstl:out>(<jstl:out
 								value="${objet.name}"></jstl:out>)
 						</a>
-						<br />
+						</li>
 
 					</jstl:forEach>
+					</ul>
 				</div>
 
 			</div>
