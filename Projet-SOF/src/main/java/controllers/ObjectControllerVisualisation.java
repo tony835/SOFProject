@@ -94,12 +94,10 @@ public class ObjectControllerVisualisation  extends AbstractController{
 	    	
 	    	
 	    	if(f.getField().getTabName()==null && fieldInParam.contains(f.getField().getId())){
-	    		
 	    		fIListGeneral.add(f);
 	    	}else if(maps.containsKey(f.getField().getTabName()) && fieldInParam.contains(f.getField().getId()))
 	    	{
 	    		maps.get(f.getField().getTabName()).add(f);
-	    		
 	    	}
 	    	else {
 	    		List<FieldObject> filObjects= new ArrayList<FieldObject>();
@@ -152,10 +150,7 @@ public class ObjectControllerVisualisation  extends AbstractController{
 	    }
 	    fieldInParam = fieldService.getListFieldByCode(obj.getTypeObject().getCode());
 	    for(FieldObject f:fIList ){
-	    	
-	    	
 	    	if(f.getField().getTabName()==null && fieldInParam.contains(f.getField().getId())){
-	    		
 	    		fIListGeneral.add(f);
 	    	}else if(maps.containsKey(f.getField().getTabName()) && fieldInParam.contains(f.getField().getId()))
 	    	{
