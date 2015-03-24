@@ -6,7 +6,8 @@
 
 	<div>
 		<div class="logo">
-			<a href="/Projet_SOF/" title="Accueil"><img src="images/logo.png" alt="Gestion Annuaire Co., Inc." /></a>
+			<a href="/Projet_SOF/" title="Accueil"><img src="images/logo_bak.png" alt="Gestion Annuaire Co., Inc." />  
+			 <img style="margin-left: 10%;" src="images/logo.png" alt="Gestion Annuaire Co., Inc." /></a>
 			<div class="internationalisation">
 				<a href="?language=en"><img src="images/gb.png" alt="English" /></a> | <a href="?language=fr_FR"><img
 					src="images/fr.png" alt="Francais" /> </a> |
