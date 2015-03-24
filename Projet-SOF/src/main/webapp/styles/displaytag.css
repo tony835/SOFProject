@@ -99,6 +99,7 @@ span.rtf {
 
 span.pagebanner {
 color:  #fff;
+display: none;
 }
 
 span.pagelinks {

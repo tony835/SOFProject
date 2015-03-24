@@ -36,14 +36,14 @@ html, body
 	font-variant: normal;
 	font-weight: normal;
 	background:#f3f3f3;
-	min-width:1500px;
+	min-width:900px;
 }
 
 html > body
 {
 	font-size: 12px;
 	line-height: 21px;
-	min-width:1500px;
+	min-width:900px;
 }
 
 

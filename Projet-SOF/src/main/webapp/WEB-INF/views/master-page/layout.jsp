@@ -44,7 +44,7 @@
 		<tiles:insertAttribute name="header" />
 	</div>
 	<div>
-		<div class="panel panel-default baseBody">
+		<div class="panel panel-default baseBody" style="min-width:1000px">
 			<div class="panel-heading">
 				<h3 class="panel-title" id="titleDoc">
 				</h3>
