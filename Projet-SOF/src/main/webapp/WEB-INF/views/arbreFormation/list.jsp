@@ -9,7 +9,7 @@
 
 <tiles:insertDefinition name="master.page">
 	<tiles:putAttribute name="title">
-		<spring:message code="title.arbre.list" /> ${param.code}
+		<spring:message code="title.arbre.list" /> ${param.code}: ${formation.name}
 		</tiles:putAttribute>
 	<tiles:putAttribute name="body">
 

@@ -2,7 +2,6 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -523,7 +522,7 @@ public class ArbreFormationController extends AbstractController {
 
 	@ModelAttribute("typesList")
 	public List<TypeObject> productTypes() {
-		return (List<TypeObject>) typeService.findAll();
+		return (List<TypeObject>) typeService.findTypeFils();
 	}
 
 	@ModelAttribute("NonLinkedObjectList")

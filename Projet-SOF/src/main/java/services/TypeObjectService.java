@@ -36,4 +36,9 @@ public class TypeObjectService {
 		
 	}
 
+	public List<TypeObject> findTypeFils() {
+		// TODO Auto-generated method stub
+		return typeObjectDao.findTypeFils();
+	}
+
 }

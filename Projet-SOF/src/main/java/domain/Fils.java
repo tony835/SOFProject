@@ -46,8 +46,10 @@ public class Fils implements Comparable<Fils>{
 	public int compareTo(Fils o) {
 		// TODO Auto-generated method stub
 		Integer rang = ((Fils) o).getRang() ;
-
+        if(this.Rang != rang)
 		return this.Rang - rang;
+        else 
+        	return this.getFils().getCode().compareTo(o.getFils().getCode());
 	}
 
 }

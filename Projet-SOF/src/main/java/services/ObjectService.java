@@ -5,6 +5,7 @@ package services;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.jdom2.JDOMException;
@@ -131,26 +132,33 @@ public class ObjectService {
 
 	public List<Fils> getChild(String code) {
 		domain.Object obj = findOne(code);
+		
 		List<Fils> list = new ArrayList<Fils>();
+	
 		if(obj == null)
 			return list;
-		for (Fils fils : obj.getAllFils()){
-			boolean passe = false;
-			if(list.size() == 0){
-				list.add(fils);
-				continue;
-			}
-			for (int i = 0; i < list.size(); i++){
-				if(fils.getRang() <= list.get(i).getRang()){
-					list.add(i, fils);
-					passe = true;
-					break;
-				}
-			}
-			if(!passe){
-				list.add(list.size(), fils);
-			}
-		}
+		
+		list.addAll(obj.getAllFils());
+		
+//		for (Fils fils : obj.getAllFils()){
+//			boolean passe = false;
+//			if(list.size() == 0){
+//				list.add(fils);
+//				continue;
+//			}
+//			for (int i = 0; i < list.size(); i++){
+//				if(fils.getRang() <= list.get(i).getRang()){
+//					list.add(i, fils);
+//					passe = true;
+//					break;
+//				}
+//			}
+//			if(!passe){
+//				list.add(list.size(), fils);
+//			}
+			
+//		}
+		 Collections.sort(list);
 		return list;
 	}
 

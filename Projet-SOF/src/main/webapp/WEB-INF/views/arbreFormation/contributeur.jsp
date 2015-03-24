@@ -23,7 +23,9 @@
 					<tag:column code="contributeur.code" property="login" sortable="true" />
 					<tag:column code="contributeur.name" property="name" sortable="true" />
 					<display:column>
-						<a href="formation/contributeur/delete.htm?contrib=${row.login}&code=${formation}"> x </a>
+						<a class="btn btn-default btn-xs"
+									href="formation/contributeur/delete.htm?contrib=${row.login}&code=${formation}"><spring:message
+										code="arbreFormation.supprimer" /></a>
 					</display:column>
 
 				</display:table>
