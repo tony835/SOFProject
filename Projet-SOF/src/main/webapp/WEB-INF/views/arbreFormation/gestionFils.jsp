@@ -8,6 +8,11 @@
 	xmlns:tiles="http://tiles.apache.org/tags-tiles"
 	xmlns:tag="urn:jsptagdir:/WEB-INF/tags"
 	xmlns="http://www.w3.org/1999/xhtml">
+	
+<spring:message code="modifychildren.sorttype" var="sorttype"/>
+<spring:message code="modifychildren.selectobject" var="selectobject"/>
+<spring:message code="modifychildren.selectmobject" var="selectmobject"/>
+
 
 	<jsp:output omit-xml-declaration="false" doctype-root-element="html"
 		doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -65,7 +70,7 @@
 					<div class="col-sm-6">
 						<form:select class="form-control" name="code" path="code"
 							multiple="false" onchange="this.form.submit()">
-							<form:option value="" label="Tous les types" />
+							<form:option value="" label="${sorttype}" />
 							<form:options items="${typesList}" itemLabel="name"
 								itemValue="code" />
 						</form:select>

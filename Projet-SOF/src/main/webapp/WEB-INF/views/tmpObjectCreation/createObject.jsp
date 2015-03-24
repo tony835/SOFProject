@@ -9,6 +9,8 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<spring:message code="createObject.select" var="selecttype"/>
+
 <tiles:insertDefinition name="master.page">
 	<tiles:putAttribute name="title">
 
@@ -38,7 +40,7 @@
 					</form:label>
 					<div class="col-sm-10">
 						<form:select class="form-control" path="typeObject.code" multiple="false">
-							<form:option value="" label="Séléctionner un type" />
+							<form:option value="" label="${selecttype}" />
 							<form:options items="${typesList}" itemLabel="name" itemValue="code" />
 						</form:select>
 					</div>
