@@ -61,14 +61,14 @@
 	    <fieldset>
 
 					<legend>
-                     Choisisez le type et  ajoutez un fils
+					<spring:message code="modifychildren.addchild" /> 
 					</legend>
 			<form:form
 				action="arbreFormation/sortNLObject.htm?cobject=${objEnCours.getCode()}"
 				method="post" modelAttribute="typeobject">
 				<div class="form-group">
 					<form:label class="col-sm-2 control-label" path="">
-						Tous les types
+					<spring:message code="" /> 
 					</form:label>
 					<div class="col-sm-6">
 						<form:select class="form-control" name="code" path="code"
@@ -91,7 +91,7 @@
 				method="post" modelAttribute="selectedFils">
 				<div class="form-group">
 					<form:label class="col-sm-2 control-label" path="">
-						Liste des objets non lies
+					<spring:message code="modifychildren.selectobject"/>
 					</form:label>
 					<div class="col-sm-6">
 						<form:select class="form-control" name="code" path="code"
@@ -118,7 +118,7 @@
 				method="post" modelAttribute="selectedFils">
 				<div class="form-group">
 					<form:label class="col-sm-2 control-label" path="">
-						Liste des objets mutualises
+					<spring:message code="modifychildren.selectmobject"/>
 					</form:label>
 					<div class="col-sm-6">
 						<form:select class="form-control" name="code" path="code"
