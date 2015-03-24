@@ -20,11 +20,13 @@
 				<spring:message code="title.object.edit" /> ${param.cobject}
 			</jstl:when>
 		</jstl:choose>
-	<spring:message>: ${formationName}
-	</spring:message>
+		<jstl:if test="${formationName!=null}">
+			<spring:message>: ${formationName} </spring:message>
+		</jstl:if>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
-		<script type="text/javascript" src="scripts/scripts_perso/editObject.js"></script>
+		<script type="text/javascript"
+			src="scripts/scripts_perso/editObject.js"></script>
 
 
 		<form:form id="signupForm" method="post" commandName="myobject">
@@ -37,16 +39,39 @@
 						<spring:message code="createObject.select" />
 					</form:label>
 					<div class="col-sm-10">
-						<form:select class="form-control" path="typeObject.code" multiple="false">
+						<form:select class="form-control" path="typeObject.code"
+							multiple="false">
 							<form:option value="" label="Séléctionner un type" />
-							<form:options items="${typesList}" itemLabel="name" itemValue="code" />
+							<form:options items="${typesList}" itemLabel="name"
+								itemValue="code" />
 						</form:select>
 					</div>
 				</div>
 			</jstl:if>
-			<tag:checkbox code="checkbox.mutualisable" value="mutualisable" path="mutualisable" />
+			<jstl:if test="${myobject.mutualisable==true}">
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<div class="checkbox">
+							<label> <form:checkbox path="mutualisable"
+									value="mutualisable" onclick="return false;" />
+									 <spring:message code="checkbox.mutualisable" />
+							</label>
+						</div>
+					</div>
+				</div>
+			</jstl:if>
+			<jstl:if test="${myobject.mutualisable!=true}">
+				<tag:checkbox code="checkbox.mutualisable" value="mutualisable"
+					path="mutualisable" />
+			</jstl:if>
 
-			<tag:submitAndCancel nameSubmit="save" codeCancel="cancel" codeSubmit="save" urlCancel="" />
+
+
+
+
+
+			<tag:submitAndCancel nameSubmit="save" codeCancel="cancel"
+				codeSubmit="save" urlCancel="" />
 		</form:form>
 		<div class="center">
 			<c:if test="${!empty error}">
