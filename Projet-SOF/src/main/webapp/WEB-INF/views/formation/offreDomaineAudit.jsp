@@ -38,6 +38,8 @@
 
 			<jstl:choose>
 			<jstl:when test="${user.isConnected()}">
+								<jstl:if test="${!FormationFieldExist.isEmpty()}">
+			
 			<display:table name="FormationFieldExist" requestURI="visualisation/formation/audit/offreDomaine.htm" id="field">
 				<display:column title="Nom"  sortable="true">
 
@@ -47,6 +49,7 @@
 				</display:column>
 				
 			</display:table>
+			</jstl:if>
 			</jstl:when>
 			<jstl:otherwise>
         			<jstl:out value="Vous n'êtes pas connecté, merci de bien vouloir vous authentifier" />

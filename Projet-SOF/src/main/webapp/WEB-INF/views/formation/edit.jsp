@@ -44,7 +44,7 @@
 			</div>
 			<div class="form-group">
 				<form:label class="col-sm-4 control-label" path="diplomeType">
-						Séléctionner un type de diplome
+						<spring:message code="select.diplome"></spring:message>
 					</form:label>
 				<div class="col-sm-8">
 					<form:select class="form-control" path="diplomeType" multiple="false" modelAttribute="formation">

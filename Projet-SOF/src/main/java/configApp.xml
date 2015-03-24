@@ -1,5 +1,4 @@
 <config>
-
 	<object_type>
 		<code>FOR</code>
 		<name>Formation</name>
@@ -9,31 +8,22 @@
 		<content_model>(SPE_)+|(PRO_)+</content_model>
 		<description>desc</description>
 		<field>
-			<Id>adaptation</Id>
-			<name>adaptation</name>
-			<description>adaptation</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
 			<Id>ados_pro</Id>
-			<name>ados_pro</name>
+			<name>LIENS AVEC LE MILIEU SOCIO-ÉCONOMIQUE</name>
 			<description>ados_pro</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>3</tab_name>
+			<tab_name>Débouchés</tab_name>
 		</field>
 		<field>
 			<Id>ados_recherche</Id>
-			<name>ados_recherche</name>
+			<name>ADOSSEMENT À LA RECHERCHE</name>
 			<description>ados_recherche</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>3</tab_name>
+			<tab_name>Débouchés</tab_name>
 		</field>
 		<field>
 			<Id>aide_ins_pro</Id>
@@ -42,522 +32,116 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>4</tab_name>
-		</field>
-		<field>
-			<Id>aide_orientation</Id>
-			<name>aide_orientation</name>
-			<description>aide_orientation</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>aide_reussite</Id>
-			<name>aide_reussite</name>
-			<description>aide_reussite</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>articu_autres_format</Id>
-			<name>articu_autres_format</name>
-			<description>articu_autres_format</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>auto_evaluation</Id>
-			<name>auto_evaluation</name>
-			<description>auto_evaluation</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>autres_complement</Id>
-			<name>autres_complement</name>
-			<description>autres_complement</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>annee_offre</Id>
-			<name>annee_offre</name>
-			<description>annee_offre</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>code_dossier</Id>
-			<name>code_dossier</name>
-			<description>code_dossier</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Débouchés</tab_name>
 		</field>
 		<field>
 			<Id>competences</Id>
-			<name>competences</name>
+			<name>COMPÉTENCES À ACQUÉRIR</name>
 			<description>competences</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>2</tab_name>
+			<tab_name>Contenu</tab_name>
 		</field>
 		<field>
 			<Id>conditions_admission</Id>
-			<name>conditions_admission</name>
+			<name>CONDITIONS D'ADMISSION</name>
 			<description>conditions_admission</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>1</tab_name>
+			<tab_name>Description</tab_name>
 		</field>
 		<field>
 			<Id>connaissances</Id>
-			<name>connaissances</name>
+			<name>CONNAISSANCES À ACQUÉRIR</name>
 			<description>connaissances</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>2</tab_name>
+			<tab_name>Contenu</tab_name>
 		</field>
 		<field>
 			<Id>contexte</Id>
-			<name>contexte</name>
+			<name>OBJECTIF</name>
 			<description>contexte</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Description</tab_name>
 		</field>
-
-
-		<field>
-			<Id>date_CEVU</Id>
-			<name>date_CEVU</name>
-			<description>date_CEVU</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>date_CA</Id>
-			<name>date_CA</name>
-			<description>date_CA</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-
-		<field>
-			<Id>date_CS</Id>
-			<name>date_CS</name>
-			<description>date_CS</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>date_modification</Id>
-			<name>date_modification</name>
-			<description>date_modification</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
+		
 		<field>
 			<Id>debouches</Id>
-			<name>debouches</name>
+			<name>DÉBOUCHÉS PROFESSIONNELS</name>
 			<description>debouches</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>3</tab_name>
-		</field>
-		<field>
-			<Id>debut_habilitation</Id>
-			<name>debut_habilitation</name>
-			<description>debut_habilitation</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-
-		<field>
-			<Id>denomination_nationale</Id>
-			<name>denomination_nationale</name>
-			<description>denomination_nationale</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>finalite</Id>
-			<name>finalite</name>
-			<description>finalite</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>fin_habilitation</Id>
-			<name>fin_habilitation</name>
-			<description>fin_habilitation</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-
-		<field>
-			<Id>identificateur</Id>
-			<name>identificateur</name>
-			<description>identificateur</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Débouchés</tab_name>
 		</field>
 		<field>
 			<Id>international</Id>
-			<name>international</name>
+			<name>ÉTUDES À L'ÉTRANGER</name>
 			<description>international</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>4</tab_name>
-		</field>
-
-		<field>
-			<Id>mcc</Id>
-			<name>mcc</name>
-			<description>mcc</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>modifications</Id>
-			<name>modifications</name>
-			<description>modifications</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>mots-clefs</Id>
-			<name>mots-clefs</name>
-			<description>mots-clefs</description>
-			<content_type>ENUM</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>En plus</tab_name>
 		</field>
 		<field>
 			<Id>nb_credits</Id>
-			<name>nb_credits</name>
+			<name>NOMBRE DE CRÉDITS</name>
 			<description>nb_credits</description>
 			<content_type>INT</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>nom_complet</Id>
-			<name>nom_complet</name>
-			<description>nom_complet</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-
-		<field>
-			<Id>nom_nature</Id>
-			<name>nom_nature</name>
-			<description>nom_nature</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>objets</Id>
-			<name>objets</name>
-			<description>objets</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-
-		<field>
-			<Id>objetsoption</Id>
-			<name>objetsoption</name>
-			<description>objetsoption</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Description</tab_name>
 		</field>
 		<field>
 			<Id>org_pedago</Id>
-			<name>org_pedago</name>
+			<name>STRUCTURE ET ORGANISATION</name>
 			<description>org_pedago</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>1</tab_name>
+			<tab_name>Description</tab_name>
 		</field>
 		<field>
 			<Id>politique_stages</Id>
-			<name>politique_stages</name>
+			<name>POLITIQUE DE STAGE</name>
 			<description>politique_stages</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>2</tab_name>
+			<tab_name>Contenu</tab_name>
 		</field>
-		<field>
-			<Id>pos_offre_etablis</Id>
-			<name>pos_offre_etablis</name>
-			<description>pos_offre_etablis</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-
-		<field>
-			<Id>pos_offre_region</Id>
-			<name>pos_offre_region</name>
-			<description>pos_offre_region</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-
 		<field>
 			<Id>poursuite_etudes</Id>
-			<name>poursuite_etudes</name>
+			<name>POURSUITE D'ÉTUDE</name>
 			<description>poursuite_etudes</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>3</tab_name>
-		</field>
-		<field>
-			<Id>publiable</Id>
-			<name>publiable</name>
-			<description>publiable</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>En plus</tab_name>
 		</field>
 		<field>
 			<Id>public</Id>
-			<name>public</name>
+			<name>PUBLIC VISÉ</name>
 			<description>public</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>1</tab_name>
-		</field>
-		<field>
-			<Id>ref-domaine</Id>
-			<name>ref-domaine</name>
-			<description>ref-domaine</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>secteur_pro</Id>
-			<name>secteur_pro</name>
-			<description>secteur_pro</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>temoin_habilitation</Id>
-			<name>temoin_habilitation</name>
-			<description>temoin_habilitation</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>temoin_specialites</Id>
-			<name>temoin_specialites</name>
-			<description>temoin_specialites</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>type-cesu</Id>
-			<name>type-cesu</name>
-			<description>type-cesu</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>type-cu</Id>
-			<name>type-cu</name>
-			<description>type-cu</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>type-DE</Id>
-			<name>type-DE</name>
-			<description>type-DE</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>type-DE1</Id>
-			<name>type-DE1</name>
-			<description>type-DE1</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>type-DE2</Id>
-			<name>type-DE2</name>
-			<description>type-DE2</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>type-desu-desiu</Id>
-			<name>type-desu-desiu</name>
-			<description>type-desu-desiu</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>type-du</Id>
-			<name>type-du</name>
-			<description>type-du</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>type-dut</Id>
-			<name>type-dut</name>
-			<description>type-dut</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>type-licence</Id>
-			<name>type-licence</name>
-			<description>type-licence</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>type-licence-pro</Id>
-			<name>type-licence-pro</name>
-			<description>type-licence-pro</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>type-master</Id>
-			<name>type-master</name>
-			<description>type-master</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-
-		<field>
-			<Id>type_diplome</Id>
-			<name>type_diplome</name>
-			<description>type_diplome</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>validite_competences</Id>
-			<name>validite_competences</name>
-			<description>validite_competences</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>version</Id>
-			<name>version</name>
-			<description>version</description>
-			<content_type>INT</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Description</tab_name>
 		</field>
 		<field>
 			<Id>web</Id>
-			<name>web</name>
+			<name>SITE WEB DE LA FORMATION</name>
 			<description>web</description>
 			<content_type>STRING</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Description</tab_name>
 		</field>
 	</object_type>
 
@@ -569,214 +153,115 @@
 		</Erreur_descritpion>
 		<content_model>(PRO_)+</content_model>
 		<description>desc</description>
-
-		<field>
-			<Id>nom_complet</Id>
-			<name>nom_complet</name>
-			<description>nom_complet</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>identificateur</Id>
-			<name>identificateur</name>
-			<description>identificateur</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>type-master</Id>
-			<name>type-master</name>
-			<description>type-master</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>mots-clefs</Id>
-			<name>mots-clefs</name>
-			<description>mots-clefs</description>
-			<content_type>ENUM</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>aide_ins_pro</Id>
-			<name>aide_ins_pro</name>
-			<description>aide_ins_pro</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name>4</tab_name>
-		</field>
-		<field>
-			<Id>aide_orientation</Id>
-			<name>aide_orientation</name>
-			<description>aide_orientation</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>aide_reussite</Id>
-			<name>aide_reussite</name>
-			<description>aide_reussite</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
+		
 		<field>
 			<Id>aspects_format_continue</Id>
-			<name>aspects_format_continue</name>
+			<name>FORMATION CONTINUE ET ALTERNANCE</name>
 			<description>aspects_format_continue</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>aspects_format_pro</Id>
-			<name>aspects_format_pro</name>
-			<description>aspects_format_pro</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>aspects_format_recherche</Id>
-			<name>aspects_format_recherche</name>
-			<description>aspects_format_recherche</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Organisation</tab_name>
 		</field>
 		<field>
 			<Id>conditions_admission</Id>
-			<name>conditions_admission</name>
+			<name>CONDITIONS D'ADMISSION</name>
 			<description>conditions_admission</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>1</tab_name>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>aspects_format_pro</Id>
+			<name>FORMATION PROFESSIONNELLE</name>
+			<description>aspects_format_pro</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>aspects_format_recherche</Id>
+			<name>FORMATION ET RECHERCHE</name>
+			<description>aspects_format_recherche</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>conditions_admission</Id>
+			<name>CONDITION D'ADMISSION</name>
+			<description>conditions_admission</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
 		</field>
 		<field>
 			<Id>connaissances</Id>
-			<name>connaissances</name>
+			<name>CONNAISSANCES À ACQUÉRIR</name>
 			<description>connaissances</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>2</tab_name>
+			<tab_name>Description</tab_name>
 		</field>
-		<field>
-			<Id>date_modification</Id>
-			<name>date_modification</name>
-			<description>date_modification</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
+		
 		<field>
 			<Id>debouches</Id>
-			<name>debouches</name>
+			<name>DÉBOUCHÉS PROFESSIONNELS</name>
 			<description>debouches</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>3</tab_name>
+			<tab_name>Description</tab_name>
 		</field>
 		<field>
 			<Id>finalite</Id>
-			<name>finalite</name>
+			<name>FINALITÉ</name>
 			<description>finalite</description>
 			<content_type>STRING</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>international</Id>
-			<name>international</name>
-			<description>international</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name>4</tab_name>
-		</field>
-
-		<field>
-			<Id>mcc</Id>
-			<name>mcc</name>
-			<description>mcc</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Description</tab_name>
 		</field>
 		<field>
 			<Id>org_pedago</Id>
-			<name>org_pedago</name>
+			<name>STRUCTURE ET ORGANISATION</name>
 			<description>org_pedago</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>1</tab_name>
+			<tab_name>Organisation</tab_name>
 		</field>
 		<field>
 			<Id>politique_stages</Id>
-			<name>politique_stages</name>
+			<name>STAGES ET PROJETS ENCADRÉS</name>
 			<description>politique_stages</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>2</tab_name>
+			<tab_name>Description</tab_name>
 		</field>
 		<field>
 			<Id>poursuite_etudes</Id>
-			<name>poursuite_etudes</name>
+			<name>POURSUITE D'ÉTUDES</name>
 			<description>poursuite_etudes</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>3</tab_name>
-		</field>
-		<field>
-			<Id>publiable</Id>
-			<name>publiable</name>
-			<description>publiable</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Description</tab_name>
 		</field>
 		<field>
 			<Id>public</Id>
-			<name>public</name>
+			<name>PUBLIC VISÉ</name>
 			<description>public</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>1</tab_name>
-		</field>
-		<field>
-			<Id>version</Id>
-			<name>version</name>
-			<description>version</description>
-			<content_type>INT</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Organisation</tab_name>
 		</field>
 	</object_type>
 
@@ -789,114 +274,42 @@
 		<content_model>(ENS_)*</content_model>
 		<description>desc</description>
 		<field>
-			<Id>identificateur</Id>
-			<name>identificateur</name>
-			<description>identificateur</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>apogee</Id>
-			<name>apogee</name>
-			<description>apogee</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>bibliographie</Id>
-			<name>bibliographie</name>
-			<description>bibliographie</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>capacite</Id>
-			<name>capacite</name>
-			<description>capacite</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>capitalisation</Id>
-			<name>capitalisation</name>
-			<description>capitalisation</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>coefficient</Id>
-			<name>coefficient</name>
-			<description>coefficient</description>
-			<content_type>INT</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-
-		<field>
 			<Id>competences</Id>
-			<name>competences</name>
+			<name>COMPETENCES</name>
 			<description>competences</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>2</tab_name>
+			<tab_name>Descritpion</tab_name>
 		</field>
 		<field>
 			<Id>contenu</Id>
-			<name>contenu</name>
+			<name>CONTENU</name>
 			<description>contenu</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>date_modification</Id>
-			<name>date_modification</name>
-			<description>date_modification</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Contenu</tab_name>
 		</field>
 		<field>
 			<Id>discipline</Id>
-			<name>discipline</name>
+			<name>DISCIPLINE</name>
 			<description>discipline</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Organisation</tab_name>
 		</field>
 		<field>
 			<Id>duree_stage</Id>
-			<name>duree_stage</name>
+			<name>DUREE DE STAGE</name>
 			<description>duree_stage</description>
 			<content_type>STRING</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>2</tab_name>
+			<tab_name>Organisation</tab_name>
 		</field>
-		<field>
-			<Id>langue</Id>
-			<name>langue</name>
-			<description>langue</description>
-			<content_type>INT</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
+		
 		<field>
 			<Id>mcc</Id>
 			<name>mcc</name>
@@ -904,133 +317,79 @@
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Organisation</tab_name>
 		</field>
 		<field>
 			<Id>modalites_organisation</Id>
-			<name>modalites_organisation</name>
+			<name>MODALITES D'ORGANISATION</name>
 			<description>modalites_organisation</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>mutualisable</Id>
-			<name>mutualisable</name>
-			<description>mutualisable</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Organisation</tab_name>
 		</field>
 		<field>
 			<Id>nb_credits</Id>
-			<name>nb_credits</name>
+			<name>NOMBRE DE CRÉDITS</name>
 			<description>nb_credits</description>
 			<content_type>INT</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Organisation</tab_name>
 		</field>
 		<field>
 			<Id>pre_requis</Id>
-			<name>pre_requis</name>
+			<name>PRÉ-REQUIS RECOMMANDÉS</name>
 			<description>pre_requis</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Description</tab_name>
 		</field>
 		<field>
 			<Id>pre_requis_oblig</Id>
-			<name>pre_requis_oblig</name>
+			<name>PRÉ-REQUIS OBLIGATOIRES</name>
 			<description>pre_requis_oblig</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>type_ens</Id>
-			<name>type_ens</name>
-			<description>type_ens</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>version</Id>
-			<name>version</name>
-			<description>version</description>
-			<content_type>INT</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>vol_autres</Id>
-			<name>vol_autres</name>
-			<description>vol_autres</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Description</tab_name>
 		</field>
 		<field>
 			<Id>vol_cm</Id>
-			<name>vol_cm</name>
+			<name>VOLUME DE COURS</name>
 			<description>vol_cm</description>
 			<content_type>STRING</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Organisation</tab_name>
 		</field>
 		<field>
 			<Id>vol_global</Id>
-			<name>vol_global</name>
+			<name>VOLUME GLOBAL</name>
 			<description>vol_global</description>
 			<content_type>STRING</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Organisation</tab_name>
 		</field>
 		<field>
 			<Id>vol_td</Id>
-			<name>vol_td</name>
+			<name>VOLUME DE TRAVAX DIRIGÉS</name>
 			<description>vol_td</description>
 			<content_type>STRING</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Organisation</tab_name>
 		</field>
 		<field>
 			<Id>vol_tp</Id>
-			<name>vol_tp</name>
+			<name>VOLUME DE TRAVAUX PRATIQUE</name>
 			<description>vol_tp</description>
 			<content_type>STRING</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>vol_travail</Id>
-			<name>vol_travail</name>
-			<description>vol_travail</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>publiable</Id>
-			<name>publiable</name>
-			<description>publiable</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Organisation</tab_name>
 		</field>
 	</object_type>
 
@@ -1042,132 +401,43 @@
 		</Erreur_descritpion>
 		<content_model>(COM_)+</content_model>
 		<description>desc</description>
-		<field>
-			<Id>identificateur</Id>
-			<name>identificateur</name>
-			<description>identificateur</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>type-master</Id>
-			<name>type-master</name>
-			<description>type-master</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>type-master1</Id>
-			<name>type-master1</name>
-			<description>type-master1</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-
-		<field>
-			<Id>mots-clefs</Id>
-			<name>mots-clefs</name>
-			<description>mots-clefs</description>
-			<content_type>ENUM</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>apogee</Id>
-			<name>apogee</name>
-			<description>apogee</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
+		
 		<field>
 			<Id>aspects_format_recherche</Id>
-			<name>aspects_format_recherche</name>
+			<name>FORMATION ET RECHERCHE</name>
 			<description>aspects_format_recherche</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Description</tab_name>
 		</field>
 		<field>
 			<Id>capacite</Id>
-			<name>capacite</name>
+			<name>CAPACITÉ</name>
 			<description>capacite</description>
 			<content_type>STRING</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Organisation</tab_name>
 		</field>
 		<field>
 			<Id>competences</Id>
-			<name>competences</name>
+			<name>COMPÉTENCES À ACQUÉRIR</name>
 			<description>competences</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>2</tab_name>
+			<tab_name>Contenu</tab_name>
 		</field>
-		<field>
-			<Id>date_modification</Id>
-			<name>date_modification</name>
-			<description>date_modification</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
+		
 		<field>
 			<Id>duree_stage</Id>
-			<name>duree_stage</name>
+			<name>DUREE DE STAGE</name>
 			<description>duree_stage</description>
 			<content_type>STRING</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>2</tab_name>
-		</field>
-		<field>
-			<Id>ens_delocalises</Id>
-			<name>ens_delocalises</name>
-			<description>ens_delocalises</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>infos_diverses</Id>
-			<name>infos_diverses</name>
-			<description>infos_diverses</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>langue</Id>
-			<name>langue</name>
-			<description>langue</description>
-			<content_type>INT</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>mcc</Id>
-			<name>mcc</name>
-			<description>mcc</description>
-			<content_type>STRUCTURE</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Contenu</tab_name>
 		</field>
 		<field>
 			<Id>modalites_inscription</Id>
@@ -1180,16 +450,16 @@
 		</field>
 		<field>
 			<Id>modalites_pedago</Id>
-			<name>modalites_pedago</name>
+			<name>MODALITÉS PÉDAGOGIQUES PARTICULIÈRES</name>
 			<description>modalites_pedago</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Organisation</tab_name>
 		</field>
 		<field>
 			<Id>nb_credits</Id>
-			<name>nb_credits</name>
+			<name>NONBRE DE CRÉDITS</name>
 			<description>nb_credits</description>
 			<content_type>INT</content_type>
 			<required>0</required>
@@ -1198,111 +468,75 @@
 		</field>
 		<field>
 			<Id>objectifs</Id>
-			<name>objectifs</name>
+			<name>OBJECTIFS</name>
 			<description>objectifs</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>1</tab_name>
+			<tab_name>Description</tab_name>
 		</field>
 		<field>
 			<Id>politique_stages</Id>
-			<name>politique_stages</name>
+			<name>STAGES ET PROJETS ENCADRÉS</name>
 			<description>politique_stages</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name>2</tab_name>
+			<tab_name>Contenu</tab_name>
 		</field>
 		<field>
 			<Id>pre_requis</Id>
-			<name>pre_requis</name>
+			<name>PRÉ-REQUIS RECOMMANDÉS</name>
 			<description>pre_requis</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Description</tab_name>
 		</field>
 		<field>
 			<Id>pre_requis_oblig</Id>
-			<name>pre_requis_oblig</name>
+			<name>PRÉ-REQUIS OBLIGATOIRES</name>
 			<description>pre_requis_oblig</description>
 			<content_type>STRUCTURE</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>tronc_commun</Id>
-			<name>tronc_commun</name>
-			<description>tronc_commun</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>version</Id>
-			<name>version</name>
-			<description>version</description>
-			<content_type>INT</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Description</tab_name>
 		</field>
 		<field>
 			<Id>vol_cm</Id>
-			<name>vol_cm</name>
+			<name>VOLUME DE COURS</name>
 			<description>vol_cm</description>
 			<content_type>STRING</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Contenu</tab_name>
 		</field>
 		<field>
 			<Id>vol_td</Id>
-			<name>vol_td</name>
+			<name>VOLUME DE TRAVAUX DIRIGÉS</name>
 			<description>vol_td</description>
 			<content_type>STRING</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Contenu</tab_name>
 		</field>
 		<field>
 			<Id>vol_tp</Id>
-			<name>vol_tp</name>
+			<name>VOLUME DE TRAVAUX PRATIQUES</name>
 			<description>vol_tp</description>
 			<content_type>STRING</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Contenu</tab_name>
 		</field>
 		<field>
 			<Id>web</Id>
-			<name>web</name>
+			<name>SITE WEB DU PARCOURS</name>
 			<description>web</description>
 			<content_type>STRING</content_type>
 			<required>0</required>
 			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>regimes</Id>
-			<name>regimes</name>
-			<description>regimes</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
-		</field>
-		<field>
-			<Id>publiable</Id>
-			<name>publiable</name>
-			<description>publiable</description>
-			<content_type>STRING</content_type>
-			<required>0</required>
-			<length>100</length>
-			<tab_name></tab_name>
+			<tab_name>Description</tab_name>
 		</field>
 	</object_type>
 	<object_type>
@@ -1315,7 +549,7 @@
 		<description>desc</description>
 		<field>
 			<Id>nb_credits</Id>
-			<name>nb_credits</name>
+			<name>NOMBRE DE CRÉDITS</name>
 			<description>nb_credits</description>
 			<content_type>INT</content_type>
 			<required>0</required>
@@ -1324,7 +558,7 @@
 		</field>
 		<field>
 			<Id>numero</Id>
-			<name>numero</name>
+			<name>NUMERO</name>
 			<description>numero</description>
 			<content_type>INT</content_type>
 			<required>0</required>

@@ -2,7 +2,6 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -63,8 +62,8 @@ public class ArbreFormationController extends AbstractController {
 
 	@Autowired
 	User user;
-
-	/**
+	domain.Object formation;
+	 /**
 	 * Liste touts les formations.
 	 * 
 	 * @return La vue qui mène au jsp traitant cet action
@@ -340,7 +339,7 @@ public class ArbreFormationController extends AbstractController {
 			@RequestParam(required = false) String cobject, RedirectAttributes redirectAttributes) {
 		System.out.println("oooooo");
 		if (cobject != null) {
-			System.out.println("looool");
+		 	System.out.println("looool");
 			try {
 				if (objectService.findOne(cobject) == null) {
 					if (!user.isResponsable(objectService.findOne(cobject).getContexte())) {
@@ -349,6 +348,9 @@ public class ArbreFormationController extends AbstractController {
 					}
 					return "redirect:create.htm?context=" + context;
 				} else {
+					formation =  objectService.findOne(cobject).getContexte();
+					redirectAttributes.addFlashAttribute("formationName", objectService.findOne(cobject).getContexte().getName());
+					System.out.println("llllooooll");
 					if (!user.isResponsable(objectService.findOne(cobject).getContexte())) {
 						redirectAttributes.addFlashAttribute("error", "ArbreFormation.noResponsable");
 						return "redirect:/auth/login.htm";
@@ -368,6 +370,12 @@ public class ArbreFormationController extends AbstractController {
 			e.printStackTrace();
 			return "master-page/error";
 		}
+		if(context != null){
+			formation =  objectService.findOne(context);
+			redirectAttributes.addFlashAttribute("formationName", objectService.findOne(context).getName());
+			System.out.println("===>"+objectService.findOne(context).getName());
+		}
+
 		return "tmpObjectCreation/createObject";
 	}
 
@@ -514,9 +522,14 @@ public class ArbreFormationController extends AbstractController {
 		return new ModelAndView("redirect:gestionFils.htm?cobject=" + code + "&typeobject=");
 	}
 
+	@ModelAttribute("formationName")
+	public domain.Object formationName() {
+		return  formation;
+	}
+	
 	@ModelAttribute("typesList")
 	public List<TypeObject> productTypes() {
-		return (List<TypeObject>) typeService.findAll();
+		return (List<TypeObject>) typeService.findTypeFils();
 	}
 
 	@ModelAttribute("NonLinkedObjectList")

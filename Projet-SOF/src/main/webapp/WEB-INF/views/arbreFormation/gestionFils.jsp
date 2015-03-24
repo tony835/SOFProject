@@ -23,13 +23,15 @@
 
 	<tiles:insertDefinition name="master.page">
 		<tiles:putAttribute name="title">
-				<spring:message code="title.arbre.editchildren" /> ${param.cobject}
+				<spring:message code="title.arbre.editchildren" /> ${param.cobject}: ${objEnCours.name}
 		</tiles:putAttribute>
 		
 		<tiles:putAttribute name="body">
 			<jstl:if test="${!empty descError}">
 				<p style="color: Red">${descError}</p>
 			</jstl:if>
+						<jstl:if test="${!listFils.isEmpty()}">
+			
 			
 <display:table name="listFils" pagesize="20" class="displaytag"
 				id="row" requestURI="arbreFormation/gestionFils.htm">
@@ -39,8 +41,9 @@
 				<display:column title="Rang">
 					<form action="arbreFormation/gestionFilsEditRang.htm" method="post">
 						<input hidden="hidden" readonly="false" name="codeEnCours" value="${objEnCours.getCode()}"></input> <input
-							hidden="hidden" readonly="false" name="cobject" value="${row.getValue1().getFils().getCode()}"> </input> <input name="rang"
-							value="${row.getValue1().getRang()}"> </input>
+							hidden="hidden" readonly="false" name="cobject" value="${row.getValue1().getFils().getCode()}"> 
+							</input> 
+							<input type="number" name="rang"  value="${row.getValue1().getRang()}" style="width: 3em"> </input>
 						<button type="submit" name="Valider">Valider</button>
 					</form>
 				</display:column>
@@ -52,7 +55,7 @@
 					</jstl:if>
 				</display:column>
 			</display:table>
-
+	</jstl:if>
 
 	    
 	    <fieldset>
@@ -99,7 +102,7 @@
 						</form:select>
 							</div>
 						<div class="col-sm-2">
-						<input name="rang" value="1" size="2"> </input>
+						<input type="number" name="rang" value="1" style="width: 3em"> </input>
 						<button type="submit" name="save" class="btn btn-default btn-sm">
 							<spring:message code="save" />
 						</button>
@@ -126,7 +129,7 @@
 						</form:select>
 							</div>
 						<div class="col-sm-2">
-						<input name="rang" value="1" size="2"> </input>
+						<input width="1%" type="number" name="rang" value="1" style="width: 3em"> </input>
 						<button type="submit" name="save" class="btn btn-default btn-sm">
 							<spring:message code="save" />
 						</button>

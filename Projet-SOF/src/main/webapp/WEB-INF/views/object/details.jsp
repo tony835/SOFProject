@@ -1,6 +1,10 @@
 <%@page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 
+<%
+	request.setCharacterEncoding("UTF-8");
+%>
+
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
@@ -21,7 +25,7 @@
 
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
-			<nav class="navbar navbar-default">
+		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -33,9 +37,11 @@
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
-						<li><a href="visualisation/formation/offre.htm">Offre de formation</a></li>
+						<li><a href="visualisation/formation/offre.htm">Offre de
+								formation</a></li>
 						<jstl:if test="${user.isConnected()}">
-						<li><a href="visualisation/formation/audit/offre.htm">Version d'audit</a></li>
+							<li><a href="visualisation/formation/audit/offre.htm">Version
+									d'audit</a></li>
 						</jstl:if>
 					</ul>
 				</div>
@@ -65,7 +71,7 @@
 
 		<div id="container">
 			<div class="breadCrumbHolder module">
-				<div id="breadCrumb0" class="breadCrumb module" style="height: 33px">
+				<div id="breadCrumb" class="breadCrumb module" style="height: 33px">
 					<ul>
 
 						<jstl:choose>
@@ -109,7 +115,7 @@
 				</jstl:forEach>
 
 				<jstl:if test="${!object.allFils.isEmpty()}">
-					<li><a data-toggle="tab" href="#listFils"> Structure </a></li>
+					<li><a data-toggle="tab" href="#listFils"> <spring:message code= "composants.structure"></spring:message> </a></li>
 				</jstl:if>
 
 				<jstl:if test="${!objectMemeTypeSize}">
@@ -158,7 +164,40 @@
 										<span id="spanValue${item.field.id}${object.code}">${item.value}</span>
 
 										<br />
-										<script>
+										<script charset="UTF-8">
+										function d2h(d) {
+										    return d.toString(16);
+										}
+										function h2d (h) {
+										    return parseInt(h, 16);
+										}
+										function stringToHex (tmp) {
+										    var str = '',
+										        i = 0,
+										        tmp_len = tmp.length,
+										        c;
+										    
+										    for (; i < tmp_len; i += 1) {
+										        c = tmp.charCodeAt(i);
+										        str += d2h(c) + ' ';
+										    }
+										    return str;
+										}
+										function hexToString (tmp) {
+										    var arr = tmp.split(' '),
+										        str = '',
+										        i = 0,
+										        arr_len = arr.length,
+										        c;
+										    
+										    for (; i < arr_len; i += 1) {
+										        c = String.fromCharCode( h2d( arr[i] ) );
+										        str += c;
+										    }
+										    
+										    return str;
+										}
+										
 											$(document)
 													.ready(
 															function() {
@@ -171,18 +210,19 @@
 																					$
 																							.ajax({
 																								url : 'modal/ajax.htm',
-																					            contentType: "charset=utf-8",
+																								contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+																								scriptCharset : "UTF-8",
 																								data : {
 																									'codeObjet' : "${object.code}",
 																									'idField' : "${item.field.id}",
-																									'value' : value
+																									'value' : stringToHex(value)
 																								},
-																								
+
 																								success : function(
 																										data) {
 																									if (data.length != 0)
 																										document
-																												.getElementById("spanValue${item.field.id}${object.code}").innerHTML = data;
+																												.getElementById("spanValue${item.field.id}${object.code}").innerHTML = value;
 																									$(
 																											"#modal${item.field.id}${object.code}")
 																											.modal(
@@ -205,28 +245,30 @@
 															aria-hidden="true"></button>
 													</div>
 													<div class="modal-body">
-															<jstl:if test="${item.field.getTypeContenu()=='STRING'}">
-													<input type="text" placeholder="Description"
-															id="inputValue${item.field.id}${object.code}"
-															value="${item.value}" size=50 />
-													</jstl:if>
-													<jstl:if test="${item.field.getTypeContenu()=='STRUCTURE'}">
-													<textarea placeholder="Description"
-															id="inputValue${item.field.id}${object.code}"
-															 value="${item.value}" rows="30" cols="90" >${item.value}</textarea>
-													</jstl:if>
-													<jstl:if test="${item.field.getTypeContenu()=='INT'}">
-													<input type="number" placeholder="Description"
-															id="inputValue${item.field.id}${object.code}"
-															value="${item.value}" size=50 />
-													</jstl:if>
+														<jstl:if test="${item.field.getTypeContenu()=='STRING'}">
+															<input type="text" placeholder="Description"
+																id="inputValue${item.field.id}${object.code}"
+																value="${item.value}" size=50 />
+														</jstl:if>
+														<jstl:if
+															test="${item.field.getTypeContenu()=='STRUCTURE'}">
+															<textarea placeholder="Description"
+																id="inputValue${item.field.id}${object.code}"
+																value="${item.value}" rows="30" cols="90">${item.value}</textarea>
+														</jstl:if>
+														<jstl:if test="${item.field.getTypeContenu()=='INT'}">
+															<input type="number" placeholder="Description"
+																id="inputValue${item.field.id}${object.code}"
+																value="${item.value}" size=50 />
+														</jstl:if>
 													</div>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-default"
 															data-dismiss="modal">Close</button>
 														<button type="button"
 															id="saveButon${item.field.id}${object.code}"
-															class="btn btn-primary save">Save changes</button>
+															class="btn btn-primary save" data-dismiss="modal">Save
+															changes</button>
 													</div>
 												</div>
 											</div>
@@ -302,13 +344,159 @@
 
 				</div>
 
+
+
+
+
 				<jstl:forEach var="item" items="${maps.keySet()}">
 					<div id="section${item}" class="tab-pane fade">
 						<jstl:forEach var="itemh" items="${maps.get(item)}">
 							<br />
+							<jstl:choose>
 
-							<jstl:out value="${itemh.value}"></jstl:out>
+								<jstl:when test="${user.isConnected()}">
+									<jstl:choose>
+
+										<jstl:when test="${Audit==true}">
+
+											<jstl:choose>
+												<jstl:when test="${Contributor==true}">
+													<a href="#" class="btn btn-xs btn-success"
+														data-toggle="modal"
+														data-target="#modal${itemh.field.id}${object.code}">
+														edit </a>
+												</jstl:when>
+											</jstl:choose>
+
+											<b>${itemh.field.name}:</b>
+											<span id="spanValue${itemh.field.id}${object.code}">${itemh.value}</span>
+
+											<br />
+											<script>
+												$(document)
+														.ready(
+																function() {
+																	$(
+																			"#saveButon${itemh.field.id}${object.code}")
+																			.click(
+																					function() {
+																						var value = document
+																								.getElementById("inputValue${itemh.field.id}${object.code}").value;
+																						$
+																								.ajax({
+																									url : 'modal/ajax.htm',
+																									contentType : "charset=utf-8",
+																									data : {
+																										'codeObjet' : "${object.code}",
+																										'idField' : "${itemh.field.id}",
+																										'value' : stringToHex(value)
+																									},
+
+																									success : function(
+																											data) {
+																										if (data.length != 0)
+																											document
+																													.getElementById("spanValue${itemh.field.id}${object.code}").innerHTML = value;
+																										$(
+																												"#modal${itemh.field.id}${object.code}")
+																												.modal(
+																														"hide");
+																									},
+																									error : function() {
+																										alert("error");
+																									}
+																								});
+																					});
+																});
+											</script>
+											<div class="modal fade"
+												id="modal${itemh.field.id}${object.code}" tabindex="-1"
+												role="dialog" aria-labelledby="basicModal"
+												aria-hidden="true">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<button type="button" class="close" data-dismiss="modal"
+																aria-hidden="true"></button>
+														</div>
+														<div class="modal-body">
+															<jstl:if test="${itemh.field.getTypeContenu()=='STRING'}">
+																<input type="text" placeholder="Description"
+																	id="inputValue${itemh.field.id}${object.code}"
+																	value="${itemh.value}" size=50 />
+															</jstl:if>
+															<jstl:if
+																test="${itemh.field.getTypeContenu()=='STRUCTURE'}">
+																<textarea placeholder="Description"
+																	id="inputValue${itemh.field.id}${object.code}"
+																	value="${itemh.value}" rows="30" cols="90">${itemh.value}</textarea>
+															</jstl:if>
+															<jstl:if test="${itemh.field.getTypeContenu()=='INT'}">
+																<input type="number" placeholder="Description"
+																	id="inputValue${itemh.field.id}${object.code}"
+																	value="${itemh.value}" size=50 />
+															</jstl:if>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-default"
+																data-dismiss="modal">Close</button>
+															<button type="button"
+																id="saveButon${itemh.field.id}${object.code}"
+																class="btn btn-primary save" data-dismiss="modal">Save
+																changes</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</jstl:when>
+										<jstl:when test="${Audit==false}">
+
+											<jstl:choose>
+												<jstl:when test="${!itemh.value.isEmpty()}">
+													<b>${itemh.field.name}:</b>
+													<span id="spanValue${itemh.field.id}${object.code}">${itemh.value}</span>
+
+													<br />
+												</jstl:when>
+												<jstl:otherwise>
+													<b>${itemh.field.name}:</b>
+													<span id="spanValue${itemh.field.id}${object.code}">
+														Cette information n'a pas encore été renseignée, merci de
+														bien vouloir nous en excuser. </span>
+												</jstl:otherwise>
+
+											</jstl:choose>
+
+										</jstl:when>
+									</jstl:choose>
+								</jstl:when>
+								<jstl:when test="${!user.isConnected()}">
+									<jstl:choose>
+										<jstl:when test="${Audit==false}">
+											<jstl:choose>
+												<jstl:when test="${!itemh.value.isEmpty()}">
+													<b>${itemh.field.name}:</b>
+													<span id="spanValue${itemh.field.id}${object.code}">${itemh.value}</span>
+
+													<br />
+												</jstl:when>
+												<jstl:otherwise>
+													<b>${itemh.field.name}:</b>
+													<span id="spanValue${itemh.field.id}${object.code}">
+														Cette information n'a pas encore été renseignée, merci de
+														bien vouloir nous en excuser. </span>
+												</jstl:otherwise>
+
+											</jstl:choose>
+
+										</jstl:when>
+
+									</jstl:choose>
+								</jstl:when>
+							</jstl:choose>
+
 						</jstl:forEach>
+
 
 					</div>
 				</jstl:forEach>
@@ -379,9 +567,11 @@
 			
 		</script>
 		<script type="text/javascript">
-			jQuery(document).ready(function() {
-				jQuery("#breadCrumb0").jBreadCrumb();
-			})
+		jQuery(document).ready(function()
+				{
+					jQuery("#breadCrumb").jBreadCrumb({easing:'swing'});
+				})
+
 		</script>
 
 

@@ -16,17 +16,18 @@
 
 		<jstl:choose>
 			<jstl:when test="${empty (param.cobject)}">
-				<spring:message code="title.object.create" />
+				<spring:message code="title.object.create" /> ${param.context} : 
+							 ${formationName.name}
+				
 			</jstl:when>
 			<jstl:when test="${not empty (param.cobject)}">
 				<spring:message code="title.object.edit" /> ${param.cobject}
 			</jstl:when>
-
 		</jstl:choose>
-
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
-		<script type="text/javascript" src="scripts/scripts_perso/editObject.js"></script>
+		<script type="text/javascript"
+			src="scripts/scripts_perso/editObject.js"></script>
 
 
 		<form:form id="signupForm" method="post" commandName="myobject">
@@ -46,9 +47,30 @@
 					</div>
 				</div>
 			</jstl:if>
-			<tag:checkbox code="checkbox.mutualisable" value="mutualisable" path="mutualisable" />
+			<jstl:if test="${myobject.mutualisable==true}">
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<div class="checkbox">
+							<label> <form:checkbox path="mutualisable"
+									value="mutualisable" onclick="return false;" />
+									 <spring:message code="checkbox.mutualisable" />
+							</label>
+						</div>
+					</div>
+				</div>
+			</jstl:if>
+			<jstl:if test="${myobject.mutualisable!=true}">
+				<tag:checkbox code="checkbox.mutualisable" value="mutualisable"
+					path="mutualisable" />
+			</jstl:if>
 
-			<tag:submitAndCancel nameSubmit="save" codeCancel="cancel" codeSubmit="save" urlCancel="" />
+
+
+
+
+
+			<tag:submitAndCancel nameSubmit="save" codeCancel="cancel"
+				codeSubmit="save" urlCancel="" />
 		</form:form>
 		<div class="center">
 			<c:if test="${!empty error}">

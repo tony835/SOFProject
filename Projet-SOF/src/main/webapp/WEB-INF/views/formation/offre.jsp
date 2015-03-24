@@ -41,6 +41,7 @@
 					<spring:message code="formation.audit" />
 				</a>
 			</jstl:if>
+					<jstl:if test="${!DiplomaTypeExist.isEmpty()}">
 
 			<display:table name="DiplomaTypeExist" requestURI="visualisation/formation/offre.htm" id="field">
 				<display:column title="Nom"  sortable="true">
@@ -50,6 +51,7 @@
 					</jstl:forEach>
 				</display:column>
 			</display:table>
+				</jstl:if>
 			<a href="downloadfile/xml.htm"> <spring:message code="telecharger.formation"></spring:message></a>
 		</tiles:putAttribute>
 	</tiles:insertDefinition>

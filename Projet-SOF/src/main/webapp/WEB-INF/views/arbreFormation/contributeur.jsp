@@ -19,14 +19,18 @@
 
 			<jstl:set var="formation" value="${code}"></jstl:set>
 			<div id="scroll" class="scroll">
+			<jstl:if test="${!contibuteurs.isEmpty()}">
 				<display:table name="contibuteurs" class="displaytag" id="row" requestURI="formation/contributeur/edit.htm">
 					<tag:column code="contributeur.code" property="login" sortable="true" />
 					<tag:column code="contributeur.name" property="name" sortable="true" />
 					<display:column>
-						<a href="formation/contributeur/delete.htm?contrib=${row.login}&code=${formation}"> x </a>
+						<a class="btn btn-default btn-xs"
+									href="formation/contributeur/delete.htm?contrib=${row.login}&code=${formation}"><spring:message
+										code="arbreFormation.supprimer" /></a>
 					</display:column>
 
 				</display:table>
+				</jstl:if>
 			</div>
 
 			<head>

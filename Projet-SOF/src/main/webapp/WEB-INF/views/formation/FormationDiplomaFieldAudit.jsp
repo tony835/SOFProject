@@ -39,6 +39,8 @@
 
 		<jstl:choose>
 			<jstl:when test="${user.isConnected() && Audit==true}">
+					<jstl:if test="${!FormationOfDiplomaAndField.isEmpty()}">
+			
 				<display:table name="FormationOfDiplomaAndField"
 					requestURI="visualisation/formation/audit/listformation.htm"
 					id="formation">
@@ -53,6 +55,7 @@
 					</display:column>
 
 				</display:table>
+				</jstl:if>
 			</jstl:when>
 			<jstl:otherwise>
 				<jstl:out
