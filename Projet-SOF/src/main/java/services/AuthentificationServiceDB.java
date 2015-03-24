@@ -49,7 +49,7 @@ public class AuthentificationServiceDB {
 	}
 
 	/**
-	 * Permet d'avoir accÃ¨s Ã  l'utilisateur en session.
+	 * Permet d'avoir accés à  l'utilisateur en session.
 	 *
 	 * @return @see User L'utilisateur en session.
 	 */
