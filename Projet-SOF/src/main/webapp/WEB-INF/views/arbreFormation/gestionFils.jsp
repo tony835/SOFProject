@@ -68,7 +68,7 @@
 				method="post" modelAttribute="typeobject">
 				<div class="form-group">
 					<form:label class="col-sm-2 control-label" path="">
-					<spring:message code="" /> 
+					<spring:message code="modifychildren.selectsorttype" /> 
 					</form:label>
 					<div class="col-sm-6">
 						<form:select class="form-control" name="code" path="code"
