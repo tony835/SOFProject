@@ -14,15 +14,14 @@
 
 		<jstl:choose>
 			<jstl:when test="${empty (param.cobject)}">
-				<spring:message code="title.object.create" />
+				<spring:message code="title.object.create" /> ${param.context} : 
+							 ${formationName.name}
+				
 			</jstl:when>
 			<jstl:when test="${not empty (param.cobject)}">
 				<spring:message code="title.object.edit" /> ${param.cobject}
 			</jstl:when>
 		</jstl:choose>
-		<jstl:if test="${formationName!=null}">
-			<spring:message>: ${formationName} </spring:message>
-		</jstl:if>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="body">
 		<script type="text/javascript"
