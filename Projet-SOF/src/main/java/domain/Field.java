@@ -140,15 +140,15 @@ public class Field {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((lstValue == null) ? 0 : lstValue.hashCode());
+		result = prime * result + ((length == null) ? 0 : length.hashCode());
+		result = prime * result + ((lstValue == null) ? 0 : lstValue.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + (required ? 1231 : 1237);
-		result = prime * result
-				+ ((typeContenu == null) ? 0 : typeContenu.hashCode());
+		result = prime * result + ((tabName == null) ? 0 : tabName.hashCode());
+		result = prime * result + ((typeContenu == null) ? 0 : typeContenu.hashCode());
+		result = prime * result + ((typeObject == null) ? 0 : typeObject.hashCode());
 		return result;
 	}
 	@Override
@@ -170,6 +170,11 @@ public class Field {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (length == null) {
+			if (other.length != null)
+				return false;
+		} else if (!length.equals(other.length))
+			return false;
 		if (lstValue == null) {
 			if (other.lstValue != null)
 				return false;
@@ -182,16 +187,28 @@ public class Field {
 			return false;
 		if (required != other.required)
 			return false;
+		if (tabName == null) {
+			if (other.tabName != null)
+				return false;
+		} else if (!tabName.equals(other.tabName))
+			return false;
 		if (typeContenu != other.typeContenu)
+			return false;
+		if (typeObject == null) {
+			if (other.typeObject != null)
+				return false;
+		} else if (!typeObject.equals(other.typeObject))
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "Field [id=" + id + ", name=" + name + ", description="
-				+ description + ", typeContenu=" + typeContenu + ", required="
-				+ required + "]";
+		return "Field [id=" + id + ", name=" + name + ", description=" + description + ", typeContenu=" + typeContenu
+				+ ", required=" + required + ", typeObject=" + typeObject + ", lstValue=" + lstValue + ", length="
+				+ length + ", tabName=" + tabName + "]";
 	}
+	
+	
 
 	
 }
