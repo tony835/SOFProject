@@ -17,7 +17,7 @@
 						<br />
 						<p>
 							<spring:message code="user.ConnectedOn" />
-							${user.login}
+							${user.fullName}
 						</p>
 					</c:when>
 					<c:otherwise>

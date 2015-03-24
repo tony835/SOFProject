@@ -33,6 +33,8 @@ public class User implements Serializable {
 	 * Login de l'utilisateur en session.
 	 */
 	private String login;
+	private String name;
+	private String firstName;
 	/**
 	 * Mot de passe de l'utilisateur en session.
 	 */
@@ -102,6 +104,8 @@ public class User implements Serializable {
 	public void flush() {
 		connected = false;
 		login = "";
+		name = "";
+		firstName = "";
 		password = "";
 		conceptor = false;
 	}
@@ -148,5 +152,26 @@ public class User implements Serializable {
 	
 	public boolean isResponsable(Formation formation){
 		return formation.getResponsable().getLogin().equals(login);
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getFullName(){
+		String fullName = "";
+		fullName += firstName + " " + name;
+		return fullName;
 	}
 }

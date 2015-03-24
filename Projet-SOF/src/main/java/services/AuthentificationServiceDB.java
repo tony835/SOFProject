@@ -38,6 +38,8 @@ public class AuthentificationServiceDB {
 		}
 		user.setConnected(true);
 		user.setLogin(login);
+		user.setName(p.getName());
+		user.setFirstName(p.getFirstName());
 		user.verifyIfIsConceptor(context);
 		return true;
 	}
