@@ -72,8 +72,7 @@
 		<br />
 		<div class="bs-example">
 			<ul class="nav nav-tabs">
-				<li class="active"><a data-toggle="tab" href="#sectionA">Information
-						géneral</a></li>
+				<li class="active"><a data-toggle="tab" href="#sectionA"><spring:message code="visualisation.information_general"/></a></li>
 				<jstl:forEach var="item" items="${maps.keySet()}">
 					<li><a data-toggle="tab" href="#section${item}"> <jstl:out
 								value="${item}"></jstl:out>
@@ -84,8 +83,7 @@
 				</jstl:if>
 
 				<jstl:if test="${!objectMemeTypeSize}">
-					<li><a data-toggle="tab" href="#objetMemeType"> Objet du
-							meme type </a></li>
+					<li><a data-toggle="tab" href="#objetMemeType"><spring:message code="visualisation.objet.same"/></a></li>
 				</jstl:if>
 
 			</ul>
@@ -154,10 +152,10 @@
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-default"
-													data-dismiss="modal">Close</button>
+													data-dismiss="modal"><spring:message code="visualisation.close"/></button>
 												<button type="button"
 													id="saveButon${item.field.id}${object.code}"
-													class="btn btn-primary save">Save changes</button>
+													class="btn btn-primary save"><spring:message code="visualisation.save"/></button>
 											</div>
 										</div>
 									</div>

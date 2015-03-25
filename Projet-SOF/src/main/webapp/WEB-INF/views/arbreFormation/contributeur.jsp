@@ -55,7 +55,7 @@
 			<form id="signupForm" action="formation/contributeur/edit.htm" class="form-horizontal" method="post">
 				<div class="form-group">
 					<div class="ui-widget">
-						<label class="col-sm-2 control-label" for="automplete-1">Contributeur: </label>
+						<label class="col-sm-2 control-label" for="automplete-1"><spring:message code="contributeur.name.arbre"/></label>
 						<div class="col-sm-10">
 							<input name="contrib" id="automplete-1">
 						</div>

@@ -37,11 +37,9 @@
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
-						<li><a href="visualisation/formation/offre.htm">Offre de
-								formation</a></li>
+						<li><a href="visualisation/formation/offre.htm"><spring:message code="offre.list" /></a></li>
 						<jstl:if test="${user.isConnected()}">
-							<li><a href="visualisation/formation/audit/offre.htm">Version
-									d'audit</a></li>
+							<li><a href="visualisation/formation/audit/offre.htm"><spring:message code="visualisation.formation.audit" /></a></li>
 						</jstl:if>
 					</ul>
 				</div>
@@ -119,8 +117,7 @@
 				</jstl:if>
 
 				<jstl:if test="${!objectMemeTypeSize}">
-					<li><a data-toggle="tab" href="#objetMemeType"> Objet du
-							meme type </a></li>
+					<li><a data-toggle="tab" href="#objetMemeType"><spring:message code= "visualisation.objet.same"/></a></li>
 				</jstl:if>
 
 			</ul>
@@ -254,11 +251,10 @@
 													</div>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-default"
-															data-dismiss="modal">Close</button>
+															data-dismiss="modal"><spring:message code="visualisation.close"/></button>
 														<button type="button"
 															id="saveButon${item.field.id}${object.code}"
-															class="btn btn-primary save" data-dismiss="modal">Save
-															changes</button>
+															class="btn btn-primary save" data-dismiss="modal"><spring:message code="visualisation.save"/></button>
 													</div>
 												</div>
 											</div>
@@ -274,9 +270,7 @@
 											</jstl:when>
 											<jstl:otherwise>
 												<b>${item.field.name}:</b>
-												<span id="spanValue${item.field.id}${object.code}">
-													Cette information n'a pas encore été renseignée, merci de
-													bien vouloir nous en excuser. </span>
+												<span id="spanValue${item.field.id}${object.code}"><spring:message code="visualisation.information"/></span>
 											</jstl:otherwise>
 
 										</jstl:choose>
@@ -299,9 +293,7 @@
 											</jstl:when>
 											<jstl:otherwise>
 												<b>${item.field.name}:</b>
-												<span id="spanValue${item.field.id}${object.code}">
-													Cette information n'a pas encore été renseignée, merci de
-													bien vouloir nous en excuser. </span>
+												<span id="spanValue${item.field.id}${object.code}"><spring:message code="visualisation.information"/></span>
 											</jstl:otherwise>
 
 										</jstl:choose>
@@ -421,11 +413,10 @@
 														</div>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-default"
-																data-dismiss="modal">Close</button>
+																data-dismiss="modal"><spring:message code="visualisation.close"/></button>
 															<button type="button"
 																id="saveButon${itemh.field.id}${object.code}"
-																class="btn btn-primary save" data-dismiss="modal">Save
-																changes</button>
+																class="btn btn-primary save" data-dismiss="modal"><spring:message code="visualisation.save"/></button>
 														</div>
 													</div>
 												</div>
@@ -442,9 +433,7 @@
 												</jstl:when>
 												<jstl:otherwise>
 													<b>${itemh.field.name}:</b>
-													<span id="spanValue${itemh.field.id}${object.code}">
-														Cette information n'a pas encore été renseignée, merci de
-														bien vouloir nous en excuser. </span>
+													<span id="spanValue${itemh.field.id}${object.code}"><spring:message code="visualisation.information"/></span>
 												</jstl:otherwise>
 
 											</jstl:choose>
@@ -464,9 +453,7 @@
 												</jstl:when>
 												<jstl:otherwise>
 													<b>${itemh.field.name}:</b>
-													<span id="spanValue${itemh.field.id}${object.code}">
-														Cette information n'a pas encore été renseignée, merci de
-														bien vouloir nous en excuser. </span>
+													<span id="spanValue${itemh.field.id}${object.code}"><spring:message code="visualisation.information"/></span>
 												</jstl:otherwise>
 
 											</jstl:choose>

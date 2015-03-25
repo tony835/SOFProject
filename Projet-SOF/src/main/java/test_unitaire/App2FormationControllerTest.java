@@ -64,8 +64,8 @@ public class App2FormationControllerTest {
 
 	@Test
 	public void testAllFormationVisitorControler() throws Exception {
-		String exepecteds = "formation/offre";
-		Assert.assertEquals(exepecteds, controler.allFormationVisitor().getViewName());
+		String expected = "formation/offre";
+		Assert.assertEquals(expected, controler.allFormationVisitor().getViewName());
 		Assert.assertNotNull(controler.allFormationVisitor().getModel());
 	}
 

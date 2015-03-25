@@ -33,7 +33,7 @@
 
     <hr/>
 
-    <button ng-click="gotoTodoNewPage()" class="button">Ajouter</button>
+    <button ng-click="gotoTodoNewPage()" class="button"><spring:message code="contributeur.add.arbre" /></button>
 
 </div>
 

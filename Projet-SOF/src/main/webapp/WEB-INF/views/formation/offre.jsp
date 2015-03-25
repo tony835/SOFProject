@@ -27,9 +27,9 @@
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
-						<li><a href="visualisation/formation/offre.htm">Offre de formation</a></li>
+						<li><a href="visualisation/formation/offre.htm"><spring:message code="offre.list" /></a></li>
 						<jstl:if test="${user.isConnected()}">
-						<li><a href="visualisation/formation/audit/offre.htm">Version d'audit</a></li>
+						<li><a href="visualisation/formation/audit/offre.htm"><spring:message code="visualisation.formation.audit" /></a></li>
 						</jstl:if>
 					</ul>
 				</div>

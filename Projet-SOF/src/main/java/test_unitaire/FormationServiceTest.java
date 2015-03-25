@@ -41,11 +41,7 @@ public class FormationServiceTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
-	public void testIsContributor() {
-		Assert.assertEquals(false,service.isContributor(""));
-	}
-
+	
 	
 	
 	@Test

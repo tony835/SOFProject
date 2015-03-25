@@ -28,9 +28,9 @@
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
-						<li><a href="visualisation/formation/offre.htm">Offre de formation</a></li>
+						<li><a href="visualisation/formation/offre.htm"><spring:message code="offre.list" /></a></li>
 						<jstl:if test="${user.isConnected()}">
-						<li><a href="visualisation/formation/audit/offre.htm">Version d'audit</a></li>
+						<li><a href="visualisation/formation/audit/offre.htm"><spring:message code="visualisation.formation.audit" /></a></li>
 						</jstl:if>
 					</ul>
 				</div>
@@ -46,8 +46,7 @@
 								value="Version visiteur" />
 						</a>
 						</br>
-						<jstl:out
-							value="Vous êtes contributeurs des formations suivantes:" />
+						<spring:message code="visualisation.contributeur.message" />
 
 						<display:table name="FormationOfConnectedContributor"
 							requestURI="visualisation/formation/audit/offre.htm"
@@ -66,7 +65,7 @@
 
 					</jstl:when>
 					<jstl:otherwise>
-						<jstl:out value="Vous n'êtes contributeur d'aucune formation." />
+						<spring:message code="visualisation.contributeur.prior" />
 					</jstl:otherwise>
 				</jstl:choose>
 				<display:table name="DiplomaTypeExist"
@@ -82,8 +81,7 @@
 				</display:table>
 			</jstl:when>
 			<jstl:otherwise>
-				<jstl:out
-					value="Vous n'êtes pas connecté, merci de bien vouloir vous authentifier" />
+				<spring:message code="visualisation.contributeur.message" />
 				<a href="/Projet_SOF/auth/login.htm"><spring:message
 						code="login" /></a>
 			</jstl:otherwise>
