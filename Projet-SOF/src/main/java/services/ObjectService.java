@@ -221,7 +221,8 @@ public class ObjectService {
 		if (fils.getContexte().getCode().equals(pere.getContexte().getCode())) {
 			if(objectDao.countNbFathers(fils.getCode()) > 1)
 				return true;
-		}
+		}else
+			return true;
 		return false;
 	}
 
