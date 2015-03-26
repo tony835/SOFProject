@@ -1,5 +1,4 @@
-<%@page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -28,10 +27,8 @@
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse"
-						data-target="#myNavbar">
-						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 					</button>
 					<a class="navbar-brand" href="/Projet_SOF/welcome/index.htm">SOF</a>
 				</div>
@@ -39,7 +36,8 @@
 					<ul class="nav navbar-nav">
 						<li><a href="visualisation/formation/offre.htm"><spring:message code="offre.list" /></a></li>
 						<jstl:if test="${user.isConnected()}">
-							<li><a href="visualisation/formation/audit/offre.htm"><spring:message code="visualisation.formation.audit" /></a></li>
+							<li><a href="visualisation/formation/audit/offre.htm"><spring:message
+										code="visualisation.formation.audit" /></a></li>
 						</jstl:if>
 					</ul>
 				</div>
@@ -47,14 +45,12 @@
 		</nav>
 		<jstl:choose>
 			<jstl:when test="${Audit==true}">
-				<jstl:if
-					test="${!fn:contains(header.referer, 'objectVisualisation/audit/details.htm')}">
+				<jstl:if test="${!fn:contains(header.referer, 'objectVisualisation/audit/details.htm')}">
 					<jstl:set var="entre" value="true"></jstl:set>
 				</jstl:if>
 			</jstl:when>
 			<jstl:otherwise>
-				<jstl:if
-					test="${!fn:contains(header.referer, 'objectVisualisation/details.htm')}">
+				<jstl:if test="${!fn:contains(header.referer, 'objectVisualisation/details.htm')}">
 					<jstl:set var="entre" value="true"></jstl:set>
 				</jstl:if>
 			</jstl:otherwise>
@@ -74,14 +70,11 @@
 
 						<jstl:choose>
 							<jstl:when test="${Audit==true}">
-								<li><a
-									href="objectVisualisation/audit/details.htm?code=${object.contexte.code}">${object.contexte.name}</a>
+								<li><a href="objectVisualisation/audit/details.htm?code=${object.contexte.code}">${object.contexte.name}</a>
 								</li>
 							</jstl:when>
 							<jstl:otherwise>
-								<li><a
-									href="objectVisualisation/details.htm?code=${object.contexte.code}">${object.contexte.name}</a>
-								</li>
+								<li><a href="objectVisualisation/details.htm?code=${object.contexte.code}">${object.contexte.name}</a></li>
 							</jstl:otherwise>
 
 						</jstl:choose>
@@ -104,20 +97,19 @@
 
 		<div class="bs-example">
 			<ul class="nav nav-tabs">
-				<li class="active"><a data-toggle="tab" href="#sectionA">Information
-						géneral</a></li>
+				<li class="active"><a data-toggle="tab" href="#sectionA">Information géneral</a></li>
 				<jstl:forEach var="item" items="${maps.keySet()}">
-					<li><a data-toggle="tab" href="#section${item}"> <jstl:out
-								value="${item}"></jstl:out>
+					<li><a data-toggle="tab" href="#section${item}"> <jstl:out value="${item}"></jstl:out>
 					</a></li>
 				</jstl:forEach>
 
 				<jstl:if test="${!object.allFils.isEmpty()}">
-					<li><a data-toggle="tab" href="#listFils"> <spring:message code= "composants.structure"></spring:message> </a></li>
+					<li><a data-toggle="tab" href="#listFils"> <spring:message code="composants.structure"></spring:message>
+					</a></li>
 				</jstl:if>
 
 				<jstl:if test="${!objectMemeTypeSize}">
-					<li><a data-toggle="tab" href="#objetMemeType"><spring:message code= "visualisation.objet.same"/></a></li>
+					<li><a data-toggle="tab" href="#objetMemeType"><spring:message code="visualisation.objet.same" /></a></li>
 				</jstl:if>
 
 			</ul>
@@ -140,10 +132,8 @@
 
 										<jstl:choose>
 											<jstl:when test="${Contributor==true}">
-												<a href="#" class="btn btn-xs btn-success"
-													data-toggle="modal"
-													data-target="#modal${item.field.id}${object.code}">
-													edit </a>
+												<a href="#" class="btn btn-xs btn-success" data-toggle="modal"
+													data-target="#modal${item.field.id}${object.code}"> edit </a>
 											</jstl:when>
 										</jstl:choose>
 
@@ -194,6 +184,8 @@
 																				function() {
 																					var value = document
 																							.getElementById("inputValue${item.field.id}${object.code}").value;
+																					var version = document
+																					.getElementById("VinputValue${itemh.field.id}${object.code}").value;
 																					$
 																							.ajax({
 																								url : 'modal/ajax.htm',
@@ -202,14 +194,16 @@
 																								data : {
 																									'codeObjet' : "${object.code}",
 																									'idField' : "${item.field.id}",
-																									'value' : stringToHex(value)
+																									'value' : stringToHex(value),
+																									'version' : version
 																								},
 
 																								success : function(
 																										data) {
-																									if (data.length != 0)
-																										document
-																												.getElementById("spanValue${item.field.id}${object.code}").innerHTML = value;
+																									if (data.length != 0){
+																										document.getElementById("spanValue${item.field.id}${object.code}").innerHTML = value;
+																										document.getElementById("VinputValue${item.field.id}${object.code}").value = parseInt(version)+1;
+																										}
 																									$(
 																											"#modal${item.field.id}${object.code}")
 																											.modal(
@@ -222,39 +216,35 @@
 																				});
 															});
 										</script>
-										<div class="modal fade"
-											id="modal${item.field.id}${object.code}" tabindex="-1"
-											role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+										<div class="modal fade" id="modal${item.field.id}${object.code}" tabindex="-1" role="dialog"
+											aria-labelledby="basicModal" aria-hidden="true">
 											<div class="modal-dialog">
 												<div class="modal-content">
 													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal"
-															aria-hidden="true"></button>
+														<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 													</div>
 													<div class="modal-body">
 														<jstl:if test="${item.field.getTypeContenu()=='STRING'}">
-															<input type="text" placeholder="Description"
-																id="inputValue${item.field.id}${object.code}"
+															<input type="text" placeholder="Description" id="inputValue${item.field.id}${object.code}"
 																value="${item.value}" size=50 />
 														</jstl:if>
-														<jstl:if
-															test="${item.field.getTypeContenu()=='STRUCTURE'}">
-															<textarea placeholder="Description"
-																id="inputValue${item.field.id}${object.code}"
-																value="${item.value}" rows="30" cols="90">${item.value}</textarea>
+														<jstl:if test="${item.field.getTypeContenu()=='STRUCTURE'}">
+															<textarea placeholder="Description" id="inputValue${item.field.id}${object.code}" value="${item.value}"
+																rows="30" cols="90">${item.value}</textarea>
 														</jstl:if>
 														<jstl:if test="${item.field.getTypeContenu()=='INT'}">
-															<input type="number" placeholder="Description"
-																id="inputValue${item.field.id}${object.code}"
+															<input type="number" placeholder="Description" id="inputValue${item.field.id}${object.code}"
 																value="${item.value}" size=50 />
 														</jstl:if>
 													</div>
 													<div class="modal-footer">
-														<button type="button" class="btn btn-default"
-															data-dismiss="modal"><spring:message code="visualisation.close"/></button>
-														<button type="button"
-															id="saveButon${item.field.id}${object.code}"
-															class="btn btn-primary save" data-dismiss="modal"><spring:message code="visualisation.save"/></button>
+														<button type="button" class="btn btn-default" data-dismiss="modal">
+															<spring:message code="visualisation.close" />
+														</button>
+														<button type="button" id="saveButon${item.field.id}${object.code}" class="btn btn-primary save"
+															data-dismiss="modal">
+															<spring:message code="visualisation.save" />
+														</button>
 													</div>
 												</div>
 											</div>
@@ -270,7 +260,7 @@
 											</jstl:when>
 											<jstl:otherwise>
 												<b>${item.field.name}:</b>
-												<span id="spanValue${item.field.id}${object.code}"><spring:message code="visualisation.information"/></span>
+												<span id="spanValue${item.field.id}${object.code}"><spring:message code="visualisation.information" /></span>
 											</jstl:otherwise>
 
 										</jstl:choose>
@@ -293,7 +283,7 @@
 											</jstl:when>
 											<jstl:otherwise>
 												<b>${item.field.name}:</b>
-												<span id="spanValue${item.field.id}${object.code}"><spring:message code="visualisation.information"/></span>
+												<span id="spanValue${item.field.id}${object.code}"><spring:message code="visualisation.information" /></span>
 											</jstl:otherwise>
 
 										</jstl:choose>
@@ -310,8 +300,7 @@
 								<jstl:when test="${Audit==true}">
 									<jstl:out
 										value="Vous n'êtes pas connecté, merci de bien vouloir vous authentifier pour accéder à cette version d'audit." />
-									<a href="/Projet_SOF/auth/login.htm"><spring:message
-											code="login" /></a>
+									<a href="/Projet_SOF/auth/login.htm"><spring:message code="login" /></a>
 
 								</jstl:when>
 
@@ -335,10 +324,8 @@
 
 											<jstl:choose>
 												<jstl:when test="${Contributor==true}">
-													<a href="#" class="btn btn-xs btn-success"
-														data-toggle="modal"
-														data-target="#modal${itemh.field.id}${object.code}">
-														edit </a>
+													<a href="#" class="btn btn-xs btn-success" data-toggle="modal"
+														data-target="#modal${itemh.field.id}${object.code}"> edit </a>
 												</jstl:when>
 											</jstl:choose>
 
@@ -388,6 +375,8 @@
 																					function() {
 																						var value = document
 																								.getElementById("inputValue${itemh.field.id}${object.code}").value;
+																						var version = document
+																						.getElementById("VinputValue${itemh.field.id}${object.code}").value;
 																						$
 																								.ajax({
 																									url : 'modal/ajax.htm',
@@ -395,14 +384,16 @@
 																									data : {
 																										'codeObjet' : "${object.code}",
 																										'idField' : "${itemh.field.id}",
-																										'value' : stringToHex(value)
+																										'value' : stringToHex(value),
+																										'version' : version
 																									},
 
 																									success : function(
 																											data) {
-																										if (data.length != 0)
-																											document
-																													.getElementById("spanValue${itemh.field.id}${object.code}").innerHTML = value;
+																										if (data.length != 0){
+																											document.getElementById("spanValue${itemh.field.id}${object.code}").innerHTML = value;
+																											document.getElementById("VinputValue${itemh.field.id}${object.code}").value = parseInt(version)+1;
+																										}
 																										$(
 																												"#modal${itemh.field.id}${object.code}")
 																												.modal(
@@ -415,40 +406,41 @@
 																					});
 																});
 											</script>
-											<div class="modal fade"
-												id="modal${itemh.field.id}${object.code}" tabindex="-1"
-												role="dialog" aria-labelledby="basicModal"
-												aria-hidden="true">
+											<div class="modal fade" id="modal${itemh.field.id}${object.code}" tabindex="-1" role="dialog"
+												aria-labelledby="basicModal" aria-hidden="true">
 												<div class="modal-dialog">
 													<div class="modal-content">
 														<div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal"
-																aria-hidden="true"></button>
+															<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 														</div>
 														<div class="modal-body">
 															<jstl:if test="${itemh.field.getTypeContenu()=='STRING'}">
-																<input type="text" placeholder="Description"
-																	id="inputValue${itemh.field.id}${object.code}"
-																	value="${itemh.value}" size=50 />
+																<input type="text" placeholder="Description" id="inputValue${itemh.field.id}${object.code}"
+																	value="${itemh.htmlValue}" size=50 />
+																<input hidden="hidden" type="text" placeholder="Description"
+																	id="VinputValue${itemh.field.id}${object.code}" value="${itemh.version}" size=50 />
 															</jstl:if>
-															<jstl:if
-																test="${itemh.field.getTypeContenu()=='STRUCTURE'}">
-																<textarea placeholder="Description"
-																	id="inputValue${itemh.field.id}${object.code}"
-																	value="${itemh.value}" rows="30" cols="90">${itemh.value}</textarea>
+															<jstl:if test="${itemh.field.getTypeContenu()=='STRUCTURE'}">
+																<textarea placeholder="Description" id="inputValue${itemh.field.id}${object.code}"
+																	value="${itemh.htmlValue}" rows="30" cols="90">${itemh.htmlValue}</textarea>
+																<input hidden="hidden" type="text" placeholder="Description"
+																	id="VinputValue${itemh.field.id}${object.code}" value="${itemh.version}" size=50 />
 															</jstl:if>
 															<jstl:if test="${itemh.field.getTypeContenu()=='INT'}">
-																<input type="number" placeholder="Description"
-																	id="inputValue${itemh.field.id}${object.code}"
+																<input type="number" placeholder="Description" id="inputValue${itemh.field.id}${object.code}"
 																	value="${itemh.value}" size=50 />
+																<input hidden="hidden" type="text" placeholder="Description"
+																	id="VinputValue${itemh.field.id}${object.code}" value="${itemh.version}" size=50 />
 															</jstl:if>
 														</div>
 														<div class="modal-footer">
-															<button type="button" class="btn btn-default"
-																data-dismiss="modal"><spring:message code="visualisation.close"/></button>
-															<button type="button"
-																id="saveButon${itemh.field.id}${object.code}"
-																class="btn btn-primary save" data-dismiss="modal"><spring:message code="visualisation.save"/></button>
+															<button type="button" class="btn btn-default" data-dismiss="modal">
+																<spring:message code="visualisation.close" />
+															</button>
+															<button type="button" id="saveButon${itemh.field.id}${object.code}" class="btn btn-primary save"
+																data-dismiss="modal">
+																<spring:message code="visualisation.save" />
+															</button>
 														</div>
 													</div>
 												</div>
@@ -465,7 +457,7 @@
 												</jstl:when>
 												<jstl:otherwise>
 													<b>${itemh.field.name}:</b>
-													<span id="spanValue${itemh.field.id}${object.code}"><spring:message code="visualisation.information"/></span>
+													<span id="spanValue${itemh.field.id}${object.code}"><spring:message code="visualisation.information" /></span>
 												</jstl:otherwise>
 
 											</jstl:choose>
@@ -485,7 +477,7 @@
 												</jstl:when>
 												<jstl:otherwise>
 													<b>${itemh.field.name}:</b>
-													<span id="spanValue${itemh.field.id}${object.code}"><spring:message code="visualisation.information"/></span>
+													<span id="spanValue${itemh.field.id}${object.code}"><spring:message code="visualisation.information" /></span>
 												</jstl:otherwise>
 
 											</jstl:choose>
@@ -508,15 +500,12 @@
 						<jstl:choose>
 							<jstl:when test="${user.isConnected()}">
 								<div id="listFils" class="tab-pane fade">
-								<ul>
-									<jstl:forEach var="fils" items="${object.allFils}">
-										<li><a
-											href="objectVisualisation/audit/details.htm?code=${fils.fils.code}">
-											<jstl:out value="${fils.fils.code}"/>: <jstl:out
-												value="${fils.fils.name}"/>:
-										</a>
-										</li>
-									</jstl:forEach>
+									<ul>
+										<jstl:forEach var="fils" items="${object.allFils}">
+											<li><a href="objectVisualisation/audit/details.htm?code=${fils.fils.code}"> <jstl:out
+														value="${fils.fils.code}" />: <jstl:out value="${fils.fils.name}" />:
+											</a></li>
+										</jstl:forEach>
 									</ul>
 								</div>
 							</jstl:when>
@@ -524,14 +513,13 @@
 					</jstl:when>
 					<jstl:otherwise>
 						<div id="listFils" class="tab-pane fade">
-						<ul>
-							<jstl:forEach var="fils" items="${object.allFils}">
-								<li><a href="objectVisualisation/details.htm?code=${fils.fils.code}">
-									<jstl:out value="${fils.fils.code}"/>: <jstl:out
-										value="${fils.fils.name}"/>
-								</a></li>
-								
-							</jstl:forEach>
+							<ul>
+								<jstl:forEach var="fils" items="${object.allFils}">
+									<li><a href="objectVisualisation/details.htm?code=${fils.fils.code}"> <jstl:out
+												value="${fils.fils.code}" />: <jstl:out value="${fils.fils.name}" />
+									</a></li>
+
+								</jstl:forEach>
 							</ul>
 						</div>
 					</jstl:otherwise>
@@ -541,17 +529,15 @@
 
 
 				<div id="objetMemeType" class="tab-pane fade">
-<ul>
-					<jstl:forEach var="objet" items="${objectMemeType}">
+					<ul>
+						<jstl:forEach var="objet" items="${objectMemeType}">
 
 
-						<li><a href="objectVisualisation/details.htm?code=${objet.code}">
-							<jstl:out value="${objet.code}"/>: <jstl:out
-								value="${objet.name}"/>
-						</a>
-						</li>
+							<li><a href="objectVisualisation/details.htm?code=${objet.code}"> <jstl:out value="${objet.code}" />: <jstl:out
+										value="${objet.name}" />
+							</a></li>
 
-					</jstl:forEach>
+						</jstl:forEach>
 					</ul>
 				</div>
 
@@ -560,16 +546,13 @@
 		</div>
 
 
-		<script type="text/javascript"
-			src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js">
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js">
 			
 		</script>
-		<script src="scripts/jquery.easing.1.3.js" type="text/javascript"
-			language="JavaScript">
+		<script src="scripts/jquery.easing.1.3.js" type="text/javascript" language="JavaScript">
 			
 		</script>
-		<script src="scripts/jquery.jBreadCrumb.1.1.js" type="text/javascript"
-			language="JavaScript">
+		<script src="scripts/jquery.jBreadCrumb.1.1.js" type="text/javascript" language="JavaScript">
 			
 		</script>
 		<script type="text/javascript">
