@@ -66,7 +66,7 @@ public class ArbreFormationController extends AbstractController {
 
 	/**
 	 * Liste touts les formations.
-	 * @return ModelAndView qui mène au jsp traitant cet action
+	 * @return ModelAndView qui mï¿½ne au jsp traitant cet action
 	 */
 	@Transactional
 	@RequestMapping("/list")
@@ -122,7 +122,7 @@ public class ArbreFormationController extends AbstractController {
 	 * 
 	 * @param formationId
 	 *            l'id de la formation que nous souhaitons modifier
-	 * @return ModelAndView qui mène au jsp traitant cet action
+	 * @return ModelAndView qui mï¿½ne au jsp traitant cet action
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
@@ -140,7 +140,7 @@ public class ArbreFormationController extends AbstractController {
 	 * @param formation
 	 *            La formation Ã  sauvegarder
 	 * @param bindingResult
-	 *            les résultats d'erreurs
+	 *            les rï¿½sultats d'erreurs
 	 * @return ModelAndView
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
@@ -327,7 +327,7 @@ public class ArbreFormationController extends AbstractController {
 	}
 
 	/**
-	 * Permet l'édition d'un rang d'un fils.
+	 * Permet l'ï¿½dition d'un rang d'un fils.
 	 * @param codeEnCours
 	 * @param rang
 	 * @param code
@@ -813,7 +813,14 @@ public class ArbreFormationController extends AbstractController {
 				if (rang == null || rang.equals("")) {
 					rang = "1";
 				}
-				objectService.addLinkFils(o, selectF, new Integer(rang));
+				if(!objectService.addLinkFils(o, selectF, new Integer(rang))){
+					ModelAndView resultat = new ModelAndView(
+							"redirect:/arbreFormation/gestionFils.htm?cobject="
+									+ o.getCode());
+					redirectAttributes.addFlashAttribute("error",
+							"modifychildren.addchild");
+					return resultat;	
+				}
 			}
 			String type = "";
 			if (typeobject != null && typeobject.length() != 0) {

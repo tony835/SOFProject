@@ -63,7 +63,7 @@ public class ObjectService {
 		return objectDao.findOne(code);
 	}
 
-	public void addLinkFils(domain.Object pere, domain.Object fils, Integer rang){
+	public boolean addLinkFils(domain.Object pere, domain.Object fils, Integer rang){
 		
 		List<domain.Object> lDesc = new ArrayList<domain.Object>();
 		lDesc.add(fils);
@@ -76,7 +76,9 @@ public class ObjectService {
 			filsDao.save(p);
 			pere.getAllFils().add(p);
 			objectDao.save(pere);
+			return true;
 		}
+		return false;
 	}
 
 	public boolean isContributor(String code){
