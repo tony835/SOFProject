@@ -3,6 +3,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import javax.transaction.Transactional;
@@ -72,7 +73,7 @@ public class ArbreFormationController extends AbstractController {
 	@RequestMapping("/list")
 	public ModelAndView allFormation(
 			@RequestParam(required = false) String code,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes, Locale loc) {
 		ModelAndView result;
 		if (code == null || code.length() == 0) {
 			result = new ModelAndView("redirect:/formation/list.htm");
@@ -112,7 +113,7 @@ public class ArbreFormationController extends AbstractController {
 		}
 		result.addObject("formation", formation);
 
-		formationService.getArbre(formation);
+		formationService.getArbre(formation, loc);
 		result.addObject("arbre", formationService.getArbreRetour());
 		return result;
 	}
