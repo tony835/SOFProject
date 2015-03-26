@@ -41,7 +41,7 @@
 				</jstl:if>
 				</display:column>
 
-				<tag:column code="responsable.login" property="responsable.name"
+				<tag:column code="responsable.name" property="responsable.name"
 					sortable="true" />
 				
 				<spring:message code="formation.numError" var="var" />
