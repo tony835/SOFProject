@@ -142,7 +142,6 @@ public class ObjectControllerVisualisation extends AbstractController {
 		Object obj = objectService.findOne(code);
 		int version = obj.getVersion();
 		fieldService.getListField(obj);
-		System.out.println(version);
 		obj.getAllFils().size(); // Pour initialiser la liste des fils
 		result.addObject("object", obj);
 		Map<String, List<FieldObject>> maps = new HashMap<String, List<FieldObject>>();

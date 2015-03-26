@@ -91,24 +91,17 @@ public class FieldService {
 					FieldObjectId FID = new FieldObjectId();
 					FID.setField(tmp);
 					FID.setObject(o.getCode());
-					System.out.println(s+" " +code+" "+ o.getCode());
 					fTmp = fieldObjectDao.findOne(FID);
 					if (fTmp == null) {
-						System.out.println("est null");
 						fTmp = new FieldObject();
 						
 						fTmp.setFo(FID);
 						fTmp.setObject(o);
 						fTmp.setVersion(0);
-						System.out.println("avant findone");
 						fTmp.setField(findOne(tmp));
-						System.out.println("apres findone");
 						fieldObjectDao.save(fTmp);
-						System.out.println("Après enregistrement");
-						System.out.println("creation de "+tmp+ " pour "+o.getCode());
 					}
 				} catch (Exception e) {
-					System.out.println("erreur");
 					e.printStackTrace();
 				}
 			}

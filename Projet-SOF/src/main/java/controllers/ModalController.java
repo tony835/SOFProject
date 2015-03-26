@@ -64,7 +64,6 @@ public class ModalController extends AbstractController {
 									  @RequestParam(value = "value")String value,
 									  @RequestParam(value = "version")Integer version) {
 		
-		System.out.println("Verion => "+version);
 		
 		try{
 			if(version != null){
@@ -73,10 +72,8 @@ public class ModalController extends AbstractController {
 					return null;
 				}
 				if(fieldTmp.getVersion() != version){// erreur
-					System.out.println("La version est différente.");
 					return "EV";
 				}else{
-					System.out.println("Ok, tout va bien.");
 				}
 			}else{// erreur
 				return null;
