@@ -61,3 +61,11 @@ display: none;
     
 }
 
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+	margin: 10px;
+}
+
+.btn , .btn-primary, .form-control {
+	margin: 5px;
+}
+
