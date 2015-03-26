@@ -819,7 +819,7 @@ public class ArbreFormationController extends AbstractController {
 							"redirect:/arbreFormation/gestionFils.htm?cobject="
 									+ o.getCode());
 					redirectAttributes.addFlashAttribute("error",
-							"modifychildren.addchild");
+							"modifychildren.addchilderror");
 					return resultat;	
 				}
 			}

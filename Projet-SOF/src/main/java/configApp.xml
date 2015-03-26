@@ -2,9 +2,9 @@
 	<object_type>
 		<code>FOR</code>
 		<name>Formation</name>
-		<Erreur_descritpion>une Formation peut contenir que des spécialités ou
+		<Erreur_descritpion>une Formation ne peut contenir que des spécialités ou
 			des programmes</Erreur_descritpion>
-		<content_model>(SPE_)+|(PRO_)+</content_model>
+		<content_model>((SPE_)|(PRO_))+</content_model>
 		<field>
 			<Id>ados_pro</Id>
 			<name>LIENS AVEC LE MILIEU SOCIO-ÉCONOMIQUE</name>
@@ -146,7 +146,7 @@
 	<object_type>
 		<code>SPE</code>
 		<name>Spécialité</name>
-		<Erreur_descritpion>une spécialité peut contenir que des programmes
+		<Erreur_descritpion>une spécialité ne peut contenir que des programmes
 		</Erreur_descritpion>
 		<content_model>(PRO_)+</content_model>		
 		<field>
@@ -254,8 +254,8 @@
 	<object_type>
 		<code>ENS</code>
 		<name>Enseignement</name>
-		<Erreur_descritpion>un enseignement peut contenir que des
-			enseignements</Erreur_descritpion>
+		<Erreur_descritpion>un enseignement ne peut contenir que des
+			enseignements, ou rien</Erreur_descritpion>
 		<content_model>(ENS_)*</content_model>
 		<field>
 			<Id>competences</Id>
@@ -524,7 +524,7 @@
 		<code>COM</code>
 		<name>Composante</name>
 		<Erreur_descritpion>une Composante peut contenir que des composantes
-			et des enseignements</Erreur_descritpion>
+			et des enseignements, ou rien</Erreur_descritpion>
 		<content_model>((COM_)|(ENS_))*</content_model>
 		<field>
 			<Id>nb_credits</Id>
