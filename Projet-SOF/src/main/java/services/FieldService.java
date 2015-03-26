@@ -75,5 +75,24 @@ public class FieldService {
 		Element racine = document.getRootElement();
 		return listFieldByCode(racine, code);
 	}
-
+	
+	public List<Field> getListField(String code){
+		try{
+			String tmp;
+			List<Field> f = new ArrayList<Field>();
+			Field fTmp = null;
+			for(String s : getListFieldByCode(code)){
+				tmp = s+code;
+				fTmp = findOne(tmp);
+				if(fTmp != null)
+					f.add(fTmp);
+				else
+					System.out.println("erreur pour trouver "+tmp);
+			}
+			return f;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
