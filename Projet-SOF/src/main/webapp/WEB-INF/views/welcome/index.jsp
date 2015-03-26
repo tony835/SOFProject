@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="portfolio-item">
-                                 <a href="/Projet_SOF/auth/login.htm"><spring:message code="you.conceptorOrResp" />
+                                 <a href="/Projet_SOF/formation/list.htm"><spring:message code="you.conceptorOrResp" />
                                     <img class="img-portfolio img-responsive" src="images/casque.jpg">
                                 </a>
                             </div>
