@@ -57,7 +57,8 @@ public class ObjectControllerVisualisation extends AbstractController {
 			@RequestParam String code,
 			@RequestHeader(value = "referer", required = false) final String referer) {
 		ModelAndView result;
-
+		
+		
 		if (referer == null) {
 			navigation = new ArrayList<String>();
 		} else if (!referer.contains("objectVisualisation/details"))
@@ -76,6 +77,7 @@ public class ObjectControllerVisualisation extends AbstractController {
 		Object obj = objectService.findOne(code);
 		obj.getAllFils().size(); // Pour initialiser la liste des fils
 		result.addObject("object", obj);
+		fieldService.getListField(obj);
 		Map<String, List<FieldObject>> maps = new HashMap<String, List<FieldObject>>();
 		Collection<FieldObject> fIList = obj.getFieldObjects();
 		Collection<FieldObject> fIListGeneral = new ArrayList<FieldObject>();
@@ -138,6 +140,9 @@ public class ObjectControllerVisualisation extends AbstractController {
 
 		result = new ModelAndView("object/details");
 		Object obj = objectService.findOne(code);
+		int version = obj.getVersion();
+		fieldService.getListField(obj);
+		System.out.println(version);
 		obj.getAllFils().size(); // Pour initialiser la liste des fils
 		result.addObject("object", obj);
 		Map<String, List<FieldObject>> maps = new HashMap<String, List<FieldObject>>();
@@ -170,7 +175,7 @@ public class ObjectControllerVisualisation extends AbstractController {
 			navigation.remove("objectVisualisation/details.htm?code=" + code);
 		}
 		navigation.add("objectVisualisation/details.htm?code=" + code);
-
+		
 		result.addObject("maps", maps);
 		result.addObject("Audit", audit);
 		result.addObject("fIListGeneral", fIListGeneral);
