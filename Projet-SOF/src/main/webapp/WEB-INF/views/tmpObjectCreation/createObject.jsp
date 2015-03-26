@@ -44,7 +44,7 @@
 						<spring:message code="createObject.select" />
 					</form:label>
 					<div class="col-sm-10">
-						<form:select class="form-control" path="typeObject.code" multiple="false">
+						<form:select class="form-control" path="typeObject.code" multiple="false" required="true">
 							<form:option value="" label="${selecttype}" />
 							<form:options items="${typesList}" itemLabel="name" itemValue="code" />
 						</form:select>
