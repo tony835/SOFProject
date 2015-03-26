@@ -1,0 +1,719 @@
+<config>
+	<object_type>
+		<code>FOR</code>
+		<name>Formation</name>
+		<Erreur_descritpion>une Formation ne peut contenir que des spécialités ou
+			des programmes</Erreur_descritpion>
+		<content_model>((SPE_)|(PRO_)|(COM_))+</content_model>
+		<field>
+			<Id>ados_pro</Id>
+			<name>LIENS AVEC LE MILIEU SOCIO-ÉCONOMIQUE</name>
+			<description>ados_pro</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Débouchés</tab_name>
+		</field>
+		<field>
+			<Id>ados_recherche</Id>
+			<name>ADOSSEMENT À LA RECHERCHE</name>
+			<description>ados_recherche</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Débouchés</tab_name>
+		</field>
+		<field>
+			<Id>aide_ins_pro</Id>
+			<name>aide_ins_pro</name>
+			<description>aide_ins_pro</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Débouchés</tab_name>
+		</field>
+		<field>
+			<Id>competences</Id>
+			<name>COMPÉTENCES À ACQUÉRIR</name>
+			<description>competences</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Contenu</tab_name>
+		</field>
+		<field>
+			<Id>conditions_admission</Id>
+			<name>CONDITIONS D'ADMISSION</name>
+			<description>conditions_admission</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>connaissances</Id>
+			<name>CONNAISSANCES À ACQUÉRIR</name>
+			<description>connaissances</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Contenu</tab_name>
+		</field>
+		<field>
+			<Id>contexte</Id>
+			<name>OBJECTIF</name>
+			<description>contexte</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		
+		<field>
+			<Id>debouches</Id>
+			<name>DÉBOUCHÉS PROFESSIONNELS</name>
+			<description>debouches</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Débouchés</tab_name>
+		</field>
+		<field>
+			<Id>international</Id>
+			<name>ÉTUDES À L'ÉTRANGER</name>
+			<description>international</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Autres</tab_name>
+		</field>
+		<field>
+			<Id>nb_credits</Id>
+			<name>NOMBRE DE CRÉDITS</name>
+			<description>nb_credits</description>
+			<content_type>INT</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>org_pedago</Id>
+			<name>STRUCTURE ET ORGANISATION</name>
+			<description>org_pedago</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>politique_stages</Id>
+			<name>POLITIQUE DE STAGE</name>
+			<description>politique_stages</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Contenu</tab_name>
+		</field>
+		<field>
+			<Id>poursuite_etudes</Id>
+			<name>POURSUITE D'ÉTUDE</name>
+			<description>poursuite_etudes</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Autres</tab_name>
+		</field>
+		<field>
+			<Id>public</Id>
+			<name>PUBLIC VISÉ</name>
+			<description>public</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>web</Id>
+			<name>SITE WEB DE LA FORMATION</name>
+			<description>web</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+	</object_type>
+
+	<object_type>
+		<code>SPE</code>
+		<name>Spécialité</name>
+		<Erreur_descritpion>une spécialité ne peut contenir que des programmes
+		</Erreur_descritpion>
+		<content_model>(PRO_)+</content_model>		
+		<field>
+			<Id>aspects_format_continue</Id>
+			<name>FORMATION CONTINUE ET ALTERNANCE</name>
+			<description>aspects_format_continue</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>aspects_format_pro</Id>
+			<name>FORMATION PROFESSIONNELLE</name>
+			<description>aspects_format_pro</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>aspects_format_recherche</Id>
+			<name>FORMATION ET RECHERCHE</name>
+			<description>aspects_format_recherche</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>conditions_admission</Id>
+			<name>CONDITION D'ADMISSION</name>
+			<description>conditions_admission</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>connaissances</Id>
+			<name>CONNAISSANCES À ACQUÉRIR</name>
+			<description>connaissances</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		
+		<field>
+			<Id>debouches</Id>
+			<name>DÉBOUCHÉS PROFESSIONNELS</name>
+			<description>debouches</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>finalite</Id>
+			<name>FINALITÉ</name>
+			<description>finalite</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>org_pedago</Id>
+			<name>STRUCTURE ET ORGANISATION</name>
+			<description>org_pedago</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>politique_stages</Id>
+			<name>STAGES ET PROJETS ENCADRÉS</name>
+			<description>politique_stages</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>poursuite_etudes</Id>
+			<name>POURSUITE D'ÉTUDES</name>
+			<description>poursuite_etudes</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>public</Id>
+			<name>PUBLIC VISÉ</name>
+			<description>public</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+	</object_type>
+
+	<object_type>
+		<code>ENS</code>
+		<name>Enseignement</name>
+		<Erreur_descritpion>un enseignement ne peut contenir que des
+			enseignements, ou rien</Erreur_descritpion>
+		<content_model>(ENS_)*</content_model>
+		<field>
+			<Id>competences</Id>
+			<name>COMPETENCES</name>
+			<description>competences</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Descritpion</tab_name>
+		</field>
+		<field>
+			<Id>contenu</Id>
+			<name>CONTENU</name>
+			<description>contenu</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Contenu</tab_name>
+		</field>
+		<field>
+			<Id>discipline</Id>
+			<name>DISCIPLINE</name>
+			<description>discipline</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>duree_stage</Id>
+			<name>DUREE DE STAGE</name>
+			<description>duree_stage</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		
+		<field>
+			<Id>mcc</Id>
+			<name>mcc</name>
+			<description>mcc</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>modalites_organisation</Id>
+			<name>MODALITES D'ORGANISATION</name>
+			<description>modalites_organisation</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>nb_credits</Id>
+			<name>NOMBRE DE CRÉDITS</name>
+			<description>nb_credits</description>
+			<content_type>INT</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>pre_requis</Id>
+			<name>PRÉ-REQUIS RECOMMANDÉS</name>
+			<description>pre_requis</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>pre_requis_oblig</Id>
+			<name>PRÉ-REQUIS OBLIGATOIRES</name>
+			<description>pre_requis_oblig</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>vol_cm</Id>
+			<name>VOLUME DE COURS</name>
+			<description>vol_cm</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>vol_global</Id>
+			<name>VOLUME GLOBAL</name>
+			<description>vol_global</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>vol_td</Id>
+			<name>VOLUME DE TRAVAX DIRIGÉS</name>
+			<description>vol_td</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>vol_tp</Id>
+			<name>VOLUME DE TRAVAUX PRATIQUE</name>
+			<description>vol_tp</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+	</object_type>
+
+	<object_type>
+		<code>PRO</code>
+		<name>Programme</name>
+		<Erreur_descritpion>un programme peut contenir que des composantes
+		</Erreur_descritpion>
+		<content_model>((COM_)|(FIL_))+</content_model>		
+		<field>
+			<Id>aspects_format_recherche</Id>
+			<name>FORMATION ET RECHERCHE</name>
+			<description>aspects_format_recherche</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>capacite</Id>
+			<name>CAPACITÉ</name>
+			<description>capacite</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>competences</Id>
+			<name>COMPÉTENCES À ACQUÉRIR</name>
+			<description>competences</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Contenu</tab_name>
+		</field>
+		
+		<field>
+			<Id>duree_stage</Id>
+			<name>DUREE DE STAGE</name>
+			<description>duree_stage</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Contenu</tab_name>
+		</field>
+		<field>
+			<Id>modalites_inscription</Id>
+			<name>modalites_inscription</name>
+			<description>modalites_inscription</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name></tab_name>
+		</field>
+		<field>
+			<Id>modalites_pedago</Id>
+			<name>MODALITÉS PÉDAGOGIQUES PARTICULIÈRES</name>
+			<description>modalites_pedago</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>nb_credits</Id>
+			<name>NONBRE DE CRÉDITS</name>
+			<description>nb_credits</description>
+			<content_type>INT</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name></tab_name>
+		</field>
+		<field>
+			<Id>objectifs</Id>
+			<name>OBJECTIFS</name>
+			<description>objectifs</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>politique_stages</Id>
+			<name>STAGES ET PROJETS ENCADRÉS</name>
+			<description>politique_stages</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Contenu</tab_name>
+		</field>
+		<field>
+			<Id>pre_requis</Id>
+			<name>PRÉ-REQUIS RECOMMANDÉS</name>
+			<description>pre_requis</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>pre_requis_oblig</Id>
+			<name>PRÉ-REQUIS OBLIGATOIRES</name>
+			<description>pre_requis_oblig</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>vol_cm</Id>
+			<name>VOLUME DE COURS</name>
+			<description>vol_cm</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Contenu</tab_name>
+		</field>
+		<field>
+			<Id>vol_td</Id>
+			<name>VOLUME DE TRAVAUX DIRIGÉS</name>
+			<description>vol_td</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Contenu</tab_name>
+		</field>
+		<field>
+			<Id>vol_tp</Id>
+			<name>VOLUME DE TRAVAUX PRATIQUES</name>
+			<description>vol_tp</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Contenu</tab_name>
+		</field>
+		<field>
+			<Id>web</Id>
+			<name>SITE WEB DU PARCOURS</name>
+			<description>web</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+	</object_type>
+	<object_type>
+		<code>FIL</code>
+		<name>Filière</name>
+		<Erreur_descritpion>une filière ne peut contenir que des composantes
+		</Erreur_descritpion>
+		<content_model>(COM_)+</content_model>		
+		<field>
+			<Id>aspects_format_rechercheFIL</Id>
+			<name>FORMATION ET RECHERCHE</name>
+			<description>aspects_format_recherche</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>capaciteFIL</Id>
+			<name>CAPACITÉ</name>
+			<description>capacite</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>competencesFIL</Id>
+			<name>COMPÉTENCES À ACQUÉRIR</name>
+			<description>competences</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Contenu</tab_name>
+		</field>
+		
+		<field>
+			<Id>duree_stageFIL</Id>
+			<name>DUREE DE STAGE</name>
+			<description>duree_stage</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Contenu</tab_name>
+		</field>
+		<field>
+			<Id>modalites_inscriptionFIL</Id>
+			<name>modalites_inscription</name>
+			<description>modalites_inscription</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name></tab_name>
+		</field>
+		<field>
+			<Id>modalites_pedagoFIL</Id>
+			<name>MODALITÉS PÉDAGOGIQUES PARTICULIÈRES</name>
+			<description>modalites_pedago</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Organisation</tab_name>
+		</field>
+		<field>
+			<Id>nb_creditsFIL</Id>
+			<name>NONBRE DE CRÉDITS</name>
+			<description>nb_credits</description>
+			<content_type>INT</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name></tab_name>
+		</field>
+		<field>
+			<Id>objectifsFIL</Id>
+			<name>OBJECTIFS</name>
+			<description>objectifs</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>politique_stagesFIL</Id>
+			<name>STAGES ET PROJETS ENCADRÉS</name>
+			<description>politique_stages</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Contenu</tab_name>
+		</field>
+		<field>
+			<Id>pre_requisFIL</Id>
+			<name>PRÉ-REQUIS RECOMMANDÉS</name>
+			<description>pre_requis</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>pre_requis_obligFIL</Id>
+			<name>PRÉ-REQUIS OBLIGATOIRES</name>
+			<description>pre_requis_oblig</description>
+			<content_type>STRUCTURE</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+		<field>
+			<Id>vol_cmFIL</Id>
+			<name>VOLUME DE COURS</name>
+			<description>vol_cm</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Contenu</tab_name>
+		</field>
+		<field>
+			<Id>vol_tdFIL</Id>
+			<name>VOLUME DE TRAVAUX DIRIGÉS</name>
+			<description>vol_td</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Contenu</tab_name>
+		</field>
+		<field>
+			<Id>vol_tpFIL</Id>
+			<name>VOLUME DE TRAVAUX PRATIQUES</name>
+			<description>vol_tp</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Contenu</tab_name>
+		</field>
+		<field>
+			<Id>webFIL</Id>
+			<name>SITE WEB DU PARCOURS</name>
+			<description>web</description>
+			<content_type>STRING</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name>Description</tab_name>
+		</field>
+	</object_type>
+	<object_type>
+		<code>COM</code>
+		<name>Composante</name>
+		<Erreur_descritpion>une Composante peut contenir que des composantes
+			et des enseignements, ou rien</Erreur_descritpion>
+		<content_model>((COM_)|(ENS_))*</content_model>
+		<field>
+			<Id>nb_credits</Id>
+			<name>NOMBRE DE CRÉDITS</name>
+			<description>nb_credits</description>
+			<content_type>INT</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name></tab_name>
+		</field>
+		<field>
+			<Id>numero</Id>
+			<name>NUMERO</name>
+			<description>numero</description>
+			<content_type>INT</content_type>
+			<required>0</required>
+			<length>100</length>
+			<tab_name></tab_name>
+		</field>
+	</object_type>
+
+	<designer>
+		<login>A</login>
+		<login>B</login>
+		<login>C</login>
+		<login>toto</login>
+		<login>l1s000000</login>
+	</designer>
+	<formation_field>
+		<name>Domaine Arts, Lettres, Langues</name>
+		<name>Domaine Droit, Économie et Gestion</name>
+		<name>Domaine Sciences de la santé </name>
+		<name>Domaine Sciences et Technologies </name>
+		<name>Domaine Sciences et Technologies / Sciences de la santé</name>
+	</formation_field>
+	<diploma_type>
+		<name>Diplômes universitaires de technologie</name>
+		<name>Licences générales</name>
+		<name>Licences professionnelles</name>
+		<name>Masters</name>
+		<name>Diplômes d'établissement de 1er cycle</name>
+		<name>Diplômes d'établissement de 2ème cycle</name>
+		<name>Diplômes d'ingénieur</name>
+		<name>Diplômes d'état en Médecine</name>
+		<name>Diplômes d'état en Pharmacie</name>
+		<name>Diplômes d'état en Odontologie</name>
+		<name>Magistères</name>
+	</diploma_type>
+</config>
