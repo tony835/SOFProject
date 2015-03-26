@@ -1,7 +1,5 @@
 package services;
 
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,33 +14,39 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import repositories.FieldDao;
+import repositories.FieldObjectDao;
 import domain.Field;
+import domain.FieldObject;
+import domain.FieldObjectId;
 import domain.TypeObject;
-
 
 @Service
 @Transactional
 public class FieldService {
 
-
 	@Autowired
 	private FieldDao fildDao;
-	
-	public List<Field> findAll(){
+
+	@Autowired
+	private FieldObjectDao fieldObjectDao;
+
+	public List<Field> findAll() {
 		return fildDao.findAll();
 	}
-	
-	public Field findOne(String id){
+
+	public Field findOne(String id) {
 		return fildDao.findOne(id);
 	}
-	public void save(Field o){
-		fildDao.save(o) ;
+
+	public void save(Field o) {
+		fildDao.save(o);
 	}
 
 	public void delete(Field f2) {
-		
-		fildDao.delete(f2) ;
+
+		fildDao.delete(f2);
 	}
+
 	private List<String> listFieldByCode(Element racine, String code) {
 		List<String> ids = new ArrayList<String>();
 		List<Element> listTypesObject = racine.getChildren("object_type");
@@ -50,20 +54,20 @@ public class FieldService {
 		while (i.hasNext()) {
 			Element courant = (Element) i.next();
 			TypeObject typeObject = new TypeObject();
-			if(courant.getChild("code").getText().equals(code)){
+			if (courant.getChild("code").getText().equals(code)) {
 				List<Element> listField = courant.getChildren("field");
 				Iterator<Element> j = listField.iterator();
 				typeObject.setFields(new ArrayList<Field>());
 				while (j.hasNext()) {
 					Element courant2 = (Element) j.next();
-					ids.add(courant2.getChild("Id").getText()+code);
+					ids.add(courant2.getChild("Id").getText() + code);
 				}
 			}
 		}
 		return ids;
 	}
-	
-	public List<String> getListFieldByCode(String code){
+
+	public List<String> getListFieldByCode(String code) {
 		SAXBuilder sxb = new SAXBuilder();
 		Document document = null;
 		try {
@@ -75,24 +79,33 @@ public class FieldService {
 		Element racine = document.getRootElement();
 		return listFieldByCode(racine, code);
 	}
-	
-	public List<Field> getListField(String code){
-		try{
+
+	public void getListField(String code, domain.Object o) {
+		try {
 			String tmp;
-			List<Field> f = new ArrayList<Field>();
-			Field fTmp = null;
-			for(String s : getListFieldByCode(code)){
-				tmp = s+code;
-				fTmp = findOne(tmp);
-				if(fTmp != null)
-					f.add(fTmp);
-				else
-					System.out.println("erreur pour trouver "+tmp);
+			FieldObject fTmp = null;
+			for (String s : getListFieldByCode(code)) {
+				try {
+					tmp = s + code;
+					FieldObjectId FID = new FieldObjectId();
+					FID.setField(tmp);
+					FID.setObject(o.getCode());
+					fTmp = fieldObjectDao.findOne(FID);
+					if (fTmp == null) {
+						fTmp = new FieldObject();
+						fTmp.setFo(FID);
+						fTmp.setObject(o);
+						fTmp.setVersion(0);
+						fTmp.setField(findOne(tmp));
+						fieldObjectDao.save(fTmp);
+						System.out.println("creation de "+tmp+ " pour "+o.getCode());
+					}
+				} catch (Exception e) {
+					System.out.println("erreur");
+				}
 			}
-			return f;
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
 		}
 	}
 }
