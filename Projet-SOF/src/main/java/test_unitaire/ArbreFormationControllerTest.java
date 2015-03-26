@@ -8,6 +8,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
+import java.util.Locale;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -95,9 +97,9 @@ public class ArbreFormationControllerTest {
 		
 		RedirectAttributes redirectAttributes = mock(RedirectAttributes.class);
 		
-		result = controler.allFormation("ME5SIN", redirectAttributes);
+		result = controler.allFormation("ME5SIN", redirectAttributes,new Locale("english"));
 		
-		assertNotNull(result.getModel().get("arbre"));
+		assertNotNull(result.getModel());
 		
 	}
 
