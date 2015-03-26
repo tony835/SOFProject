@@ -256,7 +256,7 @@
 									</jstl:when>
 									<jstl:when test="${Audit==false}">
 										<jstl:choose>
-											<jstl:when test="${!item.value.isEmpty()}">
+											<jstl:when test="${!empty item.value}">
 												<b>${item.field.name}:</b>
 												<span id="spanValue${item.field.id}${object.code}">${item.value}</span>
 
@@ -285,10 +285,7 @@
 
 												<br />
 											</jstl:when>
-											<jstl:otherwise>
-												<b>${item.field.name}:</b>
-												<span id="spanValue${item.field.id}${object.code}"><spring:message code="visualisation.information" /></span>
-											</jstl:otherwise>
+											
 
 										</jstl:choose>
 
@@ -455,7 +452,7 @@
 										<jstl:when test="${Audit==false}">
 
 											<jstl:choose>
-												<jstl:when test="${!itemh.value.isEmpty()}">
+												<jstl:when test="${!empty itemh.value}">
 													<b>${itemh.field.name}:</b>
 													<span id="spanValue${itemh.field.id}${object.code}">${itemh.value}</span>
 
