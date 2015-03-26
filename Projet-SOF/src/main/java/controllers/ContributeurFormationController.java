@@ -47,7 +47,7 @@ public class ContributeurFormationController extends AbstractController {
 	 * @param code
 	 * @return ModelAndView
 	 */
-	@Transactional
+//	@Transactional
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam(required = false) String code) {
 		ModelAndView result;
