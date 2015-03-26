@@ -46,7 +46,7 @@
 			})();
 		</script>
 
-		<b>Objet non lies</b>
+		<b><spring:message code="formation.nonlinkedobject"></spring:message></b>
 		<jstl:if test="${!ObjetNonLie.isEmpty()}">
 
 			<display:table name="ObjetNonLie" pagesize="20" class="displaytag" id="row" requestURI="arbreFormation/list.htm">

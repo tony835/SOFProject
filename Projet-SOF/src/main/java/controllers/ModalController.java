@@ -21,49 +21,69 @@ import domain.FieldObject;
 import domain.FieldObjectId;
 import domain.TypeObject;
 
-
 @Controller
 @RequestMapping("/modal")
-public class ModalController extends AbstractController{
+public class ModalController extends AbstractController {
 
 	@Autowired
-	ObjectService managerObject ;
+	ObjectService managerObject;
 	@Autowired
-	FieldObjectService managerFieldObject ;
+	FieldObjectService managerFieldObject;
 	@Autowired
-	TypeObjectService managerTypeObject ;
+	TypeObjectService managerTypeObject;
 
 	public ModalController() {
 	}
-	
-	private String hexToString (String tmp) {
+
+	private String hexToString(String tmp) {
 		String[] arr = tmp.split(" ");
 		String str = "";
 		int i = 0;
-		int  arr_len = arr.length;
+		int arr_len = arr.length;
 		char c;
 
 		for (; i < arr_len; i += 1) {
-			c = (char)(Integer.parseInt(arr[i],16 ));
+			c = (char) (Integer.parseInt(arr[i], 16));
 			str += c;
 		}
 		return str;
 	}
 
-	
 	@Transactional
 	@RequestMapping(value = "/tt.htm", method = RequestMethod.GET)
-	public ModelAndView listFields(
-	        @RequestParam(value = "obj", required=true) String codeObject) {
-	    
+	public ModelAndView listFields(@RequestParam(value = "obj", required = true) String codeObject) {
+
 		Collection<FieldObject> fields = managerObject.findOne(codeObject).getFieldObjects();
-		
-	    return new ModelAndView("protoModal/editFieldObject", "fields", fields);
-	} 
+
+		return new ModelAndView("protoModal/editFieldObject", "fields", fields);
+	}
+
 	@RequestMapping(value = "/ajax.htm", method = RequestMethod.GET)
 	public  @ResponseBody String ajax(@RequestParam(value = "codeObjet") String codeObjet,
 									  @RequestParam(value = "idField")String idField,
-									  @RequestParam(value = "value")String value) {
+									  @RequestParam(value = "value")String value,
+									  @RequestParam(value = "version")Integer version) {
+		
+		System.out.println("Verion => "+version);
+		
+		try{
+			if(version != null){
+				FieldObject fieldTmp = managerFieldObject.findOne(new FieldObjectId(idField,codeObjet));
+				if(fieldTmp == null){ // erreur
+					return null;
+				}
+				if(fieldTmp.getVersion() != version){// erreur
+					System.out.println("La version est différente.");
+					return "EV";
+				}else{
+					System.out.println("Ok, tout va bien.");
+				}
+			}else{// erreur
+				return null;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 
 		value = hexToString(value);
 		FieldObject f = managerFieldObject.findOne(new FieldObjectId(idField,codeObjet));
@@ -83,8 +103,6 @@ public class ModalController extends AbstractController{
 		// Verifier également la taille
 		f.setValue(value);
 		managerFieldObject.save(f);
-		return value;
+		return "OK";
 	}
-
-	
 }

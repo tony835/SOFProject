@@ -24,7 +24,7 @@
 						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="/Projet_SOF/welcome/index.htm">SOF</a>
+					<a class="navbar-brand" href="/Projet_SOF/">SOF</a>
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
@@ -39,14 +39,11 @@
 
 		<jstl:choose>
 
-			<jstl:when test="${Audit}">
+			<jstl:when test="${user.isConnected()}">
 				<jstl:choose>
 					<jstl:when test="${!FormationOfConnectedContributor.isEmpty()}">
-						<a href="visualisation/formation/offre.htm"> <jstl:out
-								value="Version visiteur" />
-						</a>
-						</br>
-						<spring:message code="visualisation.contributeur.message" />
+
+						<spring:message code="visualisation.contributeur.listformationscontributor" />
 
 						<display:table name="FormationOfConnectedContributor"
 							requestURI="visualisation/formation/audit/offre.htm"
