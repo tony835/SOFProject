@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import javax.transaction.Transactional;
 
@@ -15,6 +16,7 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -36,6 +38,9 @@ public class FormationService {
 
 	@Autowired
 	private User user;
+	
+    @Autowired  
+    private MessageSource messageSource;
 	
 	/**
 	 * Création d'une formation
@@ -216,63 +221,63 @@ public class FormationService {
 
 	public String arbreRetour = "";
 
-	private void getArbreLi(domain.Object obj, String codeContext, Formation formation) {
+	private void getArbreLi(domain.Object obj, String codeContext, Formation formation, Locale loc) {
 
 		String codeO = obj.getCode();
 		if (!objectService.checkContentModel(obj).equals("")) {
 			arbreRetour += "<li name=\"" + codeO + "\"> <a id=\"" + codeO + "\">"/* "\"><a>" */+ codeO + " "
-					+ obj.getName() + "  <img src=\"images/error.png\" alt=\"Erreur\" title=\"Erreur\" /> </a>" + addactionsObj(obj, codeContext);
+					+ obj.getName() + "  <img src=\"images/error.png\" alt=\"Erreur\" title=\"Erreur\" /> </a>" + addactionsObj(obj, codeContext, loc);
 			formation.incrNbError();
 		} else {
 			arbreRetour += "<li name=\"" + codeO + "\"> <a id=\"" + codeO + "\">"/* "\"><a>" */+ codeO + " "
-					+ obj.getName() + " </a>" + addactionsObj(obj, codeContext);
+					+ obj.getName() + " </a>" + addactionsObj(obj, codeContext, loc);
 		}
 
 		if (obj.getAllFils().size() != 0)
-			getArbreUl(obj, codeContext, formation);
+			getArbreUl(obj, codeContext, formation, loc);
 		arbreRetour += "</li>\n";
 	}
 
-	private void getArbreUl(domain.Object obj, String codeContext, Formation formation) {
+	private void getArbreUl(domain.Object obj, String codeContext, Formation formation, Locale loc) {
 		arbreRetour += "<ul>\n";
 		for (Fils o : orderByRang(obj.getAllFils()))
-			getArbreLi(o.getFils(), codeContext, formation);
+			getArbreLi(o.getFils(), codeContext, formation, loc);
 		arbreRetour += "</ul>\n";
 	}
-
-	public void getArbre(Formation formation) {
+	
+	public void getArbre(Formation formation, Locale loc) {
 		String codeF = formation.getCode();
 		if (!objectService.checkContentModel(formation).equals("")) {
 			formation.setNumError(1);
 			arbreRetour = "<ul id=\"list\"><li name=\"" + codeF + "\"> <a id=\"" + codeF + "\">"/* "\"><a>" */+ codeF
 					+ " " + formation.getName() + " <img src=\"images/error.png\" alt=\"Erreur\" title=\"Erreur\" /> </a>"
-					+ addactionsFormation(codeF);
+					+ addactionsFormation(codeF, loc);
 		} else {
 			formation.setNumError(0);
 			arbreRetour = "<ul id=\"list\"><li name=\"" + codeF + "\"> <a id=\"" + codeF + "\">"/* "\"><a>" */+ codeF
-					+ " " + formation.getName() + "</a> " + addactionsFormation(codeF);
+					+ " " + formation.getName() + "</a> " + addactionsFormation(codeF, loc);
 		}
-		getArbreUl(formation, codeF, formation);
+		getArbreUl(formation, codeF, formation, loc);
 		arbreRetour += "</li></ul>";
 	}
-
-	private String addactionsObj(domain.Object o, String context) {
+	
+	private String addactionsObj(domain.Object o, String context, Locale loc) {
 		if (o.getContexte() == null)
 			return "";
 		if (!o.getContexte().getCode().equals(context) || !user.isResponsable(o.getContexte())) {
 			return "";
 		}
 		return "<div style=\"display:inline\"> <a class=\"btn btn-default btn-xs\" href=\"arbreFormation/gestionFils.htm?cobject=" + o.getCode()
-				+ "\"> Modifier les fils </a>"
+				+ "\">" + messageSource.getMessage("objet.modifierFils", null, loc) +"</a>"
 				+ " <a class=\"btn btn-default btn-xs\" href=\"arbreFormation/create.htm?context=" + context
-				+ "&amp;cobject=" + o.getCode() + "\">Modifier l'objet</a></div>";
+				+ "&amp;cobject=" + o.getCode() + "\">" + messageSource.getMessage("objet.modifier", null, loc) +"</a></div>";
 	}
-
-	private String addactionsFormation(String context) {
+	private String addactionsFormation(String context, Locale loc) {
 		return "<div style=\"display:inline\"> <a class=\"btn btn-default btn-xs\" href=\"arbreFormation/gestionFils.htm?cobject=" + context
-				+ "\"> Modifier les fils </a></div>";
+				+ "\">"+ messageSource.getMessage("objet.modifierFils", null, loc) + "</a></div>";
 	}
-
+	
+	
 	private List<Fils> orderByRang(Collection<Fils> allFils) {
 		List<Fils> list = new ArrayList<Fils>();
 		list.addAll(allFils);
