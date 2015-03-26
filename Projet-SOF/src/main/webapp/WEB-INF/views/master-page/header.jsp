@@ -11,8 +11,9 @@
 			<div class="internationalisation">
 				<a href="?language=en"><img src="images/gb.png" alt="English" /></a> | <a href="?language=fr_FR"><img
 					src="images/fr.png" alt="Francais" /> </a> |
+					
 				<c:choose>
-					<c:when test="${user.isConnected()}">
+					<c:when test="${user.connected}">
 						<a href="/Projet_SOF/auth/logout.htm"><spring:message code="logout" /></a>
 						<br />
 						<p>
