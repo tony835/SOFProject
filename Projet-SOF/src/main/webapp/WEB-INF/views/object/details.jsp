@@ -200,17 +200,21 @@
 
 																								success : function(
 																										data) {
-																									if (data.length != 0){
-																										document.getElementById("spanValue${item.field.id}${object.code}").innerHTML = value;
-																										document.getElementById("VinputValue${item.field.id}${object.code}").value = parseInt(version)+1;
-																										}
+																									if (data == 'OK'){
+																										document.getElementById("spanValue${itemh.field.id}${object.code}").innerHTML = value;
+																										document.getElementById("VinputValue${itemh.field.id}${object.code}").value = parseInt(version)+1;
+																									}else if(data == 'EV'){
+																										alert("Erreur de version de champ. Recharger la page.");
+																									}else if(data == 'ER'){
+																										alert("Une erreur s'est produite.");
+																									}
 																									$(
 																											"#modal${item.field.id}${object.code}")
 																											.modal(
 																													"hide");
 																								},
 																								error : function() {
-																									alert("Une erreur s'est produite, quelqu'un a peut être modifié entre temps le même champs, rechargé la page et réessayé.");
+																									alert("Une erreur s'est produite.");
 																								}
 																							});
 																				});
@@ -390,9 +394,11 @@
 
 																									success : function(
 																											data) {
-																										if (data.length != 0){
+																										if (data == 'OK'){
 																											document.getElementById("spanValue${itemh.field.id}${object.code}").innerHTML = value;
 																											document.getElementById("VinputValue${itemh.field.id}${object.code}").value = parseInt(version)+1;
+																										}else if(data == 'EV'){
+																											alert("Erreur de version de champ. Recharger la page.");
 																										}
 																										$(
 																												"#modal${itemh.field.id}${object.code}")

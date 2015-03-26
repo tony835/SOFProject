@@ -74,8 +74,7 @@ public class ModalController extends AbstractController {
 				}
 				if(fieldTmp.getVersion() != version){// erreur
 					System.out.println("La version est différente.");
-					return null;
-					
+					return "EV";
 				}else{
 					System.out.println("Ok, tout va bien.");
 				}
@@ -104,6 +103,6 @@ public class ModalController extends AbstractController {
 		// Verifier également la taille
 		f.setValue(value);
 		managerFieldObject.save(f);
-		return value;
+		return "OK";
 	}
 }
