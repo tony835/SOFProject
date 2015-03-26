@@ -24,7 +24,7 @@ import domain.TypeObject;
 
 @Controller
 @RequestMapping("/modal")
-public class ModalController {
+public class ModalController extends AbstractController{
 
 	@Autowired
 	ObjectService managerObject ;

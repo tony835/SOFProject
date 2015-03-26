@@ -31,7 +31,7 @@
 				</p>
 			</c:if>
 			<c:if test="${user.connected}">
-				<c:redirect url="/formation/list.htm" />
+				<c:redirect url="/" />
 			</c:if>
 		</div>
 	</tiles:putAttribute>

@@ -37,7 +37,7 @@ import domain.Person;
  */
 @Controller
 @RequestMapping("/downloadfile")
-public class DownloadController {
+public class DownloadController extends AbstractController{
 	@Autowired
 	FormationService fomService;
 	private static final Logger logger = LoggerFactory
