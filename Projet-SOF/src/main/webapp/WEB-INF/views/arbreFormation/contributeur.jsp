@@ -61,7 +61,7 @@
 						</div>
 					</div>
 					<input hidden="hidden" name="code" value="${formation}">
-					<tag:submitAndCancel nameSubmit="save" codeCancel="cancel" codeSubmit="save" urlCancel="" />
+					<tag:submitAndCancel nameSubmit="save" codeCancel="cancel" codeSubmit="save" urlCancel="arbreFormation/list.htm?code=${param.code}" />
 				</div>
 			</form>
 			<a class="btn btn-default btn-sm" href="arbreFormation/list.htm?code=${param.code}"><spring:message
