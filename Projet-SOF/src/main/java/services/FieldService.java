@@ -80,8 +80,9 @@ public class FieldService {
 		return listFieldByCode(racine, code);
 	}
 
-	public void getListField(String code, domain.Object o) {
+	public void getListField(domain.Object o) {
 		try {
+			String code = o.getTypeObject().getCode();
 			String tmp;
 			FieldObject fTmp = null;
 			for (String s : getListFieldByCode(code)) {
