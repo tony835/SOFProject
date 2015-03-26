@@ -70,15 +70,17 @@ public class ModalController extends AbstractController {
 			if(version != null){
 				FieldObject fieldTmp = managerFieldObject.findOne(new FieldObjectId(idField,codeObjet));
 				if(fieldTmp == null){ // erreur
-					
+					return null;
 				}
 				if(fieldTmp.getVersion() != version){// erreur
 					System.out.println("La version est différente.");
+					return null;
+					
 				}else{
 					System.out.println("Ok, tout va bien.");
 				}
 			}else{// erreur
-				
+				return null;
 			}
 		}catch(Exception e){
 			e.printStackTrace();

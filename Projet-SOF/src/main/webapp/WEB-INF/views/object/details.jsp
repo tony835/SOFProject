@@ -210,7 +210,7 @@
 																													"hide");
 																								},
 																								error : function() {
-																									alert("error");
+																									alert("Une erreur s'est produite, quelqu'un a peut être modifié entre temps le même champs, rechargé la page et réessayé.");
 																								}
 																							});
 																				});
