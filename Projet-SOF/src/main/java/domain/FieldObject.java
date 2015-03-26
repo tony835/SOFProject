@@ -1,6 +1,7 @@
 package domain;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 
 @Entity
 @Table(name="A_pour_champs")
@@ -67,6 +68,11 @@ public class FieldObject {
 		this.version = version;
 	}
 	
-
+	
+	@Transactional
+	public String getHtmlValue(){
+		return value.replace("\"", "&quot;");
+	}
+	
 
 }
