@@ -13,7 +13,7 @@ import services.AuthentificationServiceDB;
 
 @Controller
 @RequestMapping("auth")
-public class LoginControlerSingleton {
+public class LoginControlerSingleton extends AbstractController {
 
 	@Autowired()
 	User user;
